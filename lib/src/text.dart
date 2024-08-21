@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
 import 'base/max_line_builder.dart';
+import 'base/mk_builder.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -11,8 +12,9 @@ TextBuilder text(String value) => TextBuilder(value);
 
 TextStyleBuilder get ts => TextStyleBuilder();
 
-class TextStyleBuilder with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature {
-  ///mk = make = create
+class TextStyleBuilder extends MkBuilder<TextStyle>
+    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature {
+  @override
   TextStyle get mk => TextStyle(
         fontSize: fontSize,
         color: color,
@@ -39,14 +41,21 @@ class TextStyleBuilder with ColorBuilder, FontSizeBuilder, FontWeightBuilder, Te
       );
 }
 
-class TextBuilder
-    with TextAlignBuilder, ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature, MaxLineBuilder {
+class TextBuilder extends MkBuilder<Text>
+    with
+        TextAlignBuilder,
+        ColorBuilder,
+        FontSizeBuilder,
+        FontWeightBuilder,
+        TextCommonFeature,
+        MaxLineBuilder,
+        TextDirectionBuilder {
   final String? value;
 
   TextBuilder(this.value);
 
-  ///mk = make = create
-  Widget get mk => Text(
+  @override
+  Text get mk => Text(
         value ?? "",
         style: TextStyle(
           fontSize: fontSize,

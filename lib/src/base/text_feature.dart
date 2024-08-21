@@ -4,6 +4,16 @@ import 'package:flutter/material.dart';
 /// @date 7/11/23
 /// describe:
 
+mixin TextDirectionBuilder {
+  TextDirection? textDirection;
+}
+
+extension TextDirectionBuilderExt<T extends TextDirectionBuilder> on T {
+  T get rtl => this..textDirection = TextDirection.rtl;
+
+  T get ltr => this..textDirection = TextDirection.ltr;
+}
+
 mixin TextAlignBuilder {
   TextAlign? textAlign;
 }
@@ -71,7 +81,6 @@ mixin TextCommonFeature {
   TextOverflow? overflow;
   TextBaseline? textBaseline;
   TextDecorationStyle? decorationStyle;
-  TextDirection? textDirection;
 }
 
 extension TextCommonFeatureExt<T extends TextCommonFeature> on T {
@@ -141,9 +150,4 @@ extension TextCommonFeatureExt<T extends TextCommonFeature> on T {
   T get solid => this..decorationStyle = TextDecorationStyle.solid;
 
   T get wavy => this..decorationStyle = TextDecorationStyle.wavy;
-
-  /// TextDirection
-  T get rtl => this..textDirection = TextDirection.rtl;
-
-  T get ltr => this..textDirection = TextDirection.ltr;
 }

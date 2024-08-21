@@ -1,3 +1,4 @@
+import 'package:example/res/r.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/tailwind.dart';
@@ -46,10 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Container(
-        color: Colors.red,
-        height: 100,
-        child: text("我额发链接").start.dashed.lightGreen.f30.bold.underline.mk,
+      body: Column(
+        children: [
+          Container(
+            color: Colors.red,
+            height: 100,
+            child: "我额发链接".text.start.dashed.lightGreen.f30.bold.underline.mk,
+          ),
+          Icons.connected_tv_sharp.icon.redAccent.r40.mk,
+          R.icAirPlay.svg.amberAccent.r32.mk,
+        ],
       ),
     );
   }

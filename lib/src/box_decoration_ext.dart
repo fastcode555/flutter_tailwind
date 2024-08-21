@@ -40,7 +40,7 @@ class BoxDecorationBuilder with ColorBuilder, BorderRadiusBuilder, BlendModeBuil
         borderRadius: _borderRadius ?? (radius != null ? BorderRadius.circular(radius!) : null),
         boxShadow: _boxShadow,
         gradient: _gradient,
-        backgroundBlendMode: backgroundBlendMode,
+        backgroundBlendMode: blendMode,
         shape: _shape ?? BoxShape.rectangle,
       );
 }
