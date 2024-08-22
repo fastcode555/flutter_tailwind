@@ -1,5 +1,14 @@
 void main() {
   for (int i = 1; i <= 50; i++) {
-    print("  T get r${i * 2} => this..size = ${i * 2}.r;\n");
+    print("  T get tl$i => this..topLeft = $i.r;\n");
+  }
+  for (int i = 1; i <= 50; i++) {
+    print("  T get tr$i => this..topRight = $i.r;\n");
+  }
+  for (int i = 1; i <= 50; i++) {
+    print("  T get br$i => this..bottomRight = $i.r;\n");
+  }
+  for (int i = 1; i <= 50; i++) {
+    print("  T get bl$i => this..bottomLeft = $i.r;\n");
   }
 }

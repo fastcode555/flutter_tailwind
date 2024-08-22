@@ -8,7 +8,11 @@ import '../base/mk_builder.dart';
 /// describe: A bit like Csstailwind or chain programming like ios swift
 /// 有点像Csstailwind或者像ios swift的链式编程
 
-TextBuilder text(String value) => TextBuilder(value);
+TextBuilder text(String value) => TextBuilder._(value);
+
+extension TextBuilderStringExt on String? {
+  TextBuilder get text => TextBuilder._(this ?? "");
+}
 
 TextStyleBuilder get ts => TextStyleBuilder();
 
@@ -52,7 +56,7 @@ class TextBuilder extends MkBuilder<Text>
         TextDirectionBuilder {
   final String? value;
 
-  TextBuilder(this.value);
+  TextBuilder._(this.value);
 
   @override
   Text get mk => Text(

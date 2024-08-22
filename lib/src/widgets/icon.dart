@@ -10,13 +10,13 @@ import '../base/mk_builder.dart';
 /// @date 2024/8/19
 /// describe:
 
-IconBuilder icon(IconData icon) => IconBuilder(icon);
+IconBuilder icon(IconData icon) => IconBuilder._(icon);
 
 class IconBuilder extends MkBuilder<Icon> with ColorBuilder, TextDirectionBuilder, SizeBuilder {
   final IconData icon;
   List<Shadow>? shadows;
 
-  IconBuilder(this.icon);
+  IconBuilder._(this.icon);
 
   @override
   Icon get mk => Icon(
@@ -27,6 +27,10 @@ class IconBuilder extends MkBuilder<Icon> with ColorBuilder, TextDirectionBuilde
         textDirection: textDirection,
         applyTextScaling: false,
       );
+}
+
+extension IconStringBuilder on IconData {
+  IconBuilder get icon => IconBuilder._(this);
 }
 
 extension IconBuilderExt<T extends IconBuilder> on T {

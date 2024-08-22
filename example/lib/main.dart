@@ -1,4 +1,5 @@
 import 'package:example/res/r.dart';
+import 'package:example/res/tailwind_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
@@ -39,6 +40,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String _link = "https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+        child: Wrap(
           children: [
             h2,
             Container(
@@ -56,10 +58,20 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100,
               child: "我额发链接".text.start.dashed.lightGreen.f30.bold.underline.mk,
             ),
-            Icons.connected_tv_sharp.icon.redAccent.s40.mk,
-            R.icAirPlay.svg.amberAccent.s50.mk,
+            Icons.connected_tv_sharp.icon.redAccent.s100.mk,
+            R.icAirPlay.svg.black.s100.mk,
             R.icDefPlaylist1.asset.s100.mk,
-            "https://cdn.wujiebantu.com/ai/C4FE18ABFD5630F59B3739B0774FEE0A-01.jpg".network.s100.mk,
+            R.icDefPlaylist1.asset.border2.borderLightGreen.s100.mk,
+            R.icDefPlaylist1.asset.border2.borderLightGreen.r16.s100.mk,
+            R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s100.mk,
+            R.icDefPlaylist1.asset.border5.borderLightGreen.r16.h100.w200.mk,
+            R.icDefPlaylist1.asset.s100.circle.mk,
+            R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
+            _link.network.s100.mk,
+            _link.network.borderPink.border5.s100.mk,
+            _link.network.borderCcfa94fb.border5.s100.mk,
+            _link.network.circle.s100.mk,
+            _link.network.border5.borderBrown.circle.s100.mk,
             Container(
               width: 100,
               height: 100,

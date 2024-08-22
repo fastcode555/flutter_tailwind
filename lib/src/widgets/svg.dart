@@ -13,7 +13,7 @@ import '../base/mk_builder.dart';
 /// @date 2024/8/19
 /// describe:
 
-SvgBuilder svg(String file) => SvgBuilder(file);
+SvgBuilder svg(String file) => SvgBuilder._(file);
 
 class SvgBuilder extends MkBuilder<SvgPicture>
     with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder {
@@ -28,7 +28,7 @@ class SvgBuilder extends MkBuilder<SvgPicture>
   Clip? clipBehavior;
   WidgetBuilder? placeholderBuilder;
 
-  SvgBuilder(this.file);
+  SvgBuilder._(this.file);
 
   @override
   SvgPicture get mk => SvgPicture.asset(
@@ -47,6 +47,10 @@ class SvgBuilder extends MkBuilder<SvgPicture>
         clipBehavior: clipBehavior ?? Clip.hardEdge,
         colorFilter: color != null ? ColorFilter.mode(color!, blendMode ?? BlendMode.srcIn) : null,
       );
+}
+
+extension SvgStringExt on String? {
+  SvgBuilder get svg => SvgBuilder._(this ?? "");
 }
 
 extension SvgBuilderExt<T extends SvgBuilder> on T {
