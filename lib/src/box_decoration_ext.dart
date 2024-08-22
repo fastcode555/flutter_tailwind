@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/base/border_color_builder.dart';
 
 import 'base/blend_mode_builder.dart';
 import 'base/border_radius_builder.dart';
+import 'base/border_width_builder.dart';
 import 'base/color_builder.dart';
+import 'base/image_feature.dart';
 
 /// Barry
 /// @date 4/11/23
@@ -13,35 +16,46 @@ import 'base/color_builder.dart';
 
 BoxDecorationBuilder get bd => BoxDecorationBuilder();
 
-class BoxDecorationBuilder with ColorBuilder, BorderRadiusBuilder, BlendModeBuilder {
+class BoxDecorationBuilder
+    with ColorBuilder, BorderWidthBuilder, BorderRadiusBuilder, BorderColorBuilder, BlendModeBuilder, BoxShapeBuilder {
   DecorationImage? _image;
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
   BorderSide? _borderTop;
   BorderSide? _borderBottom;
-  Color _borderColor = const Color(0xFF000000);
   BorderRadiusGeometry? _borderRadius;
   List<BoxShadow>? _boxShadow;
   Gradient? _gradient;
-  BoxShape? _shape;
+
+  BorderRadiusGeometry? get _internalBorderRadius {
+    if (shape == BoxShape.circle) return null;
+    return _borderRadius ?? (radius != null ? BorderRadius.circular(radius!) : null);
+  }
+
+  BoxBorder? get _internalBorder {
+    if (_border != null) return _border;
+    if (borderColor != null) {
+      return Border.all(color: borderColor!, width: borderWidth ?? 1.0);
+    }
+    return Border(
+      top: _borderTop ?? BorderSide.none,
+      bottom: _borderBottom ?? BorderSide.none,
+      left: _borderLeft ?? BorderSide.none,
+      right: _borderRight ?? BorderSide.none,
+    );
+  }
 
   ///mk = make = create
   BoxDecoration get mk => BoxDecoration(
         color: color,
         image: _image,
-        border: _border ??
-            Border(
-              top: _borderTop ?? BorderSide.none,
-              bottom: _borderBottom ?? BorderSide.none,
-              left: _borderLeft ?? BorderSide.none,
-              right: _borderRight ?? BorderSide.none,
-            ),
-        borderRadius: _borderRadius ?? (radius != null ? BorderRadius.circular(radius!) : null),
+        border: _internalBorder,
+        borderRadius: _internalBorderRadius,
         boxShadow: _boxShadow,
         gradient: _gradient,
         backgroundBlendMode: blendMode,
-        shape: _shape ?? BoxShape.rectangle,
+        shape: shape ?? BoxShape.rectangle,
       );
 }
 
@@ -84,23 +98,19 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
   BoxDecorationBuilder border(Color color, [double width = 1.0]) =>
       this.._border = Border.all(color: color, width: width, style: BorderStyle.solid);
 
-  BoxDecorationBuilder borderColor(Color color) => this.._borderColor = color;
+  BoxDecorationBuilder borderColor(Color color) => this..borderColor = color;
 
   BoxDecorationBuilder bl({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderLeft = BorderSide(color: color ?? _borderColor, width: width, style: style);
+      this.._borderLeft = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
 
   BoxDecorationBuilder br({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderRight = BorderSide(color: color ?? _borderColor, width: width, style: style);
+      this.._borderRight = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
 
   BoxDecorationBuilder bt({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderTop = BorderSide(color: color ?? _borderColor, width: width, style: style);
+      this.._borderTop = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
 
   BoxDecorationBuilder bb({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderBottom = BorderSide(color: color ?? _borderColor, width: width, style: style);
+      this.._borderBottom = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
 
   BoxDecorationBuilder boxShadow(List<BoxShadow>? boxShadow) => this.._boxShadow = boxShadow;
-
-  BoxDecorationBuilder get rectangle => this.._shape = BoxShape.rectangle;
-
-  BoxDecorationBuilder get circle => this.._shape = BoxShape.circle;
 }

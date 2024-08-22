@@ -22,3 +22,13 @@ extension BoxFitBuilderExt<T extends BoxFitBuilder> on T {
 
   T get scaleDown => this..fit = BoxFit.scaleDown;
 }
+
+mixin BoxShapeBuilder {
+  BoxShape? shape;
+}
+
+extension BoxShapeBuilderExt<T extends BoxShapeBuilder> on T {
+  T get rectangle => this..shape = BoxShape.rectangle;
+
+  T get circle => this..shape = BoxShape.circle;
+}

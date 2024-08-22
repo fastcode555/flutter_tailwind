@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
-import 'base/max_line_builder.dart';
-import 'base/mk_builder.dart';
+import '../base/mk_builder.dart';
 
 /// Barry
 /// @date 2024/8/19
 /// describe: A bit like Csstailwind or chain programming like ios swift
 /// 有点像Csstailwind或者像ios swift的链式编程
+
 TextBuilder text(String value) => TextBuilder(value);
 
 TextStyleBuilder get ts => TextStyleBuilder();

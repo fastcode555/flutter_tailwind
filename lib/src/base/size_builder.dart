@@ -210,103 +210,103 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get w100 => this..width = 100.w;
 
-  T get r2 => this..size = 2.r;
+  T get s2 => this..size = 2.r;
 
-  T get r4 => this..size = 4.r;
+  T get s4 => this..size = 4.r;
 
-  T get r6 => this..size = 6.r;
+  T get s6 => this..size = 6.r;
 
-  T get r8 => this..size = 8.r;
+  T get s8 => this..size = 8.r;
 
-  T get r10 => this..size = 10.r;
+  T get s10 => this..size = 10.r;
 
-  T get r12 => this..size = 12.r;
+  T get s12 => this..size = 12.r;
 
-  T get r14 => this..size = 14.r;
+  T get s14 => this..size = 14.r;
 
-  T get r16 => this..size = 16.r;
+  T get s16 => this..size = 16.r;
 
-  T get r18 => this..size = 18.r;
+  T get s18 => this..size = 18.r;
 
-  T get r20 => this..size = 20.r;
+  T get s20 => this..size = 20.r;
 
-  T get r22 => this..size = 22.r;
+  T get s22 => this..size = 22.r;
 
-  T get r24 => this..size = 24.r;
+  T get s24 => this..size = 24.r;
 
-  T get r26 => this..size = 26.r;
+  T get s26 => this..size = 26.r;
 
-  T get r28 => this..size = 28.r;
+  T get s28 => this..size = 28.r;
 
-  T get r30 => this..size = 30.r;
+  T get s30 => this..size = 30.r;
 
-  T get r32 => this..size = 32.r;
+  T get s32 => this..size = 32.r;
 
-  T get r34 => this..size = 34.r;
+  T get s34 => this..size = 34.r;
 
-  T get r36 => this..size = 36.r;
+  T get s36 => this..size = 36.r;
 
-  T get r38 => this..size = 38.r;
+  T get s38 => this..size = 38.r;
 
-  T get r40 => this..size = 40.r;
+  T get s40 => this..size = 40.r;
 
-  T get r42 => this..size = 42.r;
+  T get s42 => this..size = 42.r;
 
-  T get r44 => this..size = 44.r;
+  T get s44 => this..size = 44.r;
 
-  T get r46 => this..size = 46.r;
+  T get s46 => this..size = 46.r;
 
-  T get r48 => this..size = 48.r;
+  T get s48 => this..size = 48.r;
 
-  T get r50 => this..size = 50.r;
+  T get s50 => this..size = 50.r;
 
-  T get r52 => this..size = 52.r;
+  T get s52 => this..size = 52.r;
 
-  T get r54 => this..size = 54.r;
+  T get s54 => this..size = 54.r;
 
-  T get r56 => this..size = 56.r;
+  T get s56 => this..size = 56.r;
 
-  T get r58 => this..size = 58.r;
+  T get s58 => this..size = 58.r;
 
-  T get r60 => this..size = 60.r;
+  T get s60 => this..size = 60.r;
 
-  T get r62 => this..size = 62.r;
+  T get s62 => this..size = 62.r;
 
-  T get r64 => this..size = 64.r;
+  T get s64 => this..size = 64.r;
 
-  T get r66 => this..size = 66.r;
+  T get s66 => this..size = 66.r;
 
-  T get r68 => this..size = 68.r;
+  T get s68 => this..size = 68.r;
 
-  T get r70 => this..size = 70.r;
+  T get s70 => this..size = 70.r;
 
-  T get r72 => this..size = 72.r;
+  T get s72 => this..size = 72.r;
 
-  T get r74 => this..size = 74.r;
+  T get s74 => this..size = 74.r;
 
-  T get r76 => this..size = 76.r;
+  T get s76 => this..size = 76.r;
 
-  T get r78 => this..size = 78.r;
+  T get s78 => this..size = 78.r;
 
-  T get r80 => this..size = 80.r;
+  T get s80 => this..size = 80.r;
 
-  T get r82 => this..size = 82.r;
+  T get s82 => this..size = 82.r;
 
-  T get r84 => this..size = 84.r;
+  T get s84 => this..size = 84.r;
 
-  T get r86 => this..size = 86.r;
+  T get s86 => this..size = 86.r;
 
-  T get r88 => this..size = 88.r;
+  T get s88 => this..size = 88.r;
 
-  T get r90 => this..size = 90.r;
+  T get s90 => this..size = 90.r;
 
-  T get r92 => this..size = 92.r;
+  T get s92 => this..size = 92.r;
 
-  T get r94 => this..size = 94.r;
+  T get s94 => this..size = 94.r;
 
-  T get r96 => this..size = 96.r;
+  T get s96 => this..size = 96.r;
 
-  T get r98 => this..size = 98.r;
+  T get s98 => this..size = 98.r;
 
-  T get r100 => this..size = 100.r;
+  T get s100 => this..size = 100.r;
 }
