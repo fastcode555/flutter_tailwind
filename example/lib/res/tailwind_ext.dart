@@ -10,36 +10,30 @@ extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
   T get s200 => this..size = 200.r;
 }
 
-extension CustomColorBuilderExt<T extends ColorBuilder> on T {
+extension TailWindExt<T extends ColorBuilder> on T {
   T get secondaryColor => this..color = Colours.secondaryColor;
 
-  T get app_main => this..color = Colours.app_main;
+  T get appMain => this..color = Colours.appMain;
 
-  T get gray_33 => this..color = Colours.gray_33;
+  T get gray33 => this..color = Colours.gray33;
 
-  T get gray_99 => this..color = Colours.gray_99;
+  T get gray99 => this..color = Colours.gray99;
 
-  T get main_text_color => this..color = Colours.main_text_color;
+  T get mainTextColor => this..color = Colours.mainTextColor;
 
-  T get text_hint_color => this..color = Colours.text_hint_color;
+  T get textHintColor => this..color = Colours.textHintColor;
 
-  T get line_color => this..color = Colours.line_color;
+  T get lineColor => this..color = Colours.lineColor;
 
   T get blue => this..color = Colours.blue;
 
-  T get color_e8e8e8 => this..color = Colours.color_e8e8e8;
+  T get colorE8e8e8 => this..color = Colours.colorE8e8e8;
 
-  T get color_11151C => this..color = Colours.color_11151C;
+  T get color11151C => this..color = Colours.color11151C;
 
-  T get color_ffbd49 => this..color = Colours.color_ffbd49;
+  T get colorFfbd49 => this..color = Colours.colorFfbd49;
 
-  T get color_FE2042 => this..color = Colours.color_FE2042;
-
-  T get color_d05301 => this..color = Colours.color_d05301;
-
-  T get color_303030 => this..color = Colours.color_303030;
-
-  T get color_f2f2f7 => this..color = Colours.color_f2f2f7;
+  T get colorFE2042 => this..color = Colours.colorFE2042;
 
   T get backgroundColor => this..color = Colours.backgroundColor;
 
@@ -49,7 +43,7 @@ extension CustomColorBuilderExt<T extends ColorBuilder> on T {
 
   T get x00212639 => this..color = Colours.x00212639;
 
-  T get primaryColor => this..color = Colours.primaryColor;
+  T get primary => this..color = Colours.primary;
 
   T get x26ffffff => this..color = Colours.x26ffffff;
 
@@ -71,17 +65,13 @@ extension CustomColorBuilderExt<T extends ColorBuilder> on T {
 
   T get unselectedColor => this..color = Colours.unselectedColor;
 
-  T get red_accent => this..color = Colours.red_accent;
+  T get blueAccent => this..color = Colours.blueAccent;
 
-  T get blue_accent => this..color = Colours.blue_accent;
-
-  T get purple_accent => this..color = Colours.purple_accent;
+  T get purpleAccent => this..color = Colours.purpleAccent;
 
   T get unSelectedColor => this..color = Colours.unSelectedColor;
 
   T get gray => this..color = Colours.gray;
-
-  T get grey_text => this..color = Colours.grey_text;
 
   T get ff0c4e5f => this..color = Colours.ff0c4e5f;
 
@@ -99,8 +89,6 @@ extension CustomColorBuilderExt<T extends ColorBuilder> on T {
 
   T get appbarActiveColor => this..color = Colours.appbarActiveColor;
 
-  T get ffffa88f => this..color = Colours.ffffa88f;
-
   T get orange => this..color = Colours.orange;
 
   T get colorGrey => this..color = Colours.colorGrey;
@@ -116,40 +104,32 @@ extension CustomColorBuilderExt<T extends ColorBuilder> on T {
   T get colorWhiteF5F5 => this..color = Colours.colorWhiteF5F5;
 
   T get colorGreyF0F0 => this..color = Colours.colorGreyF0F0;
-
-  T get gray_66 => this..color = Colours.gray_66;
 }
 
-extension CustomBorderColorBuilderExt<T extends BorderColorBuilder> on T {
+extension TailWindBD<T extends BorderColorBuilder> on T {
   T get borderSecondaryColor => this..border(Colours.secondaryColor);
 
-  T get borderApp_main => this..border(Colours.app_main);
+  T get borderAppMain => this..border(Colours.appMain);
 
-  T get borderGray_33 => this..border(Colours.gray_33);
+  T get borderGray33 => this..border(Colours.gray33);
 
-  T get borderGray_99 => this..border(Colours.gray_99);
+  T get borderGray99 => this..border(Colours.gray99);
 
-  T get borderMain_text_color => this..border(Colours.main_text_color);
+  T get borderMainTextColor => this..border(Colours.mainTextColor);
 
-  T get borderText_hint_color => this..border(Colours.text_hint_color);
+  T get borderTextHintColor => this..border(Colours.textHintColor);
 
-  T get borderLine_color => this..border(Colours.line_color);
+  T get borderLineColor => this..border(Colours.lineColor);
 
   T get borderBlue => this..border(Colours.blue);
 
-  T get borderColor_e8e8e8 => this..border(Colours.color_e8e8e8);
+  T get borderColorE8e8e8 => this..border(Colours.colorE8e8e8);
 
-  T get borderColor_11151C => this..border(Colours.color_11151C);
+  T get borderColor11151C => this..border(Colours.color11151C);
 
-  T get borderColor_ffbd49 => this..border(Colours.color_ffbd49);
+  T get borderColorFfbd49 => this..border(Colours.colorFfbd49);
 
-  T get borderColor_FE2042 => this..border(Colours.color_FE2042);
-
-  T get borderColor_d05301 => this..border(Colours.color_d05301);
-
-  T get borderColor_303030 => this..border(Colours.color_303030);
-
-  T get borderColor_f2f2f7 => this..border(Colours.color_f2f2f7);
+  T get borderColorFE2042 => this..border(Colours.colorFE2042);
 
   T get borderBackgroundColor => this..border(Colours.backgroundColor);
 
@@ -159,7 +139,7 @@ extension CustomBorderColorBuilderExt<T extends BorderColorBuilder> on T {
 
   T get borderX00212639 => this..border(Colours.x00212639);
 
-  T get borderPrimaryColor => this..border(Colours.primaryColor);
+  T get borderPrimary => this..border(Colours.primary);
 
   T get borderX26ffffff => this..border(Colours.x26ffffff);
 
@@ -181,17 +161,15 @@ extension CustomBorderColorBuilderExt<T extends BorderColorBuilder> on T {
 
   T get borderUnselectedColor => this..border(Colours.unselectedColor);
 
-  T get borderRed_accent => this..border(Colours.red_accent);
+  T get borderRedAccent => this..border(Colours.redAccent);
 
-  T get borderBlue_accent => this..border(Colours.blue_accent);
+  T get borderBlueAccent => this..border(Colours.blueAccent);
 
-  T get borderPurple_accent => this..border(Colours.purple_accent);
+  T get borderPurpleAccent => this..border(Colours.purpleAccent);
 
   T get borderUnSelectedColor => this..border(Colours.unSelectedColor);
 
   T get borderGray => this..border(Colours.gray);
-
-  T get borderGrey_text => this..border(Colours.grey_text);
 
   T get borderFf0c4e5f => this..border(Colours.ff0c4e5f);
 
@@ -209,8 +187,6 @@ extension CustomBorderColorBuilderExt<T extends BorderColorBuilder> on T {
 
   T get borderAppbarActiveColor => this..border(Colours.appbarActiveColor);
 
-  T get borderFfffa88f => this..border(Colours.ffffa88f);
-
   T get borderOrange => this..border(Colours.orange);
 
   T get borderColorGrey => this..border(Colours.colorGrey);
@@ -226,6 +202,4 @@ extension CustomBorderColorBuilderExt<T extends BorderColorBuilder> on T {
   T get borderColorWhiteF5F5 => this..border(Colours.colorWhiteF5F5);
 
   T get borderColorGreyF0F0 => this..border(Colours.colorGreyF0F0);
-
-  T get borderGray_66 => this..border(Colours.gray_66);
 }

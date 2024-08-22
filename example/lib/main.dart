@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
             _link.network.s100.mk,
             _link.network.borderPink.border5.s100.mk,
-            _link.network.borderCcfa94fb.border5.s100.mk,
+            _link.network.borderLightGreen.border5.s100.mk,
             _link.network.circle.s100.mk,
             _link.network.border5.borderBrown.circle.s100.mk,
             Container(
