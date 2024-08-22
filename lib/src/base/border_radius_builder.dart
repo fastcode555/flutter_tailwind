@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// @date 7/11/23
@@ -8,6 +9,16 @@ mixin BorderRadiusBuilder {
   double? topRight;
   double? bottomRight;
   double? bottomLeft;
+
+  bool get hasRadius =>
+      radius != null || topLeft != null || topRight != null || bottomLeft != null || bottomRight != null;
+
+  BorderRadiusGeometry get borderRadius => BorderRadius.only(
+        topLeft: Radius.circular(topLeft ?? radius ?? 0.0),
+        topRight: Radius.circular(topRight ?? radius ?? 0.0),
+        bottomLeft: Radius.circular(bottomLeft ?? radius ?? 0.0),
+        bottomRight: Radius.circular(bottomRight ?? radius ?? 0.0),
+      );
 }
 
 extension BorderRadiusBuilderExt<T extends BorderRadiusBuilder> on T {

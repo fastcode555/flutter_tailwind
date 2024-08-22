@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               color: Colors.red,
               height: 100,
-              child: "我额发链接".text.start.dashed.lightGreen.f30.bold.underline.mk,
+              child: "我额发链接".text.start.dashed.lightGreen.f30.bold.lineThrough.mk,
             ),
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
@@ -72,16 +72,41 @@ class _MyHomePageState extends State<MyHomePage> {
             _link.network.borderLightGreen.border5.s100.mk,
             _link.network.circle.s100.mk,
             _link.network.border5.borderBrown.circle.s100.mk,
+
+            ///矩形
             Container(
-              width: 100,
-              height: 100,
+              width: 100.h,
+              height: 100.h,
+              decoration: BoxDecoration(
+                color: Colors.amberAccent,
+                borderRadius: BorderRadius.circular(8.r),
+                border: Border.all(color: Colors.brown, width: 5.r),
+              ),
+            ),
+            Container(
+              width: 100.h,
+              height: 100.h,
               decoration: bd.amberAccent.borderBrown.r8.border5.mk,
             ),
+            container.s100.amberAccent.borderBrown.r8.border5.mk,
+
+            ///圆形
+            container.s100.circle.amberAccent.mk,
             Container(
-              width: 100,
-              height: 100,
+              width: 100.h,
+              height: 100.h,
+              decoration: BoxDecoration(
+                color: Colors.amberAccent,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.brown, width: 5.r),
+              ),
+            ),
+            Container(
+              width: 100.h,
+              height: 100.h,
               decoration: bd.amberAccent.circle.borderBrown.border5.mk,
             ),
+            container.s100.circle.amberAccent.borderBrown.border5.mk,
           ],
         ),
       ),

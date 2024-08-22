@@ -15,6 +15,7 @@ export 'src/base/text_feature.dart';
 
 /// export extension
 export 'src/box_decoration_ext.dart';
+export 'src/widgets/container.dart';
 
 ///export widget
 export 'src/widgets/icon.dart';

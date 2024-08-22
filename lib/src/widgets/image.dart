@@ -54,21 +54,11 @@ class ImageBuilder extends MkBuilder<Widget>
 
   ImageBuilder._(this.image, this.type);
 
-  bool get _needRadius =>
-      radius != null || topLeft != null || topRight != null || bottomLeft != null || bottomRight != null;
-
-  BorderRadiusGeometry get _borderRadius => BorderRadius.only(
-        topLeft: Radius.circular(topLeft ?? radius ?? 0.0),
-        topRight: Radius.circular(topRight ?? radius ?? 0.0),
-        bottomLeft: Radius.circular(bottomLeft ?? radius ?? 0.0),
-        bottomRight: Radius.circular(bottomRight ?? radius ?? 0.0),
-      );
-
   @override
   Widget get mk => _buildBorderImage();
 
   Widget _buildImage() {
-    if (shape == BoxShape.circle) {
+    if (isCircle) {
       return buildCircleImage();
     }
     double? finalW = size ?? width;
@@ -138,13 +128,13 @@ class ImageBuilder extends MkBuilder<Widget>
   ///给图片建边框
   Widget _buildBorderImage() {
     Widget imageWidget = _buildImage();
-    if (_needRadius) {
-      imageWidget = ClipRRect(borderRadius: _borderRadius, child: imageWidget);
+    if (hasRadius) {
+      imageWidget = ClipRRect(borderRadius: borderRadius, child: imageWidget);
     }
     if (borderColor != null) {
       return Container(
         decoration: BoxDecoration(
-          borderRadius: shape == BoxShape.circle ? null : (_needRadius ? _borderRadius : BorderRadius.zero),
+          borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
           border: Border.all(color: borderColor!, width: borderWidth ?? 1.0),
           shape: shape ?? BoxShape.rectangle,
         ),

@@ -25,6 +25,8 @@ extension BoxFitBuilderExt<T extends BoxFitBuilder> on T {
 
 mixin BoxShapeBuilder {
   BoxShape? shape;
+
+  bool get isCircle => shape == BoxShape.circle;
 }
 
 extension BoxShapeBuilderExt<T extends BoxShapeBuilder> on T {
