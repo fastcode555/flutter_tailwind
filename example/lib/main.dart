@@ -65,9 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icDefPlaylist1.asset.border2.borderLightGreen.r16.s100.mk,
             R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s100.mk,
             R.icDefPlaylist1.asset.border5.borderLightGreen.r16.h100.w200.mk,
+            GestureDetector(
+              child: R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s300.mk,
+            ),
             R.icDefPlaylist1.asset.s100.circle.mk,
             R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
             _link.network.s100.mk,
+            _link.network.sScreenWidth.mk,
             _link.network.borderPink.border5.s100.mk,
             _link.network.r12.s100.mk,
             _link.network.borderLightGreen.border5.s100.mk,
@@ -109,10 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
             container.s100.circle.orangeAccent.borderBrown.border5.mk,
-            container.s100.circle.amberAccent.borderBrown.border5.child(const Center(child: Text("I'm hero"))).mk,
+            container.s100.circle.amberAccent.borderBrown.border5.child(_extrachild()).mk,
           ],
         ),
       ),
     );
+  }
+
+  Widget _extrachild() {
+    return const Center(child: Text("I'm hero"));
   }
 }

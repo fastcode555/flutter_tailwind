@@ -10,6 +10,10 @@ mixin SizeBuilder {
 }
 
 extension SizeBuilderExt<T extends SizeBuilder> on T {
+  T get hScreenHeight => this..height = ScreenUtil().screenHeight;
+
+  T get hScreenWidth => this..height = ScreenUtil().screenWidth;
+
   T get h2 => this..height = 2.h;
 
   T get h4 => this..height = 4.h;
@@ -110,6 +114,10 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get h100 => this..height = 100.h;
 
+  T get wScreenHeight => this..width = ScreenUtil().screenHeight;
+
+  T get wScreenWidth => this..width = ScreenUtil().screenWidth;
+
   T get w2 => this..width = 2.w;
 
   T get w4 => this..width = 4.w;
@@ -209,6 +217,10 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   T get w98 => this..width = 98.w;
 
   T get w100 => this..width = 100.w;
+
+  T get sScreenHeight => this..size = ScreenUtil().screenHeight;
+
+  T get sScreenWidth => this..size = ScreenUtil().screenWidth;
 
   T get s2 => this..size = 2.r;
 
