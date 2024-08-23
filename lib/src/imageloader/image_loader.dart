@@ -361,27 +361,31 @@ class ImageLoader extends StatelessWidget {
         fadeOutDuration: fadeOutDuration,
       );
     } else if (_type == typeRoundCorner) {
+      Widget image = _Image(
+        _canLoadImage ? url : null,
+        fit: fit,
+        thumbUrl: _thumbUrl,
+        placeHolder: placeHolder,
+        errorHolder: errorHolder,
+        placeBuilder: placeBuilder,
+        errorBuilder: errorBuilder,
+        borderColor: borderColor,
+        border: border,
+        width: _width,
+        height: _height,
+        useSingleCache: useSingleCache,
+        fadeInDuration: fadeInDuration,
+        fadeOutDuration: fadeOutDuration,
+        radius: _radius,
+        heroTag: heroTag,
+      );
+      if (borderColor != null) {
+        return image;
+      }
       return ClipRRect(
         clipBehavior: Clip.hardEdge,
         borderRadius: _borderRadius ?? BorderRadius.all(Radius.circular(_radius!)),
-        child: _Image(
-          _canLoadImage ? url : null,
-          fit: fit,
-          thumbUrl: _thumbUrl,
-          placeHolder: placeHolder,
-          errorHolder: errorHolder,
-          placeBuilder: placeBuilder,
-          errorBuilder: errorBuilder,
-          borderColor: borderColor,
-          border: border,
-          width: _width,
-          height: _height,
-          useSingleCache: useSingleCache,
-          fadeInDuration: fadeInDuration,
-          fadeOutDuration: fadeOutDuration,
-          radius: _radius,
-          heroTag: heroTag,
-        ),
+        child: image,
       );
     } else if (_type == typeBlur) {
       return SizedBox(
@@ -483,7 +487,20 @@ class _CircleImage extends StatelessWidget {
         memCacheWidth: _getMemCacheHeight(),
         fadeOutDuration: fadeOutDuration ?? const Duration(milliseconds: 1000),
         fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 500),
-        imageBuilder: (context, imageProvider) => _buildBorderCircleImage(
+        imageBuilder: (context, imageProvider) {
+          if (borderColor != null && border != null && border! > 0) {
+            return Container(
+              width: radius! * 2,
+              height: radius! * 2,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: borderColor!, width: border!),
+                color: borderColor,
+                image: DecorationImage(image: imageProvider, fit: fit),
+              ),
+            );
+          }
+          return _buildBorderCircleImage(
             border,
             borderColor,
             _buildHeroWidget(
@@ -494,7 +511,9 @@ class _CircleImage extends StatelessWidget {
                 radius: radius,
                 backgroundColor: Colors.transparent,
               ),
-            )),
+            ),
+          );
+        },
         placeholder: placeHolder != null
             ? (context, url) => _buildBorderCircleImage(
                   border,
@@ -627,61 +646,53 @@ class _Image extends StatelessWidget {
           placeBuilder ?? ImageLoader.config?.getPlaceBuilder(finalW, finalH, border, borderColor, radius);
     }
     if (_isNetUrl(url)) {
-      return LayoutBuilder(
-        builder: (_, constraint) {
-          finalW = finalW ?? constraint.maxWidth;
-          finalH = finalH ?? constraint.maxHeight;
-          return CachedNetworkImage(
-            imageUrl: url!,
-            key: ValueKey(url),
-            fit: fit,
-            fadeOutDuration:
-                fadeOutDuration ?? Duration(milliseconds: thumbUrl != null && thumbUrl!.isNotEmpty ? 0 : 1000),
-            fadeInDuration:
-                fadeInDuration ?? Duration(milliseconds: thumbUrl != null && thumbUrl!.isNotEmpty ? 0 : 500),
-            width: finalW,
-            height: finalH,
-            memCacheWidth: _getMemCacheWidth(finalW),
-            memCacheHeight: _getMemCacheHeight(finalH),
-            imageBuilder: (context, imageProvider) {
-              if (borderColor != null && border != null && border! > 0) {
-                return _buildHeroWidget(
-                  heroTag,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: borderColor!, width: border!),
-                      color: borderColor,
-                      borderRadius: BorderRadius.circular(radius ?? 0.0),
-                      image: DecorationImage(image: imageProvider, fit: fit),
-                    ),
-                  ),
-                );
-              }
-              return _buildBorderCircleImage(
-                border,
-                borderColor,
-                _buildHeroWidget(
-                  heroTag,
-                  transitionOnUserGestures: transitionOnUserGestures,
-                  child: Image(
-                    image: imageProvider,
-                    fit: fit,
-                    width: finalW,
-                    height: finalH,
-                    alignment: Alignment.center,
-                    repeat: ImageRepeat.noRepeat,
-                    matchTextDirection: false,
-                    filterQuality: FilterQuality.low,
-                  ),
+      return CachedNetworkImage(
+        imageUrl: url!,
+        key: ValueKey(url),
+        fit: fit,
+        fadeOutDuration: fadeOutDuration ?? Duration(milliseconds: thumbUrl != null && thumbUrl!.isNotEmpty ? 0 : 1000),
+        fadeInDuration: fadeInDuration ?? Duration(milliseconds: thumbUrl != null && thumbUrl!.isNotEmpty ? 0 : 500),
+        width: finalW,
+        height: finalH,
+        memCacheWidth: _getMemCacheWidth(finalW),
+        memCacheHeight: _getMemCacheHeight(finalH),
+        imageBuilder: (context, imageProvider) {
+          if (borderColor != null && border != null && border! > 0) {
+            return _buildHeroWidget(
+              heroTag,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: borderColor!, width: border!),
+                  color: borderColor,
+                  borderRadius: BorderRadius.circular(radius ?? 0.0),
+                  image: DecorationImage(image: imageProvider, fit: fit),
                 ),
-                shape: BoxShape.rectangle,
-                radius: radius,
-              );
-            },
-            placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
-            errorWidget: _buildErrorWidgetBuilder(context, url, finalW, finalH, finalErrorBuilder, radius),
+              ),
+            );
+          }
+          return _buildBorderCircleImage(
+            border,
+            borderColor,
+            _buildHeroWidget(
+              heroTag,
+              transitionOnUserGestures: transitionOnUserGestures,
+              child: Image(
+                image: imageProvider,
+                fit: fit,
+                width: finalW,
+                height: finalH,
+                alignment: Alignment.center,
+                repeat: ImageRepeat.noRepeat,
+                matchTextDirection: false,
+                filterQuality: FilterQuality.low,
+              ),
+            ),
+            shape: BoxShape.rectangle,
+            radius: radius,
           );
         },
+        placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
+        errorWidget: _buildErrorWidgetBuilder(context, url, finalW, finalH, finalErrorBuilder, radius),
       );
     } else {
       return _loadFileOrAssertImage(finalErrorBuilder, finalW, finalH, context);

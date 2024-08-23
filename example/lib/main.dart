@@ -78,8 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
             _link.image.r12.s100.mk,
             _link.image.borderLightGreen.border5.s100.mk,
             _link.image.borderLightGreen.border5.r12.s100.mk,
+            _link.image.borderLightGreen.border5.r22.s100.mk,
             _link.image.circle.s100.mk,
             _link.image.border5.borderBrown.circle.s100.mk,
+            _link.image.border2.borderBrown.circle.s100.mk,
+            "https://gd-hbimg.huaban.com/".image.border5.borderBrown.s100.mk,
             "https://gd-hbimg.huaban.com/".image.border5.borderBrown.circle.s100.mk,
             "werwe".image.border5.borderBrown.circle.s100.mk,
 
