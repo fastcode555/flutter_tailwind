@@ -43,6 +43,15 @@ class _MyHomePageState extends State<MyHomePage> {
   final String _link = "https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh";
 
   @override
+  void initState() {
+    super.initState();
+    Tailwind.instance.addImageConfig(ImageLoaderConfig(
+      placeholder: (_,__)=>R.icDefPlaylist1.asset.border2.borderLightGreen.s100.mk,
+      errorWidget: (_, __, ___) => R.icDefPlaylist1.asset.border2.borderLightGreen.s100.mk,
+    ));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -58,26 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100,
               child: "我额发链接".text.start.dashed.lightGreen.f30.bold.lineThrough.mk,
             ),
-            Icons.connected_tv_sharp.icon.redAccent.s100.mk,
-            R.icAirPlay.svg.black.s100.mk,
-            R.icDefPlaylist1.asset.s100.mk,
-            R.icDefPlaylist1.asset.border2.borderLightGreen.s100.mk,
-            R.icDefPlaylist1.asset.border2.borderLightGreen.r16.s100.mk,
-            R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s100.mk,
-            R.icDefPlaylist1.asset.border5.borderLightGreen.r16.h100.w200.mk,
-            GestureDetector(
-              child: R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s300.mk,
-            ),
-            R.icDefPlaylist1.asset.s100.circle.mk,
-            R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
-            _link.network.s100.mk,
-            _link.network.sScreenWidth.mk,
-            _link.network.borderPink.border5.s100.mk,
-            _link.network.r12.s100.mk,
-            _link.network.borderLightGreen.border5.s100.mk,
-            _link.network.borderLightGreen.border5.r12.s100.mk,
-            _link.network.circle.s100.mk,
-            _link.network.border5.borderBrown.circle.s100.mk,
+            // Icons.connected_tv_sharp.icon.redAccent.s100.mk,
+            // R.icAirPlay.svg.black.s100.mk,
+            // R.icDefPlaylist1.asset.s100.mk,
+            // R.icDefPlaylist1.asset.border2.borderLightGreen.s100.mk,
+            // R.icDefPlaylist1.asset.border2.borderLightGreen.r16.s100.mk,
+            // R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s100.mk,
+            // R.icDefPlaylist1.asset.border5.borderLightGreen.r16.h100.w200.mk,
+            // GestureDetector(
+            //   child: R.icDefPlaylist1.asset.border5.borderLightGreen.r16.s300.mk,
+            // ),
+            // R.icDefPlaylist1.asset.s100.circle.mk,
+            // R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
+            // _link.network.s100.mk,
+            // _link.network.sScreenWidth.mk,
+            // _link.network.borderPink.border5.s100.mk,
+            // _link.network.r12.s100.mk,
+            // _link.network.borderLightGreen.border5.s100.mk,
+            // _link.network.borderLightGreen.border5.r12.s100.mk,
+            // _link.network.circle.s100.mk,
+            // _link.network.border5.borderBrown.circle.s100.mk,
+            "https://gd-hbimg.huaban.com/".network.border5.borderBrown.circle.s100.mk,
+            "werwe".network.border5.borderBrown.circle.s100.mk,
 
             ///矩形
             Container(
@@ -113,14 +124,14 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
             container.s100.circle.orangeAccent.borderBrown.border5.mk,
-            container.s100.circle.amberAccent.borderBrown.border5.child(_extrachild()).mk,
+            container.s100.circle.amberAccent.borderBrown.border5.child(_extractChild()).mk,
           ],
         ),
       ),
     );
   }
 
-  Widget _extrachild() {
+  Widget _extractChild() {
     return const Center(child: Text("I'm hero"));
   }
 }
