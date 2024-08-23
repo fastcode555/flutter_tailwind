@@ -16,7 +16,8 @@ export 'src/base/text_feature.dart';
 
 /// export extension
 export 'src/box_decoration_ext.dart';
-export 'src/config/image_loader_config.dart';
+export 'src/imageloader/image_loader.dart';
+export 'src/imageloader/image_loader_config.dart';
 export 'src/tailwind.dart';
 export 'src/widgets/container.dart';
 

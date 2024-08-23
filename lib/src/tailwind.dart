@@ -1,4 +1,5 @@
-import 'package:flutter_tailwind/src/config/image_loader_config.dart';
+import 'package:flutter_tailwind/src/imageloader/image_loader.dart';
+import 'package:flutter_tailwind/src/imageloader/image_loader_config.dart';
 
 /// Barry
 /// @date 2024/8/21
@@ -15,9 +16,7 @@ class Tailwind {
 
   static Tailwind _getInstance() => _instance ??= Tailwind._internal();
 
-  ImageLoaderConfig? imageConfig;
-
-  void addImageConfig(ImageLoaderConfig imageConfig) {
-    this.imageConfig = imageConfig;
+  void addImageConfig(ImageLoaderConfigInterface imageConfig) {
+    ImageLoader.init(imageConfig);
   }
 }

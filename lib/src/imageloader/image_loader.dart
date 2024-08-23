@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
-import 'image_loader_config.dart';
-
 bool _isNetUrl(String? url) {
   if (url == null || url.trim().isEmpty) return false;
   return url.startsWith('http') && !url.endsWith(".mp3") && !url.endsWith(".mp4");
@@ -27,7 +25,13 @@ _buildHeroWidget(String? heroTag, {required Widget child, bool? transitionOnUser
   );
 }
 
-Widget _buildBorderCircleImage(double? border, Color? borderColor, Widget child, {BoxShape shape = BoxShape.circle}) {
+Widget _buildBorderCircleImage(
+  double? border,
+  Color? borderColor,
+  Widget child, {
+  BoxShape shape = BoxShape.circle,
+  double? radius,
+}) {
   if (borderColor != null && border != null && border > 0) {
     return Container(
       decoration: BoxDecoration(
@@ -639,25 +643,41 @@ class _Image extends StatelessWidget {
             height: finalH,
             memCacheWidth: _getMemCacheWidth(finalW),
             memCacheHeight: _getMemCacheHeight(finalH),
-            imageBuilder: (context, imageProvider) => _buildBorderCircleImage(
-              border,
-              borderColor,
-              _buildHeroWidget(
-                heroTag,
-                transitionOnUserGestures: transitionOnUserGestures,
-                child: Image(
-                  image: imageProvider,
-                  fit: fit,
-                  width: finalW,
-                  height: finalH,
-                  alignment: Alignment.center,
-                  repeat: ImageRepeat.noRepeat,
-                  matchTextDirection: false,
-                  filterQuality: FilterQuality.low,
+            imageBuilder: (context, imageProvider) {
+              if (borderColor != null && border != null && border! > 0) {
+                return _buildHeroWidget(
+                  heroTag,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: borderColor!, width: border!),
+                      color: borderColor,
+                      borderRadius: BorderRadius.circular(radius ?? 0.0),
+                      image: DecorationImage(image: imageProvider, fit: fit),
+                    ),
+                  ),
+                );
+              }
+              return _buildBorderCircleImage(
+                border,
+                borderColor,
+                _buildHeroWidget(
+                  heroTag,
+                  transitionOnUserGestures: transitionOnUserGestures,
+                  child: Image(
+                    image: imageProvider,
+                    fit: fit,
+                    width: finalW,
+                    height: finalH,
+                    alignment: Alignment.center,
+                    repeat: ImageRepeat.noRepeat,
+                    matchTextDirection: false,
+                    filterQuality: FilterQuality.low,
+                  ),
                 ),
-              ),
-              shape: BoxShape.rectangle,
-            ),
+                shape: BoxShape.rectangle,
+                radius: radius,
+              );
+            },
             placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
             errorWidget: _buildErrorWidgetBuilder(context, url, finalW, finalH, finalErrorBuilder, radius),
           );
