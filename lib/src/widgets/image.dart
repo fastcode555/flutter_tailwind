@@ -99,6 +99,15 @@ class ImageBuilder extends MkBuilder<Widget>
     );
   }
 
+  ImageProvider _buildProvideImage() {
+    if (type == _network || image.startsWith("http")) {
+      return NetworkImage(image);
+    } else if (type == _file) {
+      return FileImage(File(image));
+    }
+    return AssetImage(image);
+  }
+
   ///建一个圆形的图片
   Widget buildCircleImage() {
     double radius = _getRadius();
@@ -127,19 +136,25 @@ class ImageBuilder extends MkBuilder<Widget>
 
   ///给图片建边框
   Widget _buildBorderImage() {
-    Widget imageWidget = _buildImage();
-    if (hasRadius) {
-      imageWidget = ClipRRect(borderRadius: borderRadius, child: imageWidget);
-    }
     if (borderColor != null) {
       return Container(
+        width: size ?? width,
+        height: size ?? height,
         decoration: BoxDecoration(
           borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
           border: Border.all(color: borderColor!, width: borderWidth ?? 1.0),
           shape: shape ?? BoxShape.rectangle,
+          image: DecorationImage(
+            image: _buildProvideImage(),
+            fit: fit ?? BoxFit.cover,
+            alignment: alignment ?? Alignment.center,
+          ),
         ),
-        child: imageWidget,
       );
+    }
+    Widget imageWidget = _buildImage();
+    if (hasRadius) {
+      imageWidget = ClipRRect(borderRadius: borderRadius, child: imageWidget);
     }
     return imageWidget;
   }

@@ -69,7 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icDefPlaylist1.asset.s100.circle.border2.borderLightGreen.mk,
             _link.network.s100.mk,
             _link.network.borderPink.border5.s100.mk,
+            _link.network.r12.s100.mk,
             _link.network.borderLightGreen.border5.s100.mk,
+            _link.network.borderLightGreen.border5.r12.s100.mk,
             _link.network.circle.s100.mk,
             _link.network.border5.borderBrown.circle.s100.mk,
 
@@ -86,17 +88,17 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 100.h,
               height: 100.h,
-              decoration: bd.amberAccent.borderBrown.r8.border5.mk,
+              decoration: bd.appMain.borderBrown.r8.border5.mk,
             ),
-            container.s100.amberAccent.borderBrown.r8.border5.mk,
+            container.s100.greenAccent.borderBrown.r8.border5.mk,
 
             ///圆形
-            container.s100.circle.amberAccent.mk,
+            container.s100.circle.redAccent.mk,
             Container(
               width: 100.h,
               height: 100.h,
               decoration: BoxDecoration(
-                color: Colors.amberAccent,
+                color: Colors.blueAccent,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.brown, width: 5.r),
               ),
@@ -104,9 +106,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 100.h,
               height: 100.h,
-              decoration: bd.amberAccent.circle.borderBrown.border5.mk,
+              decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
-            container.s100.circle.amberAccent.borderBrown.border5.mk,
+            container.s100.circle.orangeAccent.borderBrown.border5.mk,
+            container.s100.circle.amberAccent.borderBrown.border5.child(const Center(child: Text("I'm hero"))).mk,
           ],
         ),
       ),

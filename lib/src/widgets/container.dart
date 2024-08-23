@@ -5,6 +5,21 @@ import 'package:flutter_tailwind/tailwind.dart';
 /// Barry
 /// @date 2024/8/22
 /// describe:
+mixin ChildBuilder {
+  Widget? _child;
+}
+
+mixin ChildrenBuilder {
+  List<Widget>? _children;
+}
+
+extension ChildBilderExt<T extends ChildBuilder> on T {
+  T child(Widget child) => this.._child = child;
+}
+
+extension ChildrenBuilderExt<T extends ChildrenBuilder> on T {
+  T children(List<Widget> children) => this.._children = children;
+}
 
 ContainerBuilder get container => ContainerBuilder();
 
@@ -16,7 +31,8 @@ class ContainerBuilder extends MkBuilder<Container>
         BorderRadiusBuilder,
         BorderColorBuilder,
         BlendModeBuilder,
-        BoxShapeBuilder {
+        BoxShapeBuilder,
+        ChildBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -52,5 +68,6 @@ class ContainerBuilder extends MkBuilder<Container>
           border: _internalBorder,
           borderRadius: _internalBorderRadius,
         ),
+        child: _child,
       );
 }

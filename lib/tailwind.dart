@@ -5,6 +5,7 @@ export 'src/base/blend_mode_builder.dart';
 export 'src/base/border_color_builder.dart';
 export 'src/base/border_radius_builder.dart';
 export 'src/base/border_width_builder.dart';
+export 'src/base/child_builder.dart';
 export 'src/base/clip_builder.dart';
 export 'src/base/color_builder.dart';
 export 'src/base/font_size_builder.dart';
