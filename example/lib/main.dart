@@ -120,14 +120,17 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
             container.s100.circle.orangeAccent.borderBrown.border5.mk,
-            container.s100.circle.amberAccent.borderBrown.border5.child(_extractChild()).mk,
+            container.s100.circle.amberAccent.borderBrown.center.border5.child(const Text("I'm hero")).mk,
+
+            listview<String>(["1", '2', '3']).builder(_itemBuilder).neverScroll.shrinkWrap.reverse.mk,
           ],
         ),
       ),
     );
   }
 
-  Widget _extractChild() {
-    return const Center(child: Text("I'm hero"));
+  Widget _itemBuilder(BuildContext context, int index, t) {
+    String item = t as String;
+    return Text(item, style: ts.red.f30.mk);
   }
 }

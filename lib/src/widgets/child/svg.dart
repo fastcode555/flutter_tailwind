@@ -7,7 +7,7 @@ import 'package:flutter_tailwind/src/base/color_builder.dart';
 import 'package:flutter_tailwind/src/base/image_feature.dart';
 import 'package:flutter_tailwind/src/base/size_builder.dart';
 
-import '../base/mk_builder.dart';
+import '../../base/mk_builder.dart';
 
 /// Barry
 /// @date 2024/8/19

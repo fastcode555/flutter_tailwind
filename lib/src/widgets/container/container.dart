@@ -9,17 +9,13 @@ mixin ChildBuilder {
   Widget? _child;
 }
 
-mixin ChildrenBuilder {
-  List<Widget>? _children;
-}
+
 
 extension ChildBilderExt<T extends ChildBuilder> on T {
   T child(Widget child) => this.._child = child;
 }
 
-extension ChildrenBuilderExt<T extends ChildrenBuilder> on T {
-  T children(List<Widget> children) => this.._children = children;
-}
+
 
 ContainerBuilder get container => ContainerBuilder();
 
@@ -32,6 +28,7 @@ class ContainerBuilder extends MkBuilder<Container>
         BorderColorBuilder,
         BlendModeBuilder,
         BoxShapeBuilder,
+        AlignmentBuilder,
         ChildBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
@@ -62,6 +59,7 @@ class ContainerBuilder extends MkBuilder<Container>
   Container get mk => Container(
         width: width ?? size,
         height: height ?? size,
+        alignment: alignment ?? Alignment.center,
         decoration: BoxDecoration(
           color: color,
           shape: shape ?? BoxShape.rectangle,

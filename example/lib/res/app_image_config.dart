@@ -56,14 +56,18 @@ class AppImageConfig extends ImageLoaderConfigInterface {
   getCircleErrorBuilder(double? radius, double? border, Color? borderColor) {
     double? width = radius == null ? null : radius * 2 / 2.0;
     return (BuildContext context, String url, _) {
-      return ClipOval(
-        child: Container(
-          decoration: _decoration(border, borderColor),
-          width: radius! * 2,
-          height: radius * 2,
-          alignment: Alignment.center,
-          child: Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2),
+      if (borderColor == null) {
+        return Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2);
+      }
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: border == null || border == 0.0 ? null : Border.all(color: borderColor, width: border),
+          image: const DecorationImage(image: AssetImage(R.icDefAvatar), fit: BoxFit.cover),
         ),
+        width: radius! * 2,
+        height: radius * 2,
+        alignment: Alignment.center,
       );
     };
   }
@@ -72,14 +76,18 @@ class AppImageConfig extends ImageLoaderConfigInterface {
   PlaceholderWidgetBuilder getCirclePlaceBuilder(double? radius, double? border, Color? borderColor) {
     double? width = radius == null ? null : radius * 2 / 2.0;
     return (BuildContext context, String url) {
-      return ClipOval(
-        child: Container(
-          decoration: _decoration(border, borderColor),
-          width: radius! * 2,
-          height: radius * 2,
-          alignment: Alignment.center,
-          child: Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2),
+      if (borderColor == null) {
+        return Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2);
+      }
+      return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: border == null || border == 0.0 ? null : Border.all(color: borderColor, width: border),
+          image: const DecorationImage(image: AssetImage(R.icDefAvatar), fit: BoxFit.cover),
         ),
+        width: radius! * 2,
+        height: radius * 2,
+        alignment: Alignment.center,
       );
     };
   }

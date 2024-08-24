@@ -19,11 +19,7 @@ export 'src/box_decoration_ext.dart';
 export 'src/imageloader/image_loader.dart';
 export 'src/imageloader/image_loader_config.dart';
 export 'src/tailwind.dart';
-export 'src/widgets/container.dart';
+export 'src/widgets/container/container.dart';
 
 ///export widget
-export 'src/widgets/icon.dart';
-export 'src/widgets/image.dart';
-export 'src/widgets/svg.dart';
-export 'src/widgets/text.dart';
-export 'src/widgets/widgets.dart';
+export 'src/widgets/index.dart';
