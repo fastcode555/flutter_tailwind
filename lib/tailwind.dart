@@ -11,6 +11,7 @@ export 'src/base/color_builder.dart';
 export 'src/base/font_size_builder.dart';
 export 'src/base/image_feature.dart';
 export 'src/base/max_line_builder.dart';
+export 'src/base/shadow_builder.dart';
 export 'src/base/size_builder.dart';
 export 'src/base/text_feature.dart';
 

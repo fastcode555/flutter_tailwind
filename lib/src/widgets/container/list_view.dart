@@ -15,20 +15,14 @@ extension ChildrenBuilderExt<T extends ChildrenBuilder> on T {
   T children(List<Widget> children) => this.._children = children;
 }
 
-mixin ItemListBuilder<T> {
-  ItemListFunction<T>? _itemBuilder;
-}
-
-extension ItemListBuilderExt<T, P extends ItemListBuilder<T>> on P {
-  P builder(ItemListFunction<T> builder) => this.._itemBuilder = builder;
-}
-
 mixin ScrollFeature {
   Axis? scrollDirection;
   ScrollController? _controller;
   bool _reverse = false;
   bool _shrinkWrap = false;
   ScrollPhysics? _physics;
+  Widget? _separated;
+  IndexedWidgetBuilder? _separatorBuilder;
 }
 
 extension ScrollFeatureExt<T extends ScrollFeature> on T {
@@ -43,19 +37,64 @@ extension ScrollFeatureExt<T extends ScrollFeature> on T {
   T get neverScroll => this.._physics = const NeverScrollableScrollPhysics();
 
   T scrollController(ScrollController controller) => this.._controller = controller;
+
+  T separated(Widget widget) => this.._separated = widget;
+
+  T separatedBuilder(IndexedWidgetBuilder builder) => this.._separatorBuilder = builder;
 }
 
-ListViewBuilder<T> listview<T>(List<T> list) => ListViewBuilder<T>(list);
+ListViewBuilder listview(int? itemCount, NullableIndexedWidgetBuilder builder) => ListViewBuilder._(itemCount, builder);
 
-class ListViewBuilder<T> extends MkBuilder<ListView> with ItemListBuilder<T>, ScrollFeature {
-  List<T>? list;
+class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature {
+  final NullableIndexedWidgetBuilder builder;
+  final int? itemCount;
 
-  ListViewBuilder(this.list);
+  ListViewBuilder._(this.itemCount, this.builder);
 
   @override
-  ListView get mk => ListView.builder(
-        itemBuilder: (context, index) => _itemBuilder?.call(context, index, list![index]),
-        itemCount: list?.length ?? 0,
+  ListView get mk {
+    if (_separatorBuilder != null || _separated != null) {
+      return ListView.separated(
+        itemBuilder: builder,
+        itemCount: itemCount ?? 0,
+        scrollDirection: scrollDirection ?? Axis.vertical,
+        controller: _controller,
+        reverse: _reverse,
+        shrinkWrap: _shrinkWrap,
+        physics: _physics,
+        separatorBuilder: _separatorBuilder != null ? _separatorBuilder! : (_, __) => _separated!,
+      );
+    }
+    return ListView.builder(
+      itemBuilder: builder,
+      itemCount: itemCount ?? 0,
+      scrollDirection: scrollDirection ?? Axis.vertical,
+      controller: _controller,
+      reverse: _reverse,
+      shrinkWrap: _shrinkWrap,
+      physics: _physics,
+    );
+  }
+}
+
+/// Don't use it,it is not a good solution for gridview
+@deprecated
+GridViewBuilder gridview(int? itemCount, SliverGridDelegate gridDelegate, NullableIndexedWidgetBuilder builder) =>
+    GridViewBuilder._(itemCount, gridDelegate, builder);
+
+@deprecated
+class GridViewBuilder extends MkBuilder<GridView> with ScrollFeature {
+  final NullableIndexedWidgetBuilder builder;
+  final int? itemCount;
+  final SliverGridDelegate gridDelegate;
+
+  GridViewBuilder._(this.itemCount, this.gridDelegate, this.builder);
+
+  @override
+  GridView get mk => GridView.builder(
+        gridDelegate: gridDelegate,
+        itemBuilder: builder,
+        itemCount: itemCount ?? 0,
         scrollDirection: scrollDirection ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,

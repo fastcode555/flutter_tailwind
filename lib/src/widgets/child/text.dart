@@ -8,6 +8,10 @@ import '../../base/mk_builder.dart';
 /// describe: A bit like Csstailwind or chain programming like ios swift
 /// 有点像Csstailwind或者像ios swift的链式编程
 
+mixin CompletedTextStyleBuilder {
+  TextStyle? style;
+}
+
 TextBuilder text(String value) => TextBuilder._(value);
 
 extension TextBuilderStringExt on String? {
@@ -17,9 +21,11 @@ extension TextBuilderStringExt on String? {
 TextStyleBuilder get ts => TextStyleBuilder();
 
 class TextStyleBuilder extends MkBuilder<TextStyle>
-    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature {
+    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature, CompletedTextStyleBuilder {
   @override
-  TextStyle get mk => TextStyle(
+  TextStyle get mk {
+    if (style != null) {
+      return style! /*.copyWith(
         fontSize: fontSize,
         color: color,
         decoration: decoration,
@@ -42,7 +48,34 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
         shadows: shadows,
         fontFeatures: fontFeatures,
         fontVariations: fontVariations,
-      );
+      )*/
+          ;
+    }
+    return TextStyle(
+      fontSize: fontSize,
+      color: color,
+      decoration: decoration,
+      overflow: overflow,
+      decorationStyle: decorationStyle,
+      decorationColor: decorationColor,
+      fontStyle: fontStyle,
+      fontFamily: fontFamily,
+      decorationThickness: decorationThickness,
+      fontWeight: fontWeight,
+      textBaseline: textBaseline,
+      fontFamilyFallback: fontFamilyFallback,
+      letterSpacing: letterSpacing,
+      wordSpacing: wordSpacing,
+      height: height,
+      leadingDistribution: leadingDistribution,
+      locale: locale,
+      background: background,
+      foreground: foreground,
+      shadows: shadows,
+      fontFeatures: fontFeatures,
+      fontVariations: fontVariations,
+    );
+  }
 }
 
 class TextBuilder extends MkBuilder<Text>
@@ -53,7 +86,8 @@ class TextBuilder extends MkBuilder<Text>
         FontWeightBuilder,
         TextCommonFeature,
         MaxLineBuilder,
-        TextDirectionBuilder {
+        TextDirectionBuilder,
+        CompletedTextStyleBuilder {
   final String? value;
 
   TextBuilder._(this.value);
@@ -61,30 +95,56 @@ class TextBuilder extends MkBuilder<Text>
   @override
   Text get mk => Text(
         value ?? "",
-        style: TextStyle(
-          fontSize: fontSize,
-          color: color,
-          decoration: decoration,
-          overflow: overflow,
-          decorationStyle: decorationStyle,
-          decorationColor: decorationColor,
-          fontStyle: fontStyle,
-          fontFamily: fontFamily,
-          decorationThickness: decorationThickness,
-          fontWeight: fontWeight,
-          textBaseline: textBaseline,
-          fontFamilyFallback: fontFamilyFallback,
-          letterSpacing: letterSpacing,
-          wordSpacing: wordSpacing,
-          height: height,
-          leadingDistribution: leadingDistribution,
-          locale: locale,
-          background: background,
-          foreground: foreground,
-          shadows: shadows,
-          fontFeatures: fontFeatures,
-          fontVariations: fontVariations,
-        ),
+        style:
+            style /*?.copyWith(
+              fontSize: fontSize,
+              color: color,
+              decoration: decoration,
+              overflow: overflow,
+              decorationStyle: decorationStyle,
+              decorationColor: decorationColor,
+              fontStyle: fontStyle,
+              fontFamily: fontFamily,
+              decorationThickness: decorationThickness,
+              fontWeight: fontWeight,
+              textBaseline: textBaseline,
+              fontFamilyFallback: fontFamilyFallback,
+              letterSpacing: letterSpacing,
+              wordSpacing: wordSpacing,
+              height: height,
+              leadingDistribution: leadingDistribution,
+              locale: locale,
+              background: background,
+              foreground: foreground,
+              shadows: shadows,
+              fontFeatures: fontFeatures,
+              fontVariations: fontVariations,
+            ) */
+                ??
+                TextStyle(
+                  fontSize: fontSize,
+                  color: color,
+                  decoration: decoration,
+                  overflow: overflow,
+                  decorationStyle: decorationStyle,
+                  decorationColor: decorationColor,
+                  fontStyle: fontStyle,
+                  fontFamily: fontFamily,
+                  decorationThickness: decorationThickness,
+                  fontWeight: fontWeight,
+                  textBaseline: textBaseline,
+                  fontFamilyFallback: fontFamilyFallback,
+                  letterSpacing: letterSpacing,
+                  wordSpacing: wordSpacing,
+                  height: height,
+                  leadingDistribution: leadingDistribution,
+                  locale: locale,
+                  background: background,
+                  foreground: foreground,
+                  shadows: shadows,
+                  fontFeatures: fontFeatures,
+                  fontVariations: fontVariations,
+                ),
         textAlign: textAlign,
         textDirection: textDirection,
         maxLines: maxLines,

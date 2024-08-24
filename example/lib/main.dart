@@ -60,11 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Wrap(
           children: [
             h2,
-            Container(
-              color: Colors.red,
-              height: 100,
-              child: "我额发链接".text.start.dashed.lightGreen.f30.bold.lineThrough.mk,
-            ),
+            "Hello world".text.dashed.lightGreen.f30.bold.lineThrough.mk,
+            "Hello world".text.mainStyle.mk,
+            "Hello world".text.testStyle.mk,
+            "Hello world".text.accentStyle.mk,
+
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
             R.icDefPlaylist.asset.s100.mk,
@@ -119,18 +119,23 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100.h,
               decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
-            container.s100.circle.orangeAccent.borderBrown.border5.mk,
-            container.s100.circle.amberAccent.borderBrown.center.border5.child(const Text("I'm hero")).mk,
 
-            listview<String>(["1", '2', '3']).builder(_itemBuilder).neverScroll.shrinkWrap.reverse.mk,
+            container.s100.circle.orangeAccent.borderBrown.cardShadow.border5.mk,
+            container.s100.circle.amberAccent.borderBrown.cardShadow.center.border5.child(const Text("I'm hero")).mk,
+            listview(3, _itemBuilder).neverScroll.shrinkWrap.reverse.mk,
+            listview(3, _itemBuilder).neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).mk,
+            gridview(5, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), _itemBuilder)
+                .neverScroll
+                .shrinkWrap
+                .reverse
+                .mk
           ],
         ),
       ),
     );
   }
 
-  Widget _itemBuilder(BuildContext context, int index, t) {
-    String item = t as String;
-    return Text(item, style: ts.red.f30.mk);
+  Widget? _itemBuilder(BuildContext context, int index) {
+    return Text("$index", style: ts.f30.bold.redAccent.mk);
   }
 }

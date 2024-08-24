@@ -2,6 +2,14 @@ import 'package:flutter_tailwind/tailwind.dart';
 
 import 'colours.dart';
 
+extension TextStyleExt<T extends CompletedTextStyleBuilder> on T {
+  T get mainStyle => this..style = ts.redAccent.f16.bold.underline.mk;
+
+  T get accentStyle => this..style = ts.greenAccent.f20.bold.lineColor.mk;
+
+  T get testStyle => this..style = ts.dashed.lightGreen.f30.bold.lineThrough.mk;
+}
+
 extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
   T get h200 => this..height = 200.h;
 
