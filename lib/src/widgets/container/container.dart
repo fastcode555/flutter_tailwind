@@ -7,6 +7,9 @@ import 'package:flutter_tailwind/tailwind.dart';
 /// Barry
 /// @date 2024/8/22
 /// describe:
+mixin CompleteDecoration {
+  BoxDecoration? decoration;
+}
 mixin ChildBuilder {
   Widget? _child;
 }
@@ -25,7 +28,8 @@ class BoxDecorationBuilder
         BorderColorBuilder,
         BlendModeBuilder,
         BoxShapeBuilder,
-        ShadowBuilder {
+        ShadowBuilder,
+        CompleteDecoration {
   DecorationImage? _image;
   BoxBorder? _border;
   BorderSide? _borderLeft;
@@ -54,7 +58,9 @@ class BoxDecorationBuilder
   }
 
   ///mk = make = create
-  BoxDecoration get mk => BoxDecoration(
+  BoxDecoration get mk =>
+      decoration ??
+      BoxDecoration(
         color: color,
         image: _image,
         border: _internalBorder,
@@ -133,7 +139,8 @@ class ContainerBuilder extends MkBuilder<Container>
         BoxShapeBuilder,
         AlignmentBuilder,
         ShadowBuilder,
-        ChildBuilder {
+        ChildBuilder,
+        CompleteDecoration {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -164,13 +171,14 @@ class ContainerBuilder extends MkBuilder<Container>
         width: width ?? size,
         height: height ?? size,
         alignment: alignment ?? Alignment.center,
-        decoration: BoxDecoration(
-          color: color,
-          shape: shape ?? BoxShape.rectangle,
-          border: _internalBorder,
-          borderRadius: _internalBorderRadius,
-          boxShadow: boxShadow,
-        ),
+        decoration: decoration ??
+            BoxDecoration(
+              color: color,
+              shape: shape ?? BoxShape.rectangle,
+              border: _internalBorder,
+              borderRadius: _internalBorderRadius,
+              boxShadow: boxShadow,
+            ),
         child: _child,
       );
 }

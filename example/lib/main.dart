@@ -61,9 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             h2,
             "Hello world".text.dashed.lightGreen.f30.bold.lineThrough.mk,
-            "Hello world".text.mainStyle.mk,
-            "Hello world".text.testStyle.mk,
-            "Hello world".text.accentStyle.mk,
+            "Hello world".text.styleMain.mk,
+            "Hello world".text.styleTest.mk,
+            "Hello world".text.styleAccent.mk,
 
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
@@ -99,9 +99,16 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: 100.h,
               height: 100.h,
-              decoration: bd.appMain.borderBrown.r8.border5.mk,
+              decoration: bd.greenAccent.borderBrown.r8.border5.mk,
+            ),
+            Container(
+              width: 100.h,
+              height: 100.h,
+              decoration: bd.decorMain.mk,
             ),
             container.s100.greenAccent.borderBrown.r8.border5.mk,
+            container.s100.decorMain.mk,
+            container.s100.decorTradition.mk,
 
             ///圆形
             container.s100.circle.redAccent.mk,

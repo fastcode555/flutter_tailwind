@@ -1,13 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
 import 'colours.dart';
 
+extension BoxDecorationExt<T extends CompleteDecoration> on T {
+  T get decorMain => this..decoration = bd.greenAccent.borderBrown.r8.border5.mk;
+
+  T get decorTradition => this
+    ..decoration = BoxDecoration(
+      color: Colors.greenAccent,
+      border: Border.all(color: Colors.brown, width: 5.r),
+      borderRadius: BorderRadius.circular(8.r),
+    );
+}
+
 extension TextStyleExt<T extends CompletedTextStyleBuilder> on T {
-  T get mainStyle => this..style = ts.redAccent.f16.bold.underline.mk;
+  T get styleMain => this..style = ts.redAccent.f16.bold.underline.mk;
 
-  T get accentStyle => this..style = ts.greenAccent.f20.bold.lineColor.mk;
+  T get styleAccent => this..style = ts.greenAccent.f20.bold.lineColor.mk;
 
-  T get testStyle => this..style = ts.dashed.lightGreen.f30.bold.lineThrough.mk;
+  T get styleTest => this..style = ts.dashed.lightGreen.f30.bold.lineThrough.mk;
 }
 
 extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
