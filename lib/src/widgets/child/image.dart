@@ -6,6 +6,8 @@ import 'package:flutter_tailwind/src/base/border_radius_builder.dart';
 import 'package:flutter_tailwind/src/base/border_width_builder.dart';
 import 'package:flutter_tailwind/src/base/image_feature.dart';
 import 'package:flutter_tailwind/src/base/mk_builder.dart';
+import 'package:flutter_tailwind/src/base/padding_builder.dart';
+import 'package:flutter_tailwind/src/base/shadow_builder.dart';
 import 'package:flutter_tailwind/src/base/size_builder.dart';
 import 'package:flutter_tailwind/src/imageloader/image_loader.dart';
 
@@ -39,7 +41,9 @@ class ImageBuilder extends MkBuilder<Widget>
         BlendModeBuilder,
         BorderWidthBuilder,
         BorderColorBuilder,
-        BorderRadiusBuilder {
+        BorderRadiusBuilder,
+        PaddingBuilder,
+        ShadowBuilder {
   final String image;
   final int type;
 
@@ -49,6 +53,13 @@ class ImageBuilder extends MkBuilder<Widget>
 
   @override
   Widget get mk {
+    if (hasPadding) {
+      return Padding(padding: finalPadding!, child: _buildImage());
+    }
+    return _buildImage();
+  }
+
+  Widget _buildImage() {
     if (type == _asset) {
       if (_heroTag != null && _heroTag!.isNotEmpty) {
         return Hero(tag: _heroTag!, child: _buildAssetImage());
@@ -97,6 +108,7 @@ class ImageBuilder extends MkBuilder<Widget>
           borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
           border: Border.all(color: borderColor!, width: borderWidth ?? 1.0),
           shape: shape ?? BoxShape.rectangle,
+          boxShadow: boxShadow,
           image: DecorationImage(
             image: AssetImage(image),
             fit: fit ?? BoxFit.cover,

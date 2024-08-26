@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
-/// @author Barry
+/// Barry
 /// @date 7/11/23
 /// describe:
 
 mixin TextDirectionBuilder {
   TextDirection? textDirection;
+}
+
+mixin TextBaselineBuilder {
+  TextBaseline? textBaseline;
+}
+
+extension TextBaselineBuilderExt<T extends TextBaselineBuilder> on T {
+  ///BaseLine
+  T get alphabetic => this..textBaseline = TextBaseline.alphabetic;
+
+  T get ideographic => this..textBaseline = TextBaseline.ideographic;
 }
 
 extension TextDirectionBuilderExt<T extends TextDirectionBuilder> on T {
@@ -36,11 +47,17 @@ mixin FontWeightBuilder {
   FontWeight? fontWeight;
 }
 
+// Tailwind font-thin (100) 对应 Flutter FontWeight.w100
+// Tailwind font-extralight (200) 对应 Flutter FontWeight.w200
+// Tailwind font-light (300) 对应 Flutter FontWeight.w300
+// Tailwind font-normal (400) 对应 Flutter FontWeight.w400 或 FontWeight.normal
+// Tailwind font-medium (500) 对应 Flutter FontWeight.w500
+// Tailwind font-semibold (600) 对应 Flutter FontWeight.w600
+// Tailwind font-bold (700) 对应 Flutter FontWeight.w700 或 FontWeight.bold
+// Tailwind font-extrabold (800) 对应 Flutter FontWeight.w800
+// Tailwind font-black (900) 对应 Flutter FontWeight.w900
 extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
   ///FontWeight
-  T get bold => this..fontWeight = FontWeight.bold;
-
-  T get normal => this..fontWeight = FontWeight.normal;
 
   T get w100 => this..fontWeight = FontWeight.w100;
 
@@ -59,6 +76,24 @@ extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
   T get w800 => this..fontWeight = FontWeight.w800;
 
   T get w900 => this..fontWeight = FontWeight.w900;
+
+  T get thin => this..fontWeight = FontWeight.w100;
+
+  T get extralight => this..fontWeight = FontWeight.w200;
+
+  T get light => this..fontWeight = FontWeight.w300;
+
+  T get normal => this..fontWeight = FontWeight.normal;
+
+  T get medium => this..fontWeight = FontWeight.w500;
+
+  T get semibold => this..fontWeight = FontWeight.w600;
+
+  T get bold => this..fontWeight = FontWeight.bold;
+
+  T get extrabold => this..fontWeight = FontWeight.w800;
+
+  T get fontBlack => this..fontWeight = FontWeight.w900;
 }
 
 mixin TextCommonFeature {
@@ -79,7 +114,6 @@ mixin TextCommonFeature {
   TextLeadingDistribution? leadingDistribution;
   TextDecoration? decoration;
   TextOverflow? overflow;
-  TextBaseline? textBaseline;
   TextDecorationStyle? decorationStyle;
 }
 
@@ -134,11 +168,6 @@ extension TextCommonFeatureExt<T extends TextCommonFeature> on T {
   T get fade => this..overflow = TextOverflow.fade;
 
   T get visible => this..overflow = TextOverflow.visible;
-
-  ///BaseLine
-  T get alphabetic => this..textBaseline = TextBaseline.alphabetic;
-
-  T get ideographic => this..textBaseline = TextBaseline.ideographic;
 
   ///TextDecorationStyle
   T get dashed => this..decorationStyle = TextDecorationStyle.dashed;

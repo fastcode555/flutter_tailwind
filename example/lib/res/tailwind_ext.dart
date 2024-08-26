@@ -4,7 +4,7 @@ import 'package:flutter_tailwind/tailwind.dart';
 import 'colours.dart';
 
 extension BoxDecorationExt<T extends CompleteDecoration> on T {
-  T get decorMain => this..decoration = bd.greenAccent.borderBrown.r8.border5.mk;
+  T get decorMain => this..decoration = bd.greenAccent.borderBrown.rounded8.border5.mk;
 
   T get decorTradition => this
     ..decoration = BoxDecoration(

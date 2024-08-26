@@ -13,45 +13,31 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: bd.border1.borderBrown.r16.mk,
-      padding: p16,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return container.border5.borderBrown.shadowSm.p16.rounded16.child(
+      column.crossStart.children(
+        [
           Row(
             children: [
-              _avatar.image.s50.circle.mk,
-              w6,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    "Naruto".text.f16.bold.mk,
-                    "Just Now".text.black54.f12.mk,
-                  ],
-                ),
+              _avatar.image.s50.circle.borderRed.border2.pr6.mk,
+              column.crossStart.expanded.children(
+                [
+                  ("Naruto" * 15).text.f16.maxLine1.ellipsis.bold.mk,
+                  "Just Now".text.black54.f12.mk,
+                ],
               ),
+              Icons.more_vert_rounded.icon.s26.black.mk,
             ],
           ),
-          h12,
-          "This is my favorite playlist of all time!".text.f12.mk,
-          h12,
-          _image.image.s121.r8.mk,
-          h12,
-          Container(
-            padding: REdgeInsets.all(8),
-            decoration: bd.r8.brown.mk,
-            child: Row(
+          "This is my favorite playlist of all time!".text.pt12.mk,
+          _image.image.s121.rounded8.borderRedColor.border2.pv12.mk,
+          container.p8.rounded8.border1.borderRedColor.pl10.brown.child(
+            Row(
               children: [
-                _image.image.s62.r8.mk,
-                w6,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    "English Songs".text.white.w700.f14.mk,
-                    h6,
-                    "2o Songs".text.white54.f12.mk,
+                _image.image.s62.rounded8.pr6.mk,
+                column.crossStart.expanded.children(
+                  [
+                    ("English Songs" * 15).text.white.maxLine2.ellipsis.w700.f14.mk,
+                    "20 Songs".text.white54.f12.pt2.mk,
                   ],
                 )
               ],

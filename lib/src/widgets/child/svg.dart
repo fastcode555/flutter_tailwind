@@ -5,6 +5,7 @@ import 'package:flutter_tailwind/src/base/alignment_builder.dart';
 import 'package:flutter_tailwind/src/base/blend_mode_builder.dart';
 import 'package:flutter_tailwind/src/base/color_builder.dart';
 import 'package:flutter_tailwind/src/base/image_feature.dart';
+import 'package:flutter_tailwind/src/base/padding_builder.dart';
 import 'package:flutter_tailwind/src/base/size_builder.dart';
 
 import '../../base/mk_builder.dart';
@@ -15,8 +16,8 @@ import '../../base/mk_builder.dart';
 
 SvgBuilder svg(String file) => SvgBuilder._(file);
 
-class SvgBuilder extends MkBuilder<SvgPicture>
-    with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder {
+class SvgBuilder extends MkBuilder<Widget>
+    with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder, PaddingBuilder {
   final String file;
   bool? matchTextDirection;
   bool? allowDrawingOutsideViewBox;
@@ -31,22 +32,28 @@ class SvgBuilder extends MkBuilder<SvgPicture>
   SvgBuilder._(this.file);
 
   @override
-  SvgPicture get mk => SvgPicture.asset(
-        file,
-        width: size ?? width,
-        bundle: bundle,
-        height: size ?? height,
-        fit: fit ?? BoxFit.contain,
-        excludeFromSemantics: excludeFromSemantics ?? false,
-        allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,
-        matchTextDirection: matchTextDirection ?? false,
-        alignment: alignment ?? Alignment.center,
-        semanticsLabel: semanticsLabel,
-        theme: theme,
-        placeholderBuilder: placeholderBuilder,
-        clipBehavior: clipBehavior ?? Clip.hardEdge,
-        colorFilter: color != null ? ColorFilter.mode(color!, blendMode ?? BlendMode.srcIn) : null,
-      );
+  Widget get mk {
+    Widget child = SvgPicture.asset(
+      file,
+      width: size ?? width,
+      bundle: bundle,
+      height: size ?? height,
+      fit: fit ?? BoxFit.contain,
+      excludeFromSemantics: excludeFromSemantics ?? false,
+      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,
+      matchTextDirection: matchTextDirection ?? false,
+      alignment: alignment ?? Alignment.center,
+      semanticsLabel: semanticsLabel,
+      theme: theme,
+      placeholderBuilder: placeholderBuilder,
+      clipBehavior: clipBehavior ?? Clip.hardEdge,
+      colorFilter: color != null ? ColorFilter.mode(color!, blendMode ?? BlendMode.srcIn) : null,
+    );
+    if (hasPadding) {
+      return Padding(padding: finalPadding!, child: child);
+    }
+    return child;
+  }
 }
 
 extension SvgStringExt on String? {

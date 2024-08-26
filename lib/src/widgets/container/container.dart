@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/base/margin_builder.dart';
 import 'package:flutter_tailwind/src/base/mk_builder.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
@@ -9,13 +10,6 @@ import 'package:flutter_tailwind/tailwind.dart';
 /// describe:
 mixin CompleteDecoration {
   BoxDecoration? decoration;
-}
-mixin ChildBuilder {
-  Widget? _child;
-}
-
-extension ChildBilderExt<T extends ChildBuilder> on T {
-  T child(Widget child) => this.._child = child;
 }
 
 BoxDecorationBuilder get bd => BoxDecorationBuilder();
@@ -128,7 +122,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
 
 ContainerBuilder get container => ContainerBuilder();
 
-class ContainerBuilder extends MkBuilder<Container>
+class ContainerBuilder extends ChildMkBuilder<Container>
     with
         ColorBuilder,
         SizeBuilder,
@@ -139,9 +133,9 @@ class ContainerBuilder extends MkBuilder<Container>
         BoxShapeBuilder,
         AlignmentBuilder,
         ShadowBuilder,
-        ChildBuilder,
         CompleteDecoration,
-        PaddingBuilder {
+        PaddingBuilder,
+        MarginBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -171,7 +165,7 @@ class ContainerBuilder extends MkBuilder<Container>
   Container get mk => Container(
         width: width ?? size,
         height: height ?? size,
-        padding: innerPadding,
+        padding: finalPadding,
         alignment: alignment ?? Alignment.center,
         decoration: decoration ??
             BoxDecoration(
@@ -181,6 +175,25 @@ class ContainerBuilder extends MkBuilder<Container>
               borderRadius: _internalBorderRadius,
               boxShadow: boxShadow,
             ),
-        child: _child,
       );
+
+  @override
+  Container child(Widget child) {
+    return Container(
+      width: width ?? size,
+      height: height ?? size,
+      padding: finalPadding,
+      margin: finalMargin,
+      alignment: alignment ?? Alignment.center,
+      decoration: decoration ??
+          BoxDecoration(
+            color: color,
+            shape: shape ?? BoxShape.rectangle,
+            border: _internalBorder,
+            borderRadius: _internalBorderRadius,
+            boxShadow: boxShadow,
+          ),
+      child: child,
+    );
+  }
 }

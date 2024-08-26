@@ -8,14 +8,6 @@ import 'package:flutter_tailwind/src/base/padding_builder.dart';
 /// describe:
 typedef ItemListFunction<T> = Widget Function(BuildContext context, int index, T item);
 
-mixin ChildrenBuilder {
-  List<Widget>? _children;
-}
-
-extension ChildrenBuilderExt<T extends ChildrenBuilder> on T {
-  T children(List<Widget> children) => this.._children = children;
-}
-
 mixin ScrollFeature {
   Axis? scrollDirection;
   ScrollController? _controller;
@@ -58,7 +50,7 @@ class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature, PaddingBui
       return ListView.separated(
         itemBuilder: builder,
         itemCount: itemCount ?? 0,
-        padding: innerPadding,
+        padding: finalPadding,
         scrollDirection: scrollDirection ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,
@@ -70,7 +62,7 @@ class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature, PaddingBui
     return ListView.builder(
       itemBuilder: builder,
       itemCount: itemCount ?? 0,
-      padding: innerPadding,
+      padding: finalPadding,
       scrollDirection: scrollDirection ?? Axis.vertical,
       controller: _controller,
       reverse: _reverse,
@@ -98,7 +90,7 @@ class GridViewBuilder extends MkBuilder<GridView> with ScrollFeature, PaddingBui
         gridDelegate: gridDelegate,
         itemBuilder: builder,
         itemCount: itemCount ?? 0,
-        padding: innerPadding,
+        padding: finalPadding,
         scrollDirection: scrollDirection ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,

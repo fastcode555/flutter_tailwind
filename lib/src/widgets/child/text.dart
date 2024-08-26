@@ -21,7 +21,13 @@ extension TextBuilderStringExt on String? {
 TextStyleBuilder get ts => TextStyleBuilder();
 
 class TextStyleBuilder extends MkBuilder<TextStyle>
-    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextCommonFeature, CompletedTextStyleBuilder {
+    with
+        ColorBuilder,
+        FontSizeBuilder,
+        FontWeightBuilder,
+        TextCommonFeature,
+        CompletedTextStyleBuilder,
+        TextBaselineBuilder {
   @override
   TextStyle get mk {
     if (style != null) {
@@ -78,7 +84,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
   }
 }
 
-class TextBuilder extends MkBuilder<Text>
+class TextBuilder extends MkBuilder<Widget>
     with
         TextAlignBuilder,
         ColorBuilder,
@@ -87,16 +93,19 @@ class TextBuilder extends MkBuilder<Text>
         TextCommonFeature,
         MaxLineBuilder,
         TextDirectionBuilder,
-        CompletedTextStyleBuilder {
+        CompletedTextStyleBuilder,
+        TextBaselineBuilder,
+        PaddingBuilder {
   final String? value;
 
   TextBuilder._(this.value);
 
   @override
-  Text get mk => Text(
-        value ?? "",
-        style:
-            style /*?.copyWith(
+  Widget get mk {
+    Widget child = Text(
+      value ?? "",
+      style:
+          style /*?.copyWith(
               fontSize: fontSize,
               color: color,
               decoration: decoration,
@@ -120,33 +129,38 @@ class TextBuilder extends MkBuilder<Text>
               fontFeatures: fontFeatures,
               fontVariations: fontVariations,
             ) */
-                ??
-                TextStyle(
-                  fontSize: fontSize,
-                  color: color,
-                  decoration: decoration,
-                  overflow: overflow,
-                  decorationStyle: decorationStyle,
-                  decorationColor: decorationColor,
-                  fontStyle: fontStyle,
-                  fontFamily: fontFamily,
-                  decorationThickness: decorationThickness,
-                  fontWeight: fontWeight,
-                  textBaseline: textBaseline,
-                  fontFamilyFallback: fontFamilyFallback,
-                  letterSpacing: letterSpacing,
-                  wordSpacing: wordSpacing,
-                  height: height,
-                  leadingDistribution: leadingDistribution,
-                  locale: locale,
-                  background: background,
-                  foreground: foreground,
-                  shadows: shadows,
-                  fontFeatures: fontFeatures,
-                  fontVariations: fontVariations,
-                ),
-        textAlign: textAlign,
-        textDirection: textDirection,
-        maxLines: maxLines,
-      );
+              ??
+              TextStyle(
+                fontSize: fontSize,
+                color: color,
+                decoration: decoration,
+                overflow: overflow,
+                decorationStyle: decorationStyle,
+                decorationColor: decorationColor,
+                fontStyle: fontStyle,
+                fontFamily: fontFamily,
+                decorationThickness: decorationThickness,
+                fontWeight: fontWeight,
+                textBaseline: textBaseline,
+                fontFamilyFallback: fontFamilyFallback,
+                letterSpacing: letterSpacing,
+                wordSpacing: wordSpacing,
+                height: height,
+                leadingDistribution: leadingDistribution,
+                locale: locale,
+                background: background,
+                foreground: foreground,
+                shadows: shadows,
+                fontFeatures: fontFeatures,
+                fontVariations: fontVariations,
+              ),
+      textAlign: textAlign,
+      textDirection: textDirection,
+      maxLines: maxLines,
+    );
+    if (hasPadding) {
+      return Padding(padding: finalPadding!, child: child);
+    }
+    return child;
+  }
 }

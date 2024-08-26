@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/src/base/color_builder.dart';
+import 'package:flutter_tailwind/src/base/padding_builder.dart';
 import 'package:flutter_tailwind/src/base/size_builder.dart';
 import 'package:flutter_tailwind/src/base/text_feature.dart';
 
@@ -12,21 +13,27 @@ import '../../base/mk_builder.dart';
 
 IconBuilder icon(IconData icon) => IconBuilder._(icon);
 
-class IconBuilder extends MkBuilder<Icon> with ColorBuilder, TextDirectionBuilder, SizeBuilder {
+class IconBuilder extends MkBuilder<Widget> with ColorBuilder, TextDirectionBuilder, SizeBuilder, PaddingBuilder {
   final IconData icon;
   List<Shadow>? shadows;
 
   IconBuilder._(this.icon);
 
   @override
-  Icon get mk => Icon(
-        icon,
-        size: size ?? height ?? width,
-        color: color,
-        shadows: shadows,
-        textDirection: textDirection,
-        applyTextScaling: false,
-      );
+  Widget get mk {
+    Widget child = Icon(
+      icon,
+      size: size ?? height ?? width,
+      color: color,
+      shadows: shadows,
+      textDirection: textDirection,
+      applyTextScaling: false,
+    );
+    if (hasPadding) {
+      return Padding(padding: finalPadding!, child: child);
+    }
+    return child;
+  }
 }
 
 extension IconStringBuilder on IconData {
