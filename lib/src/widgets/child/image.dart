@@ -50,6 +50,9 @@ class ImageBuilder extends MkBuilder<Widget>
   @override
   Widget get mk {
     if (type == _asset) {
+      if (_heroTag != null && _heroTag!.isNotEmpty) {
+        return Hero(tag: _heroTag!, child: _buildAssetImage());
+      }
       return _buildAssetImage();
     }
     if (isCircle) {

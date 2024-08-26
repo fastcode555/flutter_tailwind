@@ -140,7 +140,8 @@ class ContainerBuilder extends MkBuilder<Container>
         AlignmentBuilder,
         ShadowBuilder,
         ChildBuilder,
-        CompleteDecoration {
+        CompleteDecoration,
+        PaddingBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -170,6 +171,7 @@ class ContainerBuilder extends MkBuilder<Container>
   Container get mk => Container(
         width: width ?? size,
         height: height ?? size,
+        padding: innerPadding,
         alignment: alignment ?? Alignment.center,
         decoration: decoration ??
             BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:example/post_item.dart';
 import 'package:example/res/app_image_config.dart';
 import 'package:example/res/r.dart';
 import 'package:example/res/tailwind_ext.dart';
@@ -135,7 +136,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 .neverScroll
                 .shrinkWrap
                 .reverse
-                .mk
+                .mk,
+            listview(10, (_, __) => const PostItem()).separated(h16).p16.neverScroll.shrinkWrap.mk,
           ],
         ),
       ),

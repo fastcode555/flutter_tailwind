@@ -30,6 +30,8 @@ extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
   T get s200 => this..size = 200.r;
 
   T get s300 => this..size = 300.r;
+
+  T get s121 => this..size = 121.r;
 }
 
 extension TailWindExt<T extends ColorBuilder> on T {

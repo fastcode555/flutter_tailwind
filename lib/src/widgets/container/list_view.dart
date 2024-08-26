@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/src/base/mk_builder.dart';
+import 'package:flutter_tailwind/src/base/padding_builder.dart';
 
 /// Barry
 /// @date 2024/8/24
@@ -45,7 +46,7 @@ extension ScrollFeatureExt<T extends ScrollFeature> on T {
 
 ListViewBuilder listview(int? itemCount, NullableIndexedWidgetBuilder builder) => ListViewBuilder._(itemCount, builder);
 
-class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature {
+class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature, PaddingBuilder {
   final NullableIndexedWidgetBuilder builder;
   final int? itemCount;
 
@@ -57,6 +58,7 @@ class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature {
       return ListView.separated(
         itemBuilder: builder,
         itemCount: itemCount ?? 0,
+        padding: innerPadding,
         scrollDirection: scrollDirection ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,
@@ -68,6 +70,7 @@ class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature {
     return ListView.builder(
       itemBuilder: builder,
       itemCount: itemCount ?? 0,
+      padding: innerPadding,
       scrollDirection: scrollDirection ?? Axis.vertical,
       controller: _controller,
       reverse: _reverse,
@@ -83,7 +86,7 @@ GridViewBuilder gridview(int? itemCount, SliverGridDelegate gridDelegate, Nullab
     GridViewBuilder._(itemCount, gridDelegate, builder);
 
 @deprecated
-class GridViewBuilder extends MkBuilder<GridView> with ScrollFeature {
+class GridViewBuilder extends MkBuilder<GridView> with ScrollFeature, PaddingBuilder {
   final NullableIndexedWidgetBuilder builder;
   final int? itemCount;
   final SliverGridDelegate gridDelegate;
@@ -95,6 +98,7 @@ class GridViewBuilder extends MkBuilder<GridView> with ScrollFeature {
         gridDelegate: gridDelegate,
         itemBuilder: builder,
         itemCount: itemCount ?? 0,
+        padding: innerPadding,
         scrollDirection: scrollDirection ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,

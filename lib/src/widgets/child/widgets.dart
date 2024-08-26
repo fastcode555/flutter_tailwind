@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+EdgeInsetsGeometry p16 = REdgeInsets.all(16);
+EdgeInsetsGeometry p20 = REdgeInsets.all(20);
+
+const Spacer spacer = Spacer();
+const Spacer spacer2 = Spacer(flex: 2);
+const Spacer spacer3 = Spacer(flex: 3);
+const Spacer spacer4 = Spacer(flex: 4);
+const Spacer spacer5 = Spacer(flex: 5);
+
 const SizedBox gapEmpty = SizedBox();
 const HBox h2 = HBox(2);
 const HBox h4 = HBox(4);

@@ -60,6 +60,8 @@ extension BorderRadiusBuilderExt<T extends BorderRadiusBuilder> on T {
 
   T get r26 => this..radius = 26.r;
 
+  T get r25 => this..radius = 25.r;
+
   T get r28 => this..radius = 28.r;
 
   T get r30 => this..radius = 30.r;
