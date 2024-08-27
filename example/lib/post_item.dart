@@ -30,7 +30,7 @@ class PostItem extends StatelessWidget {
               Icons.more_vert_rounded.icon.s26.black.mk,
             ],
           ),
-          "This is my favorite playlist of all time!".text.conther.pt12.mk,
+          "This is my favorite playlist of all time!".text.f14.conther.pt12.mk,
           _image.image.s121.rounded8.shadowMd.borderRedColor.border2.pv12.mk,
           container.p8.rounded8.border1.borderRedColor.pl10.brown.child(
             Row(
