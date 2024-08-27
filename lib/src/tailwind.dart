@@ -1,5 +1,5 @@
-import 'package:flutter_tailwind/src/imageloader/image_loader.dart';
-import 'package:flutter_tailwind/src/imageloader/image_loader_config.dart';
+import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
+import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
 
 /// Barry
 /// @date 2024/8/21

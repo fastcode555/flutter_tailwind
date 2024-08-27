@@ -9,7 +9,7 @@ import 'package:flutter_tailwind/src/base/mk_builder.dart';
 import 'package:flutter_tailwind/src/base/padding_builder.dart';
 import 'package:flutter_tailwind/src/base/shadow_builder.dart';
 import 'package:flutter_tailwind/src/base/size_builder.dart';
-import 'package:flutter_tailwind/src/imageloader/image_loader.dart';
+import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
 
 /// Barry
 /// @date 2024/8/19
