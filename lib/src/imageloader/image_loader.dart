@@ -39,9 +39,13 @@ Widget _buildBorderCircleImage(
         shape: shape,
         border: borderColor != null ? Border.all(color: borderColor, width: border ?? 1.0) : null,
         boxShadow: boxShadow,
+        borderRadius: (shape == BoxShape.circle || radius == null) ? null : BorderRadius.circular(radius),
       ),
       child: child,
     );
+  }
+  if (shape != BoxShape.circle && radius != null) {
+    return ClipRRect(borderRadius: BorderRadius.circular(radius), child: child);
   }
   return child;
 }
@@ -726,43 +730,57 @@ class _Image extends StatelessWidget {
     File imageFile = File(url ?? '');
     bool isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
     if (isFile) {
-      return _buildHeroWidget(heroTag,
-          transitionOnUserGestures: transitionOnUserGestures,
-          child: Image.file(
-            imageFile,
-            fit: fit,
-            cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
-            //cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
-            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-              return errorBuilder != null
-                  ? errorBuilder(context, url ?? '', error)
-                  : _buildHeroWidget(
-                      heroTag,
-                      transitionOnUserGestures: transitionOnUserGestures,
-                      child: Image.asset(errorHolder ?? '', width: width, height: height, fit: fit),
-                    );
-            },
-            width: width,
-            height: height ?? width,
-          ));
+      return _buildBorderCircleImage(
+        border,
+        borderColor,
+        _buildHeroWidget(heroTag,
+            transitionOnUserGestures: transitionOnUserGestures,
+            child: Image.file(
+              imageFile,
+              fit: fit,
+              cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+              //cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+              errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                return errorBuilder != null
+                    ? errorBuilder(context, url ?? '', error)
+                    : _buildHeroWidget(
+                        heroTag,
+                        transitionOnUserGestures: transitionOnUserGestures,
+                        child: Image.asset(errorHolder ?? '', width: width, height: height, fit: fit),
+                      );
+              },
+              width: width,
+              height: height ?? width,
+            )),
+        boxShadow: boxShadow,
+        shape: BoxShape.rectangle,
+        radius: radius,
+      );
     } else {
       return errorHolder != null
-          ? _buildHeroWidget(
-              heroTag,
-              transitionOnUserGestures: transitionOnUserGestures,
-              child: Image.asset(
-                url != null && url!.isNotEmpty ? url! : errorHolder!,
-                width: width,
-                height: height,
-                fit: fit,
-                cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
-                cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
-                errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-                  return errorHolder != null
-                      ? Image.asset(errorHolder ?? '', width: width, height: height, fit: fit)
-                      : (errorBuilder != null ? errorBuilder(context, url ?? '', error) : const SizedBox());
-                },
+          ? _buildBorderCircleImage(
+              border,
+              borderColor,
+              _buildHeroWidget(
+                heroTag,
+                transitionOnUserGestures: transitionOnUserGestures,
+                child: Image.asset(
+                  url != null && url!.isNotEmpty ? url! : errorHolder!,
+                  width: width,
+                  height: height,
+                  fit: fit,
+                  cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+                  cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+                  errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+                    return errorHolder != null
+                        ? Image.asset(errorHolder ?? '', width: width, height: height, fit: fit)
+                        : (errorBuilder != null ? errorBuilder(context, url ?? '', error) : const SizedBox());
+                  },
+                ),
               ),
+              boxShadow: boxShadow,
+              shape: BoxShape.rectangle,
+              radius: radius,
             )
           : errorBuilder!(context, url ?? '', Object());
     }
@@ -798,6 +816,7 @@ class _Image extends StatelessWidget {
                 cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
               ),
             ),
+            radius: radius,
             shape: BoxShape.rectangle,
             boxShadow: boxShadow,
           );
@@ -820,17 +839,24 @@ class _Image extends StatelessWidget {
     }
     //有设置方法型,优先加载errorHolder,
     if (errorHolder != null) {
-      return (context, url, error) => _buildHeroWidget(
-            heroTag,
-            transitionOnUserGestures: transitionOnUserGestures,
-            child: Image.asset(
-              errorHolder ?? '',
-              width: width,
-              height: height,
-              fit: fit,
-              cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
-              cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+      return (context, url, error) => _buildBorderCircleImage(
+            border,
+            borderColor,
+            _buildHeroWidget(
+              heroTag,
+              transitionOnUserGestures: transitionOnUserGestures,
+              child: Image.asset(
+                errorHolder ?? '',
+                width: width,
+                height: height,
+                fit: fit,
+                cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+                cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+              ),
             ),
+            radius: radius,
+            shape: BoxShape.rectangle,
+            boxShadow: boxShadow,
           );
     }
     //没有使用默认的
