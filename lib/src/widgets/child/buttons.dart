@@ -93,7 +93,7 @@ class TextButtonBuilder extends ButtonBuilder {
       onPressed: onTap,
       icon: _icon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
   }
 }
@@ -108,7 +108,7 @@ class OutlinedButtonBuilder extends ButtonBuilder {
       style: _buttonStyle,
       icon: _icon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
   }
 }
@@ -123,7 +123,7 @@ class ElevatedButtonBuilder extends ButtonBuilder {
       style: _buttonStyle,
       icon: _icon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
   }
 }
