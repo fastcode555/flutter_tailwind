@@ -55,7 +55,7 @@ class BoxDecorationBuilder
   BoxDecoration get mk =>
       decoration ??
       BoxDecoration(
-        color: color,
+        color: innerColor,
         image: _image,
         border: _internalBorder,
         borderRadius: _internalBorderRadius,
@@ -67,7 +67,7 @@ class BoxDecorationBuilder
 }
 
 extension BoxDecorationBuilderColorExt on Color {
-  BoxDecorationBuilder get bd => BoxDecorationBuilder()..color = this;
+  BoxDecorationBuilder get bd => BoxDecorationBuilder()..innerColor = this;
 }
 
 extension BoxDecorationBuilderExt on BoxDecorationBuilder {
@@ -75,7 +75,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
 
   BoxDecorationBuilder gradient(Gradient gradient) => this.._gradient = gradient;
 
-  BoxDecorationBuilder bg(Color? color) => this..color = color;
+  BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
 
   BoxDecorationBuilder file(String filePath) => this.._image = DecorationImage(image: FileImage(File(filePath)));
 
@@ -169,7 +169,7 @@ class ContainerBuilder extends ChildMkBuilder<Container>
         alignment: alignment ?? Alignment.center,
         decoration: decoration ??
             BoxDecoration(
-              color: color,
+              color: innerColor,
               shape: shape ?? BoxShape.rectangle,
               border: _internalBorder,
               borderRadius: _internalBorderRadius,
@@ -187,7 +187,7 @@ class ContainerBuilder extends ChildMkBuilder<Container>
       alignment: alignment ?? Alignment.center,
       decoration: decoration ??
           BoxDecoration(
-            color: color,
+            color: innerColor,
             shape: shape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,

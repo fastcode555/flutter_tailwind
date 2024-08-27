@@ -40,99 +40,97 @@ extension SizeExt<T extends SizeBuilder> on T {
 }
 
 extension ColorExt<T extends ColorBuilder> on T {
-  T get secondaryColor => this..color = Colours.secondaryColor;
+  T get secondaryColor => this..color(Colours.secondaryColor);
 
-  T get appMain => this..color = Colours.appMain;
+  T get appMain => this..color(Colours.appMain);
 
-  T get gray33 => this..color = Colours.gray33;
+  T get gray33 => this..color(Colours.gray33);
 
-  T get gray99 => this..color = Colours.gray99;
+  T get gray99 => this..color(Colours.gray99);
 
-  T get mainTextColor => this..color = Colours.mainTextColor;
+  T get mainTextColor => this..color(Colours.mainTextColor);
 
-  T get textHintColor => this..color = Colours.textHintColor;
+  T get textHintColor => this..color(Colours.textHintColor);
 
-  T get lineColor => this..color = Colours.lineColor;
+  T get lineColor => this..color(Colours.lineColor);
 
-  T get blue => this..color = Colours.blue;
+  T get colorE8e8e8 => this..color(Colours.colorE8e8e8);
 
-  T get colorE8e8e8 => this..color = Colours.colorE8e8e8;
+  T get color11151C => this..color(Colours.color11151C);
 
-  T get color11151C => this..color = Colours.color11151C;
+  T get colorFfbd49 => this..color(Colours.colorFfbd49);
 
-  T get colorFfbd49 => this..color = Colours.colorFfbd49;
+  T get colorFE2042 => this..color(Colours.colorFE2042);
 
-  T get colorFE2042 => this..color = Colours.colorFE2042;
+  T get backgroundColor => this..color(Colours.backgroundColor);
 
-  T get backgroundColor => this..color = Colours.backgroundColor;
+  T get disableColor => this..color(Colours.disableColor);
 
-  T get disableColor => this..color = Colours.disableColor;
+  T get mainText2 => this..color(Colours.mainText2);
 
-  T get mainText2 => this..color = Colours.mainText2;
+  T get x00212639 => this..color(Colours.x00212639);
 
-  T get x00212639 => this..color = Colours.x00212639;
+  T get primary => this..color(Colours.primary);
 
-  T get primary => this..color = Colours.primary;
+  T get x26ffffff => this..color(Colours.x26ffffff);
 
-  T get x26ffffff => this..color = Colours.x26ffffff;
+  T get redColor => this..color(Colours.redColor);
 
-  T get redColor => this..color = Colours.redColor;
+  T get transparent => this..color(Colours.transparent);
 
-  T get transparent => this..color = Colours.transparent;
+  T get ccfa94fb => this..color(Colours.ccfa94fb);
 
-  T get ccfa94fb => this..color = Colours.ccfa94fb;
+  T get ccad83e4 => this..color(Colours.ccad83e4);
 
-  T get ccad83e4 => this..color = Colours.ccad83e4;
+  T get ccfdf194 => this..color(Colours.ccfdf194);
 
-  T get ccfdf194 => this..color = Colours.ccfdf194;
+  T get ff4d4d4d => this..color(Colours.ff4d4d4d);
 
-  T get ff4d4d4d => this..color = Colours.ff4d4d4d;
+  T get ff2e3a56 => this..color(Colours.ff2e3a56);
 
-  T get ff2e3a56 => this..color = Colours.ff2e3a56;
+  T get btnDisableColor => this..color(Colours.btnDisableColor);
 
-  T get btnDisableColor => this..color = Colours.btnDisableColor;
+  T get unselectedColor => this..color(Colours.unselectedColor);
 
-  T get unselectedColor => this..color = Colours.unselectedColor;
+  T get blueAccent => this..color(Colours.blueAccent);
 
-  T get blueAccent => this..color = Colours.blueAccent;
+  T get purpleAccent => this..color(Colours.purpleAccent);
 
-  T get purpleAccent => this..color = Colours.purpleAccent;
+  T get unSelectedColor => this..color(Colours.unSelectedColor);
 
-  T get unSelectedColor => this..color = Colours.unSelectedColor;
+  T get gray => this..color(Colours.gray);
 
-  T get gray => this..color = Colours.gray;
+  T get ff0c4e5f => this..color(Colours.ff0c4e5f);
 
-  T get ff0c4e5f => this..color = Colours.ff0c4e5f;
+  T get ff172f35 => this..color(Colours.ff172f35);
 
-  T get ff172f35 => this..color = Colours.ff172f35;
+  T get ff333333 => this..color(Colours.ff333333);
 
-  T get ff333333 => this..color = Colours.ff333333;
+  T get ff363636 => this..color(Colours.ff363636);
 
-  T get ff363636 => this..color = Colours.ff363636;
+  T get ffb7d547 => this..color(Colours.ffb7d547);
 
-  T get ffb7d547 => this..color = Colours.ffb7d547;
+  T get fff46b29 => this..color(Colours.fff46b29);
 
-  T get fff46b29 => this..color = Colours.fff46b29;
+  T get redFF5F5F => this..color(Colours.redFF5F5F);
 
-  T get redFF5F5F => this..color = Colours.redFF5F5F;
+  T get appbarActiveColor => this..color(Colours.appbarActiveColor);
 
-  T get appbarActiveColor => this..color = Colours.appbarActiveColor;
+  T get orange => this..color(Colours.orange);
 
-  T get orange => this..color = Colours.orange;
+  T get colorGrey => this..color(Colours.colorGrey);
 
-  T get colorGrey => this..color = Colours.colorGrey;
+  T get colorGrey495057 => this..color(Colours.colorGrey495057);
 
-  T get colorGrey495057 => this..color = Colours.colorGrey495057;
+  T get colorBlack494949 => this..color(Colours.colorBlack494949);
 
-  T get colorBlack494949 => this..color = Colours.colorBlack494949;
+  T get colorRed3A28 => this..color(Colours.colorRed3A28);
 
-  T get colorRed3A28 => this..color = Colours.colorRed3A28;
+  T get colorWhiteF8F9FA => this..color(Colours.colorWhiteF8F9FA);
 
-  T get colorWhiteF8F9FA => this..color = Colours.colorWhiteF8F9FA;
+  T get colorWhiteF5F5 => this..color(Colours.colorWhiteF5F5);
 
-  T get colorWhiteF5F5 => this..color = Colours.colorWhiteF5F5;
-
-  T get colorGreyF0F0 => this..color = Colours.colorGreyF0F0;
+  T get colorGreyF0F0 => this..color(Colours.colorGreyF0F0);
 }
 
 extension BorderColorExt<T extends BorderColorBuilder> on T {
@@ -149,8 +147,6 @@ extension BorderColorExt<T extends BorderColorBuilder> on T {
   T get borderTextHintColor => this..border(Colours.textHintColor);
 
   T get borderLineColor => this..border(Colours.lineColor);
-
-  T get borderBlue => this..border(Colours.blue);
 
   T get borderColorE8e8e8 => this..border(Colours.colorE8e8e8);
 

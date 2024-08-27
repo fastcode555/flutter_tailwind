@@ -20,6 +20,10 @@ mixin BorderRadiusBuilder {
         bottomLeft: Radius.circular(bottomLeft ?? radius ?? 0.0),
         bottomRight: Radius.circular(bottomRight ?? radius ?? 0.0),
       );
+
+  WidgetStateProperty<OutlinedBorder?>? get buttonShape {
+    return WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 0)));
+  }
 }
 
 extension BorderRadiusBuilderExt<T extends BorderRadiusBuilder> on T {

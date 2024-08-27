@@ -19,6 +19,10 @@ abstract class ChildrenBuilder<T> {
   T children(List<Widget> children);
 }
 
+abstract class ClickBuilder<T> {
+  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress});
+}
+
 extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
     return GestureDetector(

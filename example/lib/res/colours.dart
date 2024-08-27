@@ -10,7 +10,6 @@ class Colours {
   static const Color mainTextColor = Color(0XFF595757);
   static const Color textHintColor = Color(0xFF858D9D);
   static const Color lineColor = Color(0xFFA3A3A4);
-  static const Color blue = Color(0xFF445FF8);
   static const Color colorE8e8e8 = Color(0xffe8e8f0);
   static const Color color11151C = Color(0xFF11151C);
   static const Color colorFfbd49 = Color(0xFFffbd49);

@@ -2,7 +2,6 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 
 export 'src/base/alignment_builder.dart';
 export 'src/base/blend_mode_builder.dart';
-export 'src/base/border_color_builder.dart';
 export 'src/base/border_radius_builder.dart';
 export 'src/base/border_width_builder.dart';
 export 'src/base/clip_builder.dart';

@@ -59,7 +59,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
     }
     return TextStyle(
       fontSize: fontSize,
-      color: color,
+      color: innerColor,
       decoration: decoration,
       overflow: overflow,
       decorationStyle: decorationStyle,
@@ -132,7 +132,7 @@ class TextBuilder extends MkBuilder<Widget>
               ??
               TextStyle(
                 fontSize: fontSize,
-                color: color,
+                color: innerColor,
                 decoration: decoration,
                 overflow: overflow,
                 decorationStyle: decorationStyle,

@@ -24,7 +24,7 @@ class IconBuilder extends MkBuilder<Widget> with ColorBuilder, TextDirectionBuil
     Widget child = Icon(
       icon,
       size: size ?? height ?? width,
-      color: color,
+      color: innerColor,
       shadows: shadows,
       textDirection: textDirection,
       applyTextScaling: false,

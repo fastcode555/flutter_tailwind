@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/src/base/alignment_builder.dart';
-import 'package:flutter_tailwind/src/base/blend_mode_builder.dart';
-import 'package:flutter_tailwind/src/base/border_color_builder.dart';
-import 'package:flutter_tailwind/src/base/border_radius_builder.dart';
-import 'package:flutter_tailwind/src/base/border_width_builder.dart';
-import 'package:flutter_tailwind/src/base/image_feature.dart';
-import 'package:flutter_tailwind/src/base/mk_builder.dart';
-import 'package:flutter_tailwind/src/base/padding_builder.dart';
-import 'package:flutter_tailwind/src/base/shadow_builder.dart';
-import 'package:flutter_tailwind/src/base/size_builder.dart';
-import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
+import 'package:flutter_tailwind/tailwind.dart';
 
 /// Barry
 /// @date 2024/8/19

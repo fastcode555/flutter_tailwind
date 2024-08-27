@@ -47,7 +47,7 @@ class SvgBuilder extends MkBuilder<Widget>
       theme: theme,
       placeholderBuilder: placeholderBuilder,
       clipBehavior: clipBehavior ?? Clip.hardEdge,
-      colorFilter: color != null ? ColorFilter.mode(color!, blendMode ?? BlendMode.srcIn) : null,
+      colorFilter: innerColor != null ? ColorFilter.mode(innerColor!, blendMode ?? BlendMode.srcIn) : null,
     );
     if (hasPadding) {
       return Padding(padding: finalPadding!, child: child);

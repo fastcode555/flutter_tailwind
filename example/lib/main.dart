@@ -1,5 +1,6 @@
 import 'package:example/post_item.dart';
 import 'package:example/res/app_image_config.dart';
+import 'package:example/res/colours.dart';
 import 'package:example/res/r.dart';
 import 'package:example/res/tailwind_ext.dart';
 import 'package:flutter/material.dart';
@@ -129,6 +130,54 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             container.s100.circle.orangeAccent.borderBrown.cardShadow.border5.mk,
             container.s100.circle.amberAccent.borderBrown.cardShadow.center.border5.child(const Text("I'm hero")),
+            TextButton(
+              onPressed: () {},
+              child: const Text("Text Button"),
+            ),
+            "Text Button".textButton.click(onTap: () {}),
+            TextButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.blue), // 背景颜色
+                foregroundColor: WidgetStateProperty.all(Colors.white), // 文本颜色
+                side: WidgetStateProperty.all(const BorderSide(color: Colors.black, width: 2.0)),
+              ),
+              child: const Text("Text Button"),
+            ),
+            "Text Button".textButton.textWhite.redAccent.borderGreen.click(),
+            "Text Button".textButton.yellow.rounded8.borderGreen.click(),
+            "Text Button".textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(),
+            ElevatedButton(onPressed: () {}, child: const Text('Elevated Button')),
+            'Elevated Button'.elevatedButton.click(onTap: () {}),
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.blue), // 背景颜色
+                foregroundColor: WidgetStateProperty.all(Colors.white), // 文本颜色
+              ),
+              child: const Text('Elevated Button'),
+            ),
+            'Elevated Button'.elevatedButton.blue.textWhite.click(),
+            'Elevated Button'.elevatedButton.blue.borderRedColor.textWhite.click(),
+
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text('Outline Button'),
+            ),
+            "Outline Button".outlinedButton.click(onTap: () {}),
+            OutlinedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.blue), // 背景颜色
+                foregroundColor: WidgetStateProperty.all(Colors.white), // 文本颜色
+                side: WidgetStateProperty.all(
+                  const BorderSide(color: Colors.red, width: 2),
+                ),
+              ),
+              child: const Text('Outline Button'),
+            ),
+            "Outline Button".outlinedButton.borderRedColor.textWhite.blue.border2.click(onTap: () {}),
+            "Outline Button".outlinedButton.borderRedColor.border2.click(onTap: () {}),
             listview(3, _itemBuilder).neverScroll.shrinkWrap.reverse.mk,
             listview(3, _itemBuilder).neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).mk,
             gridview(5, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), _itemBuilder)
