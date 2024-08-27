@@ -74,6 +74,7 @@ class ImageBuilder extends MkBuilder<Widget>
         borderColor: borderColor,
         border: borderWidth,
         heroTag: _heroTag,
+        boxShadow: boxShadow,
       );
     }
     if (hasRadius) {
@@ -86,6 +87,7 @@ class ImageBuilder extends MkBuilder<Widget>
         heroTag: _heroTag,
         borderColor: borderColor,
         border: borderWidth,
+        boxShadow: boxShadow,
       );
     }
     return ImageLoader.image(
@@ -96,11 +98,12 @@ class ImageBuilder extends MkBuilder<Widget>
       heroTag: _heroTag,
       borderColor: borderColor,
       border: borderWidth,
+      boxShadow: boxShadow,
     );
   }
 
   Widget _buildAssetImage() {
-    if (borderColor != null) {
+    if (borderColor != null || boxShadow != null) {
       return Container(
         width: size ?? width,
         height: size ?? height,

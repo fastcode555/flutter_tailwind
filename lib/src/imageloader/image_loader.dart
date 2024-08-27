@@ -31,13 +31,14 @@ Widget _buildBorderCircleImage(
   Widget child, {
   BoxShape shape = BoxShape.circle,
   double? radius,
+  List<BoxShadow>? boxShadow,
 }) {
-  if (borderColor != null && border != null && border > 0) {
+  if ((borderColor != null && border != null && border > 0) || boxShadow != null) {
     return Container(
       decoration: BoxDecoration(
         shape: shape,
-        border: Border.all(color: borderColor, width: border),
-        color: borderColor,
+        border: borderColor != null ? Border.all(color: borderColor, width: border ?? 1.0) : null,
+        boxShadow: boxShadow,
       ),
       child: child,
     );
@@ -156,6 +157,8 @@ class ImageLoader extends StatelessWidget {
 
   bool get _canLoadImage => notification == null || notification == ScrollEndNotification;
 
+  final List<BoxShadow>? boxShadow;
+
   //普通图片
   ImageLoader.image(
     this.url, {
@@ -177,6 +180,7 @@ class ImageLoader extends StatelessWidget {
     this.useSingleCache = false,
     this.fadeOutDuration,
     this.fadeInDuration,
+    this.boxShadow,
   }) {
     _width = width;
     _height = height;
@@ -203,6 +207,7 @@ class ImageLoader extends StatelessWidget {
     this.useSingleCache = false,
     this.fadeOutDuration,
     this.fadeInDuration,
+    this.boxShadow,
   }) {
     _radius = radius;
     _type = typeCircle;
@@ -231,6 +236,7 @@ class ImageLoader extends StatelessWidget {
     this.useSingleCache = false,
     this.fadeOutDuration,
     this.fadeInDuration,
+    this.boxShadow,
   }) {
     _radius = radius;
     _type = typeRoundCorner;
@@ -263,6 +269,7 @@ class ImageLoader extends StatelessWidget {
     this.useSingleCache = false,
     this.fadeOutDuration,
     this.fadeInDuration,
+    this.boxShadow,
   }) {
     _radius = radius;
     _type = typeBlur;
@@ -317,6 +324,7 @@ class ImageLoader extends StatelessWidget {
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
         radius: _radius,
+        boxShadow: boxShadow,
       );
     } else if (_type == typeCircle) {
       if (_radius == null || _radius == 0) {
@@ -340,6 +348,7 @@ class ImageLoader extends StatelessWidget {
                 fadeInDuration: fadeInDuration,
                 fadeOutDuration: fadeOutDuration,
                 radius: _radius,
+                boxShadow: boxShadow,
               ),
             );
           },
@@ -359,6 +368,7 @@ class ImageLoader extends StatelessWidget {
         borderColor: borderColor,
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
+        boxShadow: boxShadow,
       );
     } else if (_type == typeRoundCorner) {
       Widget image = _Image(
@@ -378,6 +388,7 @@ class ImageLoader extends StatelessWidget {
         fadeOutDuration: fadeOutDuration,
         radius: _radius,
         heroTag: heroTag,
+        boxShadow: boxShadow,
       );
       if (borderColor != null) {
         return image;
@@ -410,6 +421,7 @@ class ImageLoader extends StatelessWidget {
                 fadeInDuration: fadeInDuration,
                 height: _height,
                 radius: _radius,
+                boxShadow: boxShadow,
               ),
             ),
             ClipRRect(
@@ -442,6 +454,7 @@ class _CircleImage extends StatelessWidget {
   final bool useSingleCache;
   final Duration? fadeInDuration;
   final Duration? fadeOutDuration;
+  final List<BoxShadow>? boxShadow;
 
   const _CircleImage(
     this.url, {
@@ -458,6 +471,7 @@ class _CircleImage extends StatelessWidget {
     this.transitionOnUserGestures = false,
     this.fadeInDuration,
     this.fadeOutDuration,
+    this.boxShadow,
   });
 
   int? _getMemCacheWidth() {
@@ -488,14 +502,14 @@ class _CircleImage extends StatelessWidget {
         fadeOutDuration: fadeOutDuration ?? const Duration(milliseconds: 1000),
         fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 500),
         imageBuilder: (context, imageProvider) {
-          if (borderColor != null && border != null && border! > 0) {
+          if ((borderColor != null && border != null && border! > 0) || boxShadow != null) {
             return Container(
               width: radius! * 2,
               height: radius! * 2,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                border: Border.all(color: borderColor!, width: border!),
-                color: borderColor,
+                boxShadow: boxShadow,
+                border: borderColor != null ? Border.all(color: borderColor!, width: border ?? 1.0) : null,
                 image: DecorationImage(image: imageProvider, fit: fit),
               ),
             );
@@ -512,6 +526,7 @@ class _CircleImage extends StatelessWidget {
                 backgroundColor: Colors.transparent,
               ),
             ),
+            boxShadow: boxShadow,
           );
         },
         placeholder: placeHolder != null
@@ -527,6 +542,7 @@ class _CircleImage extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                     ),
                   ),
+                  boxShadow: boxShadow,
                 )
             : finalPlaceBuilder,
         errorWidget: errorHolder != null
@@ -542,6 +558,7 @@ class _CircleImage extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                     ),
                   ),
+                  boxShadow: boxShadow,
                 )
             : finalErrorBuilder,
       );
@@ -576,6 +593,7 @@ class _CircleImage extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                   ),
                 ),
+                boxShadow: boxShadow,
               )
             : finalErrorBuilder!(context, url ?? "", Object());
       }
@@ -601,6 +619,7 @@ class _Image extends StatelessWidget {
   final Duration? fadeOutDuration;
   final Duration? fadeInDuration;
   final double? radius;
+  final List<BoxShadow>? boxShadow;
 
   const _Image(
     this.url, {
@@ -620,6 +639,7 @@ class _Image extends StatelessWidget {
     this.fadeOutDuration,
     this.fadeInDuration,
     this.radius,
+    this.boxShadow,
   });
 
   int? _getMemCacheWidth(double? width) {
@@ -657,15 +677,15 @@ class _Image extends StatelessWidget {
         memCacheWidth: _getMemCacheWidth(finalW),
         memCacheHeight: _getMemCacheHeight(finalH),
         imageBuilder: (context, imageProvider) {
-          if (borderColor != null && border != null && border! > 0) {
+          if ((borderColor != null && border != null && border! > 0) || boxShadow != null) {
             return _buildHeroWidget(
               heroTag,
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: borderColor!, width: border!),
-                  color: borderColor,
+                  border: borderColor != null ? Border.all(color: borderColor!, width: border ?? 1.0) : null,
                   borderRadius: BorderRadius.circular(radius ?? 0.0),
                   image: DecorationImage(image: imageProvider, fit: fit),
+                  boxShadow: boxShadow,
                 ),
               ),
             );
@@ -689,6 +709,7 @@ class _Image extends StatelessWidget {
             ),
             shape: BoxShape.rectangle,
             radius: radius,
+            boxShadow: boxShadow,
           );
         },
         placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
@@ -778,6 +799,7 @@ class _Image extends StatelessWidget {
               ),
             ),
             shape: BoxShape.rectangle,
+            boxShadow: boxShadow,
           );
     }
     //没有使用默认的
@@ -828,6 +850,7 @@ class _Image extends StatelessWidget {
       borderColor: borderColor,
       errorHolder: errorHolder,
       radius: radius,
+      boxShadow: boxShadow,
     );
   }
 }
