@@ -146,7 +146,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             "Text Button".textButton.textWhite.redAccent.borderGreen.click(),
             "Text Button".textButton.yellow.rounded8.borderGreen.click(),
-            "Text Button".textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(),
+            "Text Button".textButton.yellow.icon(Icons.ac_unit).rounded8.borderGreen.click(onTap: () {}),
+            "Text Button".textButton.yellow.icon(Icons.ac_unit).end.rounded8.borderGreen.click(onTap: () {}),
+            "Text Button".textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(onTap: () {}),
             ElevatedButton(onPressed: () {}, child: const Text('Elevated Button')),
             'Elevated Button'.elevatedButton.click(onTap: () {}),
             ElevatedButton(
@@ -158,7 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('Elevated Button'),
             ),
             'Elevated Button'.elevatedButton.blue.textWhite.click(),
-            'Elevated Button'.elevatedButton.blue.borderRedColor.textWhite.click(),
+            'Elevated Button'.elevatedButton.icon(Icons.ac_unit).blue.borderRedColor.textWhite.click(),
+            'Elevated Button'.elevatedButton.icon(Icons.ac_unit).end.blue.borderRedColor.textWhite.click(),
 
             OutlinedButton(
               onPressed: () {},
@@ -178,6 +181,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             "Outline Button".outlinedButton.borderRedColor.textWhite.blue.border2.click(onTap: () {}),
             "Outline Button".outlinedButton.borderRedColor.border2.click(onTap: () {}),
+            "Outline Button".outlinedButton.icon(Icons.ac_unit).borderRedColor.border2.click(onTap: () {}),
+            "Outline Button".outlinedButton.icon(Icons.ac_unit).end.borderRedColor.border2.click(onTap: () {}),
             listview(3, _itemBuilder).neverScroll.shrinkWrap.reverse.mk,
             listview(3, _itemBuilder).neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).mk,
             gridview(5, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), _itemBuilder)

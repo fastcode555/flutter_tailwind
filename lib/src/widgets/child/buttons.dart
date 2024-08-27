@@ -9,6 +9,26 @@ import 'package:flutter_tailwind/src/widgets/child/text.dart';
 /// @date 2024/8/27
 /// describe:
 
+mixin ButtonIconBuilder {
+  Widget? _icon;
+  IconAlignment? _iconAlignment;
+}
+
+extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
+  T get start => this.._iconAlignment = IconAlignment.start;
+
+  T get end => this.._iconAlignment = IconAlignment.end;
+
+  T icon(dynamic icon) {
+    if (icon is IconData) {
+      _icon = Icon(icon);
+    } else if (icon is Widget) {
+      _icon = icon;
+    }
+    return this;
+  }
+}
+
 TextButtonBuilder textButton(String text) => TextButtonBuilder._(text);
 
 OutlinedButtonBuilder outlinedButton(String text) => OutlinedButtonBuilder._(text);
@@ -30,7 +50,8 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         CompletedTextStyleBuilder,
         BorderRadiusBuilder,
         BorderWidthBuilder,
-        BorderColorBuilder {
+        BorderColorBuilder,
+        ButtonIconBuilder {
   final String text;
 
   ButtonStyle? get _buttonStyle {
@@ -66,10 +87,11 @@ class TextButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
-    return TextButton(
+    return TextButton.icon(
       onPressed: onTap,
-      style: _buttonStyle,
-      child: Text(super.text, style: style),
+      icon: _icon,
+      iconAlignment: _iconAlignment ?? IconAlignment.start,
+      label: Text(super.text, style: style),
     );
   }
 }
@@ -79,10 +101,12 @@ class OutlinedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
-    return OutlinedButton(
+    return OutlinedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
-      child: Text(super.text, style: style),
+      icon: _icon,
+      iconAlignment: _iconAlignment ?? IconAlignment.start,
+      label: Text(super.text, style: style),
     );
   }
 }
@@ -92,10 +116,12 @@ class ElevatedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
-    return ElevatedButton(
+    return ElevatedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
-      child: Text(super.text, style: style),
+      icon: _icon,
+      iconAlignment: _iconAlignment ?? IconAlignment.start,
+      label: Text(super.text, style: style),
     );
   }
 }
