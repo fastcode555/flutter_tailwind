@@ -18,7 +18,9 @@ class PostItem extends StatelessWidget {
         [
           Row(
             children: [
-              _avatar.image.s50.circle.shadowMd.borderRed.border2.pr6.mk,
+              _avatar.image.s50.circle.shadowMd.borderRed.border2.pr6.click(
+                onTap: () => debugPrint("You are hero"),
+              ),
               column.crossStart.expanded.children(
                 [
                   ("Naruto" * 15).text.f16.conther.maxLine1.ellipsis.bold.mk,

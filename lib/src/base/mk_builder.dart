@@ -15,10 +15,38 @@ abstract class ChildBuilder<T> {
   T child(Widget child);
 }
 
-abstract class ChildrenMkBuilder<T> extends MkBuilder<T> {
+abstract class ChildrenBuilder<T> {
   T children(List<Widget> children);
 }
 
-abstract class ChildrenBuilder<T> {
-  T children(List<Widget> children);
+extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
+  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.translucent,
+      onLongPress: onLongPress,
+      child: mk,
+    );
+  }
+
+  Widget inkwellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+    return InkWell(onTap: onTap, onLongPress: onLongPress, child: mk);
+  }
+
+  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: mk);
+}
+
+extension ClickListenerExt on Widget {
+  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.translucent,
+      onLongPress: onLongPress,
+      child: this,
+    );
+  }
+
+  Widget inkwellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+    return InkWell(onTap: onTap, onLongPress: onLongPress, child: this);
+  }
 }
