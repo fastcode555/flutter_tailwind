@@ -18,7 +18,7 @@ class PostItem extends StatelessWidget {
         [
           Row(
             children: [
-              _avatar.image.s50.circle.cardShadow.borderRed.border2.pr6.mk,
+              _avatar.image.s50.circle.shadowMd.borderRed.border2.pr6.mk,
               column.crossStart.expanded.children(
                 [
                   ("Naruto" * 15).text.f16.maxLine1.ellipsis.bold.mk,
@@ -29,7 +29,7 @@ class PostItem extends StatelessWidget {
             ],
           ),
           "This is my favorite playlist of all time!".text.pt12.mk,
-          _image.image.s121.rounded8.cardShadow.borderRedColor.border2.pv12.mk,
+          _image.image.s121.rounded8.shadowMd.borderRedColor.border2.pv12.mk,
           container.p8.rounded8.border1.borderRedColor.pl10.brown.child(
             Row(
               children: [

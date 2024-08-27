@@ -22,8 +22,8 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
   T get shadowSm => this
     ..boxShadow = const [
       BoxShadow(
-        color: Color(0x0D000000), // 相当于 Colors.black.withOpacity(0.05)
-        offset: Offset(0, 1),
+        color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.05)
+        offset: Offset(0, 2),
         blurRadius: 2.0,
         spreadRadius: 0.0,
       )
@@ -33,9 +33,9 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
   T get shadowMd => this
     ..boxShadow = const [
       BoxShadow(
-        color: Color(0x1A000000), // 相当于 Colors.black.withOpacity(0.1)
-        offset: Offset(0, 4),
-        blurRadius: 6.0,
+        color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.1)
+        offset: Offset(4, 4),
+        blurRadius: 4.0,
         spreadRadius: 0.0,
       )
     ];
@@ -44,9 +44,9 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
   T get shadowLg => this
     ..boxShadow = const [
       BoxShadow(
-        color: Color(0x1A000000), // 相当于 Colors.black.withOpacity(0.1)
-        offset: Offset(0, 10),
-        blurRadius: 15.0,
+        color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.1)
+        offset: Offset(8, 8),
+        blurRadius: 8.0,
         spreadRadius: -3.0,
       )
     ];
@@ -55,9 +55,9 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
   T get shadowXl => this
     ..boxShadow = const [
       BoxShadow(
-        color: Color(0x1A000000), // 相当于 Colors.black.withOpacity(0.1)
-        offset: Offset(0, 20),
-        blurRadius: 25.0,
+        color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.1)
+        offset: Offset(12, 12),
+        blurRadius: 12.0,
         spreadRadius: -5.0,
       )
     ];
