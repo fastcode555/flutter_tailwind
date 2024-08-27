@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/src/base/border_radius_builder.dart';
-import 'package:flutter_tailwind/src/base/border_width_builder.dart';
-import 'package:flutter_tailwind/src/base/color_builder.dart';
-import 'package:flutter_tailwind/src/base/mk_builder.dart';
-import 'package:flutter_tailwind/src/widgets/child/text.dart';
+import 'package:flutter_tailwind/tailwind.dart';
 
 /// Barry
 /// @date 2024/8/27
@@ -29,11 +25,17 @@ extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
   }
 }
 
+extension IconDataExt on IconData {
+  IconButtonBuilder get iconButton => IconButtonBuilder._(this);
+}
+
 TextButtonBuilder textButton(String text) => TextButtonBuilder._(text);
 
 OutlinedButtonBuilder outlinedButton(String text) => OutlinedButtonBuilder._(text);
 
 ElevatedButtonBuilder elevatedButton(String text) => ElevatedButtonBuilder._(text);
+
+IconButtonBuilder iconButton(dynamic icon) => IconButtonBuilder._(icon);
 
 extension ButtonStringExt on String? {
   TextButtonBuilder get textButton => TextButtonBuilder._(this ?? "");
@@ -86,7 +88,7 @@ class TextButtonBuilder extends ButtonBuilder {
   TextButtonBuilder._(super.text);
 
   @override
-  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+  Widget click({GestureTapCallback? onTap}) {
     return TextButton.icon(
       onPressed: onTap,
       icon: _icon,
@@ -100,7 +102,7 @@ class OutlinedButtonBuilder extends ButtonBuilder {
   OutlinedButtonBuilder._(super.text);
 
   @override
-  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+  Widget click({GestureTapCallback? onTap}) {
     return OutlinedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
@@ -115,13 +117,34 @@ class ElevatedButtonBuilder extends ButtonBuilder {
   ElevatedButtonBuilder._(super.text);
 
   @override
-  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+  Widget click({GestureTapCallback? onTap}) {
     return ElevatedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
       icon: _icon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style),
+    );
+  }
+}
+
+class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorBuilder, SizeBuilder {
+  final dynamic icon;
+
+  IconButtonBuilder._(this.icon);
+
+  @override
+  Widget click({GestureTapCallback? onTap}) {
+    Widget? child;
+    if (icon is IconData) {
+      child = Icon(icon, size: size ?? width ?? height, color: innerColor);
+    } else if (icon is Widget) {
+      child = icon;
+    }
+    return IconButton(
+      onPressed: onTap,
+      icon: child ?? gapEmpty,
+      padding: finalPadding,
     );
   }
 }

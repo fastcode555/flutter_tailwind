@@ -20,7 +20,7 @@ abstract class ChildrenBuilder<T> {
 }
 
 abstract class ClickBuilder<T> {
-  Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress});
+  Widget click({GestureTapCallback? onTap});
 }
 
 extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
