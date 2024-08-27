@@ -21,14 +21,14 @@ class PostItem extends StatelessWidget {
               _avatar.image.s50.circle.shadowMd.borderRed.border2.pr6.mk,
               column.crossStart.expanded.children(
                 [
-                  ("Naruto" * 15).text.f16.maxLine1.ellipsis.bold.mk,
-                  "Just Now".text.black54.f12.mk,
+                  ("Naruto" * 15).text.f16.conther.maxLine1.ellipsis.bold.mk,
+                  "Just Now".text.black54.conther.f12.mk,
                 ],
               ),
               Icons.more_vert_rounded.icon.s26.black.mk,
             ],
           ),
-          "This is my favorite playlist of all time!".text.pt12.mk,
+          "This is my favorite playlist of all time!".text.conther.pt12.mk,
           _image.image.s121.rounded8.shadowMd.borderRedColor.border2.pv12.mk,
           container.p8.rounded8.border1.borderRedColor.pl10.brown.child(
             Row(

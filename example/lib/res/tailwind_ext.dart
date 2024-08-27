@@ -1,9 +1,14 @@
+import 'package:example/res/r.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/tailwind.dart';
 
 import 'colours.dart';
 
-extension BoxDecorationExt<T extends CompleteDecoration> on T {
+extension TextFeatureExt<T extends TextFeature> on T {
+  T get conther => this..fontFamily = R.conther2;
+}
+
+extension DecorationExt<T extends CompleteDecoration> on T {
   T get decorMain => this..decoration = bd.greenAccent.borderBrown.rounded8.border5.mk;
 
   T get decorTradition => this
@@ -22,7 +27,7 @@ extension TextStyleExt<T extends CompletedTextStyleBuilder> on T {
   T get styleTest => this..style = ts.dashed.lightGreen.f30.bold.lineThrough.mk;
 }
 
-extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
+extension SizeExt<T extends SizeBuilder> on T {
   T get h200 => this..height = 200.h;
 
   T get w200 => this..width = 200.w;
@@ -34,7 +39,7 @@ extension CustomSizeBuilderExt<T extends SizeBuilder> on T {
   T get s121 => this..size = 121.r;
 }
 
-extension TailWindExt<T extends ColorBuilder> on T {
+extension ColorExt<T extends ColorBuilder> on T {
   T get secondaryColor => this..color = Colours.secondaryColor;
 
   T get appMain => this..color = Colours.appMain;
@@ -130,7 +135,7 @@ extension TailWindExt<T extends ColorBuilder> on T {
   T get colorGreyF0F0 => this..color = Colours.colorGreyF0F0;
 }
 
-extension TailWindBD<T extends BorderColorBuilder> on T {
+extension BorderColorExt<T extends BorderColorBuilder> on T {
   T get borderSecondaryColor => this..border(Colours.secondaryColor);
 
   T get borderAppMain => this..border(Colours.appMain);

@@ -25,7 +25,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
         ColorBuilder,
         FontSizeBuilder,
         FontWeightBuilder,
-        TextCommonFeature,
+        TextFeature,
         CompletedTextStyleBuilder,
         TextBaselineBuilder {
   @override
@@ -90,7 +90,7 @@ class TextBuilder extends MkBuilder<Widget>
         ColorBuilder,
         FontSizeBuilder,
         FontWeightBuilder,
-        TextCommonFeature,
+        TextFeature,
         MaxLineBuilder,
         TextDirectionBuilder,
         CompletedTextStyleBuilder,

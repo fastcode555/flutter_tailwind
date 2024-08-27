@@ -96,7 +96,7 @@ extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
   T get fontBlack => this..fontWeight = FontWeight.w900;
 }
 
-mixin TextCommonFeature {
+mixin TextFeature {
   Color? decorationColor;
   FontStyle? fontStyle;
   String? fontFamily;
@@ -117,7 +117,7 @@ mixin TextCommonFeature {
   TextDecorationStyle? decorationStyle;
 }
 
-extension TextCommonFeatureExt<T extends TextCommonFeature> on T {
+extension TextCommonFeatureExt<T extends TextFeature> on T {
   T fontFamilyFallback(List<String>? fontFamilyFallback) => this..fontFamilyFallback = fontFamilyFallback;
 
   T letterSpacing(double? letterSpacing) => this..letterSpacing = letterSpacing;
@@ -143,8 +143,6 @@ extension TextCommonFeatureExt<T extends TextCommonFeature> on T {
   T wordSpacing(double? wordSpacing) => this..wordSpacing = wordSpacing;
 
   T get italic => this..fontStyle = FontStyle.italic;
-
-  T fontFamily(String? fontFamily) => this..fontFamily = fontFamily;
 
   T decorationColor(Color? color) => this..decorationColor = color;
 
