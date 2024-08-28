@@ -2,7 +2,7 @@ class R {
   static const String _assets = "assets";
 
   ///------------------------ assets ------------------------
-  static const String conther2 = 'Conther';
+  static const String conther = 'Conther';
   static const String icAirPlay = '$_assets/ic_air_play.svg';
   static const String icDefAvatar = '$_assets/ic_def_avatar.png';
   static const String icAwesomePen = '$_assets/ic_awesome_pen.svg';

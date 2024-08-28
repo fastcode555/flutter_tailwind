@@ -37,7 +37,7 @@ extension ColorExt<T extends ColorBuilder> on T {
 
   T get redColor => this..color(Colours.redColor);
 
-  T get transparent => this..color(Colours.transparent);
+  T get transparentx => this..color(Colours.transparent);
 
   T get ccfa94fb => this..color(Colours.ccfa94fb);
 
@@ -53,9 +53,11 @@ extension ColorExt<T extends ColorBuilder> on T {
 
   T get unselectedColor => this..color(Colours.unselectedColor);
 
-  T get blueAccent => this..color(Colours.blueAccent);
+  T get redAccentx => this..color(Colours.redAccent);
 
-  T get purpleAccent => this..color(Colours.purpleAccent);
+  T get blueAccentx => this..color(Colours.blueAccent);
+
+  T get purpleAccentx => this..color(Colours.purpleAccent);
 
   T get unSelectedColor => this..color(Colours.unSelectedColor);
 
@@ -77,7 +79,7 @@ extension ColorExt<T extends ColorBuilder> on T {
 
   T get appbarActiveColor => this..color(Colours.appbarActiveColor);
 
-  T get orange => this..color(Colours.orange);
+  T get orangex => this..color(Colours.orange);
 
   T get colorGrey => this..color(Colours.colorGrey);
 
@@ -131,7 +133,7 @@ extension BorderColorExt<T extends BorderColorBuilder> on T {
 
   T get borderRedColor => this..border(Colours.redColor);
 
-  T get borderTransparent => this..border(Colours.transparent);
+  T get borderTransparentx => this..border(Colours.transparent);
 
   T get borderCcfa94fb => this..border(Colours.ccfa94fb);
 
@@ -147,11 +149,11 @@ extension BorderColorExt<T extends BorderColorBuilder> on T {
 
   T get borderUnselectedColor => this..border(Colours.unselectedColor);
 
-  T get borderRedAccent => this..border(Colours.redAccent);
+  T get borderRedAccentx => this..border(Colours.redAccent);
 
-  T get borderBlueAccent => this..border(Colours.blueAccent);
+  T get borderBlueAccentx => this..border(Colours.blueAccent);
 
-  T get borderPurpleAccent => this..border(Colours.purpleAccent);
+  T get borderPurpleAccentx => this..border(Colours.purpleAccent);
 
   T get borderUnSelectedColor => this..border(Colours.unSelectedColor);
 
@@ -173,7 +175,7 @@ extension BorderColorExt<T extends BorderColorBuilder> on T {
 
   T get borderAppbarActiveColor => this..border(Colours.appbarActiveColor);
 
-  T get borderOrange => this..border(Colours.orange);
+  T get borderOrangex => this..border(Colours.orange);
 
   T get borderColorGrey => this..border(Colours.colorGrey);
 
@@ -188,4 +190,100 @@ extension BorderColorExt<T extends BorderColorBuilder> on T {
   T get borderColorWhiteF5F5 => this..border(Colours.colorWhiteF5F5);
 
   T get borderColorGreyF0F0 => this..border(Colours.colorGreyF0F0);
+}
+
+extension TextColorExt<T extends TextColorBuilder> on T {
+  T get textSecondaryColor => this..textColor(Colours.secondaryColor);
+
+  T get textAppMain => this..textColor(Colours.appMain);
+
+  T get textGray33 => this..textColor(Colours.gray33);
+
+  T get textGray99 => this..textColor(Colours.gray99);
+
+  T get textMainTextColor => this..textColor(Colours.mainTextColor);
+
+  T get textTextHintColor => this..textColor(Colours.textHintColor);
+
+  T get textLineColor => this..textColor(Colours.lineColor);
+
+  T get textColorE8e8e8 => this..textColor(Colours.colorE8e8e8);
+
+  T get textColor11151C => this..textColor(Colours.color11151C);
+
+  T get textColorFfbd49 => this..textColor(Colours.colorFfbd49);
+
+  T get textColorFE2042 => this..textColor(Colours.colorFE2042);
+
+  T get textBackgroundColor => this..textColor(Colours.backgroundColor);
+
+  T get textDisableColor => this..textColor(Colours.disableColor);
+
+  T get textMainText2 => this..textColor(Colours.mainText2);
+
+  T get textX00212639 => this..textColor(Colours.x00212639);
+
+  T get textPrimary => this..textColor(Colours.primary);
+
+  T get textX26ffffff => this..textColor(Colours.x26ffffff);
+
+  T get textRedColor => this..textColor(Colours.redColor);
+
+  T get textTransparentx => this..textColor(Colours.transparent);
+
+  T get textCcfa94fb => this..textColor(Colours.ccfa94fb);
+
+  T get textCcad83e4 => this..textColor(Colours.ccad83e4);
+
+  T get textCcfdf194 => this..textColor(Colours.ccfdf194);
+
+  T get textFf4d4d4d => this..textColor(Colours.ff4d4d4d);
+
+  T get textFf2e3a56 => this..textColor(Colours.ff2e3a56);
+
+  T get textBtnDisableColor => this..textColor(Colours.btnDisableColor);
+
+  T get textUnselectedColor => this..textColor(Colours.unselectedColor);
+
+  T get textRedAccentx => this..textColor(Colours.redAccent);
+
+  T get textBlueAccentx => this..textColor(Colours.blueAccent);
+
+  T get textPurpleAccentx => this..textColor(Colours.purpleAccent);
+
+  T get textUnSelectedColor => this..textColor(Colours.unSelectedColor);
+
+  T get textGray => this..textColor(Colours.gray);
+
+  T get textFf0c4e5f => this..textColor(Colours.ff0c4e5f);
+
+  T get textFf172f35 => this..textColor(Colours.ff172f35);
+
+  T get textFf333333 => this..textColor(Colours.ff333333);
+
+  T get textFf363636 => this..textColor(Colours.ff363636);
+
+  T get textFfb7d547 => this..textColor(Colours.ffb7d547);
+
+  T get textFff46b29 => this..textColor(Colours.fff46b29);
+
+  T get textRedFF5F5F => this..textColor(Colours.redFF5F5F);
+
+  T get textAppbarActiveColor => this..textColor(Colours.appbarActiveColor);
+
+  T get textOrangex => this..textColor(Colours.orange);
+
+  T get textColorGrey => this..textColor(Colours.colorGrey);
+
+  T get textColorGrey495057 => this..textColor(Colours.colorGrey495057);
+
+  T get textColorBlack494949 => this..textColor(Colours.colorBlack494949);
+
+  T get textColorRed3A28 => this..textColor(Colours.colorRed3A28);
+
+  T get textColorWhiteF8F9FA => this..textColor(Colours.colorWhiteF8F9FA);
+
+  T get textColorWhiteF5F5 => this..textColor(Colours.colorWhiteF5F5);
+
+  T get textColorGreyF0F0 => this..textColor(Colours.colorGreyF0F0);
 }
