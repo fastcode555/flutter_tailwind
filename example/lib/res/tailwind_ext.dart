@@ -1,6 +1,6 @@
 import 'package:example/res/r.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 import 'colours.dart';
 

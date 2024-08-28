@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/27

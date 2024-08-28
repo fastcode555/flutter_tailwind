@@ -2,12 +2,10 @@ import 'dart:io' show File;
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 bool _isNetUrl(String? url) {
   if (url == null || url.trim().isEmpty) return false;
@@ -330,6 +328,7 @@ class ImageLoader extends StatelessWidget {
         fadeOutDuration: fadeOutDuration,
         radius: _radius,
         boxShadow: boxShadow,
+        transitionOnUserGestures: transitionOnUserGestures,
       );
     } else if (_type == typeCircle) {
       if (_radius == null || _radius == 0) {
@@ -354,6 +353,7 @@ class ImageLoader extends StatelessWidget {
                 fadeOutDuration: fadeOutDuration,
                 radius: _radius,
                 boxShadow: boxShadow,
+                transitionOnUserGestures: transitionOnUserGestures,
               ),
             );
           },
@@ -374,6 +374,7 @@ class ImageLoader extends StatelessWidget {
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
         boxShadow: boxShadow,
+        transitionOnUserGestures: transitionOnUserGestures,
       );
     } else if (_type == typeRoundCorner) {
       Widget image = _Image(
@@ -394,6 +395,7 @@ class ImageLoader extends StatelessWidget {
         radius: _radius,
         heroTag: heroTag,
         boxShadow: boxShadow,
+        transitionOnUserGestures: transitionOnUserGestures,
       );
       if (borderColor != null) {
         return image;
@@ -427,6 +429,7 @@ class ImageLoader extends StatelessWidget {
                 height: _height,
                 radius: _radius,
                 boxShadow: boxShadow,
+                transitionOnUserGestures: transitionOnUserGestures,
               ),
             ),
             ClipRRect(

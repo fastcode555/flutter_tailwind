@@ -1,9 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/src/base/margin_builder.dart';
-import 'package:flutter_tailwind/src/base/mk_builder.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/22

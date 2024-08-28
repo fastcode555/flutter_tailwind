@@ -4,7 +4,7 @@ import 'package:example/res/colours.dart';
 import 'package:example/res/r.dart';
 import 'package:example/res/tailwind_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 void main() {
   runApp(const MyApp());
@@ -198,11 +198,14 @@ class _MyHomePageState extends State<MyHomePage> {
             listview.neverScroll.shrinkWrap.reverse.builder(3, _itemBuilder),
             listview.neverScroll.shrinkWrap.divider.builder(3, _itemBuilder),
             listview.neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).builder(3, _itemBuilder),
-            gridview(5, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), _itemBuilder)
-                .neverScroll
-                .shrinkWrap
-                .reverse
-                .mk,
+
+            ///set the step widget,every 3 step ,will show a text
+            listview.neverScroll.shrinkWrap.divider.step3.builder(
+              10,
+              (_, index) => Text("child: $index", style: ts.f30.bold.redAccent.mk),
+              stepBuilder: (_, index) => container.red.centerLeft.p8.pl16.child("banner:$index".text.bold.f20.white.mk),
+            ),
+
             listview.separated16.pl16.pr16.horizontal.h365.builder(
               10,
               (_, __) => const SizedBox(width: 250, child: PostItem()),
@@ -215,6 +218,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 .dataBuilder<int>(
               [1, 2, 3],
               (_, __, item) => const PostItem(),
+            ),
+
+            gridview.neverScroll.crossAxisCount3.spacing8.p8.shrinkWrap.builder(
+              5,
+              (_, __) => _link.image.border2.borderRed.circle.s50.mk,
+            ),
+            gridview.neverScroll.crossAxisCount4.spacing8.p8.shrinkWrap.reverse.builder(
+              8,
+              (_, __) => _link.image.border2.rounded8.s50.mk,
+            ),
+
+            ///set the step widget,every 3 step ,will show a red container,if don't setting the stepBuilder ,even you set the step is useless
+            gridview.neverScroll.childWidth50.step4.spacing8.p8.shrinkWrap.builder(
+              16,
+              (_, __) => _link.image.border2.rounded8.s50.mk,
+              stepBuilder: (_, __) => container.rounded8.red.center.child("Ads".text.white.mk),
             ),
           ],
         ),

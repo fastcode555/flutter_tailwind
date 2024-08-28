@@ -119,7 +119,7 @@ const WBox w100 = WBox(100);
 /// @date 9/11/23
 /// describe:
 class HBox extends SingleChildRenderObjectWidget {
-  const HBox(this.height);
+  const HBox(this.height, {super.key});
 
   final double height;
 
@@ -164,7 +164,7 @@ class HBox extends SingleChildRenderObjectWidget {
 }
 
 class WBox extends SingleChildRenderObjectWidget {
-  const WBox(this.width);
+  const WBox(this.width, {super.key});
 
   final double width;
 

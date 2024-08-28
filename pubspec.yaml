@@ -1,8 +1,8 @@
 name: flutter_tailwind
-description: "A new Flutter project."
+description: "I hope to make something like tailwind that can simplify the description of style and improve efficiency."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+homepage: https://github.com/fastcode555/flutter_tailwind.git
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
@@ -30,9 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_screenutil:
-  flutter_svg:
-  cached_network_image:
+  flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.0.10+1
+  cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:

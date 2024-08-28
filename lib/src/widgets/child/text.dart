@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/tailwind.dart';
-
-import '../../base/mk_builder.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -21,13 +19,7 @@ extension TextBuilderStringExt on String? {
 TextStyleBuilder get ts => TextStyleBuilder();
 
 class TextStyleBuilder extends MkBuilder<TextStyle>
-    with
-        ColorBuilder,
-        FontSizeBuilder,
-        FontWeightBuilder,
-        TextFeature,
-        CompletedTextStyleBuilder,
-        TextBaselineBuilder {
+    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextFeature, CompletedTextStyleBuilder, TextBaselineBuilder {
   @override
   TextStyle get mk {
     if (style != null) {

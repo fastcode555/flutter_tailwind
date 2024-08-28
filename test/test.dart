@@ -6,7 +6,8 @@ void main() {
   //
   // double? paddingHorizontal;
   // double? paddingVertical;
-  for (int i = 1; i <= 25; i++) {
-    print("      T get separated${i * 2} => this.._separatedValue = ${i * 2}.r;");
+  //spacing, _mainAxisSpacing, _crossAxisSpacing
+  for (int i = 1; i <= 10; i++) {
+    print("      T get step$i => this.._step = $i;\n");
   }
 }

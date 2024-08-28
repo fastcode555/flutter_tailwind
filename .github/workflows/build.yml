@@ -1,0 +1,90 @@
+name: build flutter app release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-ios:
+    name: Build Release
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+
+      #      - run: flutter pub get
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+
+      - name: Install dependencies
+        run: |
+          cd example/
+          flutter pub get
+
+      - name: Ensure gradle wrapper is compatible
+        run: |
+          sed -i.bak 's/distributionUrl=https\:\/\/services.gradle.org\/distributions\/gradle-.*-all.zip/distributionUrl=https\:\/\/services.gradle.org\/distributions\/gradle-7.6.3-all.zip/' example/android/gradle/wrapper/gradle-wrapper.properties
+
+      - run: |
+          cd example/
+          flutter build apk --release
+
+      - run: |
+          cd example/ios/
+          pod repo update
+
+      - run: |
+          cd example/
+          flutter build ios --release --no-codesign
+
+      - run: mkdir Payload
+        working-directory: example/build/ios/iphoneos
+
+      - run: mv Runner.app/ Payload
+        working-directory: example/build/ios/iphoneos
+
+      - name: Zip output
+        run: zip -qq -r -9 FlutterIpaExport.ipa Payload
+        working-directory: example/build/ios/iphoneos
+
+      - name: Upload Android APK to Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: android-apk
+          path: example/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Rename APK
+        run: |
+          mkdir -p release
+          APK_PATH=$(find example/build/app/outputs/flutter-apk/*.apk)
+          mv $APK_PATH example/build/app/outputs/flutter-apk/app-${{ github.sha }}-$(date +'%Y-%m-%d').apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Git Tag
+        id: tag
+        run: |
+          TAG_NAME="FlutterTailWind-v$(date +'%Y-%m-%d-%H')"
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git tag $TAG_NAME
+          git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git $TAG_NAME
+
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          files: |
+            example/build/app/outputs/flutter-apk/*.apk
+            example/build/ios/iphoneos/FlutterIpaExport.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

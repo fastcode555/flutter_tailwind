@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/tailwind.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/20
@@ -25,9 +25,9 @@ abstract class ClickBuilder<T> {
 }
 
 abstract class ItemBuilder {
-  Widget builder(int itemCount, NullableIndexedWidgetBuilder builder);
+  Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder, {NullableIndexedWidgetBuilder? stepBuilder});
 
-  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder);
+  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder, {NullableIndexedWidgetBuilder? stepBuilder});
 }
 
 extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
