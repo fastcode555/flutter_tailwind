@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/tailwind.dart';
 
 /// Barry
 /// @date 2024/8/20
@@ -21,6 +22,12 @@ abstract class ChildrenBuilder<T> {
 
 abstract class ClickBuilder<T> {
   Widget click({GestureTapCallback? onTap});
+}
+
+abstract class ItemBuilder {
+  Widget builder(int itemCount, NullableIndexedWidgetBuilder builder);
+
+  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder);
 }
 
 extension MkBuilderExt<T extends MkBuilder<Widget>> on T {

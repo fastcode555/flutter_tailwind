@@ -6,7 +6,7 @@ void main() {
   //
   // double? paddingHorizontal;
   // double? paddingVertical;
-  for (int i = 1; i <= 16; i++) {
-    print("    T get p${i * 2} => this..paddingValue = ${i * 2}.r;");
+  for (int i = 1; i <= 25; i++) {
+    print("      T get separated${i * 2} => this.._separatedValue = ${i * 2}.r;");
   }
 }

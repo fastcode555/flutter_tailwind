@@ -1,53 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tailwind/src/base/mk_builder.dart';
-import 'package:flutter_tailwind/src/base/padding_builder.dart';
+import 'package:flutter_tailwind/tailwind.dart';
+
+part 'list_view.g.dart';
 
 /// Barry
 /// @date 2024/8/24
 /// describe:
-typedef ItemListFunction<T> = Widget Function(BuildContext context, int index, T item);
 
-mixin ScrollFeature {
-  Axis? scrollDirection;
-  ScrollController? _controller;
-  bool _reverse = false;
-  bool _shrinkWrap = false;
-  ScrollPhysics? _physics;
-  Widget? _separated;
-  IndexedWidgetBuilder? _separatorBuilder;
-}
+ListViewBuilder get listview => ListViewBuilder._();
 
-extension ScrollFeatureExt<T extends ScrollFeature> on T {
-  T get vertical => this..scrollDirection = Axis.vertical;
+class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder {
+  ListViewBuilder._();
 
-  T get horizontal => this..scrollDirection = Axis.horizontal;
+  bool get _isHorizontal => scrollDirection == Axis.horizontal;
 
-  T get reverse => this.._reverse = true;
+  ///判断
+  bool get _hasSeparated =>
+      _separatorBuilder != null || _separated != null || _separatedValue != null || _isDivider != null;
 
-  T get shrinkWrap => this.._shrinkWrap = true;
+  Widget get _localSeparated {
+    if (_separated != null) return _separated!;
+    if (_isDivider ?? false) {
+      if (_isHorizontal) {
+        return const VerticalDivider();
+      }
+      return const Divider();
+    }
 
-  T get neverScroll => this.._physics = const NeverScrollableScrollPhysics();
-
-  T scrollController(ScrollController controller) => this.._controller = controller;
-
-  T separated(Widget widget) => this.._separated = widget;
-
-  T separatedBuilder(IndexedWidgetBuilder builder) => this.._separatorBuilder = builder;
-}
-
-ListViewBuilder listview(int? itemCount, NullableIndexedWidgetBuilder builder) => ListViewBuilder._(itemCount, builder);
-
-class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature, PaddingBuilder {
-  final NullableIndexedWidgetBuilder builder;
-  final int? itemCount;
-
-  ListViewBuilder._(this.itemCount, this.builder);
+    if (_isHorizontal) {
+      return SizedBox(width: _separatedValue);
+    }
+    return SizedBox(height: _separatedValue);
+  }
 
   @override
-  ListView get mk {
-    if (_separatorBuilder != null || _separated != null) {
-      return ListView.separated(
+  Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder) {
+    Widget? listview;
+    if (_hasSeparated) {
+      listview = ListView.separated(
         itemBuilder: builder,
         itemCount: itemCount ?? 0,
         padding: finalPadding,
@@ -56,19 +46,33 @@ class ListViewBuilder extends MkBuilder<ListView> with ScrollFeature, PaddingBui
         reverse: _reverse,
         shrinkWrap: _shrinkWrap,
         physics: _physics,
-        separatorBuilder: _separatorBuilder != null ? _separatorBuilder! : (_, __) => _separated!,
+        separatorBuilder: _separatorBuilder != null ? _separatorBuilder! : (_, __) => _localSeparated,
+      );
+    } else {
+      listview = ListView.builder(
+        itemBuilder: builder,
+        itemCount: itemCount ?? 0,
+        padding: finalPadding,
+        scrollDirection: scrollDirection ?? Axis.vertical,
+        controller: _controller,
+        reverse: _reverse,
+        shrinkWrap: _shrinkWrap,
+        physics: _physics,
       );
     }
-    return ListView.builder(
-      itemBuilder: builder,
-      itemCount: itemCount ?? 0,
-      padding: finalPadding,
-      scrollDirection: scrollDirection ?? Axis.vertical,
-      controller: _controller,
-      reverse: _reverse,
-      shrinkWrap: _shrinkWrap,
-      physics: _physics,
-    );
+    if (size != null || width != null || height != null) {
+      return SizedBox(
+        width: size ?? width,
+        height: size ?? height,
+        child: listview,
+      );
+    }
+    return listview;
+  }
+
+  @override
+  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder) {
+    return this.builder(data?.length, (context, index) => builder(context, index, data![index]));
   }
 }
 

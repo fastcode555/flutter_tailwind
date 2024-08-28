@@ -10,6 +10,8 @@ part 'tailwind_ext.g.dart';
 extension SizeExt<T extends SizeBuilder> on T {
   T get h200 => this..height = 200.h;
 
+  T get h365 => this..height = 365.h;
+
   T get w200 => this..width = 200.w;
 
   T get s200 => this..size = 200.r;

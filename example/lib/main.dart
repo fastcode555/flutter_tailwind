@@ -185,16 +185,37 @@ class _MyHomePageState extends State<MyHomePage> {
             "Outline Button".outlinedButton.icon(Icons.ac_unit).end.borderRedColor.border2.click(onTap: () {}),
             Icons.ac_unit.iconButton.green.click(onTap: () {}),
             Icons.ac_unit.iconButton.red.click(onTap: () {}),
+            Icons.ac_unit.iconButton.borderRed.click(onTap: () {}),
+            Icons.ac_unit.iconButton.borderRed.black12.click(onTap: () {}),
             Icons.ac_unit.icon.redAccent.iconClick(onTap: () {}),
             R.icAirPlay.svg.black.s24.iconClick(onTap: () {}),
-            listview(3, _itemBuilder).neverScroll.shrinkWrap.reverse.mk,
-            listview(3, _itemBuilder).neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).mk,
+
+            ///listview 部分
+            listview.neverScroll.shrinkWrap.horizontal.h50.builder(10, _itemBuilder),
+            listview.neverScroll.shrinkWrap.horizontal.h50.reverse.builder(10, _itemBuilder),
+            listview.neverScroll.shrinkWrap.horizontal.divider.h50.builder(10, _itemBuilder),
+            listview.neverScroll.shrinkWrap.horizontal.divider.h50.reverse.builder(10, _itemBuilder),
+            listview.neverScroll.shrinkWrap.reverse.builder(3, _itemBuilder),
+            listview.neverScroll.shrinkWrap.divider.builder(3, _itemBuilder),
+            listview.neverScroll.shrinkWrap.separated(const Divider(color: Colors.red)).builder(3, _itemBuilder),
             gridview(5, const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), _itemBuilder)
                 .neverScroll
                 .shrinkWrap
                 .reverse
                 .mk,
-            listview(10, (_, __) => const PostItem()).separated(h16).p16.neverScroll.shrinkWrap.mk,
+            listview.separated16.pl16.pr16.horizontal.h365.builder(
+              10,
+              (_, __) => const SizedBox(width: 250, child: PostItem()),
+            ),
+            listview.separated(h16).p16.neverScroll.shrinkWrap.builder(2, (_, __) => const PostItem()),
+            listview.separated16.pl16.pr16.neverScroll.shrinkWrap.builder(2, (_, __) => const PostItem()),
+            listview.divider.pl16.pr16.pt16.neverScroll.shrinkWrap.builder(2, (_, __) => const PostItem()),
+            listview.pl16.pr16.pt16.neverScroll.shrinkWrap
+                .separated(Divider(color: Colors.red, height: 16.h, thickness: 16.h))
+                .dataBuilder<int>(
+              [1, 2, 3],
+              (_, __, item) => const PostItem(),
+            ),
           ],
         ),
       ),

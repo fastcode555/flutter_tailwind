@@ -128,10 +128,35 @@ class ElevatedButtonBuilder extends ButtonBuilder {
   }
 }
 
-class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorBuilder, SizeBuilder, AlignmentBuilder {
+class IconButtonBuilder extends ClickBuilder<Widget>
+    with PaddingBuilder, ColorBuilder, SizeBuilder, AlignmentBuilder, BorderWidthBuilder, BorderColorBuilder {
   final dynamic icon;
 
   IconButtonBuilder._(this.icon);
+
+  ButtonStyle? get _buttonStyle {
+    WidgetStateProperty<BorderSide?>? side;
+    WidgetStateProperty<Color?>? foregroundColor;
+    WidgetStateProperty<Color?>? backgroundColor;
+    ButtonStyle? buttonStyle;
+    if (borderColor != null || borderWidth != null) {
+      side = WidgetStateProperty.all(BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0));
+    }
+    if (borderColor != null) {
+      foregroundColor = WidgetStateProperty.all(borderColor);
+    }
+    if (innerColor != null && borderColor != null) {
+      backgroundColor = WidgetStateProperty.all(innerColor);
+    }
+    if (side != null || foregroundColor != null || backgroundColor != null) {
+      buttonStyle = ButtonStyle(
+        side: side,
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+      );
+    }
+    return buttonStyle;
+  }
 
   @override
   Widget click({GestureTapCallback? onTap}) {
@@ -146,8 +171,9 @@ class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorB
       icon: child ?? gapEmpty,
       padding: finalPadding,
       iconSize: size ?? width ?? height,
-      color: innerColor,
+      color: borderColor ?? innerColor,
       alignment: alignment,
+      style: _buttonStyle,
     );
   }
 }
