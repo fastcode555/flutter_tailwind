@@ -31,7 +31,7 @@ extension TextStyleExt<T extends CompletedTextStyleBuilder> on T {
   /// use flutter tailwind style
   T get styleAccent => this..style = ts.greenAccent.f20.bold.underline.mk;
 
-  T get styleTest => this..style = ts.greenAccent.f18.bold.underline.mk;
+  T get styleTest => this..style = ts.dashed.lightGreen.f30.bold.lineThrough.mk;
 
   /// use flutter normal style to describe text style
   T get styleTradition => this
@@ -59,7 +59,7 @@ extension ShadowExt<T extends ShadowBuilder> on T {
 /// You can define the default style which just explain you how to define the style with flutter tailwind
 extension DecorationExt<T extends CompleteDecoration> on T {
   /// use flutter tailwind BoxDecoration
-  T get decorMain => this..decoration = bd.greenAccent.circle.borderBrown.rounded8.customShadow.border5.mk;
+  T get decorMain => this..decoration = bd.greenAccent.circle.borderBrown.customShadow.border5.mk;
 
   /// Use flutter normal style to describe BoxDecoration
   T get decorTradition => this
@@ -67,7 +67,6 @@ extension DecorationExt<T extends CompleteDecoration> on T {
         color: Colors.greenAccent,
         border: Border.all(color: Colors.brown, width: 5.r),
         borderRadius: BorderRadius.circular(8.r),
-        shape: BoxShape.circle,
         boxShadow: const [
           BoxShadow(
             color: Color(0x78000000),

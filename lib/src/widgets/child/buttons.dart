@@ -128,7 +128,7 @@ class ElevatedButtonBuilder extends ButtonBuilder {
   }
 }
 
-class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorBuilder, SizeBuilder {
+class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorBuilder, SizeBuilder, AlignmentBuilder {
   final dynamic icon;
 
   IconButtonBuilder._(this.icon);
@@ -137,7 +137,7 @@ class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorB
   Widget click({GestureTapCallback? onTap}) {
     Widget? child;
     if (icon is IconData) {
-      child = Icon(icon, size: size ?? width ?? height, color: innerColor);
+      child = Icon(icon);
     } else if (icon is Widget) {
       child = icon;
     }
@@ -145,6 +145,9 @@ class IconButtonBuilder extends ClickBuilder<Widget> with PaddingBuilder, ColorB
       onPressed: onTap,
       icon: child ?? gapEmpty,
       padding: finalPadding,
+      iconSize: size ?? width ?? height,
+      color: innerColor,
+      alignment: alignment,
     );
   }
 }
