@@ -19,7 +19,14 @@ extension TextBuilderStringExt on String? {
 TextStyleBuilder get ts => TextStyleBuilder();
 
 class TextStyleBuilder extends MkBuilder<TextStyle>
-    with ColorBuilder, FontSizeBuilder, FontWeightBuilder, TextFeature, CompletedTextStyleBuilder, TextBaselineBuilder {
+    with
+        ColorBuilder,
+        FontSizeBuilder,
+        FontWeightBuilder,
+        TextFeature,
+        CompletedTextStyleBuilder,
+        TextBaselineBuilder,
+        TextColorBuilder {
   @override
   TextStyle get mk {
     if (style != null) {
@@ -51,7 +58,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
     }
     return TextStyle(
       fontSize: fontSize,
-      color: innerColor,
+      color: innerTextColor ?? innerColor,
       decoration: decoration,
       overflow: overflow,
       decorationStyle: decorationStyle,
@@ -87,7 +94,8 @@ class TextBuilder extends MkBuilder<Widget>
         TextDirectionBuilder,
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
-        PaddingBuilder {
+        PaddingBuilder,
+        TextColorBuilder {
   final String? value;
 
   TextBuilder._(this.value);
@@ -124,7 +132,7 @@ class TextBuilder extends MkBuilder<Widget>
               ??
               TextStyle(
                 fontSize: fontSize,
-                color: innerColor,
+                color: innerTextColor ?? innerColor,
                 decoration: decoration,
                 overflow: overflow,
                 decorationStyle: decorationStyle,

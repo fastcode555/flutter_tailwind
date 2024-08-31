@@ -6,7 +6,7 @@ part 'list_view.g.dart';
 /// Barry
 /// @date 2024/8/24
 /// describe:
-
+///[ListView.separated]
 ListViewBuilder get listview => ListViewBuilder._();
 
 class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin {
@@ -82,6 +82,7 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
   }
 }
 
+/// [GridView.builder]
 GridViewBuilder get gridview => GridViewBuilder._();
 
 class GridViewBuilder extends ItemBuilder

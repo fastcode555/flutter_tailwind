@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
@@ -6,7 +7,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// describe:
 
 mixin ButtonIconBuilder {
-  Widget? _icon;
+  dynamic _icon;
   IconAlignment? _iconAlignment;
 }
 
@@ -15,33 +16,29 @@ extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
 
   T get end => this.._iconAlignment = IconAlignment.end;
 
-  T icon(dynamic icon) {
-    if (icon is IconData) {
-      _icon = Icon(icon);
-    } else if (icon is Widget) {
-      _icon = icon;
-    }
-    return this;
-  }
+  T icon(dynamic icon) => this.._icon = icon;
 }
 
-extension IconDataExt on IconData {
-  IconButtonBuilder get iconButton => IconButtonBuilder._(this);
-}
-
+///[TextButton.icon]
 TextButtonBuilder textButton(String text) => TextButtonBuilder._(text);
 
+///[OutlinedButton.icon]
 OutlinedButtonBuilder outlinedButton(String text) => OutlinedButtonBuilder._(text);
 
+///[ElevatedButton.icon]
 ElevatedButtonBuilder elevatedButton(String text) => ElevatedButtonBuilder._(text);
 
-IconButtonBuilder iconButton(dynamic icon) => IconButtonBuilder._(icon);
+///[OutlinedButton.icon]
+IconButtonBuilder get iconButton => IconButtonBuilder._();
 
 extension ButtonStringExt on String? {
+  ///[TextButton.icon]
   TextButtonBuilder get textButton => TextButtonBuilder._(this ?? "");
 
+  ///[OutlinedButton.icon]
   OutlinedButtonBuilder get outlinedButton => OutlinedButtonBuilder._(this ?? "");
 
+  ///[ElevatedButton.icon]
   ElevatedButtonBuilder get elevatedButton => ElevatedButtonBuilder._(this ?? "");
 }
 
@@ -53,13 +50,48 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         BorderRadiusBuilder,
         BorderWidthBuilder,
         BorderColorBuilder,
-        ButtonIconBuilder {
+        ButtonIconBuilder,
+        PaddingBuilder,
+        SizeBuilder {
   final String text;
+
+  Color? get _finalColor {
+    if (_isIconButton) {
+      return borderColor ?? innerColor;
+    }
+    return innerTextColor ?? borderColor ?? innerColor;
+  }
+
+  bool get _isIconButton => false;
+
+  bool get _isSvg => _icon is String && (_icon as String).endsWith(".svg");
+
+  Widget? get _finalIcon {
+    if (_icon == null) return null;
+
+    if (_icon is String && (_icon as String).trim().isEmpty) return null;
+
+    if (_icon is IconData) return Icon(_icon);
+
+    if (_icon is Widget) return _icon;
+
+    if (_isSvg) {
+      return SvgPicture.asset(
+        _icon,
+        width: size ?? width,
+        height: size ?? height,
+        colorFilter: _finalColor != null ? ColorFilter.mode(_finalColor!, BlendMode.srcIn) : null,
+      );
+    }
+
+    return ImageLoader.image(_icon, width: size ?? width, height: size ?? height);
+  }
 
   ButtonStyle? get _buttonStyle {
     WidgetStateProperty<BorderSide?>? side;
     WidgetStateProperty<Color?>? foregroundColor;
     WidgetStateProperty<Color?>? backgroundColor;
+    WidgetStateProperty<EdgeInsetsGeometry?>? padding;
     ButtonStyle? buttonStyle;
     if (borderColor != null || borderWidth != null) {
       side = WidgetStateProperty.all(BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0));
@@ -67,8 +99,11 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     if (innerTextColor != null || borderColor != null) {
       foregroundColor = WidgetStateProperty.all(innerTextColor ?? borderColor);
     }
-    if (innerColor != null) {
+    if (innerColor != null && !_isIconButton) {
       backgroundColor = WidgetStateProperty.all(innerColor);
+    }
+    if (hasPadding) {
+      padding = WidgetStateProperty.all(finalPadding);
     }
     if (side != null || foregroundColor != null || backgroundColor != null || radius != null) {
       buttonStyle = ButtonStyle(
@@ -76,6 +111,7 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
         shape: radius != null ? buttonShape : null,
+        padding: padding,
       );
     }
     return buttonStyle;
@@ -91,7 +127,8 @@ class TextButtonBuilder extends ButtonBuilder {
   Widget click({GestureTapCallback? onTap}) {
     return TextButton.icon(
       onPressed: onTap,
-      icon: _icon,
+      icon: _finalIcon,
+      style: _buttonStyle,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
@@ -106,7 +143,7 @@ class OutlinedButtonBuilder extends ButtonBuilder {
     return OutlinedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
-      icon: _icon,
+      icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
@@ -121,58 +158,27 @@ class ElevatedButtonBuilder extends ButtonBuilder {
     return ElevatedButton.icon(
       onPressed: onTap,
       style: _buttonStyle,
-      icon: _icon,
+      icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
     );
   }
 }
 
-class IconButtonBuilder extends ClickBuilder<Widget>
-    with PaddingBuilder, ColorBuilder, SizeBuilder, AlignmentBuilder, BorderWidthBuilder, BorderColorBuilder {
-  final dynamic icon;
+class IconButtonBuilder extends ButtonBuilder {
+  IconButtonBuilder._() : super('');
 
-  IconButtonBuilder._(this.icon);
-
-  ButtonStyle? get _buttonStyle {
-    WidgetStateProperty<BorderSide?>? side;
-    WidgetStateProperty<Color?>? foregroundColor;
-    WidgetStateProperty<Color?>? backgroundColor;
-    ButtonStyle? buttonStyle;
-    if (borderColor != null || borderWidth != null) {
-      side = WidgetStateProperty.all(BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0));
-    }
-    if (borderColor != null) {
-      foregroundColor = WidgetStateProperty.all(borderColor);
-    }
-    if (innerColor != null && borderColor != null) {
-      backgroundColor = WidgetStateProperty.all(innerColor);
-    }
-    if (side != null || foregroundColor != null || backgroundColor != null) {
-      buttonStyle = ButtonStyle(
-        side: side,
-        backgroundColor: backgroundColor,
-        foregroundColor: foregroundColor,
-      );
-    }
-    return buttonStyle;
-  }
+  @override
+  bool get _isIconButton => true;
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    Widget? child;
-    if (icon is IconData) {
-      child = Icon(icon);
-    } else if (icon is Widget) {
-      child = icon;
-    }
     return IconButton(
       onPressed: onTap,
-      icon: child ?? gapEmpty,
+      icon: _finalIcon ?? gapEmpty,
       padding: finalPadding,
       iconSize: size ?? width ?? height,
       color: borderColor ?? innerColor,
-      alignment: alignment,
       style: _buttonStyle,
     );
   }

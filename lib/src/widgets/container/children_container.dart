@@ -9,6 +9,7 @@ mixin StackFeature {
   StackFit _fit = StackFit.loose;
   AlignmentGeometry _alignment = AlignmentDirectional.topStart;
 }
+
 mixin LinearFeature {
   MainAxisSize? _mainAxisSize;
   MainAxisAlignment? _mainAxisAlignment;

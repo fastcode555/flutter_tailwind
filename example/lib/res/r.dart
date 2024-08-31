@@ -1,5 +1,5 @@
 class R {
-  static const String _assets = "assets";
+  static const String _assets = 'assets';
 
   ///------------------------ assets ------------------------
   static const String conther = 'Conther';
