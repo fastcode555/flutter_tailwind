@@ -33,13 +33,13 @@ IconButtonBuilder get iconButton => IconButtonBuilder._();
 
 extension ButtonStringExt on String? {
   ///[TextButton.icon]
-  TextButtonBuilder get textButton => TextButtonBuilder._(this ?? "");
+  TextButtonBuilder get textButton => TextButtonBuilder._(this ?? '');
 
   ///[OutlinedButton.icon]
-  OutlinedButtonBuilder get outlinedButton => OutlinedButtonBuilder._(this ?? "");
+  OutlinedButtonBuilder get outlinedButton => OutlinedButtonBuilder._(this ?? '');
 
   ///[ElevatedButton.icon]
-  ElevatedButtonBuilder get elevatedButton => ElevatedButtonBuilder._(this ?? "");
+  ElevatedButtonBuilder get elevatedButton => ElevatedButtonBuilder._(this ?? '');
 }
 
 abstract class ButtonBuilder extends ClickBuilder<Widget>
@@ -64,17 +64,13 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
 
   bool get _isIconButton => false;
 
-  bool get _isSvg => _icon is String && (_icon as String).endsWith(".svg");
+  bool get _isSvg => _icon is String && (_icon as String).endsWith('.svg');
 
   Widget? get _finalIcon {
     if (_icon == null) return null;
-
     if (_icon is String && (_icon as String).trim().isEmpty) return null;
-
     if (_icon is IconData) return Icon(_icon);
-
     if (_icon is Widget) return _icon;
-
     if (_isSvg) {
       return SvgPicture.asset(
         _icon,
@@ -83,7 +79,6 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         colorFilter: _finalColor != null ? ColorFilter.mode(_finalColor!, BlendMode.srcIn) : null,
       );
     }
-
     return ImageLoader.image(_icon, width: size ?? width, height: size ?? height);
   }
 

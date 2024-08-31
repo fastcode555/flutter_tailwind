@@ -28,13 +28,13 @@ class Colours {
   static const Color ccfdf194 = Color(0xccfdf194);
   static const Color ff4d4d4d = Color(0xff4d4d4d);
   static const Color ff2e3a56 = Color(0xff2e3a56);
-  static const Color btnDisableColor = Color(0xFFCD8B);
+  static const Color btnDisableColor = Color(0x00ffcd8b);
   static const Color unselectedColor = Color(0xF1F1F1F1);
 
   static const Color redAccent = Color(0xFFFF7979);
   static const Color blueAccent = Color(0xFF79E5FE);
   static const Color purpleAccent = Color(0xFF799DFB);
-  static const Color unSelectedColor = Color(0xFFC3C3C3C3);
+  static const Color unSelectedColor = Color(0xFFC3C3C3);
   static const Color gray = Color(0xFFF1F1F1);
 
   static const Color ff0c4e5f = Color(0xff0c4e5f);

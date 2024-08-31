@@ -13,7 +13,7 @@ mixin CompletedTextStyleBuilder {
 TextBuilder text(String value) => TextBuilder._(value);
 
 extension TextBuilderStringExt on String? {
-  TextBuilder get text => TextBuilder._(this ?? "");
+  TextBuilder get text => TextBuilder._(this ?? '');
 }
 
 TextStyleBuilder get ts => TextStyleBuilder();
@@ -103,7 +103,7 @@ class TextBuilder extends MkBuilder<Widget>
   @override
   Widget get mk {
     Widget child = Text(
-      value ?? "",
+      value ?? '',
       style:
           style /*?.copyWith(
               fontSize: fontSize,

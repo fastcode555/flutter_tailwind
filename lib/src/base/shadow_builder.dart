@@ -25,7 +25,6 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
         color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.05)
         offset: Offset(0, 2),
         blurRadius: 2.0,
-        spreadRadius: 0.0,
       )
     ];
 
@@ -36,7 +35,6 @@ extension ShadowBuilderExt<T extends ShadowBuilder> on T {
         color: Color(0x4D000000), // 相当于 Colors.black.withOpacity(0.1)
         offset: Offset(4, 4),
         blurRadius: 4.0,
-        spreadRadius: 0.0,
       )
     ];
 

@@ -9,7 +9,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 bool _isNetUrl(String? url) {
   if (url == null || url.trim().isEmpty) return false;
-  return url.startsWith('http') && !url.endsWith(".mp3") && !url.endsWith(".mp4");
+  return url.startsWith('http') && !url.endsWith('.mp3') && !url.endsWith('.mp4');
 }
 
 //由于tag只能有一个直接子View
@@ -496,7 +496,7 @@ class _CircleImage extends StatelessWidget {
     PlaceholderWidgetBuilder? finalPlaceBuilder;
     LoadingErrorWidgetBuilder? finalErrorBuilder;
     if (ImageLoader.config == null) {
-      debugPrint("you are supported to use ImageLoader.init(ImageLoaderConfig)");
+      debugPrint('you are supported to use ImageLoader.init(ImageLoaderConfig)');
     } else {
       finalPlaceBuilder = placeBuilder ?? ImageLoader.config?.getCirclePlaceBuilder(radius, border, borderColor);
       finalErrorBuilder = errorBuilder ?? ImageLoader.config?.getCircleErrorBuilder(radius, border, borderColor);
@@ -603,7 +603,7 @@ class _CircleImage extends StatelessWidget {
                 ),
                 boxShadow: boxShadow,
               )
-            : finalErrorBuilder!(context, url ?? "", Object());
+            : finalErrorBuilder!(context, url ?? '', Object());
       }
     }
   }
@@ -666,7 +666,7 @@ class _Image extends StatelessWidget {
     double? finalW = width ?? height;
     double? finalH = height ?? width; //只要有一个值进来,即便另一个值为空,就默认为正方形图片
     if (ImageLoader.config == null) {
-      debugPrint("you are supported to use ImageLoader.init(ImageLoaderConfig)");
+      debugPrint('you are supported to use ImageLoader.init(ImageLoaderConfig)');
     } else {
       finalErrorBuilder =
           errorBuilder ?? ImageLoader.config?.getErrorBuilder(finalW, finalH, border, borderColor, radius);
@@ -709,10 +709,6 @@ class _Image extends StatelessWidget {
                 fit: fit,
                 width: finalW,
                 height: finalH,
-                alignment: Alignment.center,
-                repeat: ImageRepeat.noRepeat,
-                matchTextDirection: false,
-                filterQuality: FilterQuality.low,
               ),
             ),
             shape: BoxShape.rectangle,

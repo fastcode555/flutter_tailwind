@@ -101,7 +101,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
     );
 
   BoxDecorationBuilder border(Color color, [double width = 1.0]) =>
-      this.._border = Border.all(color: color, width: width, style: BorderStyle.solid);
+      this.._border = Border.all(color: color, width: width);
 
   BoxDecorationBuilder borderColor(Color color) => this..borderColor = color;
 

@@ -57,7 +57,7 @@ class SvgBuilder extends MkBuilder<Widget>
 }
 
 extension SvgStringExt on String? {
-  SvgBuilder get svg => SvgBuilder._(this ?? "");
+  SvgBuilder get svg => SvgBuilder._(this ?? '');
 }
 
 extension SvgBuilderExt<T extends SvgBuilder> on T {
