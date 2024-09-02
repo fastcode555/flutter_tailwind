@@ -68,6 +68,11 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
     if (_hasSize) {
       return SizedBox(width: size ?? width, height: size ?? height, child: listview);
     }
+
+    if (_expanded) {
+      return Expanded(child: listview);
+    }
+
     return listview;
   }
 
@@ -105,7 +110,12 @@ class GridViewBuilder extends ItemBuilder
         return _buildGridView(itemCount, builder, stepBuilder, count);
       });
     }
-    return _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+    Widget gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+
+    if (_expanded) {
+      return Expanded(child: gridView);
+    }
+    return gridView;
   }
 
   Widget _buildGridView(

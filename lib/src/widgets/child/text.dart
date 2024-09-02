@@ -10,14 +10,20 @@ mixin CompletedTextStyleBuilder {
   TextStyle? style;
 }
 
+///[Text]
 TextBuilder text(String value) => TextBuilder._(value);
 
+///[Text.rich]
+RichTextBuilder get textRich => RichTextBuilder._();
+
 extension TextBuilderStringExt on String? {
+  ///[Text]
   TextBuilder get text => TextBuilder._(this ?? '');
 }
 
 TextStyleBuilder get ts => TextStyleBuilder();
 
+///[TextStyle]
 class TextStyleBuilder extends MkBuilder<TextStyle>
     with
         ColorBuilder,
@@ -83,6 +89,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
   }
 }
 
+///[Text]
 class TextBuilder extends MkBuilder<Widget>
     with
         TextAlignBuilder,
@@ -154,6 +161,61 @@ class TextBuilder extends MkBuilder<Widget>
                 fontFeatures: fontFeatures,
                 fontVariations: fontVariations,
               ),
+      textAlign: textAlign,
+      textDirection: textDirection,
+      maxLines: maxLines,
+    );
+    if (hasPadding) {
+      return Padding(padding: finalPadding!, child: child);
+    }
+    return child;
+  }
+}
+
+class RichTextBuilder extends ChildrenSpanBuilder<Widget>
+    with
+        TextAlignBuilder,
+        ColorBuilder,
+        FontSizeBuilder,
+        FontWeightBuilder,
+        TextFeature,
+        MaxLineBuilder,
+        TextDirectionBuilder,
+        CompletedTextStyleBuilder,
+        TextBaselineBuilder,
+        PaddingBuilder,
+        TextColorBuilder {
+  RichTextBuilder._();
+
+  @override
+  Widget children(List<InlineSpan>? children) {
+    Widget child = Text.rich(
+      TextSpan(children: children),
+      style: style ??
+          TextStyle(
+            fontSize: fontSize,
+            color: innerTextColor ?? innerColor,
+            decoration: decoration,
+            overflow: overflow,
+            decorationStyle: decorationStyle,
+            decorationColor: decorationColor,
+            fontStyle: fontStyle,
+            fontFamily: fontFamily,
+            decorationThickness: decorationThickness,
+            fontWeight: fontWeight,
+            textBaseline: textBaseline,
+            fontFamilyFallback: fontFamilyFallback,
+            letterSpacing: letterSpacing,
+            wordSpacing: wordSpacing,
+            height: height,
+            leadingDistribution: leadingDistribution,
+            locale: locale,
+            background: background,
+            foreground: foreground,
+            shadows: shadows,
+            fontFeatures: fontFeatures,
+            fontVariations: fontVariations,
+          ),
       textAlign: textAlign,
       textDirection: textDirection,
       maxLines: maxLines,

@@ -265,6 +265,7 @@ mixin ScrollFeature {
   bool _shrinkWrap = false;
   ScrollPhysics? _physics;
   IndexedWidgetBuilder? _separatorBuilder;
+  bool _expanded = false;
 }
 
 extension ScrollFeatureExt<T extends ScrollFeature> on T {
@@ -281,4 +282,6 @@ extension ScrollFeatureExt<T extends ScrollFeature> on T {
   T scrollController(ScrollController controller) => this.._controller = controller;
 
   T separatedBuilder(IndexedWidgetBuilder builder) => this.._separatorBuilder = builder;
+
+  T get expanded => this.._expanded = true;
 }

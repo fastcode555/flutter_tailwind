@@ -66,7 +66,13 @@ class _MyHomePageState extends State<MyHomePage> {
             "Hello world".text.styleMain.mk,
             "Hello world".text.styleTest.mk,
             "Hello world".text.styleAccent.mk,
-
+            textRich.greenAccent.children([
+              TextSpan(text: "Hello ", style: ts.brown.f20.mk),
+              TextSpan(text: "World", style: ts.red.f20.mk),
+              TextSpan(text: ",The world is big", style: ts.purple.f20.underline.mk),
+              WidgetSpan(child: R.icDefAvatar.asset.border1.circle.s20.mk),
+              const TextSpan(text: ",So Sad"),
+            ]),
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
             R.icDefPlaylist.asset.s100.mk,

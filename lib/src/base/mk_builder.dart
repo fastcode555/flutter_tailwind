@@ -20,6 +20,10 @@ abstract class ChildrenBuilder<T> {
   T children(List<Widget> children);
 }
 
+abstract class ChildrenSpanBuilder<T> {
+  T children(List<InlineSpan>? children);
+}
+
 abstract class ClickBuilder<T> {
   Widget click({GestureTapCallback? onTap});
 }
