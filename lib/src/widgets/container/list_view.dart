@@ -20,23 +20,26 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
 
   Widget get _localSeparated {
     if (_separated != null) return _separated!;
+
     if (_isDivider ?? false) {
-      if (_isHorizontal) {
-        return const VerticalDivider();
-      }
+      if (_isHorizontal) return const VerticalDivider();
+
       return const Divider();
     }
 
-    if (_isHorizontal) {
-      return SizedBox(width: _separatedValue);
-    }
+    if (_isHorizontal) return SizedBox(width: _separatedValue);
+
     return SizedBox(height: _separatedValue);
   }
 
   ListViewBuilder._();
 
   @override
-  Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder, {NullableIndexedWidgetBuilder? stepBuilder}) {
+  Widget builder(
+    int? itemCount,
+    NullableIndexedWidgetBuilder builder, {
+    NullableIndexedWidgetBuilder? stepBuilder,
+  }) {
     Widget? listview;
     if (_hasSeparated) {
       listview = ListView.separated(
@@ -63,17 +66,17 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
       );
     }
     if (_hasSize) {
-      return SizedBox(
-        width: size ?? width,
-        height: size ?? height,
-        child: listview,
-      );
+      return SizedBox(width: size ?? width, height: size ?? height, child: listview);
     }
     return listview;
   }
 
   @override
-  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder, {NullableIndexedWidgetBuilder? stepBuilder}) {
+  Widget dataBuilder<T>(
+    List<T>? data,
+    ItemListFunction<T> builder, {
+    NullableIndexedWidgetBuilder? stepBuilder,
+  }) {
     return this.builder(
       data?.length,
       (context, index) => builder(context, index, data![index]),
@@ -90,32 +93,30 @@ class GridViewBuilder extends ItemBuilder
   GridViewBuilder._();
 
   @override
-  Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder, {NullableIndexedWidgetBuilder? stepBuilder}) {
+  Widget builder(
+    int? itemCount,
+    NullableIndexedWidgetBuilder builder, {
+    NullableIndexedWidgetBuilder? stepBuilder,
+  }) {
     if (_childWidth != null) {
       return LayoutBuilder(builder: (context, constraints) {
         int count = constraints.maxWidth ~/ (_childWidth! + (_crossAxisSpacing ?? _spacing ?? 0.0));
         count = count < 2 ? 2 : count;
-        return GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: count,
-            mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
-            crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
-            childAspectRatio: ratio ?? 1.0,
-          ),
-          itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
-          itemCount: _itemCount(itemCount, stepBuilder),
-          padding: finalPadding,
-          scrollDirection: scrollDirection ?? Axis.vertical,
-          controller: _controller,
-          reverse: _reverse,
-          shrinkWrap: _shrinkWrap,
-          physics: _physics,
-        );
+        return _buildGridView(itemCount, builder, stepBuilder, count);
       });
     }
+    return _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+  }
+
+  Widget _buildGridView(
+    int? itemCount,
+    NullableIndexedWidgetBuilder builder,
+    NullableIndexedWidgetBuilder? stepBuilder,
+    int? crossAxisCount,
+  ) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: _crossAxisCount ?? 2,
+        crossAxisCount: crossAxisCount ?? 2,
         mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
         crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
         childAspectRatio: ratio ?? 1.0,
@@ -132,7 +133,11 @@ class GridViewBuilder extends ItemBuilder
   }
 
   @override
-  Widget dataBuilder<T>(List<T>? data, ItemListFunction<T> builder, {NullableIndexedWidgetBuilder? stepBuilder}) {
+  Widget dataBuilder<T>(
+    List<T>? data,
+    ItemListFunction<T> builder, {
+    NullableIndexedWidgetBuilder? stepBuilder,
+  }) {
     return this.builder(
       data?.length,
       (context, index) => builder(context, index, data![index]),

@@ -8,17 +8,17 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 int _asset = 0;
 int _image = 1;
 
-///Image.asset
+///[Image.asset]
 ImageBuilder assetImage(String path) => ImageBuilder._(path, _asset);
 
-///Image.network
+///[Image.network]
 ImageBuilder image(String path) => ImageBuilder._(path, _image);
 
 extension StringImageTailWind on String {
-  ///Image.asset
+  ///[Image.asset]
   ImageBuilder get asset => ImageBuilder._(this, _asset);
 
-  ///Image.network
+  ///[Image.network]
   ImageBuilder get image => ImageBuilder._(this, _image);
 }
 
@@ -38,6 +38,8 @@ class ImageBuilder extends MkBuilder<Widget>
   final int type;
 
   String? _heroTag;
+
+  ImageBuilder hero(String hero) => this.._heroTag = hero;
 
   ImageBuilder._(this.image, this.type);
 
