@@ -63,3 +63,4 @@ linter:
     library_private_types_in_public_api: ignore
     lines_longer_than_80_chars: ignore
     depend_on_referenced_packages: ignore
+    omit_local_variable_types: true

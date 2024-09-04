@@ -105,12 +105,12 @@ class GridViewBuilder extends ItemBuilder
   }) {
     if (_childWidth != null) {
       return LayoutBuilder(builder: (context, constraints) {
-        int count = constraints.maxWidth ~/ (_childWidth! + (_crossAxisSpacing ?? _spacing ?? 0.0));
+        var count = constraints.maxWidth ~/ (_childWidth! + (_crossAxisSpacing ?? _spacing ?? 0.0));
         count = count < 2 ? 2 : count;
         return _buildGridView(itemCount, builder, stepBuilder, count);
       });
     }
-    Widget gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+    var gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
 
     if (_expanded) {
       return Expanded(child: gridView);

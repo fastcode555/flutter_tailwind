@@ -20,11 +20,11 @@ mixin StepMixin {
     NullableIndexedWidgetBuilder? tailBuilder,
   ) {
     if (_step == null || _step! <= 0 || tailBuilder == null) return builder.call(context, index);
-    int realStep = _step! + 1;
+    var realStep = _step! + 1;
     if (index % realStep == _step) {
       return tailBuilder.call(context, index ~/ realStep);
     }
-    int realIndex = index - index ~/ realStep;
+    var realIndex = index - index ~/ realStep;
     return builder.call(context, realIndex);
   }
 }

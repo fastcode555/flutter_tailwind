@@ -54,8 +54,8 @@ class _Image extends StatelessWidget {
     _collect(url);
     LoadingErrorWidgetBuilder? finalErrorBuilder;
     PlaceholderWidgetBuilder? finalPlaceBuilder;
-    double? finalW = width ?? height;
-    double? finalH = height ?? width; //只要有一个值进来,即便另一个值为空,就默认为正方形图片
+    var finalW = width ?? height;
+    var finalH = height ?? width; //只要有一个值进来,即便另一个值为空,就默认为正方形图片
     if (ImageLoader.config == null) {
       debugPrint('you are supported to use ImageLoader.init(ImageLoaderConfig)');
     } else {
@@ -118,8 +118,8 @@ class _Image extends StatelessWidget {
   //加载文件型图片
   Widget _loadFileOrAssertImage(
       LoadingErrorWidgetBuilder? errorBuilder, double? width, double? height, BuildContext context) {
-    File imageFile = File(url ?? '');
-    bool isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
+    var imageFile = File(url ?? '');
+    var isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
     if (isFile) {
       return _buildBorderCircleImage(
         border,

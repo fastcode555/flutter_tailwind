@@ -79,15 +79,15 @@ class ImageLoader extends StatelessWidget {
   }
 
   static Future<File?> getFromCache(String url) async {
-    FileInfo? file = await DefaultCacheManager().getFileFromCache(url);
+    var file = await DefaultCacheManager().getFileFromCache(url);
     return file?.file;
   }
 
   //随机生成对应数量的urls图片
   static List<String> getImages({int count = 5}) {
-    List<String> urls = [];
+    var urls = <String>[];
     if (_imageUrls != null) {
-      for (int i = 0; i < count; i++) {
+      for (var i = 0; i < count; i++) {
         if (_imageUrls!.isEmpty) {
           urls.add('');
         } else if (_imageUrls!.length == 1) {
@@ -104,8 +104,8 @@ class ImageLoader extends StatelessWidget {
     if (_isNetUrl(url)) {
       return CachedNetworkImageProvider(url!);
     } else {
-      File imageFile = File(url ?? '');
-      bool isFile = url != null && url.isNotEmpty && imageFile.existsSync();
+      var imageFile = File(url ?? '');
+      var isFile = url != null && url.isNotEmpty && imageFile.existsSync();
       if (isFile) {
         return FileImage(imageFile);
       }
@@ -296,7 +296,7 @@ class ImageLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     _devicePixelRatio = _devicePixelRatio ?? ScreenUtil().pixelRatio;
     if (_radius == null && decoration != null && decoration is BoxDecoration) {
-      BoxDecoration boxDecoration = decoration as BoxDecoration;
+      var boxDecoration = decoration as BoxDecoration;
       if (boxDecoration.shape == BoxShape.circle) {
         _type = typeCircle;
         _radius = _radius ?? ((_width ?? _height ?? 0.0) / 2.0);
@@ -305,7 +305,7 @@ class ImageLoader extends StatelessWidget {
         _type = typeRoundCorner;
       }
     }
-    Widget widget = _buildImage(context);
+    var widget = _buildImage(context);
     if (decoration != null) {
       return Container(decoration: decoration, child: widget);
     }

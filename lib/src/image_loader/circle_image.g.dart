@@ -124,8 +124,8 @@ class _CircleImage extends StatelessWidget {
             : finalErrorBuilder,
       );
     } else {
-      File imageFile = File(url ?? '');
-      bool isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
+      var imageFile = File(url ?? '');
+      var isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
       if (isFile) {
         return _buildBorderCircleImage(
           border,

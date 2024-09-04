@@ -226,8 +226,9 @@ class _MyHomePageState extends State<MyHomePage> {
             listview.neverScroll.shrinkWrap.divider.step3.builder(
               10,
               (_, index) => Text("child: $index", style: ts.f30.bold.redAccent.mk),
-              stepBuilder: (_, index) =>
-                  container.red.centerLeft.p8.pl16.child(text("banner:$index").bold.f20.white.mk),
+              stepBuilder: (_, index) => container.red.centerLeft.p8.pl16.child(
+                text("banner:$index").bold.f20.white.mk,
+              ),
             ),
 
             listview.separated16.pl16.pr16.horizontal.h365.builder(

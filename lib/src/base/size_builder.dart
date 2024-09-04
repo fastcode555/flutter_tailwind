@@ -10,7 +10,51 @@ mixin SizeBuilder {
 }
 
 extension SizeBuilderExt<T extends SizeBuilder> on T {
-  T get hFull => this..height = ScreenUtil().screenHeight;
+  double get _screenH => ScreenUtil().screenHeight;
+
+  double get _screenW => ScreenUtil().screenHeight;
+
+  double get _sFull => _screenW < _screenH ? _screenH : _screenW;
+
+  T get hFull => this..height = _screenH;
+
+  T get hFull20 => this..height = _screenH * .2;
+
+  T get hFull50 => this..height = _screenH * .5;
+
+  T get hFull60 => this..height = _screenH * .6;
+
+  T get hFull70 => this..height = _screenH * .7;
+
+  T get hFull80 => this..height = _screenH * .8;
+
+  T get wFull => this..width = _screenW;
+
+  T get wFull20 => this..width = _screenW * .2;
+
+  T get wFull50 => this..width = _screenW * .5;
+
+  T get wFull60 => this..width = _screenW * .6;
+
+  T get wFull70 => this..width = _screenW * .7;
+
+  T get wFull80 => this..width = _screenW * .8;
+
+  T get sFull => this..size = _screenW < _screenH ? _screenH : _screenW;
+
+  T get sFull20 => this..size = _sFull * .2;
+
+  T get sFull50 => this..size = _sFull * .5;
+
+  T get sFull60 => this..size = _sFull * .6;
+
+  T get sFull70 => this..size = _sFull * .7;
+
+  T get sFull80 => this..size = _sFull * .8;
+
+  T get sScreenH => this..size = _screenH;
+
+  T get sScreenW => this..size = _screenW;
 
   T get h2 => this..height = 2.h;
 
@@ -112,7 +156,17 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get h100 => this..height = 100.h;
 
-  T get wFull => this..width = ScreenUtil().screenWidth;
+  T get h120 => this..height = 120.h;
+
+  T get h150 => this..height = 150.h;
+
+  T get h200 => this..height = 200.h;
+
+  T get h250 => this..height = 250.h;
+
+  T get h300 => this..height = 300.h;
+
+  T get h350 => this..height = 350.h;
 
   T get w2 => this..width = 2.w;
 
@@ -214,9 +268,17 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get w100 => this..width = 100.w;
 
-  T get sScreenHeight => this..size = ScreenUtil().screenHeight;
+  T get w120 => this..height = 120.w;
 
-  T get sScreenWidth => this..size = ScreenUtil().screenWidth;
+  T get w150 => this..height = 150.w;
+
+  T get w200 => this..height = 200.w;
+
+  T get w250 => this..height = 250.w;
+
+  T get w300 => this..height = 300.w;
+
+  T get w350 => this..height = 350.w;
 
   T get s2 => this..size = 2.r;
 
@@ -318,7 +380,15 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get s100 => this..size = 100.r;
 
-  T get sFull => this
-    ..size =
-        ScreenUtil().screenWidth < ScreenUtil().screenHeight ? ScreenUtil().screenWidth : ScreenUtil().screenHeight;
+  T get s120 => this..height = 120.r;
+
+  T get s150 => this..height = 150.r;
+
+  T get s200 => this..height = 200.r;
+
+  T get s250 => this..height = 250.r;
+
+  T get s300 => this..height = 300.r;
+
+  T get s350 => this..height = 350.r;
 }
