@@ -11,14 +11,27 @@ mixin BorderRadiusBuilder {
   double? bottomRight;
   double? bottomLeft;
 
+  double? top;
+  double? bottom;
+  double? left;
+  double? right;
+
   bool get hasRadius =>
-      radius != null || topLeft != null || topRight != null || bottomLeft != null || bottomRight != null;
+      radius != null ||
+      topLeft != null ||
+      topRight != null ||
+      bottomLeft != null ||
+      bottomRight != null ||
+      top != null ||
+      bottom != null ||
+      left != null ||
+      right != null;
 
   BorderRadiusGeometry get borderRadius => BorderRadius.only(
-        topLeft: Radius.circular(topLeft ?? radius ?? 0.0),
-        topRight: Radius.circular(topRight ?? radius ?? 0.0),
-        bottomLeft: Radius.circular(bottomLeft ?? radius ?? 0.0),
-        bottomRight: Radius.circular(bottomRight ?? radius ?? 0.0),
+        topLeft: Radius.circular(topLeft ?? top ?? left ?? radius ?? 0.0),
+        topRight: Radius.circular(topRight ?? top ?? right ?? radius ?? 0.0),
+        bottomLeft: Radius.circular(bottomLeft ?? bottom ?? left ?? radius ?? 0.0),
+        bottomRight: Radius.circular(bottomRight ?? bottom ?? right ?? radius ?? 0.0),
       );
 
   WidgetStateProperty<OutlinedBorder?>? get buttonShape {
@@ -490,4 +503,404 @@ extension BorderRadiusBuilderExt<T extends BorderRadiusBuilder> on T {
   T get roundedBl49 => this..bottomLeft = 49.r;
 
   T get roundedBl50 => this..bottomLeft = 50.r;
+
+  T get roundedT1 => this..top = 1.r;
+
+  T get roundedT2 => this..top = 2.r;
+
+  T get roundedT3 => this..top = 3.r;
+
+  T get roundedT4 => this..top = 4.r;
+
+  T get roundedT5 => this..top = 5.r;
+
+  T get roundedT6 => this..top = 6.r;
+
+  T get roundedT7 => this..top = 7.r;
+
+  T get roundedT8 => this..top = 8.r;
+
+  T get roundedT9 => this..top = 9.r;
+
+  T get roundedT10 => this..top = 10.r;
+
+  T get roundedT11 => this..top = 11.r;
+
+  T get roundedT12 => this..top = 12.r;
+
+  T get roundedT13 => this..top = 13.r;
+
+  T get roundedT14 => this..top = 14.r;
+
+  T get roundedT15 => this..top = 15.r;
+
+  T get roundedT16 => this..top = 16.r;
+
+  T get roundedT17 => this..top = 17.r;
+
+  T get roundedT18 => this..top = 18.r;
+
+  T get roundedT19 => this..top = 19.r;
+
+  T get roundedT20 => this..top = 20.r;
+
+  T get roundedT21 => this..top = 21.r;
+
+  T get roundedT22 => this..top = 22.r;
+
+  T get roundedT23 => this..top = 23.r;
+
+  T get roundedT24 => this..top = 24.r;
+
+  T get roundedT25 => this..top = 25.r;
+
+  T get roundedT26 => this..top = 26.r;
+
+  T get roundedT27 => this..top = 27.r;
+
+  T get roundedT28 => this..top = 28.r;
+
+  T get roundedT29 => this..top = 29.r;
+
+  T get roundedT30 => this..top = 30.r;
+
+  T get roundedT31 => this..top = 31.r;
+
+  T get roundedT32 => this..top = 32.r;
+
+  T get roundedT33 => this..top = 33.r;
+
+  T get roundedT34 => this..top = 34.r;
+
+  T get roundedT35 => this..top = 35.r;
+
+  T get roundedT36 => this..top = 36.r;
+
+  T get roundedT37 => this..top = 37.r;
+
+  T get roundedT38 => this..top = 38.r;
+
+  T get roundedT39 => this..top = 39.r;
+
+  T get roundedT40 => this..top = 40.r;
+
+  T get roundedT41 => this..top = 41.r;
+
+  T get roundedT42 => this..top = 42.r;
+
+  T get roundedT43 => this..top = 43.r;
+
+  T get roundedT44 => this..top = 44.r;
+
+  T get roundedT45 => this..top = 45.r;
+
+  T get roundedT46 => this..top = 46.r;
+
+  T get roundedT47 => this..top = 47.r;
+
+  T get roundedT48 => this..top = 48.r;
+
+  T get roundedT49 => this..top = 49.r;
+
+  T get roundedT50 => this..top = 50.r;
+
+  T get roundedB1 => this..bottom = 1.r;
+
+  T get roundedB2 => this..bottom = 2.r;
+
+  T get roundedB3 => this..bottom = 3.r;
+
+  T get roundedB4 => this..bottom = 4.r;
+
+  T get roundedB5 => this..bottom = 5.r;
+
+  T get roundedB6 => this..bottom = 6.r;
+
+  T get roundedB7 => this..bottom = 7.r;
+
+  T get roundedB8 => this..bottom = 8.r;
+
+  T get roundedB9 => this..bottom = 9.r;
+
+  T get roundedB10 => this..bottom = 10.r;
+
+  T get roundedB11 => this..bottom = 11.r;
+
+  T get roundedB12 => this..bottom = 12.r;
+
+  T get roundedB13 => this..bottom = 13.r;
+
+  T get roundedB14 => this..bottom = 14.r;
+
+  T get roundedB15 => this..bottom = 15.r;
+
+  T get roundedB16 => this..bottom = 16.r;
+
+  T get roundedB17 => this..bottom = 17.r;
+
+  T get roundedB18 => this..bottom = 18.r;
+
+  T get roundedB19 => this..bottom = 19.r;
+
+  T get roundedB20 => this..bottom = 20.r;
+
+  T get roundedB21 => this..bottom = 21.r;
+
+  T get roundedB22 => this..bottom = 22.r;
+
+  T get roundedB23 => this..bottom = 23.r;
+
+  T get roundedB24 => this..bottom = 24.r;
+
+  T get roundedB25 => this..bottom = 25.r;
+
+  T get roundedB26 => this..bottom = 26.r;
+
+  T get roundedB27 => this..bottom = 27.r;
+
+  T get roundedB28 => this..bottom = 28.r;
+
+  T get roundedB29 => this..bottom = 29.r;
+
+  T get roundedB30 => this..bottom = 30.r;
+
+  T get roundedB31 => this..bottom = 31.r;
+
+  T get roundedB32 => this..bottom = 32.r;
+
+  T get roundedB33 => this..bottom = 33.r;
+
+  T get roundedB34 => this..bottom = 34.r;
+
+  T get roundedB35 => this..bottom = 35.r;
+
+  T get roundedB36 => this..bottom = 36.r;
+
+  T get roundedB37 => this..bottom = 37.r;
+
+  T get roundedB38 => this..bottom = 38.r;
+
+  T get roundedB39 => this..bottom = 39.r;
+
+  T get roundedB40 => this..bottom = 40.r;
+
+  T get roundedB41 => this..bottom = 41.r;
+
+  T get roundedB42 => this..bottom = 42.r;
+
+  T get roundedB43 => this..bottom = 43.r;
+
+  T get roundedB44 => this..bottom = 44.r;
+
+  T get roundedB45 => this..bottom = 45.r;
+
+  T get roundedB46 => this..bottom = 46.r;
+
+  T get roundedB47 => this..bottom = 47.r;
+
+  T get roundedB48 => this..bottom = 48.r;
+
+  T get roundedB49 => this..bottom = 49.r;
+
+  T get roundedB50 => this..bottom = 50.r;
+
+  T get roundedL1 => this..left = 1.r;
+
+  T get roundedL2 => this..left = 2.r;
+
+  T get roundedL3 => this..left = 3.r;
+
+  T get roundedL4 => this..left = 4.r;
+
+  T get roundedL5 => this..left = 5.r;
+
+  T get roundedL6 => this..left = 6.r;
+
+  T get roundedL7 => this..left = 7.r;
+
+  T get roundedL8 => this..left = 8.r;
+
+  T get roundedL9 => this..left = 9.r;
+
+  T get roundedL10 => this..left = 10.r;
+
+  T get roundedL11 => this..left = 11.r;
+
+  T get roundedL12 => this..left = 12.r;
+
+  T get roundedL13 => this..left = 13.r;
+
+  T get roundedL14 => this..left = 14.r;
+
+  T get roundedL15 => this..left = 15.r;
+
+  T get roundedL16 => this..left = 16.r;
+
+  T get roundedL17 => this..left = 17.r;
+
+  T get roundedL18 => this..left = 18.r;
+
+  T get roundedL19 => this..left = 19.r;
+
+  T get roundedL20 => this..left = 20.r;
+
+  T get roundedL21 => this..left = 21.r;
+
+  T get roundedL22 => this..left = 22.r;
+
+  T get roundedL23 => this..left = 23.r;
+
+  T get roundedL24 => this..left = 24.r;
+
+  T get roundedL25 => this..left = 25.r;
+
+  T get roundedL26 => this..left = 26.r;
+
+  T get roundedL27 => this..left = 27.r;
+
+  T get roundedL28 => this..left = 28.r;
+
+  T get roundedL29 => this..left = 29.r;
+
+  T get roundedL30 => this..left = 30.r;
+
+  T get roundedL31 => this..left = 31.r;
+
+  T get roundedL32 => this..left = 32.r;
+
+  T get roundedL33 => this..left = 33.r;
+
+  T get roundedL34 => this..left = 34.r;
+
+  T get roundedL35 => this..left = 35.r;
+
+  T get roundedL36 => this..left = 36.r;
+
+  T get roundedL37 => this..left = 37.r;
+
+  T get roundedL38 => this..left = 38.r;
+
+  T get roundedL39 => this..left = 39.r;
+
+  T get roundedL40 => this..left = 40.r;
+
+  T get roundedL41 => this..left = 41.r;
+
+  T get roundedL42 => this..left = 42.r;
+
+  T get roundedL43 => this..left = 43.r;
+
+  T get roundedL44 => this..left = 44.r;
+
+  T get roundedL45 => this..left = 45.r;
+
+  T get roundedL46 => this..left = 46.r;
+
+  T get roundedL47 => this..left = 47.r;
+
+  T get roundedL48 => this..left = 48.r;
+
+  T get roundedL49 => this..left = 49.r;
+
+  T get roundedL50 => this..left = 50.r;
+
+  T get roundedR1 => this..right = 1.r;
+
+  T get roundedR2 => this..right = 2.r;
+
+  T get roundedR3 => this..right = 3.r;
+
+  T get roundedR4 => this..right = 4.r;
+
+  T get roundedR5 => this..right = 5.r;
+
+  T get roundedR6 => this..right = 6.r;
+
+  T get roundedR7 => this..right = 7.r;
+
+  T get roundedR8 => this..right = 8.r;
+
+  T get roundedR9 => this..right = 9.r;
+
+  T get roundedR10 => this..right = 10.r;
+
+  T get roundedR11 => this..right = 11.r;
+
+  T get roundedR12 => this..right = 12.r;
+
+  T get roundedR13 => this..right = 13.r;
+
+  T get roundedR14 => this..right = 14.r;
+
+  T get roundedR15 => this..right = 15.r;
+
+  T get roundedR16 => this..right = 16.r;
+
+  T get roundedR17 => this..right = 17.r;
+
+  T get roundedR18 => this..right = 18.r;
+
+  T get roundedR19 => this..right = 19.r;
+
+  T get roundedR20 => this..right = 20.r;
+
+  T get roundedR21 => this..right = 21.r;
+
+  T get roundedR22 => this..right = 22.r;
+
+  T get roundedR23 => this..right = 23.r;
+
+  T get roundedR24 => this..right = 24.r;
+
+  T get roundedR25 => this..right = 25.r;
+
+  T get roundedR26 => this..right = 26.r;
+
+  T get roundedR27 => this..right = 27.r;
+
+  T get roundedR28 => this..right = 28.r;
+
+  T get roundedR29 => this..right = 29.r;
+
+  T get roundedR30 => this..right = 30.r;
+
+  T get roundedR31 => this..right = 31.r;
+
+  T get roundedR32 => this..right = 32.r;
+
+  T get roundedR33 => this..right = 33.r;
+
+  T get roundedR34 => this..right = 34.r;
+
+  T get roundedR35 => this..right = 35.r;
+
+  T get roundedR36 => this..right = 36.r;
+
+  T get roundedR37 => this..right = 37.r;
+
+  T get roundedR38 => this..right = 38.r;
+
+  T get roundedR39 => this..right = 39.r;
+
+  T get roundedR40 => this..right = 40.r;
+
+  T get roundedR41 => this..right = 41.r;
+
+  T get roundedR42 => this..right = 42.r;
+
+  T get roundedR43 => this..right = 43.r;
+
+  T get roundedR44 => this..right = 44.r;
+
+  T get roundedR45 => this..right = 45.r;
+
+  T get roundedR46 => this..right = 46.r;
+
+  T get roundedR47 => this..right = 47.r;
+
+  T get roundedR48 => this..right = 48.r;
+
+  T get roundedR49 => this..right = 49.r;
+
+  T get roundedR50 => this..right = 50.r;
 }

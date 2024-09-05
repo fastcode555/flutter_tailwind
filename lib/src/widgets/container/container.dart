@@ -147,11 +147,13 @@ class ContainerBuilder extends ChildMkBuilder<Container>
   BorderSide? _borderRight;
   BorderSide? _borderTop;
   BorderSide? _borderBottom;
-  BorderRadiusGeometry? _borderRadius;
 
   BorderRadiusGeometry? get _internalBorderRadius {
     if (isCircle) return null;
-    return _borderRadius ?? (radius != null ? BorderRadius.circular(radius!) : null);
+    if (hasRadius) {
+      return borderRadius;
+    }
+    return null;
   }
 
   BoxBorder? get _internalBorder {

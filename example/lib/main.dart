@@ -61,6 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Wrap(
           children: [
+            container.roundedT12.red.h50.wFull50.mk,
             h2,
             "Hello world".text.dashed.lightGreen.f30.bold.lineThrough.mk,
             "Hello world".text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
@@ -218,7 +219,15 @@ class _MyHomePageState extends State<MyHomePage> {
             "Outline Button".outlinedButton.icon(R.icDefPlaylist).s18.end.borderRedColor.border2.click(onTap: () {}),
             "Outline Button".outlinedButton.icon(_link).s18.end.borderRedColor.border2.click(onTap: () {}),
             "Outline Button".outlinedButton.icon('${_link}2342').s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon('${_link}2342').s18.end.borderRedColor.opacity50.border2.click(onTap: () {}),
+            "Outline Button"
+                .outlinedButton
+                .icon('${_link}2342')
+                .s18
+                .end
+                .borderRedColor
+                .opacity50
+                .border2
+                .click(onTap: () {}),
             iconButton.icon(Icons.ac_unit).green.click(onTap: () {}),
             iconButton.icon(Icons.ac_unit).red.click(onTap: () {}),
             iconButton.icon(Icons.ac_unit).borderRed.click(onTap: () {}),
