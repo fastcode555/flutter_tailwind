@@ -44,11 +44,11 @@ extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
     );
   }
 
-  Widget inkwellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: mk);
+
+  Widget inkWellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
     return InkWell(onTap: onTap, onLongPress: onLongPress, child: mk);
   }
-
-  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: mk);
 }
 
 extension ClickListenerExt on Widget {
@@ -61,7 +61,9 @@ extension ClickListenerExt on Widget {
     );
   }
 
-  Widget inkwellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
+  Widget inkWellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
     return InkWell(onTap: onTap, onLongPress: onLongPress, child: this);
   }
+
+  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: this);
 }

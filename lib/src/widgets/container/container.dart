@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
@@ -8,6 +6,19 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// describe:
 mixin CompleteDecoration {
   BoxDecoration? decoration;
+}
+
+mixin ImageProviderBuilderMixin {
+  String? _image;
+
+  DecorationImage? get _decorImage {
+    if (_image == null || _image!.isEmpty) return null;
+    return DecorationImage(image: ImageLoader.getImageProvider(_image) ?? AssetImage(_image!));
+  }
+}
+
+extension ImageProviderBuilderExt<T extends ImageProviderBuilderMixin> on T {
+  T image(String? image) => this.._image = image;
 }
 
 BoxDecorationBuilder get bd => BoxDecorationBuilder();
@@ -21,8 +32,9 @@ class BoxDecorationBuilder
         BlendModeBuilder,
         BoxShapeBuilder,
         ShadowBuilder,
-        CompleteDecoration {
-  DecorationImage? _image;
+        CompleteDecoration,
+        ImageProviderBuilderMixin,
+        OpacityBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -53,8 +65,8 @@ class BoxDecorationBuilder
   BoxDecoration get mk =>
       decoration ??
       BoxDecoration(
-        color: innerColor,
-        image: _image,
+        color: innerColor.opacity(innerOpacity),
+        image: _decorImage,
         border: _internalBorder,
         borderRadius: _internalBorderRadius,
         gradient: _gradient,
@@ -69,15 +81,9 @@ extension BoxDecorationBuilderColorExt on Color {
 }
 
 extension BoxDecorationBuilderExt on BoxDecorationBuilder {
-  BoxDecorationBuilder asset(String assetName) => this.._image = DecorationImage(image: AssetImage(assetName));
-
   BoxDecorationBuilder gradient(Gradient gradient) => this.._gradient = gradient;
 
   BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
-
-  BoxDecorationBuilder file(String filePath) => this.._image = DecorationImage(image: FileImage(File(filePath)));
-
-  BoxDecorationBuilder network(String url) => this.._image = DecorationImage(image: NetworkImage(url));
 
   // BoxDecorationBuilder borderRadius(BorderRadiusGeometry? borderRadius) => this.._borderRadius = borderRadius;
   BoxDecorationBuilder rOnly([double? topLeft, double? topRight, double? bottomLeft, double? bottomRight]) => this
@@ -133,7 +139,9 @@ class ContainerBuilder extends ChildMkBuilder<Container>
         ShadowBuilder,
         CompleteDecoration,
         PaddingBuilder,
-        MarginBuilder {
+        MarginBuilder,
+        ImageProviderBuilderMixin,
+        OpacityBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -149,7 +157,7 @@ class ContainerBuilder extends ChildMkBuilder<Container>
   BoxBorder? get _internalBorder {
     if (_border != null) return _border;
     if (borderColor != null) {
-      return Border.all(color: borderColor!, width: borderWidth ?? 1.0);
+      return Border.all(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0);
     }
     return Border(
       top: _borderTop ?? BorderSide.none,
@@ -167,7 +175,7 @@ class ContainerBuilder extends ChildMkBuilder<Container>
         alignment: alignment ?? Alignment.center,
         decoration: decoration ??
             BoxDecoration(
-              color: innerColor,
+              color: innerColor.opacity(innerOpacity),
               shape: shape ?? BoxShape.rectangle,
               border: _internalBorder,
               borderRadius: _internalBorderRadius,
@@ -185,11 +193,12 @@ class ContainerBuilder extends ChildMkBuilder<Container>
       alignment: alignment ?? Alignment.center,
       decoration: decoration ??
           BoxDecoration(
-            color: innerColor,
+            color: innerColor.opacity(innerOpacity),
             shape: shape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
             boxShadow: boxShadow,
+            image: _decorImage,
           ),
       child: child,
     );

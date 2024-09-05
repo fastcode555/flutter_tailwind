@@ -33,7 +33,8 @@ class ImageBuilder extends MkBuilder<Widget>
         BorderColorBuilder,
         BorderRadiusBuilder,
         PaddingBuilder,
-        ShadowBuilder {
+        ShadowBuilder,
+        OpacityBuilder {
   final String image;
   final int type;
 
@@ -63,7 +64,7 @@ class ImageBuilder extends MkBuilder<Widget>
         image,
         fit: fit ?? BoxFit.cover,
         radius: (size ?? 0) / 2,
-        borderColor: borderColor,
+        borderColor: borderColor.opacity(innerOpacity),
         border: borderWidth,
         heroTag: _heroTag,
         boxShadow: boxShadow,
@@ -77,7 +78,7 @@ class ImageBuilder extends MkBuilder<Widget>
         width: size ?? width,
         height: size ?? height,
         heroTag: _heroTag,
-        borderColor: borderColor,
+        borderColor: borderColor.opacity(innerOpacity),
         border: borderWidth,
         boxShadow: boxShadow,
       );
@@ -88,7 +89,7 @@ class ImageBuilder extends MkBuilder<Widget>
       width: size ?? width,
       height: size ?? height,
       heroTag: _heroTag,
-      borderColor: borderColor,
+      borderColor: borderColor.opacity(innerOpacity),
       border: borderWidth,
       boxShadow: boxShadow,
     );
@@ -101,7 +102,7 @@ class ImageBuilder extends MkBuilder<Widget>
         height: size ?? height,
         decoration: BoxDecoration(
           borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
-          border: Border.all(color: borderColor!, width: borderWidth ?? 1.0),
+          border: Border.all(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0),
           shape: shape ?? BoxShape.rectangle,
           boxShadow: boxShadow,
           image: DecorationImage(

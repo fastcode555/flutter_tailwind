@@ -65,7 +65,7 @@ class IconButtonBuilder extends ButtonBuilder {
       icon: _finalIcon ?? gapEmpty,
       padding: finalPadding,
       iconSize: size ?? width ?? height,
-      color: borderColor ?? innerColor,
+      color: (borderColor ?? innerColor).opacity(innerOpacity),
       style: _buttonStyle,
     );
   }

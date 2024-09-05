@@ -46,14 +46,15 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         BorderColorBuilder,
         ButtonIconBuilder,
         PaddingBuilder,
-        SizeBuilder {
+        SizeBuilder,
+        OpacityBuilder {
   final String text;
 
   Color? get _finalColor {
     if (_isIconButton) {
-      return borderColor ?? innerColor;
+      return (borderColor ?? innerColor).opacity(innerOpacity);
     }
-    return innerTextColor ?? borderColor ?? innerColor;
+    return (innerTextColor ?? borderColor ?? innerColor).opacity(innerOpacity);
   }
 
   bool get _isIconButton => false;
@@ -83,13 +84,13 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     WidgetStateProperty<EdgeInsetsGeometry?>? padding;
     ButtonStyle? buttonStyle;
     if (borderColor != null || borderWidth != null) {
-      side = WidgetStateProperty.all(BorderSide(color: borderColor ?? Colors.black, width: borderWidth ?? 1.0));
+      side = WidgetStateProperty.all(BorderSide(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0));
     }
     if (innerTextColor != null || borderColor != null) {
-      foregroundColor = WidgetStateProperty.all(innerTextColor ?? borderColor);
+      foregroundColor = WidgetStateProperty.all((innerTextColor ?? borderColor).opacity(innerOpacity));
     }
     if (innerColor != null && !_isIconButton) {
-      backgroundColor = WidgetStateProperty.all(innerColor);
+      backgroundColor = WidgetStateProperty.all(innerColor.opacity(innerOpacity));
     }
     if (hasPadding) {
       padding = WidgetStateProperty.all(finalPadding);

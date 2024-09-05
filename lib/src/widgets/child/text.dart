@@ -34,7 +34,8 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
         TextFeature,
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
-        TextColorBuilder {
+        TextColorBuilder,
+        OpacityBuilder {
   @override
   TextStyle get mk {
     if (style != null) {
@@ -66,11 +67,11 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
     }
     return TextStyle(
       fontSize: fontSize,
-      color: innerTextColor ?? innerColor,
+      color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
       decoration: _decoration,
       overflow: _overflow,
       decorationStyle: _decorationStyle,
-      decorationColor: _decorationColor,
+      decorationColor: _decorationColor.opacity(innerOpacity),
       fontStyle: _fontStyle,
       fontFamily: fontFamily,
       decorationThickness: _decorationThickness,
@@ -104,7 +105,8 @@ class TextBuilder extends MkBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
-        TextColorBuilder {
+        TextColorBuilder,
+        OpacityBuilder {
   final String? value;
 
   TextBuilder._(this.value);
@@ -141,11 +143,11 @@ class TextBuilder extends MkBuilder<Widget>
               ??
               TextStyle(
                 fontSize: fontSize,
-                color: innerTextColor ?? innerColor,
+                color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
                 decoration: _decoration,
                 overflow: _overflow,
                 decorationStyle: _decorationStyle,
-                decorationColor: _decorationColor,
+                decorationColor: _decorationColor.opacity(innerOpacity),
                 fontStyle: _fontStyle,
                 fontFamily: fontFamily,
                 decorationThickness: _decorationThickness,
@@ -186,7 +188,8 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
-        TextColorBuilder {
+        TextColorBuilder,
+        OpacityBuilder {
   RichTextBuilder._();
 
   @override
@@ -196,11 +199,11 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
       style: style ??
           TextStyle(
             fontSize: fontSize,
-            color: innerTextColor ?? innerColor,
+            color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
             decoration: _decoration,
             overflow: _overflow,
             decorationStyle: _decorationStyle,
-            decorationColor: _decorationColor,
+            decorationColor: _decorationColor.opacity(innerOpacity),
             fontStyle: _fontStyle,
             fontFamily: fontFamily,
             decorationThickness: _decorationThickness,

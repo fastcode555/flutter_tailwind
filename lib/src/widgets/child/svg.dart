@@ -1,14 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_tailwind/src/base/alignment_builder.dart';
-import 'package:flutter_tailwind/src/base/blend_mode_builder.dart';
-import 'package:flutter_tailwind/src/base/color_builder.dart';
-import 'package:flutter_tailwind/src/base/image_feature.dart';
-import 'package:flutter_tailwind/src/base/padding_builder.dart';
-import 'package:flutter_tailwind/src/base/size_builder.dart';
-
-import '../../base/mk_builder.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -17,7 +10,7 @@ import '../../base/mk_builder.dart';
 SvgBuilder svg(String file) => SvgBuilder._(file);
 
 class SvgBuilder extends MkBuilder<Widget>
-    with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder, PaddingBuilder {
+    with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder, PaddingBuilder, OpacityBuilder {
   final String file;
   bool? matchTextDirection;
   bool? allowDrawingOutsideViewBox;
@@ -30,6 +23,11 @@ class SvgBuilder extends MkBuilder<Widget>
   WidgetBuilder? placeholderBuilder;
 
   SvgBuilder._(this.file);
+
+  ColorFilter? get _finalColorFilter {
+    if (innerColor == null) return null;
+    return ColorFilter.mode(innerColor.opacity(innerOpacity)!, blendMode ?? BlendMode.srcIn);
+  }
 
   @override
   Widget get mk {
@@ -47,7 +45,7 @@ class SvgBuilder extends MkBuilder<Widget>
       theme: theme,
       placeholderBuilder: placeholderBuilder,
       clipBehavior: clipBehavior ?? Clip.hardEdge,
-      colorFilter: innerColor != null ? ColorFilter.mode(innerColor!, blendMode ?? BlendMode.srcIn) : null,
+      colorFilter: _finalColorFilter,
     );
     if (hasPadding) {
       return Padding(padding: finalPadding!, child: child);
