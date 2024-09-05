@@ -40,12 +40,14 @@ class BoxDecorationBuilder
   BorderSide? _borderRight;
   BorderSide? _borderTop;
   BorderSide? _borderBottom;
-  BorderRadiusGeometry? _borderRadius;
   Gradient? _gradient;
 
   BorderRadiusGeometry? get _internalBorderRadius {
     if (shape == BoxShape.circle) return null;
-    return _borderRadius ?? (radius != null ? BorderRadius.circular(radius!) : null);
+    if (hasRadius) {
+      return borderRadius;
+    }
+    return null;
   }
 
   BoxBorder? get _internalBorder {
@@ -84,27 +86,6 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
   BoxDecorationBuilder gradient(Gradient gradient) => this.._gradient = gradient;
 
   BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
-
-  // BoxDecorationBuilder borderRadius(BorderRadiusGeometry? borderRadius) => this.._borderRadius = borderRadius;
-  BoxDecorationBuilder rOnly([double? topLeft, double? topRight, double? bottomLeft, double? bottomRight]) => this
-    .._borderRadius = BorderRadius.only(
-      topLeft: Radius.circular(topLeft ?? 0),
-      topRight: Radius.circular(topRight ?? 0),
-      bottomLeft: Radius.circular(bottomLeft ?? 0),
-      bottomRight: Radius.circular(bottomRight ?? 0),
-    );
-
-  BoxDecorationBuilder rh([double? left, double? right]) => this
-    .._borderRadius = BorderRadius.horizontal(
-      left: Radius.circular(left ?? 0),
-      right: Radius.circular(right ?? 0),
-    );
-
-  BoxDecorationBuilder rv([double? top, double? bottom]) => this
-    .._borderRadius = BorderRadius.vertical(
-      top: Radius.circular(top ?? 0),
-      bottom: Radius.circular(bottom ?? 0),
-    );
 
   BoxDecorationBuilder border(Color color, [double width = 1.0]) =>
       this.._border = Border.all(color: color, width: width);

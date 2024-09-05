@@ -75,6 +75,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   T get p32 => this..paddingValue = 32.r;
 
+  T get p34 => this..paddingValue = 34.r;
+
+  T get p36 => this..paddingValue = 36.r;
+
+  T get p38 => this..paddingValue = 38.r;
+
+  T get p40 => this..paddingValue = 40.r;
+
+  T get p42 => this..paddingValue = 42.r;
+
+  T get p44 => this..paddingValue = 44.r;
+
+  T get p46 => this..paddingValue = 46.r;
+
+  T get p48 => this..paddingValue = 48.r;
+
+  T get p50 => this..paddingValue = 50.r;
+
   T get pl2 => this..paddingLeft = 2.r;
 
   T get pl4 => this..paddingLeft = 4.r;
@@ -106,6 +124,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T get pl30 => this..paddingLeft = 30.r;
 
   T get pl32 => this..paddingLeft = 32.r;
+
+  T get pl34 => this..paddingLeft = 34.r;
+
+  T get pl36 => this..paddingLeft = 36.r;
+
+  T get pl38 => this..paddingLeft = 38.r;
+
+  T get pl40 => this..paddingLeft = 40.r;
+
+  T get pl42 => this..paddingLeft = 42.r;
+
+  T get pl44 => this..paddingLeft = 44.r;
+
+  T get pl46 => this..paddingLeft = 46.r;
+
+  T get pl48 => this..paddingLeft = 48.r;
+
+  T get pl50 => this..paddingLeft = 50.r;
 
   T get pr2 => this..paddingRight = 2.r;
 
@@ -139,6 +175,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   T get pr32 => this..paddingRight = 32.r;
 
+  T get pr34 => this..paddingRight = 34.r;
+
+  T get pr36 => this..paddingRight = 36.r;
+
+  T get pr38 => this..paddingRight = 38.r;
+
+  T get pr40 => this..paddingRight = 40.r;
+
+  T get pr42 => this..paddingRight = 42.r;
+
+  T get pr44 => this..paddingRight = 44.r;
+
+  T get pr46 => this..paddingRight = 46.r;
+
+  T get pr48 => this..paddingRight = 48.r;
+
+  T get pr50 => this..paddingRight = 50.r;
+
   T get pt2 => this..paddingTop = 2.r;
 
   T get pt4 => this..paddingTop = 4.r;
@@ -170,6 +224,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T get pt30 => this..paddingTop = 30.r;
 
   T get pt32 => this..paddingTop = 32.r;
+
+  T get pt34 => this..paddingTop = 34.r;
+
+  T get pt36 => this..paddingTop = 36.r;
+
+  T get pt38 => this..paddingTop = 38.r;
+
+  T get pt40 => this..paddingTop = 40.r;
+
+  T get pt42 => this..paddingTop = 42.r;
+
+  T get pt44 => this..paddingTop = 44.r;
+
+  T get pt46 => this..paddingTop = 46.r;
+
+  T get pt48 => this..paddingTop = 48.r;
+
+  T get pt50 => this..paddingTop = 50.r;
 
   T get pb2 => this..paddingBottom = 2.r;
 
@@ -203,6 +275,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   T get pb32 => this..paddingBottom = 32.r;
 
+  T get pb34 => this..paddingBottom = 34.r;
+
+  T get pb36 => this..paddingBottom = 36.r;
+
+  T get pb38 => this..paddingBottom = 38.r;
+
+  T get pb40 => this..paddingBottom = 40.r;
+
+  T get pb42 => this..paddingBottom = 42.r;
+
+  T get pb44 => this..paddingBottom = 44.r;
+
+  T get pb46 => this..paddingBottom = 46.r;
+
+  T get pb48 => this..paddingBottom = 48.r;
+
+  T get pb50 => this..paddingBottom = 50.r;
+
   T get ph2 => this..paddingHorizontal = 2.r;
 
   T get ph4 => this..paddingHorizontal = 4.r;
@@ -235,6 +325,24 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   T get ph32 => this..paddingHorizontal = 32.r;
 
+  T get ph34 => this..paddingHorizontal = 34.r;
+
+  T get ph36 => this..paddingHorizontal = 36.r;
+
+  T get ph38 => this..paddingHorizontal = 38.r;
+
+  T get ph40 => this..paddingHorizontal = 40.r;
+
+  T get ph42 => this..paddingHorizontal = 42.r;
+
+  T get ph44 => this..paddingHorizontal = 44.r;
+
+  T get ph46 => this..paddingHorizontal = 46.r;
+
+  T get ph48 => this..paddingHorizontal = 48.r;
+
+  T get ph50 => this..paddingHorizontal = 50.r;
+
   T get pv2 => this..paddingVertical = 2.r;
 
   T get pv4 => this..paddingVertical = 4.r;
@@ -266,4 +374,22 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T get pv30 => this..paddingVertical = 30.r;
 
   T get pv32 => this..paddingVertical = 32.r;
+
+  T get pv34 => this..paddingVertical = 34.r;
+
+  T get pv36 => this..paddingVertical = 36.r;
+
+  T get pv38 => this..paddingVertical = 38.r;
+
+  T get pv40 => this..paddingVertical = 40.r;
+
+  T get pv42 => this..paddingVertical = 42.r;
+
+  T get pv44 => this..paddingVertical = 44.r;
+
+  T get pv46 => this..paddingVertical = 46.r;
+
+  T get pv48 => this..paddingVertical = 48.r;
+
+  T get pv50 => this..paddingVertical = 50.r;
 }

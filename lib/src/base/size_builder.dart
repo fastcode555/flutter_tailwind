@@ -16,6 +16,8 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   double get _sFull => _screenW < _screenH ? _screenH : _screenW;
 
+  T get hInfinity => this..height = double.infinity;
+
   T get hFull => this..height = _screenH;
 
   T get hFull20 => this..height = _screenH * .2;
@@ -30,6 +32,8 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get wFull => this..width = _screenW;
 
+  T get wInfinity => this..width = double.infinity;
+
   T get wFull20 => this..width = _screenW * .2;
 
   T get wFull50 => this..width = _screenW * .5;
@@ -41,6 +45,8 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   T get wFull80 => this..width = _screenW * .8;
 
   T get sFull => this..size = _screenW < _screenH ? _screenH : _screenW;
+
+  T get sInfinity => this..size = double.infinity;
 
   T get sFull20 => this..size = _sFull * .2;
 
