@@ -55,7 +55,12 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Wrap(
           children: [
-            container.roundedT12.red.h50.wFull50.mk,
+            sizedBox.h300.wFull50.child(
+              container.roundedL50.red.wFull50.mk,
+            ),
+            SizedBox(
+              child: container.roundedL50.red.wFull50.mk,
+            ),
           ],
         ),
       ),

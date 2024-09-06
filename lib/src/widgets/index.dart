@@ -1,6 +1,7 @@
 export 'child/buttons.dart';
 export 'child/icon.dart';
 export 'child/image.dart';
+export 'child/sized_box.dart';
 export 'child/svg.dart';
 export 'child/text.dart';
 export 'child/widgets.dart';
