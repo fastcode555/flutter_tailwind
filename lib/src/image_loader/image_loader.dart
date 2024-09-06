@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/image_loader/shimmer_loader_config.dart';
 
 part 'circle_image.g.dart';
 
@@ -137,7 +138,7 @@ class ImageLoader extends StatelessWidget {
   String? _thumbUrl;
   final Decoration? decoration;
 
-  static ImageLoaderConfigInterface? config;
+  static ImageLoaderConfigInterface? config = ShimmerLoaderConfig();
 
   ///according the widget size load the image size，but sometime，some animation have problems，so cannot use diffrents size
   final bool useSingleCache;

@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Tailwind.instance.addImageConfig(AppImageConfig());
+    // Tailwind.instance.addImageConfig(AppImageConfig());
   }
 
   @override
@@ -100,6 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
             _link.image.border2.borderBrown.opacity50.circle.s100.mk,
             "https://gd-hbimg.huaban.com/".image.border5.borderBrown.s100.mk,
             "https://gd-hbimg.huaban.com/".image.border5.borderBrown.circle.s100.mk,
+            "https://gd-hbimg.huaban.com/".image.border5.borderBrown.rounded16.s100.mk,
             "werwe".image.border5.borderBrown.circle.s100.mk,
 
             ///矩形
