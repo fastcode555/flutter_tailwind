@@ -124,10 +124,14 @@ mixin GridViewFeature {
   double? _spacing, _mainAxisSpacing, _crossAxisSpacing;
 
   double? _childWidth;
+
+  bool _staggered = false;
 }
 
 extension GridViewFeatureExt<T extends GridViewFeature> on T {
   T croAxisCount(int count) => this.._crossAxisCount = count;
+
+  T get staggered => this.._staggered = true;
 
   T spacing(double spacing) => this.._spacing = spacing;
 

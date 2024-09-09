@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 part 'list_view.g.dart';
@@ -107,10 +108,18 @@ class GridViewBuilder extends ItemBuilder
       return LayoutBuilder(builder: (context, constraints) {
         var count = constraints.maxWidth ~/ (_childWidth! + (_crossAxisSpacing ?? _spacing ?? 0.0));
         count = count < 2 ? 2 : count;
+        if (_staggered) {
+          return _buildStaggeredGridView(itemCount, builder, stepBuilder, count);
+        }
         return _buildGridView(itemCount, builder, stepBuilder, count);
       });
     }
-    var gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+    var gridView;
+    if (_staggered) {
+      gridView = _buildStaggeredGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+    } else {
+      gridView = _buildGridView(itemCount, builder, stepBuilder, _crossAxisCount);
+    }
 
     if (_expanded) {
       return Expanded(child: gridView);
@@ -132,6 +141,27 @@ class GridViewBuilder extends ItemBuilder
         childAspectRatio: ratio ?? 1.0,
       ),
       itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
+      itemCount: _itemCount(itemCount, stepBuilder),
+      padding: finalPadding,
+      scrollDirection: scrollDirection ?? Axis.vertical,
+      controller: _controller,
+      reverse: _reverse,
+      shrinkWrap: _shrinkWrap,
+      physics: _physics,
+    );
+  }
+
+  Widget _buildStaggeredGridView(
+    int? itemCount,
+    NullableIndexedWidgetBuilder builder,
+    NullableIndexedWidgetBuilder? stepBuilder,
+    int? crossAxisCount,
+  ) {
+    return MasonryGridView.count(
+      crossAxisCount: crossAxisCount ?? 2,
+      mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
+      crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
+      itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
       itemCount: _itemCount(itemCount, stepBuilder),
       padding: finalPadding,
       scrollDirection: scrollDirection ?? Axis.vertical,
