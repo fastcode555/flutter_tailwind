@@ -91,4 +91,20 @@ extension FontSizeBuilderExt<T extends FontSizeBuilder> on T {
   T get f58 => this..fontSize = 58.csp;
 
   T get f60 => this..fontSize = 60.csp;
+
+  T get f65 => this..fontSize = 65.csp;
+
+  T get f70 => this..fontSize = 70.csp;
+
+  T get f75 => this..fontSize = 75.csp;
+
+  T get f80 => this..fontSize = 80.csp;
+
+  T get f85 => this..fontSize = 85.csp;
+
+  T get f90 => this..fontSize = 90.csp;
+
+  T get f95 => this..fontSize = 95.csp;
+
+  T get f100 => this..fontSize = 100.csp;
 }

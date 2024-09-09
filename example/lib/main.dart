@@ -1,5 +1,4 @@
 import 'package:example/post_item.dart';
-import 'package:example/res/app_image_config.dart';
 import 'package:example/res/colours.dart';
 import 'package:example/res/r.dart';
 import 'package:example/res/tailwind_ext.dart';
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             h2,
             "Hello world".text.dashed.lightGreen.f30.bold.lineThrough.mk,
             "Hello world".text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
-            "Hello world".text.styleMain.mk,
+            text("Hellow").styleMain.mk,
             "Hello world".text.styleTest.mk,
             "Hello world".text.styleAccent.mk,
             textRich.greenAccent.children([
