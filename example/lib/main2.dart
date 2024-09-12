@@ -61,6 +61,12 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               child: container.roundedL50.red.wFull50.mk,
             ),
+            Row(
+              children: [
+                Expanded(child: InputField()),
+                Expanded(child: InputField()),
+              ],
+            ),
           ],
         ),
       ),

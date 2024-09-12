@@ -10,6 +10,12 @@ mixin SizeBuilder {
 }
 
 extension SizeBuilderExt<T extends SizeBuilder> on T {
+  T w(double width) => this..width = width;
+
+  T h(double height) => this..height = height;
+
+  T s(double size) => this..size = size;
+
   double get _screenH => ScreenUtil().screenHeight;
 
   double get _screenW => ScreenUtil().screenHeight;
