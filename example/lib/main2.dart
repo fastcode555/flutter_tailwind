@@ -67,43 +67,43 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: [
                 Expanded(
-                  child: InputField(
+                  child: Input(
                     prefixIcon: Icon(Icons.ac_unit, size: 20),
                     hintText: "test",
                     lableText: "234234",
                   ),
                 ),
                 w16,
-                Expanded(child: InputField()),
+                Expanded(child: Input()),
               ],
             ),
             h6,
-            InputField.underline(
+            Input.underline(
               prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
               hintText: "I'm wrong",
               lableText: "I'm wrong",
               fillColor: Colors.red,
             ),
             h6,
-            InputField.outline(
+            Input.outline(
               prefixIcon: Icon(Icons.ac_unit, size: 20),
               hintText: "I'm wrong",
               lableText: "I'm wrong",
             ),
             h6,
-            InputField.outline(
+            Input.outline(
               prefixIcon: Icons.access_alarm_outlined.icon.s20.mk,
             ),
             h6,
-            InputField.outline(
+            Input.outline(
               prefixIcon: R.icAirPlay.svg.s14.p12.red.mk,
             ),
             h6,
-            InputField.outline(
+            Input.outline(
               lableText: "wrong text",
             ),
             h6,
-            InputField.outline(
+            Input.outline(
               lableText: "wrong text",
               fillColor: Colors.yellowAccent,
               unFocusColor: Colors.blue,

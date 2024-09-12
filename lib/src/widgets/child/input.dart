@@ -4,7 +4,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// Barry
 /// @date 2024/9/11
 /// describe:
-class InputField extends StatefulWidget {
+class Input extends StatefulWidget {
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -29,7 +29,7 @@ class InputField extends StatefulWidget {
   final Color? unFocusColor;
   final TextInputType? keyboardType;
 
-  const InputField({
+  const Input({
     super.key,
     this.controller,
     this.prefixIcon,
@@ -53,7 +53,7 @@ class InputField extends StatefulWidget {
     this.keyboardType,
   });
 
-  const InputField.underline({
+  const Input.underline({
     super.key,
     this.controller,
     this.prefixIcon,
@@ -76,7 +76,7 @@ class InputField extends StatefulWidget {
     this.keyboardType,
   }) : this.border = const UnderlineInputBorder();
 
-  const InputField.outline({
+  const Input.outline({
     super.key,
     this.controller,
     this.prefixIcon,
@@ -100,10 +100,10 @@ class InputField extends StatefulWidget {
   }) : this.border = const OutlineInputBorder();
 
   @override
-  _InputFieldState createState() => _InputFieldState();
+  _InputState createState() => _InputState();
 }
 
-class _InputFieldState extends State<InputField> {
+class _InputState extends State<Input> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
 
