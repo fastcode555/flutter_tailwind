@@ -36,7 +36,7 @@ extension ButtonStringExt on String? {
   ElevatedButtonBuilder get elevatedButton => ElevatedButtonBuilder._(this ?? '');
 }
 
-abstract class ButtonBuilder extends ClickBuilder<Widget>
+abstract class _ButtonBuilder extends ClickBuilder<Widget>
     with
         ColorBuilder,
         TextColorBuilder,
@@ -107,5 +107,5 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     return buttonStyle;
   }
 
-  ButtonBuilder(this.text);
+  _ButtonBuilder(this.text);
 }

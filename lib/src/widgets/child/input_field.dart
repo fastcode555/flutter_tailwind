@@ -15,6 +15,20 @@ class InputField extends StatefulWidget {
   final bool obscureText;
   final EdgeInsetsGeometry? contentPadding;
 
+  final Widget? error;
+  final InputBorder? errorBorder;
+  final String? errorText;
+  final TextStyle? errorStyle;
+  final int? errorMaxLines;
+
+  final TextStyle? floatingLabelStyle;
+  final FloatingLabelAlignment? floatingLabelAlignment;
+  final FloatingLabelBehavior? floatingLabelBehavior;
+
+  final Color? fillColor;
+  final Color? unFocusColor;
+  final TextInputType? keyboardType;
+
   const InputField({
     super.key,
     this.controller,
@@ -26,6 +40,17 @@ class InputField extends StatefulWidget {
     this.border,
     this.obscureText = false,
     this.contentPadding,
+    this.error,
+    this.errorBorder,
+    this.errorText,
+    this.errorStyle,
+    this.errorMaxLines,
+    this.floatingLabelStyle,
+    this.floatingLabelAlignment,
+    this.floatingLabelBehavior,
+    this.fillColor,
+    this.unFocusColor,
+    this.keyboardType,
   });
 
   const InputField.underline({
@@ -38,6 +63,17 @@ class InputField extends StatefulWidget {
     this.focusNode,
     this.obscureText = false,
     this.contentPadding,
+    this.error,
+    this.errorBorder,
+    this.errorText,
+    this.errorStyle,
+    this.errorMaxLines,
+    this.floatingLabelStyle,
+    this.floatingLabelAlignment,
+    this.floatingLabelBehavior,
+    this.fillColor,
+    this.unFocusColor,
+    this.keyboardType,
   }) : this.border = const UnderlineInputBorder();
 
   const InputField.outline({
@@ -50,6 +86,17 @@ class InputField extends StatefulWidget {
     this.focusNode,
     this.obscureText = false,
     this.contentPadding,
+    this.error,
+    this.errorBorder,
+    this.errorText,
+    this.errorStyle,
+    this.errorMaxLines,
+    this.floatingLabelStyle,
+    this.floatingLabelAlignment,
+    this.floatingLabelBehavior,
+    this.fillColor,
+    this.unFocusColor,
+    this.keyboardType,
   }) : this.border = const OutlineInputBorder();
 
   @override
@@ -116,15 +163,26 @@ class _InputFieldState extends State<InputField> {
       cursorColor: primary,
       focusNode: _focusNode,
       obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon,
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
+        fillColor: _focusNode.hasFocus ? widget.fillColor : widget.unFocusColor,
+        filled: (widget.fillColor != null || widget.unFocusColor != null),
         suffixIconColor: primary,
         labelText: widget.lableText,
         hintText: widget.hintText,
         border: widget.border,
         contentPadding: _contentPadding,
+        error: widget.error,
+        errorBorder: widget.errorBorder,
+        errorText: widget.errorText,
+        errorStyle: widget.errorStyle,
+        errorMaxLines: widget.errorMaxLines,
+        floatingLabelStyle: widget.floatingLabelStyle,
+        floatingLabelAlignment: widget.floatingLabelAlignment,
+        floatingLabelBehavior: widget.floatingLabelBehavior,
       ),
     );
   }
@@ -155,6 +213,11 @@ class _InputFieldState extends State<InputField> {
 
     if (_showClear && !_focusNode.hasFocus) {
       setState(() => _showClear = false);
+      return;
+    }
+
+    if (widget.unFocusColor != null || widget.fillColor != null) {
+      setState(() {});
     }
   }
 

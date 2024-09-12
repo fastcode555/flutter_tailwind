@@ -52,23 +52,43 @@ extension FontSizeBuilderExt<T extends FontSizeBuilder> on T {
 
   T get f20 => this..fontSize = 20.csp;
 
+  T get f21 => this..fontSize = 21.csp;
+
   T get f22 => this..fontSize = 22.csp;
+
+  T get f23 => this..fontSize = 23.csp;
 
   T get f24 => this..fontSize = 24.csp;
 
+  T get f25 => this..fontSize = 25.csp;
+
   T get f26 => this..fontSize = 26.csp;
+
+  T get f27 => this..fontSize = 27.csp;
 
   T get f28 => this..fontSize = 28.csp;
 
+  T get f29 => this..fontSize = 29.csp;
+
   T get f30 => this..fontSize = 30.csp;
+
+  T get f31 => this..fontSize = 31.csp;
 
   T get f32 => this..fontSize = 32.csp;
 
+  T get f33 => this..fontSize = 33.csp;
+
   T get f34 => this..fontSize = 34.csp;
+
+  T get f35 => this..fontSize = 35.csp;
 
   T get f36 => this..fontSize = 36.csp;
 
+  T get f37 => this..fontSize = 37.csp;
+
   T get f38 => this..fontSize = 38.csp;
+
+  T get f39 => this..fontSize = 38.csp;
 
   T get f40 => this..fontSize = 40.csp;
 

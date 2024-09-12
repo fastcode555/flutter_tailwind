@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
-part 'buttons.g.dart';
+part 'buttons.p.dart';
 
 /// Barry
 /// @date 2024/8/27
 /// describe:
-class TextButtonBuilder extends ButtonBuilder {
+class TextButtonBuilder extends _ButtonBuilder {
   TextButtonBuilder._(super.text);
 
   @override
@@ -22,7 +22,7 @@ class TextButtonBuilder extends ButtonBuilder {
   }
 }
 
-class OutlinedButtonBuilder extends ButtonBuilder {
+class OutlinedButtonBuilder extends _ButtonBuilder {
   OutlinedButtonBuilder._(super.text);
 
   @override
@@ -37,7 +37,7 @@ class OutlinedButtonBuilder extends ButtonBuilder {
   }
 }
 
-class ElevatedButtonBuilder extends ButtonBuilder {
+class ElevatedButtonBuilder extends _ButtonBuilder {
   ElevatedButtonBuilder._(super.text);
 
   @override
@@ -52,7 +52,7 @@ class ElevatedButtonBuilder extends ButtonBuilder {
   }
 }
 
-class IconButtonBuilder extends ButtonBuilder {
+class IconButtonBuilder extends _ButtonBuilder {
   IconButtonBuilder._() : super('');
 
   @override

@@ -1,4 +1,5 @@
 import 'package:example/res/app_image_config.dart';
+import 'package:example/res/r.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
@@ -53,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
             sizedBox.h300.wFull50.child(
@@ -64,17 +66,48 @@ class _MyHomePageState extends State<MyHomePage> {
             h6,
             Row(
               children: [
-                Expanded(child: InputField(prefixIcon: Icon(Icons.ac_unit, size: 20))),
+                Expanded(
+                  child: InputField(
+                    prefixIcon: Icon(Icons.ac_unit, size: 20),
+                    hintText: "test",
+                    lableText: "234234",
+                  ),
+                ),
                 w16,
                 Expanded(child: InputField()),
               ],
             ),
-            // h6,
-            // const InputField.outline(prefixIcon: Icon(Icons.ac_unit, size: 20)),
-            // h6,
-            // const InputField.outline(prefixIcon: Icon(Icons.access_alarm_outlined, size: 20)),
-            // h6,
-            // InputField.outline(),
+            h6,
+            InputField.underline(
+              prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
+              hintText: "I'm wrong",
+              lableText: "I'm wrong",
+              fillColor: Colors.red,
+            ),
+            h6,
+            InputField.outline(
+              prefixIcon: Icon(Icons.ac_unit, size: 20),
+              hintText: "I'm wrong",
+              lableText: "I'm wrong",
+            ),
+            h6,
+            InputField.outline(
+              prefixIcon: Icons.access_alarm_outlined.icon.s20.mk,
+            ),
+            h6,
+            InputField.outline(
+              prefixIcon: R.icAirPlay.svg.s14.p12.red.mk,
+            ),
+            h6,
+            InputField.outline(
+              lableText: "wrong text",
+            ),
+            h6,
+            InputField.outline(
+              lableText: "wrong text",
+              fillColor: Colors.yellowAccent,
+              unFocusColor: Colors.blue,
+            ),
           ],
         ),
       ),
