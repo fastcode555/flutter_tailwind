@@ -78,11 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             h6,
-            Input.underline(
-              prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
-              hintText: "I'm wrong",
-              lableText: "I'm wrong",
-              fillColor: Colors.red,
+            SizedBox(
+              height: 35,
+              child: Input(
+                prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
+                hintText: "I'm wrong",
+                lableText: "I'm wrong",
+                fillColor: Colors.red,
+              ),
             ),
             h6,
             Input.outline(
@@ -101,12 +104,14 @@ class _MyHomePageState extends State<MyHomePage> {
             h6,
             Input.outline(
               lableText: "wrong text",
+              clearWidget: Icon(Icons.close, color: Colors.green),
             ),
             h6,
             Input.outline(
               lableText: "wrong text",
               fillColor: Colors.yellowAccent,
               unFocusColor: Colors.blue,
+              suffixIcon: Icon(Icons.confirmation_num_sharp, color: Colors.red),
             ),
           ],
         ),

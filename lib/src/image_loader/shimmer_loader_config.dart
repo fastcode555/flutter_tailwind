@@ -84,9 +84,9 @@ class _Shimmer extends StatelessWidget {
 
   final bool error;
 
-  const _Shimmer(this.child, {this.error = false});
+  const _Shimmer(this.child) : this.error = false;
 
-  const _Shimmer.error(this.child, {this.error = true});
+  const _Shimmer.error(this.child) : this.error = true;
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ mixin AspectRatioBuilder {
 }
 
 extension AspectRatioBuilderExt<T extends AspectRatioBuilder> on T {
-  T aspectRatio(double ratio) => this..ratio = ratio;
+  T ratio(double ratio) => this..ratio = ratio;
 
   T get ratio25 => this..ratio = 0.25;
 

@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
@@ -29,6 +32,36 @@ class Input extends StatefulWidget {
   final Color? unFocusColor;
   final TextInputType? keyboardType;
 
+  final int? maxLines;
+  final int? maxLength;
+  final int? minLines;
+  final bool expands;
+  final String obscuringCharacter;
+  final TextInputAction? textInputAction;
+  final TextAlign textAlign;
+  final bool? enabled;
+  final bool enableSuggestions;
+  final Color? cursorErrorColor;
+  final double? cursorHeight;
+  final TextCapitalization textCapitalization;
+  final UndoHistoryController? undoController;
+  final ValueChanged<String>? onChanged;
+  final VoidCallback? onEditingComplete;
+  final ValueChanged<String>? onSubmitted;
+  final TapRegionCallback? onTapOutside;
+
+  final FocusScopeNode? scopeNode; //全局焦点处理
+
+  final bool changedDelay;
+
+  final List<TextInputFormatter>? inputFormatters;
+
+  final Color? cursorColor;
+
+  final TextStyle? style;
+
+  final Widget? clearWidget;
+
   const Input({
     super.key,
     this.controller,
@@ -51,30 +84,30 @@ class Input extends StatefulWidget {
     this.fillColor,
     this.unFocusColor,
     this.keyboardType,
+    this.maxLines,
+    this.maxLength,
+    this.minLines,
+    this.expands = false,
+    this.obscuringCharacter = '•',
+    this.textInputAction,
+    this.textAlign = TextAlign.start,
+    this.enabled,
+    this.enableSuggestions = true,
+    this.cursorErrorColor,
+    this.cursorHeight,
+    this.textCapitalization = TextCapitalization.none,
+    this.undoController,
+    this.onChanged,
+    this.onEditingComplete,
+    this.onSubmitted,
+    this.onTapOutside,
+    this.scopeNode,
+    this.changedDelay = true,
+    this.inputFormatters,
+    this.style,
+    this.cursorColor,
+    this.clearWidget,
   });
-
-  const Input.underline({
-    super.key,
-    this.controller,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.lableText,
-    this.hintText,
-    this.focusNode,
-    this.obscureText = false,
-    this.contentPadding,
-    this.error,
-    this.errorBorder,
-    this.errorText,
-    this.errorStyle,
-    this.errorMaxLines,
-    this.floatingLabelStyle,
-    this.floatingLabelAlignment,
-    this.floatingLabelBehavior,
-    this.fillColor,
-    this.unFocusColor,
-    this.keyboardType,
-  }) : this.border = const UnderlineInputBorder();
 
   const Input.outline({
     super.key,
@@ -97,6 +130,29 @@ class Input extends StatefulWidget {
     this.fillColor,
     this.unFocusColor,
     this.keyboardType,
+    this.maxLines,
+    this.maxLength,
+    this.minLines,
+    this.expands = false,
+    this.obscuringCharacter = '•',
+    this.textInputAction,
+    this.textAlign = TextAlign.start,
+    this.enabled,
+    this.enableSuggestions = true,
+    this.cursorErrorColor,
+    this.cursorHeight,
+    this.textCapitalization = TextCapitalization.none,
+    this.undoController,
+    this.onChanged,
+    this.onEditingComplete,
+    this.onSubmitted,
+    this.onTapOutside,
+    this.scopeNode,
+    this.changedDelay = true,
+    this.inputFormatters,
+    this.style,
+    this.cursorColor,
+    this.clearWidget,
   }) : this.border = const OutlineInputBorder();
 
   @override
@@ -109,18 +165,24 @@ class _InputState extends State<Input> {
 
   bool _showClear = false;
 
+  Timer? _timer;
+
+  double? _vertical;
+
+  bool get _isUnderLine => widget.border == null || widget.border is UnderlineInputBorder;
+
   EdgeInsetsGeometry? get _contentPadding {
     if (widget.contentPadding != null) return widget.contentPadding;
 
-    if (widget.border == null || widget.border is UnderlineInputBorder) {
-      return const EdgeInsets.symmetric(vertical: 16);
+    if (_isUnderLine) {
+      return EdgeInsets.symmetric(vertical: _vertical ?? 15);
     }
 
     return null;
   }
 
   ///Clear的图标
-  Widget get _clearWidget => const Icon(Icons.close, size: 18);
+  Widget get _clearWidget => widget.clearWidget ?? const Icon(Icons.close);
 
   ///尾部图标
   Widget get _suffixIcon {
@@ -131,10 +193,13 @@ class _InputState extends State<Input> {
       return gapEmpty;
     }
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (_showClear) _clearWidget,
+        if (!_showClear) w18,
         w2,
         widget.suffixIcon!,
+        w8,
       ],
     ).click(onTap: _handleClear);
   }
@@ -153,6 +218,17 @@ class _InputState extends State<Input> {
     _focusNode = widget.focusNode ?? FocusNode();
     _controller.addListener(_listenTextChanged);
     _focusNode.addListener(_focusChanged);
+    _getTextFieldSize();
+  }
+
+  void _getTextFieldSize() {
+    if (!_isUnderLine) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final renderBox = context.findRenderObject() as RenderBox;
+      _vertical = renderBox.size.height / (widget.lableText != null ? 8 : 4);
+      setState(() {});
+    });
   }
 
   @override
@@ -160,10 +236,29 @@ class _InputState extends State<Input> {
     var primary = Theme.of(context).primaryColor;
     return TextField(
       controller: _controller,
-      cursorColor: primary,
+      cursorColor: widget.cursorColor ?? primary,
       focusNode: _focusNode,
+      style: widget.style,
       obscureText: widget.obscureText,
       keyboardType: widget.keyboardType,
+      maxLines: widget.maxLines,
+      maxLength: widget.maxLength,
+      minLines: widget.minLines,
+      expands: widget.expands,
+      obscuringCharacter: widget.obscuringCharacter,
+      textInputAction: widget.textInputAction,
+      textAlign: widget.textAlign,
+      enabled: widget.enabled,
+      enableSuggestions: widget.enableSuggestions,
+      cursorErrorColor: widget.cursorErrorColor,
+      cursorHeight: widget.cursorHeight,
+      textCapitalization: widget.textCapitalization,
+      undoController: widget.undoController,
+      onChanged: _onChanged,
+      onEditingComplete: _onEditingComplete,
+      onSubmitted: widget.onSubmitted,
+      onTapOutside: widget.onTapOutside,
+      inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon,
         prefixIconColor: primary,
@@ -221,9 +316,33 @@ class _InputState extends State<Input> {
     }
   }
 
+  void _onEditingComplete() {
+    if (widget.onEditingComplete != null) {
+      widget.onEditingComplete?.call();
+      return;
+    }
+
+    if (widget.scopeNode != null) {
+      widget.scopeNode?.nextFocus();
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     _controller.removeListener(_listenTextChanged);
+    _focusNode.removeListener(_focusChanged);
+  }
+
+  void _onChanged(String text) {
+    if (widget.onChanged != null && widget.changedDelay) {
+      if (_timer != null && _timer!.isActive) _timer!.cancel();
+      _timer = Timer(const Duration(seconds: 1), () {
+        widget.onChanged?.call(text);
+      });
+      return;
+    }
+
+    widget.onChanged?.call(text);
   }
 }
