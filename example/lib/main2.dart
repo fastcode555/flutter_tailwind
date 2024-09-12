@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        child: Wrap(
+        child: Column(
           children: [
             sizedBox.h300.wFull50.child(
               container.roundedL50.red.wFull50.mk,
@@ -61,12 +61,20 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               child: container.roundedL50.red.wFull50.mk,
             ),
+            h6,
             Row(
               children: [
-                Expanded(child: InputField()),
+                Expanded(child: InputField(prefixIcon: Icon(Icons.ac_unit, size: 20))),
+                w16,
                 Expanded(child: InputField()),
               ],
             ),
+            // h6,
+            // const InputField.outline(prefixIcon: Icon(Icons.ac_unit, size: 20)),
+            // h6,
+            // const InputField.outline(prefixIcon: Icon(Icons.access_alarm_outlined, size: 20)),
+            // h6,
+            // InputField.outline(),
           ],
         ),
       ),

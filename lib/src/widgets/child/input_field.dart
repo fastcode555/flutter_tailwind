@@ -9,14 +9,48 @@ class InputField extends StatefulWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final FocusNode? focusNode;
+  final String? lableText;
+  final String? hintText;
+  final InputBorder? border;
+  final bool obscureText;
+  final EdgeInsetsGeometry? contentPadding;
 
   const InputField({
     super.key,
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
+    this.lableText,
+    this.hintText,
     this.focusNode,
+    this.border,
+    this.obscureText = false,
+    this.contentPadding,
   });
+
+  const InputField.underline({
+    super.key,
+    this.controller,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.lableText,
+    this.hintText,
+    this.focusNode,
+    this.obscureText = false,
+    this.contentPadding,
+  }) : this.border = const UnderlineInputBorder();
+
+  const InputField.outline({
+    super.key,
+    this.controller,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.lableText,
+    this.hintText,
+    this.focusNode,
+    this.obscureText = false,
+    this.contentPadding,
+  }) : this.border = const OutlineInputBorder();
 
   @override
   _InputFieldState createState() => _InputFieldState();
@@ -26,9 +60,22 @@ class _InputFieldState extends State<InputField> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
 
-  Widget get _clearWidget => const Icon(Icons.close, size: 18);
   bool _showClear = false;
 
+  EdgeInsetsGeometry? get _contentPadding {
+    if (widget.contentPadding != null) return widget.contentPadding;
+
+    if (widget.border == null || widget.border is UnderlineInputBorder) {
+      return const EdgeInsets.symmetric(vertical: 16);
+    }
+
+    return null;
+  }
+
+  ///Clear的图标
+  Widget get _clearWidget => const Icon(Icons.close, size: 18);
+
+  ///尾部图标
   Widget get _suffixIcon {
     if (widget.suffixIcon == null) {
       if (_showClear) {
@@ -45,12 +92,11 @@ class _InputFieldState extends State<InputField> {
     ).click(onTap: _handleClear);
   }
 
+  ///清空操作
   void _handleClear() {
     _controller.text = '';
     _showClear = false;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      setState(() {});
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -69,12 +115,16 @@ class _InputFieldState extends State<InputField> {
       controller: _controller,
       cursorColor: primary,
       focusNode: _focusNode,
+      obscureText: widget.obscureText,
       decoration: InputDecoration(
         prefixIcon: widget.prefixIcon,
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
         suffixIconColor: primary,
-        border: OutlineInputBorder(),
+        labelText: widget.lableText,
+        hintText: widget.hintText,
+        border: widget.border,
+        contentPadding: _contentPadding,
       ),
     );
   }
