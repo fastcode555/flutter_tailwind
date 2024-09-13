@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({required this.title, super.key});
 
   final String title;
 
@@ -57,6 +57,21 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
+            Wrap(
+              children: [
+                checkBox.circle.blue.borderBlack.onChanged(false, (value) {}),
+                checkBox.circle.blue.borderBlack.onChanged(true, (value) {}),
+                checkBox.circle.red.onChanged(false, (value) {}),
+                checkBox.circle.red.borderOrange.onChanged(false, (value) {}),
+                checkBox.circle.red.borderOrange.onChanged(true, (value) {}),
+                checkBox.circle.onChanged(false, (value) {}),
+                checkBox.circle.onChanged(true, (value) {}),
+                checkBox.circle.green.borderRed.enableBorder.onChanged(false, (value) {}),
+                checkBox.circle.green.borderRed.enableBorder.onChanged(true, (value) {}),
+                checkBox.circle.enableBorder.onChanged(false, (value) {}),
+                checkBox.circle.enableBorder.onChanged(true, (value) {}),
+              ],
+            ),
             sizedBox.h300.wFull50.child(
               container.roundedL50.red.wFull50.mk,
             ),
@@ -64,13 +79,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: container.roundedL50.red.wFull50.mk,
             ),
             h6,
-            Row(
+            const Row(
               children: [
                 Expanded(
                   child: Input(
                     prefixIcon: Icon(Icons.ac_unit, size: 20),
-                    hintText: "test",
-                    lableText: "234234",
+                    hintText: 'test',
+                    lableText: '234234',
                   ),
                 ),
                 w16,
@@ -88,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             h6,
-            Input.outline(
+            const Input.outline(
               prefixIcon: Icon(Icons.ac_unit, size: 20),
               hintText: "I'm wrong",
               lableText: "I'm wrong",
@@ -102,13 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
               prefixIcon: R.icAirPlay.svg.s14.p12.red.mk,
             ),
             h6,
-            Input.outline(
-              lableText: "wrong text",
+            const Input.outline(
+              lableText: 'wrong text',
               clearWidget: Icon(Icons.close, color: Colors.green),
             ),
             h6,
-            Input.outline(
-              lableText: "wrong text",
+            const Input.outline(
+              lableText: 'wrong text',
               fillColor: Colors.yellowAccent,
               unFocusColor: Colors.blue,
               suffixIcon: Icon(Icons.confirmation_num_sharp, color: Colors.red),

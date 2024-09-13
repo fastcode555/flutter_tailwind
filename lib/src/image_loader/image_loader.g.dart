@@ -20,7 +20,8 @@ class _Image extends StatelessWidget {
   final double? radius;
   final List<BoxShadow>? boxShadow;
 
-  const _Image(this.url, {
+  const _Image(
+    this.url, {
     this.placeBuilder,
     this.errorBuilder,
     this.fit,
@@ -115,8 +116,8 @@ class _Image extends StatelessWidget {
   }
 
   //加载文件型图片
-  Widget _loadFileOrAssertImage(LoadingErrorWidgetBuilder? errorBuilder, double? width, double? height,
-      BuildContext context) {
+  Widget _loadFileOrAssertImage(
+      LoadingErrorWidgetBuilder? errorBuilder, double? width, double? height, BuildContext context) {
     var imageFile = File(url ?? '');
     var isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
     if (isFile) {
@@ -134,10 +135,10 @@ class _Image extends StatelessWidget {
                 return errorBuilder != null
                     ? errorBuilder(context, url ?? '', error)
                     : _buildHeroWidget(
-                  heroTag,
-                  transitionOnUserGestures: transitionOnUserGestures,
-                  child: Image.asset(errorHolder ?? '', width: width, height: height, fit: fit),
-                );
+                        heroTag,
+                        transitionOnUserGestures: transitionOnUserGestures,
+                        child: Image.asset(errorHolder ?? '', width: width, height: height, fit: fit),
+                      );
               },
               width: width,
               height: height ?? width,
@@ -174,12 +175,14 @@ class _Image extends StatelessWidget {
     }
   }
 
-  PlaceholderWidgetBuilder? _buildPlaceWidgetBuilder(BuildContext context,
-      String? url,
-      double? width,
-      double? height,
-      PlaceholderWidgetBuilder? placeBuilder,
-      double? radius,) {
+  PlaceholderWidgetBuilder? _buildPlaceWidgetBuilder(
+    BuildContext context,
+    String? url,
+    double? width,
+    double? height,
+    PlaceholderWidgetBuilder? placeBuilder,
+    double? radius,
+  ) {
     //修改,使用者单独传了一个默认图片,单方法配置,优先于全配置,便于定制化,比如默认店铺默认一张默认店铺的图片,商品默认一张商品的图片
     //有设置了thumbUrl,优先加载小图
     if (thumbUrl != null && thumbUrl!.isNotEmpty) {
@@ -187,8 +190,7 @@ class _Image extends StatelessWidget {
     }
     //有设置方法型,优先加载placeHolder,
     if (placeHolder != null) {
-      return (context, url) =>
-          _buildBorderCircleImage(
+      return (context, url) => _buildBorderCircleImage(
             border,
             borderColor,
             _buildHeroWidget(
@@ -212,20 +214,21 @@ class _Image extends StatelessWidget {
     return placeBuilder;
   }
 
-  LoadingErrorWidgetBuilder? _buildErrorWidgetBuilder(BuildContext context,
-      String? url,
-      double? width,
-      double? height,
-      LoadingErrorWidgetBuilder? errorBuilder,
-      double? radius,) {
+  LoadingErrorWidgetBuilder? _buildErrorWidgetBuilder(
+    BuildContext context,
+    String? url,
+    double? width,
+    double? height,
+    LoadingErrorWidgetBuilder? errorBuilder,
+    double? radius,
+  ) {
     //有设置了thumbUrl,优先加载小图
     if (thumbUrl != null && thumbUrl!.isNotEmpty) {
       return (context, url, error) => _buildThumbUrlWidget();
     }
     //有设置方法型,优先加载errorHolder,
     if (errorHolder != null) {
-      return (context, url, error) =>
-          _buildBorderCircleImage(
+      return (context, url, error) => _buildBorderCircleImage(
             border,
             borderColor,
             _buildHeroWidget(

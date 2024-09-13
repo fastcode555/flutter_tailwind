@@ -18,22 +18,22 @@ class _CircleImage extends StatelessWidget {
   final List<BoxShadow>? boxShadow;
 
   const _CircleImage(
-      this.url, {
-        this.placeBuilder,
-        this.errorBuilder,
-        this.fit,
-        this.placeHolder,
-        this.errorHolder,
-        this.heroTag,
-        this.border = 0,
-        this.borderColor = Colors.white,
-        this.radius,
-        this.useSingleCache = false,
-        this.transitionOnUserGestures = false,
-        this.fadeInDuration,
-        this.fadeOutDuration,
-        this.boxShadow,
-      });
+    this.url, {
+    this.placeBuilder,
+    this.errorBuilder,
+    this.fit,
+    this.placeHolder,
+    this.errorHolder,
+    this.heroTag,
+    this.border = 0,
+    this.borderColor = Colors.white,
+    this.radius,
+    this.useSingleCache = false,
+    this.transitionOnUserGestures = false,
+    this.fadeInDuration,
+    this.fadeOutDuration,
+    this.boxShadow,
+  });
 
   int? _getMemCacheWidth() {
     return useSingleCache ? null : ((radius! * _devicePixelRatio!).toInt());
@@ -92,35 +92,35 @@ class _CircleImage extends StatelessWidget {
         },
         placeholder: placeHolder != null
             ? (context, url) => _buildBorderCircleImage(
-          border,
-          borderColor,
-          _buildHeroWidget(
-            heroTag,
-            transitionOnUserGestures: transitionOnUserGestures,
-            child: CircleAvatar(
-              backgroundImage: AssetImage(placeHolder ?? ''),
-              radius: radius,
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-          boxShadow: boxShadow,
-        )
+                  border,
+                  borderColor,
+                  _buildHeroWidget(
+                    heroTag,
+                    transitionOnUserGestures: transitionOnUserGestures,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(placeHolder ?? ''),
+                      radius: radius,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                  boxShadow: boxShadow,
+                )
             : finalPlaceBuilder,
         errorWidget: errorHolder != null
             ? (context, url, error) => _buildBorderCircleImage(
-          border,
-          borderColor,
-          _buildHeroWidget(
-            heroTag,
-            transitionOnUserGestures: transitionOnUserGestures,
-            child: CircleAvatar(
-              backgroundImage: AssetImage(errorHolder ?? ''),
-              radius: radius,
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-          boxShadow: boxShadow,
-        )
+                  border,
+                  borderColor,
+                  _buildHeroWidget(
+                    heroTag,
+                    transitionOnUserGestures: transitionOnUserGestures,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(errorHolder ?? ''),
+                      radius: radius,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                  boxShadow: boxShadow,
+                )
             : finalErrorBuilder,
       );
     } else {
@@ -143,19 +143,19 @@ class _CircleImage extends StatelessWidget {
       } else {
         return errorHolder != null
             ? _buildBorderCircleImage(
-          border,
-          borderColor,
-          _buildHeroWidget(
-            heroTag,
-            transitionOnUserGestures: transitionOnUserGestures,
-            child: CircleAvatar(
-              backgroundImage: AssetImage(errorHolder ?? ''),
-              radius: radius,
-              backgroundColor: Colors.transparent,
-            ),
-          ),
-          boxShadow: boxShadow,
-        )
+                border,
+                borderColor,
+                _buildHeroWidget(
+                  heroTag,
+                  transitionOnUserGestures: transitionOnUserGestures,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(errorHolder ?? ''),
+                    radius: radius,
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
+                boxShadow: boxShadow,
+              )
             : finalErrorBuilder!(context, url ?? '', Object());
       }
     }

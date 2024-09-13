@@ -1,4 +1,5 @@
 export 'child/buttons.dart';
+export 'child/check_box.dart';
 export 'child/icon.dart';
 export 'child/image.dart';
 export 'child/input.dart';

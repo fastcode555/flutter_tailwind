@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({required this.title, super.key});
 
   final String title;
 
@@ -42,7 +42,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final String _link = "https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh";
+  final String _link = 'https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh';
 
   @override
   void initState() {
@@ -58,21 +58,82 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 2.r),
         child: Wrap(
+          runSpacing: 2.r,
+          spacing: 2.r,
           children: [
+            checkBox.blue.borderBlack.shadowMd.systemStyle.s50.onChanged(false, _onChanged),
+            checkBox.blue.borderBlack.systemStyle.onChanged(false, _onChanged),
+            checkBox.blue.circle.borderBlack.systemStyle.onChanged(false, _onChanged),
+            checkBox.blue.borderBlack.shadowMd.s50.onChanged(false, _onChanged),
+            checkBox.blue.borderBlack.shadowMd.onChanged(false, _onChanged),
+            checkBox.blue.borderBlack.justIcon.shadowMd.onChanged(false, _onChanged),
+            checkBox.blue.icAirPlay.s50.shadowMd.borderBlack.onChanged(true, _onChanged),
+            checkBox.blue.icAirPlay.s50.rounded16.shadowMd.borderBlack.onChanged(true, _onChanged),
+            checkBox.blue.icAirPlay.borderBlack.onChanged(true, _onChanged),
+            checkBox.blue.icAirPlay.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.blue.icAirPlay.s50.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.blue.icShareHome.ratio50.borderBlack.onChanged(true, _onChanged),
+            checkBox.blue.icShareHome.ratio50.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.orange.icAwesomePen.borderBlack.onChanged(true, _onChanged),
+            checkBox.orange.icAwesomePen.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.orange.acUnit.borderBlack.onChanged(true, _onChanged),
+            checkBox.orange.acUnit.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.orange.acUnit.borderBlack.s50.justIcon.onChanged(true, _onChanged),
+            checkBox.orange.icon(Icons.close).s50.borderBlack.onChanged(true, _onChanged),
+            checkBox.orange.icon(Icons.close).borderBlack.onChanged(true, _onChanged),
+            checkBox.orange.icon(Icons.close).borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.blue.borderBlack.onChanged(true, _onChanged),
+            checkBox.red.onChanged(false, _onChanged),
+            checkBox.red.borderOrange.onChanged(false, _onChanged),
+            checkBox.red.borderOrange.onChanged(true, _onChanged),
+            checkBox.red.borderOrange.justIcon.onChanged(true, _onChanged),
+            checkBox.onChanged(false, _onChanged),
+            checkBox.onChanged(true, _onChanged),
+            checkBox.green.borderRed.enableBorder.onChanged(false, _onChanged),
+            checkBox.green.borderRed.enableBorder.onChanged(true, _onChanged),
+            checkBox.green.borderRed.enableBorder.justIcon.onChanged(true, _onChanged),
+            checkBox.enableBorder.onChanged(false, _onChanged),
+            checkBox.enableBorder.onChanged(true, _onChanged),
+
+            checkBox.circle.blue.borderBlack.onChanged(false, _onChanged),
+            checkBox.circle.blue.borderBlack.justIcon.onChanged(false, _onChanged),
+            checkBox.circle.blue.icAirPlay.borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.blue.icAirPlay.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.blue.icShareHome.ratio50.borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.blue.icShareHome.ratio50.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.orange.icAwesomePen.borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.orange.icAwesomePen.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.orange.acUnit.borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.orange.acUnit.borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.orange.icon(Icons.close).borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.orange.icon(Icons.close).borderBlack.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.blue.borderBlack.onChanged(true, _onChanged),
+            checkBox.circle.red.onChanged(false, _onChanged),
+            checkBox.circle.red.borderOrange.onChanged(false, _onChanged),
+            checkBox.circle.red.borderOrange.onChanged(true, _onChanged),
+            checkBox.circle.red.borderOrange.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.onChanged(false, _onChanged),
+            checkBox.circle.onChanged(true, _onChanged),
+            checkBox.circle.green.borderRed.enableBorder.onChanged(false, _onChanged),
+            checkBox.circle.green.borderRed.enableBorder.onChanged(true, _onChanged),
+            checkBox.circle.green.borderRed.enableBorder.justIcon.onChanged(true, _onChanged),
+            checkBox.circle.enableBorder.onChanged(false, _onChanged),
+            checkBox.circle.enableBorder.onChanged(true, _onChanged),
             container.roundedT12.red.h50.wFull50.mk,
             h2,
-            "Hello world".text.dashed.lightGreen.f30.bold.lineThrough.mk,
-            "Hello world".text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
-            text("Hellow").styleMain.mk,
-            "Hello world".text.styleTest.mk,
-            "Hello world".text.styleAccent.mk,
+            'Hello world'.text.dashed.lightGreen.f30.bold.lineThrough.mk,
+            'Hello world'.text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
+            text('Hello').styleMain.mk,
+            'Hello world'.text.styleTest.mk,
+            'Hello world'.text.styleAccent.mk,
             textRich.greenAccent.children([
-              TextSpan(text: "Hello ", style: ts.brown.f20.mk),
-              TextSpan(text: "World", style: ts.red.f20.mk),
-              TextSpan(text: ",The world is big", style: ts.purple.f20.underline.mk),
+              TextSpan(text: 'Hello ', style: ts.brown.f20.mk),
+              TextSpan(text: 'World', style: ts.red.f20.mk),
+              TextSpan(text: ',The world is big', style: ts.purple.f20.underline.mk),
               WidgetSpan(child: R.icDefAvatar.asset.border1.circle.s20.mk),
-              const TextSpan(text: ",So Sad"),
+              const TextSpan(text: ',So Sad'),
             ]),
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             Icons.connected_tv_sharp.icon.redAccent.opacity50.s100.mk,
@@ -97,10 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
             _link.image.border5.borderBrown.circle.s100.mk,
             _link.image.border2.borderBrown.circle.s100.mk,
             _link.image.border2.borderBrown.opacity50.circle.s100.mk,
-            "https://gd-hbimg.huaban.com/".image.border5.borderBrown.s100.mk,
-            "https://gd-hbimg.huaban.com/".image.border5.borderBrown.circle.s100.mk,
-            "https://gd-hbimg.huaban.com/".image.border5.borderBrown.rounded16.s100.mk,
-            "werwe".image.border5.borderBrown.circle.s100.mk,
+            'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.s100.mk,
+            'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.circle.s100.mk,
+            'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.rounded16.s100.mk,
+            'werwe'.image.border5.borderBrown.circle.s100.mk,
 
             ///矩形
             Container(
@@ -143,37 +204,39 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100.h,
               decoration: bd.purple.circle.borderBrown.border5.mk,
             ),
-            container.s100.circle.orangeAccent.borderBrown.cardShadow.border5.mk,
             container.s100.circle.orangeAccent.borderBrown.cardShadow.opacity50.border5.mk,
-            container.s100.circle.amberAccent.borderBrown.cardShadow.center.border5.child(const Text("I'm hero")),
-            container.s100.circle.amberAccent.borderBrown.cardShadow.center.opacity50.border5
-                .child(const Text("I'm hero")),
+            container.s100.circle.amberAccent.borderBrown.cardShadow.center.border5.child(
+              const Text("I'm hero"),
+            ),
+            container.s100.circle.amberAccent.borderBrown.cardShadow.center.opacity50.border5.child(
+              const Text("I'm hero"),
+            ),
             TextButton(
               onPressed: () {},
-              child: const Text("Text Button"),
+              child: const Text('Text Button'),
             ),
-            "Text Button".textButton.click(onTap: () {}),
+            'Text Button'.textButton.click(onTap: () {}),
             TextButton(
               onPressed: () {},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.blue), // 背景颜色
                 foregroundColor: WidgetStateProperty.all(Colors.white), // 文本颜色
-                side: WidgetStateProperty.all(const BorderSide(color: Colors.black, width: 2.0)),
+                side: WidgetStateProperty.all(const BorderSide(width: 2)),
               ),
-              child: const Text("Text Button"),
+              child: const Text('Text Button'),
             ),
-            textButton("Text Button").textWhite.redAccent.borderGreen.click(),
-            textButton("Text Button").textWhite.redAccent.opacity50.borderGreen.click(),
-            textButton("Text Button").yellow.rounded8.borderGreen.click(),
-            textButton("Text Button").yellow.rounded8.opacity50.borderGreen.click(),
-            "Text Button".textButton.yellow.icon(Icons.ac_unit).rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.yellow.icon(Icons.ac_unit).end.rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.yellow.icon(R.icAirPlay).end.rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.yellow.icon(R.icDefAvatar).s18.end.rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.yellow.icon(R.icDefPlaylist).s18.end.rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.yellow.icon(_link).s18.end.rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(onTap: () {}),
-            "Text Button".textButton.textColor(Colours.redAccent).opacity50.rounded8.borderGreen.click(onTap: () {}),
+            textButton('Text Button').textWhite.redAccent.borderGreen.click(),
+            textButton('Text Button').textWhite.redAccent.opacity50.borderGreen.click(),
+            textButton('Text Button').yellow.rounded8.borderGreen.click(),
+            textButton('Text Button').yellow.rounded8.opacity50.borderGreen.click(),
+            'Text Button'.textButton.yellow.icon(Icons.ac_unit).rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.yellow.icon(Icons.ac_unit).end.rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.yellow.icon(R.icAirPlay).end.rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.yellow.icon(R.icDefAvatar).s18.end.rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.yellow.icon(R.icDefPlaylist).s18.end.rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.yellow.icon(_link).s18.end.rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(onTap: () {}),
+            'Text Button'.textButton.textColor(Colours.redAccent).opacity50.rounded8.borderGreen.click(onTap: () {}),
             ElevatedButton(onPressed: () {}, child: const Text('Elevated Button')),
             'Elevated Button'.elevatedButton.click(onTap: () {}),
             ElevatedButton(
@@ -190,6 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
             'Elevated Button'.elevatedButton.icon(R.icAirPlay).s20.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(R.icDefAvatar).s18.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(R.icDefPlaylist).s20.end.blue.borderRedColor.textWhite.click(),
+            'Elevated Button'.elevatedButton.icDefPlaylist.s20.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.opacity50.textWhite.click(),
 
@@ -197,7 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {},
               child: const Text('Outline Button'),
             ),
-            "Outline Button".outlinedButton.click(onTap: () {}),
+            'Outline Button'.outlinedButton.click(onTap: () {}),
             OutlinedButton(
               onPressed: () {},
               style: ButtonStyle(
@@ -209,25 +273,19 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               child: const Text('Outline Button'),
             ),
-            "Outline Button".outlinedButton.borderRedColor.textWhite.blue.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(Icons.ac_unit).borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(Icons.ac_unit).borderRedColor.border2.opacity50.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(Icons.ac_unit).end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(R.icAirPlay).s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(R.icDefAvatar).s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(R.icDefPlaylist).s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon(_link).s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button".outlinedButton.icon('${_link}2342').s18.end.borderRedColor.border2.click(onTap: () {}),
-            "Outline Button"
-                .outlinedButton
-                .icon('${_link}2342')
-                .s18
-                .end
-                .borderRedColor
-                .opacity50
-                .border2
-                .click(onTap: () {}),
+            'Outline Button'.outlinedButton.borderRedColor.textWhite.blue.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icon(Icons.ac_unit).borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.acUnit.borderRedColor.border2.opacity50.click(onTap: () {}),
+            'Outline Button'.outlinedButton.acUnit.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icAirPlay.s18.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icDefAvatar.s18.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icDefPlaylist.s18.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icon(_link).s18.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icon('${_link}2342').s18.end.borderRedColor.border2.click(onTap: () {}),
+            'Outline Button'.outlinedButton.icon('${_link}2342').s18.end.borderRedColor.opacity50.border2.click(
+                  onTap: () {},
+                ),
             iconButton.icon(Icons.ac_unit).green.click(onTap: () {}),
             iconButton.icon(Icons.ac_unit).red.click(onTap: () {}),
             iconButton.icon(Icons.ac_unit).borderRed.click(onTap: () {}),
@@ -235,6 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
             iconButton.icon(R.icAirPlay).s18.borderRed.black12.click(onTap: () {}),
             iconButton.icon(R.icDefAvatar).s20.borderRed.black12.click(onTap: () {}),
             iconButton.icon(R.icDefPlaylist).s20.borderRed.black12.click(onTap: () {}),
+            iconButton.icDefPlaylist.s20.borderRed.black12.click(onTap: () {}),
             iconButton.icon(_link).s20.borderRed.black12.click(onTap: () {}),
             Icons.ac_unit.icon.redAccent.iconClick(onTap: () {}),
             R.icAirPlay.svg.black.s24.iconClick(onTap: () {}),
@@ -252,9 +311,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ///set the step widget,every 3 step ,will show a text
             listview.neverScroll.shrinkWrap.divider.step3.builder(
               10,
-              (_, index) => Text("child: $index", style: ts.f30.bold.redAccent.mk),
+              (_, index) => Text('child: $index', style: ts.f30.bold.redAccent.mk),
               stepBuilder: (_, index) => container.red.centerLeft.p8.pl16.child(
-                text("banner:$index").bold.f20.white.mk,
+                text('banner:$index').bold.f20.white.mk,
               ),
             ),
 
@@ -285,7 +344,7 @@ class _MyHomePageState extends State<MyHomePage> {
             gridview.neverScroll.childWidth50.step4.spacing8.p8.shrinkWrap.builder(
               16,
               (_, __) => _link.image.border2.rounded8.s50.mk,
-              stepBuilder: (_, __) => container.rounded8.red.center.child("Ads".text.white.mk),
+              stepBuilder: (_, __) => container.rounded8.red.center.child('Ads'.text.white.mk),
             ),
           ],
         ),
@@ -294,6 +353,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget? _itemBuilder(BuildContext context, int index) {
-    return Text("$index", style: ts.f30.bold.redAccent.mk);
+    return Text('$index', style: ts.f30.bold.redAccent.mk);
+  }
+
+  void _onChanged(bool value) {
+    debugPrint('current value is $value');
   }
 }

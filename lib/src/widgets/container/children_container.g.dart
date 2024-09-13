@@ -20,7 +20,7 @@ StackBuilder get stack => StackBuilder._();
 RowBuilder get row => RowBuilder._();
 
 ///[Column]
-ColumnBuilder get column => ColumnBuilder._();
+_ColumnBuilder get column => _ColumnBuilder._();
 
 extension LinearFeatureExt<T extends LinearFeature> on T {
   T get min => this.._mainAxisSize = MainAxisSize.min;

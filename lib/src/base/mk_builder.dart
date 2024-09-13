@@ -28,6 +28,10 @@ abstract class ClickBuilder<T> {
   Widget click({GestureTapCallback? onTap});
 }
 
+abstract class CallBackBuilder<T> {
+  Widget onChanged(T initialValue, Function(T value) onChanged);
+}
+
 abstract class ItemBuilder {
   Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder, {NullableIndexedWidgetBuilder? stepBuilder});
 

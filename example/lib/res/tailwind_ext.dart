@@ -1,8 +1,7 @@
+import 'package:example/res/colours.dart';
 import 'package:example/res/r.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-
-import 'colours.dart';
 
 part 'tailwind_ext.g.dart';
 
@@ -16,6 +15,20 @@ extension SizeExt<T extends SizeBuilder> on T {
 /// define the custom text feature here
 extension TextFeatureExt<T extends TextFeature> on T {
   T get conther => this..fontFamily = R.conther;
+}
+
+extension IconExt<T extends IconBuilder> on T {
+  T get icDefAvatar => this..icon(R.icDefAvatar);
+
+  T get icDefPlaylist => this..icon(R.icDefPlaylist);
+
+  T get icAirPlay => this..icon(R.icAirPlay);
+
+  T get icShareHome => this..icon(R.icShareHome);
+
+  T get icAwesomePen => this..icon(R.icAwesomePen);
+
+  T get acUnit => this..icon(Icons.ac_unit);
 }
 
 /// define the custom text style here,text feature just single feature,but style is completed style,can directly use it
@@ -44,8 +57,7 @@ extension ShadowExt<T extends ShadowBuilder> on T {
       BoxShadow(
         color: Color(0x78000000),
         offset: Offset(0, 4),
-        blurRadius: 4.0,
-        spreadRadius: 0.0,
+        blurRadius: 4,
       )
     ];
 }
@@ -65,8 +77,7 @@ extension DecorationExt<T extends CompleteDecoration> on T {
           BoxShadow(
             color: Color(0x78000000),
             offset: Offset(0, 4),
-            blurRadius: 4.0,
-            spreadRadius: 0.0,
+            blurRadius: 4,
           ),
         ]);
 }

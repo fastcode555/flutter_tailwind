@@ -11,8 +11,8 @@ class AppImageConfig extends ImageLoaderConfigInterface {
     Color? borderColor,
     double? radius,
   ) {
-    double? finalW = (width ?? 0) > (height ?? 0) ? height : width;
-    finalW = ((finalW ?? 0) / 3.0);
+    var finalW = (width ?? 0) > (height ?? 0) ? height : width;
+    finalW = (finalW ?? 0) / 3.0;
     finalW = finalW == 0 ? null : finalW;
     return (BuildContext context, String url, _) {
       return Container(
@@ -33,8 +33,8 @@ class AppImageConfig extends ImageLoaderConfigInterface {
     Color? borderColor,
     double? radius,
   ) {
-    double? finalW = (width ?? 0) > (height ?? 0) ? height : width;
-    finalW = ((finalW ?? 0) / 3.0);
+    var finalW = (width ?? 0) > (height ?? 0) ? height : width;
+    finalW = (finalW ?? 0) / 3.0;
     finalW = finalW == 0 ? null : finalW;
     return (BuildContext context, String url) {
       return Container(
@@ -52,8 +52,9 @@ class AppImageConfig extends ImageLoaderConfigInterface {
   }
 
   @override
-  getCircleErrorBuilder(double? radius, double? border, Color? borderColor) {
-    double? width = radius == null ? null : radius * 2 / 2.0;
+  Widget Function(BuildContext context, String url, Object _) getCircleErrorBuilder(
+      double? radius, double? border, Color? borderColor) {
+    var width = radius == null ? null : radius * 2 / 2.0;
     return (BuildContext context, String url, _) {
       if (borderColor == null) {
         return Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2);
@@ -73,7 +74,7 @@ class AppImageConfig extends ImageLoaderConfigInterface {
 
   @override
   PlaceholderWidgetBuilder getCirclePlaceBuilder(double? radius, double? border, Color? borderColor) {
-    double? width = radius == null ? null : radius * 2 / 2.0;
+    var width = radius == null ? null : radius * 2 / 2.0;
     return (BuildContext context, String url) {
       if (borderColor == null) {
         return Image.asset(R.icDefAvatar, width: (width ?? 60.r) * 2, height: (width ?? 60.r) * 2);

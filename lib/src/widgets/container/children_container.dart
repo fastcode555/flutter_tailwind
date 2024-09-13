@@ -64,8 +64,8 @@ class RowBuilder extends _LinearBuilder {
   }
 }
 
-class ColumnBuilder extends _LinearBuilder {
-  ColumnBuilder._();
+class _ColumnBuilder extends _LinearBuilder {
+  _ColumnBuilder._();
 
   @override
   Widget children(List<Widget> children) {

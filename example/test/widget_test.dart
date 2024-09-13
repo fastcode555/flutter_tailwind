@@ -11,16 +11,16 @@ void main() {
   //   double? left;
   //   double? right;
 
-  for (int i = 1; i <= 50; i++) {
+  for (var i = 1; i <= 50; i++) {
     print('T get roundedT$i => this..top = $i.r;\n');
   }
-  for (int i = 1; i <= 50; i++) {
+  for (var i = 1; i <= 50; i++) {
     print('T get roundedB$i => this..bottom = $i.r;\n');
   }
-  for (int i = 1; i <= 50; i++) {
+  for (var i = 1; i <= 50; i++) {
     print('T get roundedL$i => this..left = $i.r;\n');
   }
-  for (int i = 1; i <= 50; i++) {
+  for (var i = 1; i <= 50; i++) {
     print('T get roundedR$i => this..right = $i.r;\n');
   }
 }

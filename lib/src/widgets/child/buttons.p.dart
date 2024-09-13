@@ -1,7 +1,6 @@
 part of 'buttons.dart';
 
 mixin ButtonIconBuilder {
-  dynamic _icon;
   IconAlignment? _iconAlignment;
 }
 
@@ -9,8 +8,6 @@ extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
   T get start => this.._iconAlignment = IconAlignment.start;
 
   T get end => this.._iconAlignment = IconAlignment.end;
-
-  T icon(dynamic icon) => this.._icon = icon;
 }
 
 ///[TextButton.icon]
@@ -47,7 +44,8 @@ abstract class _ButtonBuilder extends ClickBuilder<Widget>
         ButtonIconBuilder,
         PaddingBuilder,
         SizeBuilder,
-        OpacityBuilder {
+        OpacityBuilder,
+        IconBuilder {
   final String text;
 
   Color? get _finalColor {
@@ -59,22 +57,22 @@ abstract class _ButtonBuilder extends ClickBuilder<Widget>
 
   bool get _isIconButton => false;
 
-  bool get _isSvg => _icon is String && (_icon as String).endsWith('.svg');
+  bool get _isSvg => innerIcon is String && (innerIcon as String).endsWith('.svg');
 
   Widget? get _finalIcon {
-    if (_icon == null) return null;
-    if (_icon is String && (_icon as String).trim().isEmpty) return null;
-    if (_icon is IconData) return Icon(_icon);
-    if (_icon is Widget) return _icon;
+    if (innerIcon == null) return null;
+    if (innerIcon is String && (innerIcon as String).trim().isEmpty) return null;
+    if (innerIcon is IconData) return Icon(innerIcon);
+    if (innerIcon is Widget) return innerIcon;
     if (_isSvg) {
       return SvgPicture.asset(
-        _icon,
+        innerIcon,
         width: size ?? width,
         height: size ?? height,
         colorFilter: _finalColor != null ? ColorFilter.mode(_finalColor!, BlendMode.srcIn) : null,
       );
     }
-    return ImageLoader.image(_icon, width: size ?? width, height: size ?? height);
+    return ImageLoader.image(innerIcon, width: size ?? width, height: size ?? height);
   }
 
   ButtonStyle? get _buttonStyle {
