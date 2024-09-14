@@ -15,11 +15,104 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/) which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 ## ScreenShot
+![Alt](images/image_6.png)
 ![Alt](images/image_1.png)
 ![Alt](images/image_2.png)
 ![Alt](images/image_3.png)
 ![Alt](images/image_4.png)
 ![Alt](images/image_5.png)
+
+### CheckBox
+```
+checkBox.blue.borderBlack.shadowMd.material.s50.onChanged(false, _onChanged),
+checkBox.blue.borderBlack.material.onChanged(false, _onChanged),
+checkBox.blue.circle.borderBlack.material.onChanged(false, _onChanged),
+checkBox.blue.borderBlack.shadowMd.s50.onChanged(false, _onChanged),
+checkBox.blue.borderBlack.shadowMd.onChanged(false, _onChanged),
+checkBox.blue.borderBlack.justIcon.shadowMd.onChanged(false, _onChanged),
+checkBox.blue.icAirPlay.s50.shadowMd.borderBlack.onChanged(true, _onChanged),
+checkBox.blue.icAirPlay.s50.rounded16.shadowMd.borderBlack.onChanged(true, _onChanged),
+checkBox.blue.icAirPlay.borderBlack.onChanged(true, _onChanged),
+checkBox.blue.icAirPlay.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.blue.icAirPlay.s50.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.blue.icShareHome.ratio50.borderBlack.onChanged(true, _onChanged),
+checkBox.blue.icShareHome.ratio50.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.orange.icAwesomePen.borderBlack.onChanged(true, _onChanged),
+checkBox.orange.icAwesomePen.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.orange.acUnit.borderBlack.onChanged(true, _onChanged),
+checkBox.orange.acUnit.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.orange.acUnit.borderBlack.s50.justIcon.onChanged(true, _onChanged),
+checkBox.orange.icon(Icons.close).s50.borderBlack.onChanged(true, _onChanged),
+checkBox.orange.icon(Icons.close).borderBlack.onChanged(true, _onChanged),
+checkBox.orange.icon(Icons.close).borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.blue.borderBlack.onChanged(true, _onChanged),
+checkBox.red.onChanged(false, _onChanged),
+checkBox.red.borderOrange.onChanged(false, _onChanged),
+checkBox.red.borderOrange.onChanged(true, _onChanged),
+checkBox.red.borderOrange.justIcon.onChanged(true, _onChanged),
+checkBox.onChanged(false, _onChanged),
+checkBox.onChanged(true, _onChanged),
+checkBox.green.borderRed.enableBorder.onChanged(false, _onChanged),
+checkBox.green.borderRed.enableBorder.onChanged(true, _onChanged),
+checkBox.green.borderRed.enableBorder.justIcon.onChanged(true, _onChanged),
+checkBox.enableBorder.onChanged(false, _onChanged),
+checkBox.enableBorder.onChanged(true, _onChanged),
+
+checkBox.circle.blue.borderBlack.onChanged(false, _onChanged),
+checkBox.circle.blue.borderBlack.justIcon.onChanged(false, _onChanged),
+checkBox.circle.blue.icAirPlay.borderBlack.onChanged(true, _onChanged),
+checkBox.circle.blue.icAirPlay.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.circle.blue.icShareHome.ratio50.borderBlack.onChanged(true, _onChanged),
+checkBox.circle.blue.icShareHome.ratio50.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.circle.orange.icAwesomePen.borderBlack.onChanged(true, _onChanged),
+checkBox.circle.orange.icAwesomePen.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.circle.orange.acUnit.borderBlack.onChanged(true, _onChanged),
+checkBox.circle.orange.acUnit.borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.circle.orange.icon(Icons.close).borderBlack.onChanged(true, _onChanged),
+checkBox.circle.orange.icon(Icons.close).borderBlack.justIcon.onChanged(true, _onChanged),
+checkBox.circle.blue.borderBlack.onChanged(true, _onChanged),
+checkBox.circle.red.onChanged(false, _onChanged),
+checkBox.circle.red.borderOrange.onChanged(false, _onChanged),
+checkBox.circle.red.borderOrange.onChanged(true, _onChanged),
+checkBox.circle.red.borderOrange.justIcon.onChanged(true, _onChanged),
+checkBox.circle.onChanged(false, _onChanged),
+checkBox.circle.onChanged(true, _onChanged),
+checkBox.circle.green.borderRed.enableBorder.onChanged(false, _onChanged),
+checkBox.circle.green.borderRed.enableBorder.onChanged(true, _onChanged),
+checkBox.circle.green.borderRed.enableBorder.justIcon.onChanged(true, _onChanged),
+checkBox.circle.enableBorder.onChanged(false, _onChanged),
+checkBox.circle.enableBorder.onChanged(true, _onChanged),
+```
+### Raido
+```dart
+radio.onChanged(0, groupValue, _OnRadioChanged),
+radio.onChanged(1, groupValue, _OnRadioChanged),
+radio.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.material.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.material.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.material.onChanged(2, groupValue, _OnRadioChanged),
+radio.material.amberAccent.onChanged(0, groupValue, _OnRadioChanged),
+radio.material.amberAccent.onChanged(1, groupValue, _OnRadioChanged),
+radio.material.amberAccent.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.green.material.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.green.material.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.green.material.onChanged(2, groupValue, _OnRadioChanged),
+radio.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+radio.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+radio.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.justIcon.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.justIcon.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.justIcon.onChanged(2, groupValue, _OnRadioChanged),
+radio.circle.justIcon.red.icAwesomePen.onChanged(0, groupValue, _OnRadioChanged),
+radio.circle.justIcon.red.icAwesomePen.onChanged(1, groupValue, _OnRadioChanged),
+radio.circle.justIcon.red.icAwesomePen.onChanged(2, groupValue, _OnRadioChanged)
+```
 
 ### Text
 > create a text like below
