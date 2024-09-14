@@ -87,22 +87,61 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
 
   BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
 
-  BoxDecorationBuilder border(Color color, [double width = 1.0]) =>
-      this.._border = Border.all(color: color, width: width);
+  BoxDecorationBuilder border(Color color, [double width = 1.0]) => this
+    .._border = Border.all(
+      color: color,
+      width: width,
+    );
 
   BoxDecorationBuilder borderColor(Color color) => this..borderColor = color;
 
-  BoxDecorationBuilder bl({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderLeft = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
+  BoxDecorationBuilder bl({
+    Color? color,
+    double width = 1.0,
+    BorderStyle style = BorderStyle.solid,
+  }) =>
+      this
+        .._borderLeft = BorderSide(
+          color: color ?? this.borderColor ?? Colors.white,
+          width: width,
+          style: style,
+        );
 
-  BoxDecorationBuilder br({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderRight = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
+  BoxDecorationBuilder br({
+    Color? color,
+    double width = 1.0,
+    BorderStyle style = BorderStyle.solid,
+  }) =>
+      this
+        .._borderRight = BorderSide(
+          color: color ?? this.borderColor ?? Colors.white,
+          width: width,
+          style: style,
+        );
 
-  BoxDecorationBuilder bt({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderTop = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
+  BoxDecorationBuilder bt({
+    Color? color,
+    double width = 1.0,
+    BorderStyle style = BorderStyle.solid,
+  }) =>
+      this
+        .._borderTop = BorderSide(
+          color: color ?? this.borderColor ?? Colors.white,
+          width: width,
+          style: style,
+        );
 
-  BoxDecorationBuilder bb({Color? color, double width = 1.0, BorderStyle style = BorderStyle.solid}) =>
-      this.._borderBottom = BorderSide(color: color ?? this.borderColor ?? Colors.white, width: width, style: style);
+  BoxDecorationBuilder bb({
+    Color? color,
+    double width = 1.0,
+    BorderStyle style = BorderStyle.solid,
+  }) =>
+      this
+        .._borderBottom = BorderSide(
+          color: color ?? this.borderColor ?? Colors.white,
+          width: width,
+          style: style,
+        );
 }
 
 ContainerBuilder get container => ContainerBuilder();
