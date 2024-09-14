@@ -1,17 +1,17 @@
-part of 'check_box.dart';
+part of 'radio.dart';
 
 /// Barry
 /// @date 2024/9/13
 /// describe:
 
-abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
+abstract class _BaseRadioBuilder extends RadioCallBackBuilder
     with
         ColorBuilder,
         BorderColorBuilder,
         SizeBuilder,
         BorderRadiusBuilder,
         BoxShapeBuilder,
-        CheckBoxMixin,
+        RadioMixin,
         IconBuilder,
         AspectRatioBuilder,
         ShadowBuilder {
@@ -52,7 +52,7 @@ abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
         child: svg,
       );
     }
-    if (innerIcon is String && (innerIcon as String).startsWith("http")) {
+    if (innerIcon is String && (innerIcon as String).startsWith('http')) {
       return ImageLoader.image(innerIcon, width: _width * _ratio, height: _height * _ratio);
     }
 
@@ -60,13 +60,13 @@ abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
   }
 }
 
-mixin CheckBoxMixin {
+mixin RadioMixin {
   bool _enableBorder = false;
   bool _justIcon = false;
   bool _material = false;
 }
 
-extension CheckBoxMixinExt<T extends CheckBoxMixin> on T {
+extension RadioMixinExt<T extends RadioMixin> on T {
   T get enableBorder => this.._enableBorder = true;
 
   T get justIcon => this.._justIcon = true;
@@ -74,14 +74,14 @@ extension CheckBoxMixinExt<T extends CheckBoxMixin> on T {
   T get material => this.._material = true;
 }
 
-class AnimatedCheckBox extends StatefulWidget {
+class AnimatedRadio<T> extends StatefulWidget {
   final double? width;
   final double? height;
   final double? size;
-  final bool value;
+  final T value;
+  final T groupValue;
   final Color? color;
   final Color? borderColor;
-  final ValueChanged<bool>? onChanged;
   final double? borderWidth;
   final BoxShape shape;
   final BorderRadiusGeometry? borderRadius;
@@ -91,15 +91,17 @@ class AnimatedCheckBox extends StatefulWidget {
   final List<BoxShadow>? boxShadow;
   final bool systemStyle;
   final double? ratio;
+  final ValueChanged<T> onChanged;
 
-  const AnimatedCheckBox({
+  const AnimatedRadio({
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
     this.color,
     this.borderColor,
     this.width,
     this.height,
     this.size,
-    this.value = false,
-    this.onChanged,
     this.borderWidth,
     this.borderRadius,
     this.enableBorder = false,
@@ -112,10 +114,10 @@ class AnimatedCheckBox extends StatefulWidget {
   });
 
   @override
-  _AnimatedCheckBoxState createState() => _AnimatedCheckBoxState();
+  _AnimatedRadioState<T> createState() => _AnimatedRadioState<T>();
 }
 
-class _AnimatedCheckBoxState extends State<AnimatedCheckBox> {
+class _AnimatedRadioState<T> extends State<AnimatedRadio<T>> {
   bool _isChecked = false;
 
   bool get _isCircle => widget.shape == BoxShape.circle;
@@ -124,14 +126,14 @@ class _AnimatedCheckBoxState extends State<AnimatedCheckBox> {
 
   @override
   void initState() {
-    _isChecked = widget.value;
+    _isChecked = widget.value == widget.groupValue;
     super.initState();
   }
 
   @override
-  void didUpdateWidget(covariant AnimatedCheckBox oldWidget) {
+  void didUpdateWidget(covariant AnimatedRadio<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _isChecked = widget.value;
+    _isChecked = widget.value == widget.groupValue;
   }
 
   @override
@@ -139,8 +141,8 @@ class _AnimatedCheckBoxState extends State<AnimatedCheckBox> {
     var color = widget.color ?? Theme.of(context).primaryColor;
     return GestureDetector(
       onTap: () {
-        setState(() => _isChecked = !_isChecked);
-        widget.onChanged?.call(_isChecked);
+        setState(() => _isChecked = widget.groupValue == widget.value);
+        widget.onChanged.call(widget.value);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),

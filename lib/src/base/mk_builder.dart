@@ -32,6 +32,10 @@ abstract class CallBackBuilder<T> {
   Widget onChanged(T initialValue, Function(T value) onChanged);
 }
 
+abstract class RadioCallBackBuilder {
+  Widget onChanged<T>(T initialValue, T groupValue, ValueChanged<T> onChanged);
+}
+
 abstract class ItemBuilder {
   Widget builder(int? itemCount, NullableIndexedWidgetBuilder builder, {NullableIndexedWidgetBuilder? stepBuilder});
 

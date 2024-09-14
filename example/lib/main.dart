@@ -20,12 +20,12 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true, // 支持分屏模式
       builder: (context, child) {
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Flutter TailWind',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          home: const MyHomePage(title: 'Flutter TailWind'),
         );
       },
     );
@@ -43,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final String _link = 'https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh';
+
+  final _notifier = ValueNotifier(0);
 
   @override
   void initState() {
@@ -63,9 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
-            checkBox.blue.borderBlack.shadowMd.systemStyle.s50.onChanged(false, _onChanged),
-            checkBox.blue.borderBlack.systemStyle.onChanged(false, _onChanged),
-            checkBox.blue.circle.borderBlack.systemStyle.onChanged(false, _onChanged),
+            sizedBox.wFull.child('Check Box'.text.red.f30.mk),
+            checkBox.blue.borderBlack.shadowMd.material.s50.onChanged(false, _onChanged),
+            checkBox.blue.borderBlack.material.onChanged(false, _onChanged),
+            checkBox.blue.circle.borderBlack.material.onChanged(false, _onChanged),
             checkBox.blue.borderBlack.shadowMd.s50.onChanged(false, _onChanged),
             checkBox.blue.borderBlack.shadowMd.onChanged(false, _onChanged),
             checkBox.blue.borderBlack.justIcon.shadowMd.onChanged(false, _onChanged),
@@ -121,8 +124,46 @@ class _MyHomePageState extends State<MyHomePage> {
             checkBox.circle.green.borderRed.enableBorder.justIcon.onChanged(true, _onChanged),
             checkBox.circle.enableBorder.onChanged(false, _onChanged),
             checkBox.circle.enableBorder.onChanged(true, _onChanged),
-            container.roundedT12.red.h50.wFull50.mk,
             h2,
+            sizedBox.wFull.child('Radio'.text.red.f30.mk),
+            ValueListenableBuilder<int>(
+              valueListenable: _notifier,
+              builder: (_, groupValue, __) {
+                return Wrap(
+                  children: [
+                    radio.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.material.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.material.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.material.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.material.amberAccent.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.material.amberAccent.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.material.amberAccent.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.green.material.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.green.material.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.green.material.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.onChanged(2, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.red.icAwesomePen.onChanged(0, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.red.icAwesomePen.onChanged(1, groupValue, _OnRadioChanged),
+                    radio.circle.justIcon.red.icAwesomePen.onChanged(2, groupValue, _OnRadioChanged),
+                  ],
+                );
+              },
+            ),
+
+            sizedBox.wFull.child('Text'.text.red.f30.mk),
             'Hello world'.text.dashed.lightGreen.f30.bold.lineThrough.mk,
             'Hello world'.text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
             text('Hello').styleMain.mk,
@@ -135,6 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
               WidgetSpan(child: R.icDefAvatar.asset.border1.circle.s20.mk),
               const TextSpan(text: ',So Sad'),
             ]),
+            sizedBox.wFull.child('Image'.text.red.f30.mk),
             Icons.connected_tv_sharp.icon.redAccent.s100.mk,
             Icons.connected_tv_sharp.icon.redAccent.opacity50.s100.mk,
             R.icAirPlay.svg.black.s100.mk,
@@ -163,7 +205,58 @@ class _MyHomePageState extends State<MyHomePage> {
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.rounded16.s100.mk,
             'werwe'.image.border5.borderBrown.circle.s100.mk,
 
-            ///矩形
+            sizedBox.wFull.child('Input'.text.red.f30.mk),
+            const Row(
+              children: [
+                Expanded(
+                  child: Input(
+                    prefixIcon: Icon(Icons.ac_unit, size: 20),
+                    hintText: 'test',
+                    lableText: '234234',
+                  ),
+                ),
+                w16,
+                Expanded(child: Input()),
+              ],
+            ),
+            h6,
+            SizedBox(
+              height: 35,
+              child: Input(
+                prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
+                hintText: "I'm wrong",
+                lableText: "I'm wrong",
+                fillColor: Colors.red,
+              ),
+            ),
+            h6,
+            const Input.outline(
+              prefixIcon: Icon(Icons.ac_unit, size: 20),
+              hintText: "I'm wrong",
+              lableText: "I'm wrong",
+            ),
+            h6,
+            Input.outline(
+              prefixIcon: Icons.access_alarm_outlined.icon.s20.mk,
+            ),
+            h6,
+            Input.outline(
+              prefixIcon: R.icAirPlay.svg.s14.p12.red.mk,
+            ),
+            h6,
+            const Input.outline(
+              lableText: 'wrong text',
+              clearWidget: Icon(Icons.close, color: Colors.green),
+            ),
+            h6,
+            const Input.outline(
+              lableText: 'wrong text',
+              fillColor: Colors.yellowAccent,
+              unFocusColor: Colors.blue,
+              suffixIcon: Icon(Icons.confirmation_num_sharp, color: Colors.red),
+            ),
+
+            sizedBox.wFull.child('Container'.text.red.f30.mk),
             Container(
               width: 100.h,
               height: 100.h,
@@ -211,6 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
             container.s100.circle.amberAccent.borderBrown.cardShadow.center.opacity50.border5.child(
               const Text("I'm hero"),
             ),
+            sizedBox.wFull.child('Button'.text.red.f30.mk),
             TextButton(
               onPressed: () {},
               child: const Text('Text Button'),
@@ -299,6 +393,8 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icAirPlay.svg.black.s24.iconClick(onTap: () {}),
             R.icAirPlay.svg.black.s24.opacity50.iconClick(onTap: () {}),
 
+            sizedBox.wFull.child('ListView'.text.red.f30.mk),
+
             ///listview 部分
             listview.neverScroll.shrinkWrap.horizontal.h50.builder(10, _itemBuilder),
             listview.neverScroll.shrinkWrap.horizontal.h50.reverse.builder(10, _itemBuilder),
@@ -331,6 +427,7 @@ class _MyHomePageState extends State<MyHomePage> {
               (_, __, item) => const PostItem(),
             ),
 
+            sizedBox.wFull.child('GridView'.text.red.f30.mk),
             gridview.neverScroll.crossAxisCount3.spacing8.p8.shrinkWrap.builder(
               5,
               (_, __) => _link.image.border2.borderRed.circle.s50.mk,
@@ -359,4 +456,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void _onChanged(bool value) {
     debugPrint('current value is $value');
   }
+
+  void _OnRadioChanged(int value) => _notifier.value = value;
 }

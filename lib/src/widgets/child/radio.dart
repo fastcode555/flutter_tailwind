@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
-part 'check_box.g.dart';
+part 'radio.g.dart';
 
 /// Barry
 /// @date 2024/9/12
 /// describe:
 
-_CheckBoxBuilder get checkBox => _CheckBoxBuilder();
+_RadioBuilder get radio => _RadioBuilder();
 
-class _CheckBoxBuilder extends _BaseCheckBoxBuilder<bool> {
+class _RadioBuilder extends _BaseRadioBuilder {
   @override
-  Widget onChanged(bool initialValue, Function(bool value) onChanged) {
-    return AnimatedCheckBox(
+  Widget onChanged<T>(T initialValue, T groupValue, ValueChanged<T> onChanged) {
+    return AnimatedRadio<T>(
       width: _width,
       height: _height,
       size: _size,
@@ -29,6 +29,7 @@ class _CheckBoxBuilder extends _BaseCheckBoxBuilder<bool> {
       boxShadow: boxShadow,
       systemStyle: _material,
       ratio: _ratio,
+      groupValue: groupValue,
     );
   }
 }
