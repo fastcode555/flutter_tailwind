@@ -17,6 +17,12 @@ extension TextFeatureExt<T extends TextFeature> on T {
   T get conther => this..fontFamily = R.conther;
 }
 
+/// define the custom text size here
+extension FontSizeExt<T extends FontSizeBuilder> on T {
+  T get f100 => this..font(100.csp);
+}
+
+/// define the custom icon here
 extension IconExt<T extends IconBuilder> on T {
   T get icDefAvatar => this..icon(R.icDefAvatar);
 

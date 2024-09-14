@@ -47,12 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final _notifier = ValueNotifier(0);
 
   @override
-  void initState() {
-    super.initState();
-    // Tailwind.instance.addImageConfig(AppImageConfig());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -254,6 +248,24 @@ class _MyHomePageState extends State<MyHomePage> {
               fillColor: Colors.yellowAccent,
               unFocusColor: Colors.blue,
               suffixIcon: Icon(Icons.confirmation_num_sharp, color: Colors.red),
+            ),
+
+            Input(
+              lableText: 'Please input password',
+              fillColor: Colors.yellowAccent,
+              unFocusColor: Colors.blue,
+              suffixIcon: const Icon(Icons.confirmation_num_sharp, color: Colors.red),
+              invisibleWidget: R.icEyeSlashFill.svg.s20.red.mk,
+              visibleWidget: R.icEyeFill.svg.red.s20.mk,
+            ),
+
+            Input.outline(
+              lableText: 'Please input password',
+              fillColor: Colors.yellowAccent,
+              unFocusColor: Colors.blue,
+              suffixIcon: const Icon(Icons.confirmation_num_sharp, color: Colors.red),
+              invisibleWidget: R.icEyeSlashFill.svg.s20.red.mk,
+              visibleWidget: R.icEyeFill.svg.s20.red.mk,
             ),
 
             sizedBox.wFull.child('Container'.text.red.f30.mk),

@@ -62,6 +62,9 @@ class Input extends StatefulWidget {
 
   final Widget? clearWidget;
 
+  final Widget? visibleWidget;
+  final Widget? invisibleWidget;
+
   const Input({
     super.key,
     this.controller,
@@ -107,6 +110,8 @@ class Input extends StatefulWidget {
     this.style,
     this.cursorColor,
     this.clearWidget,
+    this.visibleWidget,
+    this.invisibleWidget,
   });
 
   const Input.outline({
@@ -153,6 +158,8 @@ class Input extends StatefulWidget {
     this.style,
     this.cursorColor,
     this.clearWidget,
+    this.visibleWidget,
+    this.invisibleWidget,
   }) : this.border = const OutlineInputBorder();
 
   @override
@@ -162,6 +169,10 @@ class Input extends StatefulWidget {
 class _InputState extends State<Input> {
   late TextEditingController _controller;
   late FocusNode _focusNode;
+
+  late bool _obscureText;
+
+  int? _maxLine;
 
   bool _showClear = false;
 
@@ -186,19 +197,33 @@ class _InputState extends State<Input> {
 
   ///尾部图标
   Widget get _suffixIcon {
-    if (widget.suffixIcon == null) {
+    if (widget.suffixIcon == null && widget.visibleWidget == null && widget.invisibleWidget == null) {
       if (_showClear) {
         return _clearWidget.click(onTap: _handleClear);
       }
       return gapEmpty;
     }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         if (_showClear) _clearWidget,
         if (!_showClear) w18,
-        w2,
-        widget.suffixIcon!,
+        if (widget.suffixIcon != null) ...[w2, widget.suffixIcon!],
+        if (widget.visibleWidget != null && _obscureText) ...[
+          w2,
+          GestureDetector(
+            onTap: () => setState(() => _obscureText = !_obscureText),
+            child: widget.visibleWidget,
+          ),
+        ],
+        if (widget.invisibleWidget != null && !_obscureText) ...[
+          w2,
+          GestureDetector(
+            onTap: () => setState(() => _obscureText = !_obscureText),
+            child: widget.invisibleWidget,
+          ),
+        ],
         w8,
       ],
     ).click(onTap: _handleClear);
@@ -212,6 +237,12 @@ class _InputState extends State<Input> {
   }
 
   @override
+  void didUpdateWidget(covariant Input oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _obscureText = widget.obscureText;
+  }
+
+  @override
   void initState() {
     super.initState();
     _controller = widget.controller ?? TextEditingController();
@@ -219,6 +250,14 @@ class _InputState extends State<Input> {
     _controller.addListener(_listenTextChanged);
     _focusNode.addListener(_focusChanged);
     _getTextFieldSize();
+
+    _obscureText = widget.obscureText;
+    _maxLine = widget.maxLines;
+    if (widget.invisibleWidget != null && widget.visibleWidget != null) {
+      widget.keyboardType == TextInputType.visiblePassword;
+      _obscureText = true;
+      _maxLine = 1;
+    }
   }
 
   void _getTextFieldSize() {
@@ -239,9 +278,9 @@ class _InputState extends State<Input> {
       cursorColor: widget.cursorColor ?? primary,
       focusNode: _focusNode,
       style: widget.style,
-      obscureText: widget.obscureText,
+      obscureText: _obscureText,
       keyboardType: widget.keyboardType,
-      maxLines: widget.maxLines,
+      maxLines: _maxLine,
       maxLength: widget.maxLength,
       minLines: widget.minLines,
       expands: widget.expands,
