@@ -1,3 +1,7 @@
+## 1.1.3
+
+- fixed the input widget bugs
+
 ## 1.1.0
 
 - add the widget like input,checkbox,radio
