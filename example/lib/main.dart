@@ -59,6 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
+            Switch(
+              value: false,
+              onChanged: _onChanged,
+            ),
+
             sizedBox.wFull.child('Check Box'.text.red.f30.mk),
             checkBox.blue.borderBlack.shadowMd.material.s50.onChanged(false, _onChanged),
             checkBox.blue.borderBlack.material.onChanged(false, _onChanged),
@@ -273,7 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
               suffixIconBuilder: (focus) =>
                   Icons.confirmation_num_sharp.icon.color(focus ? Colors.red : Colors.grey).mk,
               invisibleWidgetBuilder: (focus) => R.icEyeSlashFill.svg.s20.color(focus ? Colors.red : Colors.grey).mk,
-              visibleWidgetBuilder: (focus) => R.icEyeFill.svg.s20.color(focus ? Colors.red : Colors.grey).red.mk,
+              visibleWidgetBuilder: (focus) => R.icEyeFill.svg.s20.color(focus ? Colors.red : Colors.grey).mk,
             ),
 
             sizedBox.wFull.child('Container'.text.red.f30.mk),

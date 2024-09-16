@@ -11,16 +11,22 @@ void main() {
   //   double? left;
   //   double? right;
 
-  for (var i = 1; i <= 50; i++) {
+  var start = DateTime.now().millisecondsSinceEpoch;
+  var count=10000;
+  for (var i = 1; i <= count; i++) {
     print('T get roundedT$i => this..top = $i.r;\n');
   }
-  for (var i = 1; i <= 50; i++) {
+  for (var i = 1; i <= count; i++) {
     print('T get roundedB$i => this..bottom = $i.r;\n');
   }
-  for (var i = 1; i <= 50; i++) {
+  for (var i = 1; i <= count; i++) {
     print('T get roundedL$i => this..left = $i.r;\n');
   }
-  for (var i = 1; i <= 50; i++) {
+  for (var i = 1; i <= count; i++) {
     print('T get roundedR$i => this..right = $i.r;\n');
   }
+
+  var end = DateTime.now().millisecondsSinceEpoch;
+
+  print('It takes time :${(end - start) / 1000}s');
 }

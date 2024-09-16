@@ -209,12 +209,13 @@ class _InputState extends State<Input> {
   ///Clear的图标
   Widget get _clearWidget => widget.clearWidget ?? const Icon(Icons.close);
 
-  bool get _hasSuffix =>
-      widget.suffixIcon != null ||
+  bool get _hasObSecureWidget =>
       widget.visibleWidget != null ||
       widget.invisibleWidget != null ||
       widget.invisibleWidgetBuilder != null ||
       widget.visibleWidgetBuilder != null;
+
+  bool get _hasSuffix => widget.suffixIcon != null || _hasObSecureWidget;
 
   bool get _hasFocusBuilder =>
       widget.invisibleWidgetBuilder != null ||
@@ -303,7 +304,7 @@ class _InputState extends State<Input> {
 
     _obscureText = widget.obscureText;
     _maxLine = widget.maxLines;
-    if (widget.invisibleWidget != null && widget.visibleWidget != null) {
+    if (_hasObSecureWidget) {
       widget.keyboardType == TextInputType.visiblePassword;
       _obscureText = true;
       _maxLine = 1;
