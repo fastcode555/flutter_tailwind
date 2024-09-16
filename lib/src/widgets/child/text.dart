@@ -13,20 +13,20 @@ mixin CompletedTextStyleBuilder {
 }
 
 ///[Text]
-TextBuilder text(String value) => TextBuilder._(value);
+_TextBuilder text(String value) => _TextBuilder._(value);
 
 ///[Text.rich]
 RichTextBuilder get textRich => RichTextBuilder._();
 
 extension TextBuilderStringExt on String? {
   ///[Text]
-  TextBuilder get text => TextBuilder._(this ?? '');
+  _TextBuilder get text => _TextBuilder._(this ?? '');
 }
 
-TextStyleBuilder get ts => TextStyleBuilder();
+_TextStyleBuilder get ts => _TextStyleBuilder();
 
 ///[TextStyle]
-class TextStyleBuilder extends MkBuilder<TextStyle>
+class _TextStyleBuilder extends MkBuilder<TextStyle>
     with
         ColorBuilder,
         FontSizeBuilder,
@@ -93,7 +93,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
 }
 
 ///[Text]
-class TextBuilder extends MkBuilder<Widget>
+class _TextBuilder extends MkBuilder<Widget>
     with
         TextAlignBuilder,
         ColorBuilder,
@@ -109,7 +109,7 @@ class TextBuilder extends MkBuilder<Widget>
         OpacityBuilder {
   final String? value;
 
-  TextBuilder._(this.value);
+  _TextBuilder._(this.value);
 
   @override
   Widget get mk {

@@ -9,16 +9,16 @@ int _asset = 0;
 int _image = 1;
 
 ///[Image.asset]
-ImageBuilder assetImage(String path) => ImageBuilder._(path, _asset);
+ImageBuilder asset(String path) => ImageBuilder._(path, _asset);
 
-///[Image.network]
+///[ImageLoader.image]
 ImageBuilder image(String path) => ImageBuilder._(path, _image);
 
 extension StringImageTailWind on String {
   ///[Image.asset]
   ImageBuilder get asset => ImageBuilder._(this, _asset);
 
-  ///[Image.network]
+  ///[ImageLoader.image]
   ImageBuilder get image => ImageBuilder._(this, _image);
 }
 

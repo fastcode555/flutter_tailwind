@@ -11,26 +11,26 @@ extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
 }
 
 ///[TextButton.icon]
-TextButtonBuilder textButton(String text) => TextButtonBuilder._(text);
+_TextButtonBuilder textButton(String text) => _TextButtonBuilder._(text);
 
 ///[OutlinedButton.icon]
-OutlinedButtonBuilder outlinedButton(String text) => OutlinedButtonBuilder._(text);
+_OutlinedButtonBuilder outlinedButton(String text) => _OutlinedButtonBuilder._(text);
 
 ///[ElevatedButton.icon]
-ElevatedButtonBuilder elevatedButton(String text) => ElevatedButtonBuilder._(text);
+_ElevatedButtonBuilder elevatedButton(String text) => _ElevatedButtonBuilder._(text);
 
 ///[OutlinedButton.icon]
-IconButtonBuilder get iconButton => IconButtonBuilder._();
+_IconButtonBuilder get iconButton => _IconButtonBuilder._();
 
 extension ButtonStringExt on String? {
   ///[TextButton.icon]
-  TextButtonBuilder get textButton => TextButtonBuilder._(this ?? '');
+  _TextButtonBuilder get textButton => _TextButtonBuilder._(this ?? '');
 
   ///[OutlinedButton.icon]
-  OutlinedButtonBuilder get outlinedButton => OutlinedButtonBuilder._(this ?? '');
+  _OutlinedButtonBuilder get outlinedButton => _OutlinedButtonBuilder._(this ?? '');
 
   ///[ElevatedButton.icon]
-  ElevatedButtonBuilder get elevatedButton => ElevatedButtonBuilder._(this ?? '');
+  _ElevatedButtonBuilder get elevatedButton => _ElevatedButtonBuilder._(this ?? '');
 }
 
 abstract class _ButtonBuilder extends ClickBuilder<Widget>

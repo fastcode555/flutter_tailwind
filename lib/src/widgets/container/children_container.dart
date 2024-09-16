@@ -7,9 +7,9 @@ part 'children_container.g.dart';
 /// @date 2024/8/26
 /// describe:
 
-class StackBuilder extends ChildrenBuilder<Widget>
+class _StackBuilder extends ChildrenBuilder<Widget>
     with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder {
-  StackBuilder._();
+  _StackBuilder._();
 
   @override
   Widget children(List<Widget> children) {
@@ -47,8 +47,8 @@ abstract class _LinearBuilder extends ChildrenBuilder<Widget>
   }
 }
 
-class RowBuilder extends _LinearBuilder {
-  RowBuilder._();
+class _RowBuilder extends _LinearBuilder {
+  _RowBuilder._();
 
   @override
   Widget children(List<Widget> children) {

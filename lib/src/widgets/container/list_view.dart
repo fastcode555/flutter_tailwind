@@ -7,9 +7,10 @@ part 'list_view.g.dart';
 /// @date 2024/8/24
 /// describe:
 ///[ListView.separated]
-ListViewBuilder get listview => ListViewBuilder._();
+_ListViewBuilder get listview => _ListViewBuilder._();
 
-class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin {
+class _ListViewBuilder extends ItemBuilder
+    with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin {
   bool get _isHorizontal => scrollDirection == Axis.horizontal;
 
   ///判断
@@ -32,7 +33,7 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
     return SizedBox(height: _separatedValue);
   }
 
-  ListViewBuilder._();
+  _ListViewBuilder._();
 
   @override
   Widget builder(
@@ -91,11 +92,11 @@ class ListViewBuilder extends ItemBuilder with ScrollFeature, PaddingBuilder, Si
 }
 
 /// [GridView.builder]
-GridViewBuilder get gridview => GridViewBuilder._();
+_GridViewBuilder get gridview => _GridViewBuilder._();
 
-class GridViewBuilder extends ItemBuilder
+class _GridViewBuilder extends ItemBuilder
     with ScrollFeature, PaddingBuilder, GridViewFeature, AspectRatioBuilder, StepMixin {
-  GridViewBuilder._();
+  _GridViewBuilder._();
 
   @override
   Widget builder(

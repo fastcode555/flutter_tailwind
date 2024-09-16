@@ -14,10 +14,10 @@ mixin LinearFeature {
 }
 
 ///[Stack]
-StackBuilder get stack => StackBuilder._();
+_StackBuilder get stack => _StackBuilder._();
 
 ///[Row]
-RowBuilder get row => RowBuilder._();
+_RowBuilder get row => _RowBuilder._();
 
 ///[Column]
 _ColumnBuilder get column => _ColumnBuilder._();

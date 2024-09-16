@@ -6,10 +6,10 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// describe:
 
 ///[SizedBox]
-SizedBoxBuilder get sizedBox => SizedBoxBuilder._();
+_SizedBoxBuilder get sizedBox => _SizedBoxBuilder._();
 
-class SizedBoxBuilder extends ChildBuilder<Widget> with SizeBuilder {
-  SizedBoxBuilder._();
+class _SizedBoxBuilder extends ChildBuilder<Widget> with SizeBuilder {
+  _SizedBoxBuilder._();
 
   @override
   Widget child(Widget child) {

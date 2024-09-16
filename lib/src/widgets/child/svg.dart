@@ -7,9 +7,9 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// @date 2024/8/19
 /// describe:
 
-SvgBuilder svg(String file) => SvgBuilder._(file);
+_SvgBuilder svg(String file) => _SvgBuilder._(file);
 
-class SvgBuilder extends MkBuilder<Widget>
+class _SvgBuilder extends MkBuilder<Widget>
     with ColorBuilder, SizeBuilder, BlendModeBuilder, BoxFitBuilder, AlignmentBuilder, PaddingBuilder, OpacityBuilder {
   final String file;
   bool? matchTextDirection;
@@ -22,7 +22,7 @@ class SvgBuilder extends MkBuilder<Widget>
   Clip? clipBehavior;
   WidgetBuilder? placeholderBuilder;
 
-  SvgBuilder._(this.file);
+  _SvgBuilder._(this.file);
 
   ColorFilter? get _finalColorFilter {
     if (innerColor == null) return null;
@@ -55,10 +55,10 @@ class SvgBuilder extends MkBuilder<Widget>
 }
 
 extension SvgStringExt on String? {
-  SvgBuilder get svg => SvgBuilder._(this ?? '');
+  _SvgBuilder get svg => _SvgBuilder._(this ?? '');
 }
 
-extension SvgBuilderExt<T extends SvgBuilder> on T {
+extension SvgBuilderExt<T extends _SvgBuilder> on T {
   T size(double size) => this..size = size;
 
   T width(double size) => this..width = size;

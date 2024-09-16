@@ -21,9 +21,9 @@ extension ImageProviderBuilderExt<T extends ImageProviderBuilderMixin> on T {
   T image(String? image) => this.._image = image;
 }
 
-BoxDecorationBuilder get bd => BoxDecorationBuilder();
+_BoxDecorationBuilder get bd => _BoxDecorationBuilder();
 
-class BoxDecorationBuilder
+class _BoxDecorationBuilder
     with
         ColorBuilder,
         BorderWidthBuilder,
@@ -79,23 +79,23 @@ class BoxDecorationBuilder
 }
 
 extension BoxDecorationBuilderColorExt on Color {
-  BoxDecorationBuilder get bd => BoxDecorationBuilder()..innerColor = this;
+  _BoxDecorationBuilder get bd => _BoxDecorationBuilder()..innerColor = this;
 }
 
-extension BoxDecorationBuilderExt on BoxDecorationBuilder {
-  BoxDecorationBuilder gradient(Gradient gradient) => this.._gradient = gradient;
+extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
+  _BoxDecorationBuilder gradient(Gradient gradient) => this.._gradient = gradient;
 
-  BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
+  _BoxDecorationBuilder bg(Color? color) => this..innerColor = color;
 
-  BoxDecorationBuilder border(Color color, [double width = 1.0]) => this
+  _BoxDecorationBuilder border(Color color, [double width = 1.0]) => this
     .._border = Border.all(
       color: color,
       width: width,
     );
 
-  BoxDecorationBuilder borderColor(Color color) => this..borderColor = color;
+  _BoxDecorationBuilder borderColor(Color color) => this..borderColor = color;
 
-  BoxDecorationBuilder bl({
+  _BoxDecorationBuilder bl({
     Color? color,
     double width = 1.0,
     BorderStyle style = BorderStyle.solid,
@@ -107,7 +107,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
           style: style,
         );
 
-  BoxDecorationBuilder br({
+  _BoxDecorationBuilder br({
     Color? color,
     double width = 1.0,
     BorderStyle style = BorderStyle.solid,
@@ -119,7 +119,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
           style: style,
         );
 
-  BoxDecorationBuilder bt({
+  _BoxDecorationBuilder bt({
     Color? color,
     double width = 1.0,
     BorderStyle style = BorderStyle.solid,
@@ -131,7 +131,7 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
           style: style,
         );
 
-  BoxDecorationBuilder bb({
+  _BoxDecorationBuilder bb({
     Color? color,
     double width = 1.0,
     BorderStyle style = BorderStyle.solid,
@@ -144,9 +144,9 @@ extension BoxDecorationBuilderExt on BoxDecorationBuilder {
         );
 }
 
-ContainerBuilder get container => ContainerBuilder();
+_ContainerBuilder get container => _ContainerBuilder();
 
-class ContainerBuilder extends ChildMkBuilder<Container>
+class _ContainerBuilder extends ChildMkBuilder<Container>
     with
         ColorBuilder,
         SizeBuilder,

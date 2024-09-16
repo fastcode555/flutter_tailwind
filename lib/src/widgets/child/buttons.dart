@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/base/icon_builder.dart';
 
 part 'buttons.p.dart';
 
 /// Barry
 /// @date 2024/8/27
 /// describe:
-class TextButtonBuilder extends _ButtonBuilder {
-  TextButtonBuilder._(super.text);
+class _TextButtonBuilder extends _ButtonBuilder {
+  _TextButtonBuilder._(super.text);
 
   @override
   Widget click({GestureTapCallback? onTap}) {
@@ -23,8 +22,8 @@ class TextButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class OutlinedButtonBuilder extends _ButtonBuilder {
-  OutlinedButtonBuilder._(super.text);
+class _OutlinedButtonBuilder extends _ButtonBuilder {
+  _OutlinedButtonBuilder._(super.text);
 
   @override
   Widget click({GestureTapCallback? onTap}) {
@@ -38,8 +37,8 @@ class OutlinedButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class ElevatedButtonBuilder extends _ButtonBuilder {
-  ElevatedButtonBuilder._(super.text);
+class _ElevatedButtonBuilder extends _ButtonBuilder {
+  _ElevatedButtonBuilder._(super.text);
 
   @override
   Widget click({GestureTapCallback? onTap}) {
@@ -53,8 +52,8 @@ class ElevatedButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class IconButtonBuilder extends _ButtonBuilder {
-  IconButtonBuilder._() : super('');
+class _IconButtonBuilder extends _ButtonBuilder {
+  _IconButtonBuilder._() : super('');
 
   @override
   bool get _isIconButton => true;
