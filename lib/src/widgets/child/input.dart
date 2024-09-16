@@ -7,10 +7,19 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// Barry
 /// @date 2024/9/11
 /// describe:
+
 class Input extends StatefulWidget {
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final Widget? visibleWidget;
+  final Widget? invisibleWidget;
+
+  final Widget Function(bool hasFocus)? prefixIconBuilder;
+  final Widget Function(bool hasFocus)? suffixIconBuilder;
+  final Widget Function(bool hasFocus)? visibleWidgetBuilder;
+  final Widget Function(bool hasFocus)? invisibleWidgetBuilder;
+
   final FocusNode? focusNode;
   final String? lableText;
   final String? hintText;
@@ -62,13 +71,14 @@ class Input extends StatefulWidget {
 
   final Widget? clearWidget;
 
-  final Widget? visibleWidget;
-  final Widget? invisibleWidget;
-
   const Input({
     super.key,
     this.controller,
     this.prefixIcon,
+    this.prefixIconBuilder,
+    this.suffixIconBuilder,
+    this.visibleWidgetBuilder,
+    this.invisibleWidgetBuilder,
     this.suffixIcon,
     this.lableText,
     this.hintText,
@@ -119,6 +129,10 @@ class Input extends StatefulWidget {
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
+    this.prefixIconBuilder,
+    this.suffixIconBuilder,
+    this.visibleWidgetBuilder,
+    this.invisibleWidgetBuilder,
     this.lableText,
     this.hintText,
     this.focusNode,
@@ -195,9 +209,22 @@ class _InputState extends State<Input> {
   ///Clear的图标
   Widget get _clearWidget => widget.clearWidget ?? const Icon(Icons.close);
 
+  bool get _hasSuffix =>
+      widget.suffixIcon != null ||
+      widget.visibleWidget != null ||
+      widget.invisibleWidget != null ||
+      widget.invisibleWidgetBuilder != null ||
+      widget.visibleWidgetBuilder != null;
+
+  bool get _hasFocusBuilder =>
+      widget.invisibleWidgetBuilder != null ||
+      widget.visibleWidgetBuilder != null ||
+      widget.prefixIconBuilder != null ||
+      widget.suffixIconBuilder != null;
+
   ///尾部图标
   Widget get _suffixIcon {
-    if (widget.suffixIcon == null && widget.visibleWidget == null && widget.invisibleWidget == null) {
+    if (!_hasSuffix) {
       if (_showClear) {
         return _clearWidget.click(onTap: _handleClear);
       }
@@ -207,9 +234,15 @@ class _InputState extends State<Input> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        // show the clear widget
         if (_showClear) _clearWidget,
         if (!_showClear) w18,
+
+        //show the suffixIcon
         if (widget.suffixIcon != null) ...[w2, widget.suffixIcon!],
+        if (widget.suffixIconBuilder != null) ...[w2, widget.suffixIconBuilder!.call(_focusNode.hasFocus)],
+
+        // show the visibleWidget
         if (widget.visibleWidget != null && _obscureText) ...[
           w2,
           GestureDetector(
@@ -217,11 +250,28 @@ class _InputState extends State<Input> {
             child: widget.visibleWidget,
           ),
         ],
+
+        if (widget.visibleWidgetBuilder != null && _obscureText) ...[
+          w2,
+          GestureDetector(
+            onTap: () => setState(() => _obscureText = !_obscureText),
+            child: widget.visibleWidgetBuilder!.call(_focusNode.hasFocus),
+          ),
+        ],
+
+        // show the invisibleWidget
         if (widget.invisibleWidget != null && !_obscureText) ...[
           w2,
           GestureDetector(
             onTap: () => setState(() => _obscureText = !_obscureText),
             child: widget.invisibleWidget,
+          ),
+        ],
+        if (widget.invisibleWidgetBuilder != null && !_obscureText) ...[
+          w2,
+          GestureDetector(
+            onTap: () => setState(() => _obscureText = !_obscureText),
+            child: widget.invisibleWidgetBuilder!.call(_focusNode.hasFocus),
           ),
         ],
         w8,
@@ -299,7 +349,7 @@ class _InputState extends State<Input> {
       onTapOutside: widget.onTapOutside,
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
-        prefixIcon: widget.prefixIcon,
+        prefixIcon: widget.prefixIcon ?? widget.prefixIconBuilder?.call(_focusNode.hasFocus),
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
         fillColor: _focusNode.hasFocus ? widget.fillColor : widget.unFocusColor,
@@ -351,6 +401,10 @@ class _InputState extends State<Input> {
     }
 
     if (widget.unFocusColor != null || widget.fillColor != null) {
+      setState(() {});
+    }
+
+    if (_hasFocusBuilder) {
       setState(() {});
     }
   }

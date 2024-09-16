@@ -267,6 +267,21 @@ class _MyHomePageState extends State<MyHomePage> {
               invisibleWidget: R.icEyeSlashFill.svg.s20.red.mk,
               visibleWidget: R.icEyeFill.svg.s20.red.mk,
             ),
+            Input.outline(
+              lableText: 'Please input password',
+              prefixIconBuilder: (hasFocus) => Icon(
+                Icons.ac_unit,
+                size: 20,
+                color: hasFocus ? Colors.red : Colors.grey,
+              ),
+              suffixIconBuilder: (hasFocus) => Icon(
+                Icons.confirmation_num_sharp,
+                color: hasFocus ? Colors.red : Colors.grey,
+              ),
+              invisibleWidgetBuilder: (hasFocus) =>
+                  R.icEyeSlashFill.svg.s20.color(hasFocus ? Colors.red : Colors.grey).mk,
+              visibleWidgetBuilder: (hasFocus) => R.icEyeFill.svg.s20.color(hasFocus ? Colors.red : Colors.grey).red.mk,
+            ),
 
             sizedBox.wFull.child('Container'.text.red.f30.mk),
             Container(

@@ -62,7 +62,7 @@ extension BlendModeBuilderExt<T extends BlendModeBuilder> on T {
 
   T get saturation => this..blendMode = BlendMode.saturation;
 
-  T get color => this..blendMode = BlendMode.color;
+  T get colorBlendMode => this..blendMode = BlendMode.color;
 
   T get luminosity => this..blendMode = BlendMode.luminosity;
 }
