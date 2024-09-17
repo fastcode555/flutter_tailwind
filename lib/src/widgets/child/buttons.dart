@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/utils/debouncer.dart';
 
 part 'buttons.p.dart';
 
@@ -13,11 +14,11 @@ class _TextButtonBuilder extends ButtonBuilder {
   @override
   Widget click({GestureTapCallback? onTap}) {
     return TextButton.icon(
-      onPressed: onTap,
+      onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       icon: _finalIcon,
       style: _buttonStyle,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
     );
   }
 }
@@ -28,11 +29,11 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
   @override
   Widget click({GestureTapCallback? onTap}) {
     return OutlinedButton.icon(
-      onPressed: onTap,
+      onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
     );
   }
 }
@@ -43,11 +44,11 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
   @override
   Widget click({GestureTapCallback? onTap}) {
     return ElevatedButton.icon(
-      onPressed: onTap,
+      onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.csp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
     );
   }
 }
@@ -61,7 +62,7 @@ class _IconButtonBuilder extends ButtonBuilder {
   @override
   Widget click({GestureTapCallback? onTap}) {
     return IconButton(
-      onPressed: onTap,
+      onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       icon: _finalIcon ?? gapEmpty,
       padding: finalPadding,
       iconSize: size ?? width ?? height,

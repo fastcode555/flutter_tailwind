@@ -360,10 +360,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             sizedBox.wFull.child('Button'.text.red.f30.mk),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                debugPrint('print something at console');
+              },
               child: const Text('Text Button'),
             ),
-            'Text Button'.textButton.click(onTap: () {}),
+            'Text Button'.textButton.click(onTap: () {
+              debugPrint('print something at console');
+            }),
             TextButton(
               onPressed: () {},
               style: ButtonStyle(

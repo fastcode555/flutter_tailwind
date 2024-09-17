@@ -19,7 +19,7 @@ extension TextFeatureExt<T extends TextFeature> on T {
 
 /// define the custom text size here
 extension FontSizeExt<T extends FontSizeBuilder> on T {
-  T get f100 => this..font(100.csp);
+  T get f100 => this..font(100.sp);
 }
 
 /// define the custom icon here

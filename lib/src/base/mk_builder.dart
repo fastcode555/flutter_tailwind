@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/utils/debouncer.dart';
 
 /// Barry
 /// @date 2024/8/20
@@ -45,24 +46,31 @@ abstract class ItemBuilder {
 extension MkBuilderExt<T extends MkBuilder<Widget>> on T {
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => Debouncer.instance.doubleClickCheck(onTap),
       behavior: HitTestBehavior.translucent,
       onLongPress: onLongPress,
       child: mk,
     );
   }
 
-  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: mk);
+  Widget iconClick({GestureTapCallback? onTap}) => IconButton(
+        onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
+        icon: mk,
+      );
 
   Widget inkWellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
-    return InkWell(onTap: onTap, onLongPress: onLongPress, child: mk);
+    return InkWell(
+      onTap: () => Debouncer.instance.doubleClickCheck(onTap),
+      onLongPress: onLongPress,
+      child: mk,
+    );
   }
 }
 
 extension ClickListenerExt on Widget {
   Widget click({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => Debouncer.instance.doubleClickCheck(onTap),
       behavior: HitTestBehavior.translucent,
       onLongPress: onLongPress,
       child: this,
@@ -70,8 +78,15 @@ extension ClickListenerExt on Widget {
   }
 
   Widget inkWellClick({GestureTapCallback? onTap, GestureLongPressCallback? onLongPress}) {
-    return InkWell(onTap: onTap, onLongPress: onLongPress, child: this);
+    return InkWell(
+      onTap: () => Debouncer.instance.doubleClickCheck(onTap),
+      onLongPress: onLongPress,
+      child: this,
+    );
   }
 
-  Widget iconClick({GestureTapCallback? onTap}) => IconButton(onPressed: onTap, icon: this);
+  Widget iconClick({GestureTapCallback? onTap}) => IconButton(
+        onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
+        icon: this,
+      );
 }
