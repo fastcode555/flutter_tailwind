@@ -7,7 +7,7 @@ part 'buttons.p.dart';
 /// Barry
 /// @date 2024/8/27
 /// describe:
-class _TextButtonBuilder extends _ButtonBuilder {
+class _TextButtonBuilder extends ButtonBuilder {
   _TextButtonBuilder._(super.text);
 
   @override
@@ -22,7 +22,7 @@ class _TextButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class _OutlinedButtonBuilder extends _ButtonBuilder {
+class _OutlinedButtonBuilder extends ButtonBuilder {
   _OutlinedButtonBuilder._(super.text);
 
   @override
@@ -37,7 +37,7 @@ class _OutlinedButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class _ElevatedButtonBuilder extends _ButtonBuilder {
+class _ElevatedButtonBuilder extends ButtonBuilder {
   _ElevatedButtonBuilder._(super.text);
 
   @override
@@ -52,7 +52,7 @@ class _ElevatedButtonBuilder extends _ButtonBuilder {
   }
 }
 
-class _IconButtonBuilder extends _ButtonBuilder {
+class _IconButtonBuilder extends ButtonBuilder {
   _IconButtonBuilder._() : super('');
 
   @override
