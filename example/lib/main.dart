@@ -59,12 +59,38 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
-            Switch(
-              value: false,
-              onChanged: _onChanged,
+            Switch(value: false, onChanged: _onChanged),
+            sizedBox.wFull.child('ShaderMask'.text.red.f30.mk),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ShaderMask(
+                  shaderCallback: (Rect bounds) {
+                    return const LinearGradient(
+                      colors: <Color>[Colors.blue, Colors.red, Colors.orange],
+                    ).createShader(bounds);
+                  },
+                  child: const Text('It is LinearGradient', style: TextStyle(color: Colors.white)),
+                ),
+                shaderMask.blue.red.orange.child(
+                  const Text('It is LinearGradient', style: TextStyle(color: Colors.white)),
+                ),
+                shaderMask.blue.red.orange.centerRight.centerLeft.child('It is LinearGradient'.text.white.mk),
+              ],
             ),
-
             sizedBox.wFull.child('Check Box'.text.red.f30.mk),
+            shaderMask.blue.red.child(
+              checkBox.blue.justIcon.white.borderBlack.onChanged(false, (value) {}),
+            ),
+            shaderMask.blue.red.child(
+              checkBox.circle.justIcon.white.borderBlack.onChanged(false, (value) {}),
+            ),
+            shaderMask.blue.red.child(
+              checkBox.blue.material.white.borderBlack.onChanged(false, (value) {}),
+            ),
+            shaderMask.blue.red.child(
+              checkBox.circle.material.white.borderBlack.onChanged(false, (value) {}),
+            ),
             checkBox.blue.borderBlack.shadowMd.material.s50.onChanged(false, _onChanged),
             checkBox.blue.borderBlack.material.onChanged(false, _onChanged),
             checkBox.blue.circle.borderBlack.material.onChanged(false, _onChanged),
@@ -83,6 +109,9 @@ class _MyHomePageState extends State<MyHomePage> {
             checkBox.orange.acUnit.borderBlack.onChanged(true, _onChanged),
             checkBox.orange.acUnit.borderBlack.justIcon.onChanged(true, _onChanged),
             checkBox.orange.acUnit.borderBlack.s50.justIcon.onChanged(true, _onChanged),
+            shaderMask.orange.green.red.topLeft.bottomRight.child(
+              checkBox.white.acUnit.borderBlack.s50.justIcon.onChanged(true, _onChanged),
+            ),
             checkBox.orange.icon(Icons.close).s50.borderBlack.onChanged(true, _onChanged),
             checkBox.orange.icon(Icons.close).borderBlack.onChanged(true, _onChanged),
             checkBox.orange.icon(Icons.close).borderBlack.justIcon.onChanged(true, _onChanged),

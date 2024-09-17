@@ -57,8 +57,25 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
+            ShaderMask(
+              shaderCallback: (Rect bounds) {
+                return const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[Colors.blue, Colors.red, Colors.orange],
+                ).createShader(bounds);
+              },
+              child: const Text('我会被作用于渐变效果', style: TextStyle(color: Colors.white)),
+            ),
+            shaderMask.blue.red.orange.child('我会被作用于渐变效果'.text.white.mk),
+            shaderMask.blue.red.orange.topLeft.bottomRight.child(
+              '我会被作用于渐变效果'.text.white.mk,
+            ),
             Wrap(
               children: [
+                shaderMask.blue.red.child(
+                  checkBox.circle.blue.justIcon.white.borderBlack.onChanged(false, (value) {}),
+                ),
                 checkBox.circle.blue.borderBlack.onChanged(false, (value) {}),
                 checkBox.circle.blue.borderBlack.onChanged(true, (value) {}),
                 checkBox.circle.red.onChanged(false, (value) {}),

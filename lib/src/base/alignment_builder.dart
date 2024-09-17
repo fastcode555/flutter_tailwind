@@ -5,24 +5,37 @@ import 'package:flutter/material.dart';
 /// describe:
 mixin AlignmentBuilder {
   Alignment? alignment;
+  List<Alignment>? alignments;
 }
 
 extension AlignmentBuilderExt<T extends AlignmentBuilder> on T {
-  T get topLeft => this..alignment = Alignment.topLeft;
+  T align(Alignment? alignment) {
+    //only use two time, will create a list to collect the aligment
+    if (this.alignment != null) {
+      alignments ??= [];
+      alignments?.add(this.alignment!);
+    }
+    if (alignment != null) {
+      alignments?.add(alignment);
+    }
+    return this..alignment = alignment;
+  }
 
-  T get topCenter => this..alignment = Alignment.topCenter;
+  T get topLeft => this..align(Alignment.topLeft);
 
-  T get topRight => this..alignment = Alignment.topRight;
+  T get topCenter => this..align(Alignment.topCenter);
 
-  T get centerLeft => this..alignment = Alignment.centerLeft;
+  T get topRight => this..align(Alignment.topRight);
 
-  T get center => this..alignment = Alignment.center;
+  T get centerLeft => this.align(Alignment.centerLeft);
 
-  T get centerRight => this..alignment = Alignment.centerRight;
+  T get center => this.align(Alignment.center);
 
-  T get bottomLeft => this..alignment = Alignment.bottomLeft;
+  T get centerRight => this.align(Alignment.centerRight);
 
-  T get bottomCenter => this..alignment = Alignment.bottomCenter;
+  T get bottomLeft => this.align(Alignment.bottomLeft);
 
-  T get bottomRight => this..alignment = Alignment.bottomRight;
+  T get bottomCenter => this.align(Alignment.bottomCenter);
+
+  T get bottomRight => this.align(Alignment.bottomRight);
 }

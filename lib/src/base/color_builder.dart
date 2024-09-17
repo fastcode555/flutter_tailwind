@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 /// describe:
 mixin ColorBuilder {
   Color? innerColor;
+  List<Color>? innerColors;
 }
 mixin BorderColorBuilder {
   Color? borderColor;
@@ -105,7 +106,17 @@ extension TextColorBuilderExt<T extends TextColorBuilder> on T {
 }
 
 extension ColorBuilderExt<T extends ColorBuilder> on T {
-  T color(Color? color) => this..innerColor = color;
+  T color(Color? color) {
+    //only use two time, will create a list to collect the color
+    if (this.innerColor != null) {
+      innerColors ??= [];
+      innerColors?.add(this.innerColor!);
+    }
+    if (color != null) {
+      innerColors?.add(color);
+    }
+    return this..innerColor = color;
+  }
 
   T get transparent => this..color(Colors.transparent);
 
