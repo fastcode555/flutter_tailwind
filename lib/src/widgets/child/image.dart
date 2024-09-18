@@ -9,10 +9,10 @@ int _asset = 0;
 int _image = 1;
 
 ///[Image.asset]
-ImageBuilder asset(String path) => ImageBuilder._(path, _asset);
+ImageBuilder asset(String? path) => ImageBuilder._(path, _asset);
 
 ///[ImageLoader.image]
-ImageBuilder image(String path) => ImageBuilder._(path, _image);
+ImageBuilder image(String? path) => ImageBuilder._(path, _image);
 
 extension StringImageTailWind on String {
   ///[Image.asset]
@@ -35,7 +35,7 @@ class ImageBuilder extends MkBuilder<Widget>
         PaddingBuilder,
         ShadowBuilder,
         OpacityBuilder {
-  final String image;
+  final String? image;
   final int type;
 
   String? _heroTag;
@@ -105,22 +105,24 @@ class ImageBuilder extends MkBuilder<Widget>
           border: Border.all(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0),
           shape: shape ?? BoxShape.rectangle,
           boxShadow: boxShadow,
-          image: DecorationImage(
-            image: AssetImage(image),
-            fit: fit ?? BoxFit.cover,
-            alignment: alignment ?? Alignment.center,
-          ),
+          image: image != null
+              ? DecorationImage(
+                  image: AssetImage(image!),
+                  fit: fit ?? BoxFit.cover,
+                  alignment: alignment ?? Alignment.center,
+                )
+              : null,
         ),
       );
     }
     if (isCircle) {
       return CircleAvatar(
-        backgroundImage: AssetImage(image),
+        backgroundImage: image != null ? AssetImage(image!) : null,
         radius: (size ?? width ?? height ?? 0.0) / 2,
       );
     }
     return Image.asset(
-      image,
+      image ?? '',
       width: size ?? width,
       height: size ?? height,
       alignment: alignment ?? Alignment.center,

@@ -217,6 +217,7 @@ class _MyHomePageState extends State<MyHomePage> {
             R.icDefPlaylist.asset.s100.circle.mk,
             R.icDefPlaylist.asset.s100.circle.border2.borderLightGreen.mk,
             _link.image.s100.mk,
+            image('').s200.mk,
             _link.image.borderPink.border5.s100.mk,
             _link.image.rounded12.s100.mk,
             _link.image.rounded12.opacity50.s100.mk,
