@@ -62,6 +62,8 @@ extension TextCommonFeatureExt<T extends TextFeature> on T {
 
   T get underline => this.._decoration = TextDecoration.underline;
 
+  T decoration(TextDecoration decoration) => this.._decoration = decoration;
+
   ///TextOverflow
   T get ellipsis => this.._overflow = TextOverflow.ellipsis;
 
