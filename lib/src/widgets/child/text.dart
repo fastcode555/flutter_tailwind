@@ -23,10 +23,10 @@ extension TextBuilderStringExt on String? {
   _TextBuilder get text => _TextBuilder._(this ?? '');
 }
 
-_TextStyleBuilder get ts => _TextStyleBuilder();
+TextStyleBuilder get ts => TextStyleBuilder();
 
 ///[TextStyle]
-class _TextStyleBuilder extends MkBuilder<TextStyle>
+class TextStyleBuilder extends MkBuilder<TextStyle>
     with
         ColorBuilder,
         FontSizeBuilder,
