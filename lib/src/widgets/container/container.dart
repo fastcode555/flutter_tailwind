@@ -194,7 +194,7 @@ class _ContainerBuilder extends ChildMkBuilder<Container>
         width: width ?? size,
         height: height ?? size,
         padding: finalPadding,
-        alignment: alignment ?? Alignment.center,
+        alignment: alignment,
         decoration: decoration ??
             BoxDecoration(
               color: innerColor.opacity(innerOpacity),
@@ -212,7 +212,7 @@ class _ContainerBuilder extends ChildMkBuilder<Container>
       height: height ?? size,
       padding: finalPadding,
       margin: finalMargin,
-      alignment: alignment ?? Alignment.center,
+      alignment: alignment,
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),

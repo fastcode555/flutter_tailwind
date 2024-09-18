@@ -408,7 +408,6 @@ class _MyHomePageState extends State<MyHomePage> {
             'Elevated Button'.elevatedButton.icDefPlaylist.s20.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.textWhite.click(),
             'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.opacity50.textWhite.click(),
-
             OutlinedButton(
               onPressed: () {},
               child: const Text('Outline Button'),

@@ -392,15 +392,15 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get s100 => this..size = 100.r;
 
-  T get s120 => this..height = 120.r;
+  T get s120 => this..size = 120.r;
 
-  T get s150 => this..height = 150.r;
+  T get s150 => this..size = 150.r;
 
-  T get s200 => this..height = 200.r;
+  T get s200 => this..size = 200.r;
 
-  T get s250 => this..height = 250.r;
+  T get s250 => this..size = 250.r;
 
-  T get s300 => this..height = 300.r;
+  T get s300 => this..size = 300.r;
 
-  T get s350 => this..height = 350.r;
+  T get s350 => this..size = 350.r;
 }
