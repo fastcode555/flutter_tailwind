@@ -81,9 +81,9 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     WidgetStateProperty<Color?>? backgroundColor;
     WidgetStateProperty<EdgeInsetsGeometry?>? padding;
     ButtonStyle? buttonStyle;
-    if (borderColor != null || borderWidth != null) {
+    if (borderColor != null || innerBorderWidth != null) {
       side = WidgetStateProperty.all(
-        BorderSide(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0),
+        BorderSide(color: borderColor.opacity(innerOpacity)!, width: innerBorderWidth ?? 1.0),
       );
     }
     if (innerTextColor != null || borderColor != null) {

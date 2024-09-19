@@ -53,7 +53,7 @@ class _BoxDecorationBuilder
   BoxBorder? get _internalBorder {
     if (_border != null) return _border;
     if (borderColor != null) {
-      return Border.all(color: borderColor!, width: borderWidth ?? 1.0);
+      return Border.all(color: borderColor!, width: innerBorderWidth ?? 1.0);
     }
     return Border(
       top: _borderTop ?? BorderSide.none,
@@ -179,7 +179,7 @@ class _ContainerBuilder extends ChildMkBuilder<Container>
   BoxBorder? get _internalBorder {
     if (_border != null) return _border;
     if (borderColor != null) {
-      return Border.all(color: borderColor.opacity(innerOpacity)!, width: borderWidth ?? 1.0);
+      return Border.all(color: borderColor.opacity(innerOpacity)!, width: innerBorderWidth ?? 1.0);
     }
     return Border(
       top: _borderTop ?? BorderSide.none,
