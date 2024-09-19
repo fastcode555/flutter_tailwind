@@ -6,5 +6,6 @@ mixin IconBuilder {
 }
 
 extension IconBuilderExt<T extends IconBuilder> on T {
+  ///accept the asset image,svg,image link
   T icon(dynamic icon) => this..innerIcon = icon;
 }

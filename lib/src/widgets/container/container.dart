@@ -72,7 +72,7 @@ class _BoxDecorationBuilder
         border: _internalBorder,
         borderRadius: _internalBorderRadius,
         gradient: _gradient,
-        backgroundBlendMode: blendMode,
+        backgroundBlendMode: innerBlendMode,
         shape: shape ?? BoxShape.rectangle,
         boxShadow: boxShadow,
       );
@@ -144,9 +144,9 @@ extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
         );
 }
 
-_ContainerBuilder get container => _ContainerBuilder();
+ContainerBuilder get container => ContainerBuilder();
 
-class _ContainerBuilder extends ChildMkBuilder<Container>
+class ContainerBuilder extends ChildMkBuilder<Container>
     with
         ColorBuilder,
         SizeBuilder,

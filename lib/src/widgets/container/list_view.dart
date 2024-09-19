@@ -138,7 +138,7 @@ class _GridViewBuilder extends ItemBuilder
         crossAxisCount: crossAxisCount ?? 2,
         mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
         crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
-        childAspectRatio: ratio ?? 1.0,
+        childAspectRatio: innerRatio ?? 1.0,
       ),
       itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
       itemCount: _itemCount(itemCount, stepBuilder),

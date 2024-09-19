@@ -167,7 +167,7 @@ class _TextBuilder extends MkBuilder<Widget>
               ),
       textAlign: textAlign,
       textDirection: textDirection,
-      maxLines: maxLines,
+      maxLines: innerMaxLines,
     );
     if (hasPadding) {
       return Padding(padding: finalPadding!, child: child);
@@ -223,7 +223,7 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
           ),
       textAlign: textAlign,
       textDirection: textDirection,
-      maxLines: maxLines,
+      maxLines: innerMaxLines,
     );
     if (hasPadding) {
       return Padding(padding: finalPadding!, child: child);

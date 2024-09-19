@@ -26,7 +26,7 @@ class _SvgBuilder extends MkBuilder<Widget>
 
   ColorFilter? get _finalColorFilter {
     if (innerColor == null) return null;
-    return ColorFilter.mode(innerColor.opacity(innerOpacity)!, blendMode ?? BlendMode.srcIn);
+    return ColorFilter.mode(innerColor.opacity(innerOpacity)!, innerBlendMode ?? BlendMode.srcIn);
   }
 
   @override

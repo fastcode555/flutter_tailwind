@@ -4,65 +4,97 @@ import 'package:flutter/material.dart';
 /// @date 7/11/23
 /// describe:
 mixin BlendModeBuilder {
-  BlendMode? blendMode;
+  BlendMode? innerBlendMode;
 }
 
 extension BlendModeBuilderExt<T extends BlendModeBuilder> on T {
-  T get clear => this..blendMode = BlendMode.clear;
+  ///[BlendMode.clear]
+  T blendMode(BlendMode blendMode) => this..innerBlendMode = blendMode;
 
-  T get src => this..blendMode = BlendMode.src;
+  ///[BlendMode.clear]
+  T get clear => this..innerBlendMode = BlendMode.clear;
 
-  T get dst => this..blendMode = BlendMode.dst;
+  ///[BlendMode.src]
+  T get src => this..innerBlendMode = BlendMode.src;
 
-  T get srcOver => this..blendMode = BlendMode.srcOver;
+  ///[BlendMode.dst]
+  T get dst => this..innerBlendMode = BlendMode.dst;
 
-  T get dstOver => this..blendMode = BlendMode.dstOver;
+  ///[BlendMode.srcOver]
+  T get srcOver => this..innerBlendMode = BlendMode.srcOver;
 
-  T get srcIn => this..blendMode = BlendMode.srcIn;
+  ///[BlendMode.dstOver]
+  T get dstOver => this..innerBlendMode = BlendMode.dstOver;
 
-  T get dstIn => this..blendMode = BlendMode.dstIn;
+  ///[BlendMode.srcIn]
+  T get srcIn => this..innerBlendMode = BlendMode.srcIn;
 
-  T get srcOut => this..blendMode = BlendMode.srcOut;
+  ///[BlendMode.dstIn]
+  T get dstIn => this..innerBlendMode = BlendMode.dstIn;
 
-  T get dstOut => this..blendMode = BlendMode.dstOut;
+  ///[BlendMode.srcOut]
+  T get srcOut => this..innerBlendMode = BlendMode.srcOut;
 
-  T get srcATop => this..blendMode = BlendMode.srcATop;
+  ///[BlendMode.dstOut]
+  T get dstOut => this..innerBlendMode = BlendMode.dstOut;
 
-  T get dstATop => this..blendMode = BlendMode.dstATop;
+  ///[BlendMode.srcATop]
+  T get srcATop => this..innerBlendMode = BlendMode.srcATop;
 
-  T get xor => this..blendMode = BlendMode.xor;
+  ///[BlendMode.dstATop]
+  T get dstATop => this..innerBlendMode = BlendMode.dstATop;
 
-  T get plus => this..blendMode = BlendMode.plus;
+  ///[BlendMode.xor]
+  T get xor => this..innerBlendMode = BlendMode.xor;
 
-  T get modulate => this..blendMode = BlendMode.modulate;
+  ///[BlendMode.plus]
+  T get plus => this..innerBlendMode = BlendMode.plus;
 
-  T get screen => this..blendMode = BlendMode.screen;
+  ///[BlendMode.modulate]
+  T get modulate => this..innerBlendMode = BlendMode.modulate;
 
-  T get overlay => this..blendMode = BlendMode.overlay;
+  ///[BlendMode.screen]
+  T get screen => this..innerBlendMode = BlendMode.screen;
 
-  T get darken => this..blendMode = BlendMode.darken;
+  ///[BlendMode.overlay]
+  T get overlay => this..innerBlendMode = BlendMode.overlay;
 
-  T get lighten => this..blendMode = BlendMode.lighten;
+  ///[BlendMode.darken]
+  T get darken => this..innerBlendMode = BlendMode.darken;
 
-  T get colorDodge => this..blendMode = BlendMode.colorDodge;
+  ///[BlendMode.lighten]
+  T get lighten => this..innerBlendMode = BlendMode.lighten;
 
-  T get colorBurn => this..blendMode = BlendMode.colorBurn;
+  ///[BlendMode.colorDodge]
+  T get colorDodge => this..innerBlendMode = BlendMode.colorDodge;
 
-  T get hardLight => this..blendMode = BlendMode.hardLight;
+  ///[BlendMode.colorBurn]
+  T get colorBurn => this..innerBlendMode = BlendMode.colorBurn;
 
-  T get softLight => this..blendMode = BlendMode.softLight;
+  ///[BlendMode.hardLight]
+  T get hardLight => this..innerBlendMode = BlendMode.hardLight;
 
-  T get difference => this..blendMode = BlendMode.difference;
+  ///[BlendMode.softLight]
+  T get softLight => this..innerBlendMode = BlendMode.softLight;
 
-  T get exclusion => this..blendMode = BlendMode.exclusion;
+  ///[BlendMode.difference]
+  T get difference => this..innerBlendMode = BlendMode.difference;
 
-  T get multiply => this..blendMode = BlendMode.multiply;
+  ///[BlendMode.exclusion]
+  T get exclusion => this..innerBlendMode = BlendMode.exclusion;
 
-  T get hue => this..blendMode = BlendMode.hue;
+  ///[BlendMode.multiply]
+  T get multiply => this..innerBlendMode = BlendMode.multiply;
 
-  T get saturation => this..blendMode = BlendMode.saturation;
+  ///[BlendMode.hue]
+  T get hue => this..innerBlendMode = BlendMode.hue;
 
-  T get colorBlendMode => this..blendMode = BlendMode.color;
+  ///[BlendMode.saturation]
+  T get saturation => this..innerBlendMode = BlendMode.saturation;
 
-  T get luminosity => this..blendMode = BlendMode.luminosity;
+  ///[BlendMode.color]
+  T get colorBlendMode => this..innerBlendMode = BlendMode.color;
+
+  ///[BlendMode.luminosity]
+  T get luminosity => this..innerBlendMode = BlendMode.luminosity;
 }

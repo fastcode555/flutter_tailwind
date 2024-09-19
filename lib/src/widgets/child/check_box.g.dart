@@ -21,7 +21,7 @@ abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
 
   double get _size => size ?? width ?? height ?? 28.r;
 
-  double get _ratio => ratio ?? (_material ? 0.7 : 0.75);
+  double get _ratio => innerRatio ?? (_material ? 0.7 : 0.75);
 
   bool get _isSvg => innerIcon is String && (innerIcon as String).endsWith('.svg');
 
@@ -43,7 +43,7 @@ abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
         height: _height * _ratio,
         colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
       );
-      if (ratio == 1) return svg;
+      if (innerRatio == 1) return svg;
 
       var paddingHorizontal = (1 - _ratio) * _width / 2;
       var paddingVertical = (1 - _ratio) * _height / 2;

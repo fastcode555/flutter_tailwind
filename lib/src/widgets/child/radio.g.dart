@@ -21,7 +21,7 @@ abstract class _BaseRadioBuilder extends RadioCallBackBuilder
 
   double get _size => size ?? width ?? height ?? 28.r;
 
-  double get _ratio => ratio ?? (_material ? 0.7 : 0.75);
+  double get _ratio => innerRatio ?? (_material ? 0.7 : 0.75);
 
   bool get _isSvg => innerIcon is String && (innerIcon as String).endsWith('.svg');
 
@@ -43,7 +43,7 @@ abstract class _BaseRadioBuilder extends RadioCallBackBuilder
         height: _height * _ratio,
         colorFilter: ColorFilter.mode(_iconColor, BlendMode.srcIn),
       );
-      if (ratio == 1) return svg;
+      if (innerRatio == 1) return svg;
 
       var paddingHorizontal = (1 - _ratio) * _width / 2;
       var paddingVertical = (1 - _ratio) * _height / 2;
@@ -67,10 +67,13 @@ mixin RadioMixin {
 }
 
 extension RadioMixinExt<T extends RadioMixin> on T {
+  ///enable the border
   T get enableBorder => this.._enableBorder = true;
 
+  /// only show the icon,don't have background
   T get justIcon => this.._justIcon = true;
 
+  /// open the material style
   T get material => this.._material = true;
 }
 

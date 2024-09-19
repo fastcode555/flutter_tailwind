@@ -21,21 +21,30 @@ extension AlignmentBuilderExt<T extends AlignmentBuilder> on T {
     return this..alignment = alignment;
   }
 
+  /// Alignment.topLeft
   T get topLeft => this..align(Alignment.topLeft);
 
+  /// Alignment.topCenter
   T get topCenter => this..align(Alignment.topCenter);
 
+  /// Alignment.topRight
   T get topRight => this..align(Alignment.topRight);
 
-  T get centerLeft => this.align(Alignment.centerLeft);
+  /// Alignment.centerLeft
+  T get centerLeft => this..align(Alignment.centerLeft);
 
-  T get center => this.align(Alignment.center);
+  /// Alignment.center
+  T get center => this..align(Alignment.center);
 
-  T get centerRight => this.align(Alignment.centerRight);
+  /// Alignment.centerRight
+  T get centerRight => this..align(Alignment.centerRight);
 
-  T get bottomLeft => this.align(Alignment.bottomLeft);
+  /// Alignment.bottomLeft
+  T get bottomLeft => this..align(Alignment.bottomLeft);
 
-  T get bottomCenter => this.align(Alignment.bottomCenter);
+  /// Alignment.bottomCenter
+  T get bottomCenter => this..align(Alignment.bottomCenter);
 
-  T get bottomRight => this.align(Alignment.bottomRight);
+  /// Alignment.bottomRight
+  T get bottomRight => this..align(Alignment.bottomRight);
 }
