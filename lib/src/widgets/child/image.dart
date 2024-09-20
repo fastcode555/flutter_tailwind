@@ -16,12 +16,24 @@ ImageBuilder image(String? path) => ImageBuilder._(path, _image);
 
 extension StringImageTailWind on String {
   ///[Image.asset]
+  ///# eg:
+  ///- R.icDefPlaylist.asset.border2.borderLightGreen.s100.mk,
+  ///- asset(R.icDefPlaylist).border2.borderLightGreen.s100.mk,
+  ///
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
   ImageBuilder get asset => ImageBuilder._(this, _asset);
 
-  ///[ImageLoader.image]
+  ///
+  /// [ImageLoader.image]
+  /// # eg:
+  /// - link.image.borderPink.border5.s100.mk
+  /// - image(link).borderPink.border5.s100.mk
+  ///
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
   ImageBuilder get image => ImageBuilder._(this, _image);
 }
 
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
 class ImageBuilder extends MkBuilder<Widget>
     with
         SizeBuilder,

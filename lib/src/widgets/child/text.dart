@@ -13,6 +13,9 @@ mixin CompletedTextStyleBuilder {
 }
 
 ///[Text]
+///# eg:
+///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
+///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
 _TextBuilder text(String value) => _TextBuilder._(value);
 
 ///[Text.rich]
@@ -20,6 +23,9 @@ RichTextBuilder get textRich => RichTextBuilder._();
 
 extension TextBuilderStringExt on String? {
   ///[Text]
+  ///# eg:
+  ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
+  ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
   _TextBuilder get text => _TextBuilder._(this ?? '');
 }
 

@@ -8,6 +8,8 @@ part 'check_box.g.dart';
 /// @date 2024/9/12
 /// describe:
 
+///eg: checkBox.blue.borderBlack.shadowMd.material.s50.onChanged(false, _onChanged)
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/image_6.png?raw=true)
 _CheckBoxBuilder get checkBox => _CheckBoxBuilder();
 
 class _CheckBoxBuilder extends _BaseCheckBoxBuilder<bool> {

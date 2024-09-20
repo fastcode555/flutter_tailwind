@@ -6,6 +6,9 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// @date 2024/8/19
 /// describe:
 
+///# eg:
+///- Icons.connected_tv_sharp.icon.redAccent.s100.mk
+///- icon(Icons.connected_tv_sharp).redAccent.s100.mk
 _IconBuilder icon(IconData icon) => _IconBuilder._(icon);
 
 class _IconBuilder extends MkBuilder<Widget>
@@ -33,6 +36,9 @@ class _IconBuilder extends MkBuilder<Widget>
 }
 
 extension IconStringBuilder on IconData {
+  ///# eg:
+  ///- Icons.connected_tv_sharp.icon.redAccent.s100.mk
+  ///- icon(Icons.connected_tv_sharp).redAccent.s100.mk
   _IconBuilder get icon => _IconBuilder._(this);
 }
 

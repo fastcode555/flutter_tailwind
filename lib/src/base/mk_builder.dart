@@ -6,6 +6,7 @@ import 'package:flutter_tailwind/src/utils/debouncer.dart';
 /// @date 2024/8/20
 /// describe:
 abstract class MkBuilder<T> {
+  /// mk==make==build
   T get mk;
 }
 

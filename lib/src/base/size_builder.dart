@@ -88,17 +88,32 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   T get sScreenW => this..size = _screenW;
 
+  /// set the height 1
+  T get h1 => this..height = 1.h;
+
   /// set the height 2
   T get h2 => this..height = 2.h;
+
+  /// set the height 3
+  T get h3 => this..height = 3.h;
 
   /// set the height 4
   T get h4 => this..height = 4.h;
 
+  /// set the height 5
+  T get h5 => this..height = 5.h;
+
   /// set the height 6
   T get h6 => this..height = 6.h;
 
+  /// set the height 7
+  T get h7 => this..height = 7.h;
+
   /// set the height 8
   T get h8 => this..height = 8.h;
+
+  /// set the height 8
+  T get h9 => this..height = 9.h;
 
   /// set the height 10
   T get h10 => this..height = 10.h;
@@ -256,17 +271,32 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the height 350
   T get h350 => this..height = 350.h;
 
-  //set width=/2
+  ///set width=1
+  T get w1 => this..width = 1.w;
+
+  ///set width=2
   T get w2 => this..width = 2.w;
 
-  //set width=/4
+  ///set width=3
+  T get w3 => this..width = 3.w;
+
+  ///set width=4
   T get w4 => this..width = 4.w;
 
-  //set width=/6
+  ///set width=5
+  T get w5 => this..width = 5.w;
+
+  ///set width=6
   T get w6 => this..width = 6.w;
 
-  //set width=/8
+  ///set width=7
+  T get w7 => this..width = 7.w;
+
+  ///set width=8
   T get w8 => this..width = 8.w;
+
+  ///set width=8
+  T get w9 => this..width = 9.w;
 
   ///set width=10
   T get w10 => this..width = 10.w;
@@ -427,14 +457,26 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the size 2
   T get s2 => this..size = 2.r;
 
+  /// set the size 1
+  T get s3 => this..size = 3.r;
+
   /// set the size 4
   T get s4 => this..size = 4.r;
+
+  /// set the size 4
+  T get s5 => this..size = 5.r;
 
   /// set the size 6
   T get s6 => this..size = 6.r;
 
+  /// set the size 7
+  T get s7 => this..size = 7.r;
+
   /// set the size 8
   T get s8 => this..size = 8.r;
+
+  /// set the size 9
+  T get s9 => this..size = 9.r;
 
   /// set the size 10
   T get s10 => this..size = 10.r;

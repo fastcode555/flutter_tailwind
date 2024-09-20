@@ -144,6 +144,13 @@ extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
         );
 }
 
+///## Don't have child,use mk to create empty container
+///container.s100.greenAccent.borderBrown.rounded8.border5.mk
+///
+///## Have child
+///container.s100.greenAccent.borderBrown.rounded8.border5.child(
+/// child,
+///)
 ContainerBuilder get container => ContainerBuilder();
 
 class ContainerBuilder extends ChildMkBuilder<Container>

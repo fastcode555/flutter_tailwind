@@ -7,6 +7,9 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// @date 2024/8/19
 /// describe:
 
+///# eg:
+///- R.icAirPlay.svg.black.s100.mk
+///- svg(R.icAirPlay).black.s100.mk
 _SvgBuilder svg(String file) => _SvgBuilder._(file);
 
 class _SvgBuilder extends MkBuilder<Widget>
@@ -55,6 +58,9 @@ class _SvgBuilder extends MkBuilder<Widget>
 }
 
 extension SvgStringExt on String? {
+  ///# eg:
+  ///- R.icAirPlay.svg.black.s100.mk
+  ///- svg(R.icAirPlay).black.s100.mk
   _SvgBuilder get svg => _SvgBuilder._(this ?? '');
 }
 

@@ -216,6 +216,17 @@ extension ColorBuilderExt<T extends ColorBuilder> on T {
   T get green => this..color(Colors.green);
 
   ///flutter system color [Colors.greenAccent]
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.green.png)
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.greenAccent.png)
+  ///
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.teal.png)
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.tealAccent.png)
+  ///
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.lightGreen.png)
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.lightGreenAccent.png)
+  ///
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.lime.png)
+  /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.limeAccent.png)
   T get greenAccent => this..color(Colors.greenAccent);
 
   ///flutter system color [Colors.lightGreen]

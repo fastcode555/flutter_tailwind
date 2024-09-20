@@ -8,6 +8,34 @@ part 'radio.g.dart';
 /// @date 2024/9/12
 /// describe:
 
+/// # eg:
+///- radio.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.material.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.material.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.material.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.material.amberAccent.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.material.amberAccent.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.material.amberAccent.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.green.material.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.green.material.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.green.material.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.enableBorder.orange.borderBlack.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.enableBorder.orange.borderBlack.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.enableBorder.orange.borderBlack.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.onChanged(2, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.red.icAwesomePen.onChanged(0, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.red.icAwesomePen.onChanged(1, groupValue, _OnRadioChanged),
+///- radio.circle.justIcon.red.icAwesomePen.onChanged(2, groupValue, _OnRadioChanged),
 _RadioBuilder get radio => _RadioBuilder();
 
 class _RadioBuilder extends _BaseRadioBuilder {
