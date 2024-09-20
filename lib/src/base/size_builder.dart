@@ -112,23 +112,38 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the height 8
   T get h8 => this..height = 8.h;
 
-  /// set the height 8
+  /// set the height 9
   T get h9 => this..height = 9.h;
 
   /// set the height 10
   T get h10 => this..height = 10.h;
 
+  /// set the height 11
+  T get h11 => this..height = 11.h;
+
   /// set the height 12
   T get h12 => this..height = 12.h;
+
+  /// set the height 13
+  T get h13 => this..height = 13.h;
 
   /// set the height 14
   T get h14 => this..height = 14.h;
 
+  /// set the height 15
+  T get h15 => this..height = 15.h;
+
   /// set the height 16
   T get h16 => this..height = 16.h;
 
+  /// set the height 17
+  T get h17 => this..height = 17.h;
+
   /// set the height 18
   T get h18 => this..height = 18.h;
+
+  /// set the height 19
+  T get h19 => this..height = 19.h;
 
   /// set the height 20
   T get h20 => this..height = 20.h;
@@ -250,220 +265,592 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the height 98
   T get h98 => this..height = 98.h;
 
+  /// set the height 55
+  T get h55 => this..height = 55.h;
+
+  /// set the height 65
+  T get h65 => this..height = 65.h;
+
+  /// set the height 75
+  T get h75 => this..height = 75.h;
+
+  /// set the height 85
+  T get h85 => this..height = 85.h;
+
+  /// set the height 95
+  T get h95 => this..height = 95.h;
+
   /// set the height 100
   T get h100 => this..height = 100.h;
+
+  /// set the height 105
+  T get h105 => this..height = 105.h;
+
+  /// set the height 110
+  T get h110 => this..height = 110.h;
+
+  /// set the height 115
+  T get h115 => this..height = 115.h;
 
   /// set the height 120
   T get h120 => this..height = 120.h;
 
+  /// set the height 125
+  T get h125 => this..height = 125.h;
+
+  /// set the height 130
+  T get h130 => this..height = 130.h;
+
+  /// set the height 135
+  T get h135 => this..height = 135.h;
+
+  /// set the height 140
+  T get h140 => this..height = 140.h;
+
+  /// set the height 145
+  T get h145 => this..height = 145.h;
+
   /// set the height 150
   T get h150 => this..height = 150.h;
+
+  /// set the height 155
+  T get h155 => this..height = 155.h;
+
+  /// set the height 160
+  T get h160 => this..height = 160.h;
+
+  /// set the height 165
+  T get h165 => this..height = 165.h;
+
+  /// set the height 170
+  T get h170 => this..height = 170.h;
+
+  /// set the height 175
+  T get h175 => this..height = 175.h;
+
+  /// set the height 180
+  T get h180 => this..height = 180.h;
+
+  /// set the height 185
+  T get h185 => this..height = 185.h;
+
+  /// set the height 190
+  T get h190 => this..height = 190.h;
+
+  /// set the height 195
+  T get h195 => this..height = 195.h;
 
   /// set the height 200
   T get h200 => this..height = 200.h;
 
+  /// set the height 205
+  T get h205 => this..height = 205.h;
+
+  /// set the height 210
+  T get h210 => this..height = 210.h;
+
+  /// set the height 215
+  T get h215 => this..height = 215.h;
+
+  /// set the height 220
+  T get h220 => this..height = 220.h;
+
+  /// set the height 225
+  T get h225 => this..height = 225.h;
+
+  /// set the height 230
+  T get h230 => this..height = 230.h;
+
+  /// set the height 235
+  T get h235 => this..height = 235.h;
+
+  /// set the height 240
+  T get h240 => this..height = 240.h;
+
+  /// set the height 245
+  T get h245 => this..height = 245.h;
+
   /// set the height 250
   T get h250 => this..height = 250.h;
+
+  /// set the height 255
+  T get h255 => this..height = 255.h;
+
+  /// set the height 260
+  T get h260 => this..height = 260.h;
+
+  /// set the height 265
+  T get h265 => this..height = 265.h;
+
+  /// set the height 270
+  T get h270 => this..height = 270.h;
+
+  /// set the height 275
+  T get h275 => this..height = 275.h;
+
+  /// set the height 280
+  T get h280 => this..height = 280.h;
+
+  /// set the height 285
+  T get h285 => this..height = 285.h;
+
+  /// set the height 290
+  T get h290 => this..height = 290.h;
+
+  /// set the height 295
+  T get h295 => this..height = 295.h;
 
   /// set the height 300
   T get h300 => this..height = 300.h;
 
+  /// set the height 305
+  T get h305 => this..height = 305.h;
+
+  /// set the height 310
+  T get h310 => this..height = 310.h;
+
+  /// set the height 315
+  T get h315 => this..height = 315.h;
+
+  /// set the height 320
+  T get h320 => this..height = 320.h;
+
+  /// set the height 325
+  T get h325 => this..height = 325.h;
+
+  /// set the height 330
+  T get h330 => this..height = 330.h;
+
+  /// set the height 335
+  T get h335 => this..height = 335.h;
+
+  /// set the height 340
+  T get h340 => this..height = 340.h;
+
+  /// set the height 345
+  T get h345 => this..height = 345.h;
+
   /// set the height 350
   T get h350 => this..height = 350.h;
 
-  ///set width=1
+  /// set the height 355
+  T get h355 => this..height = 355.h;
+
+  /// set the height 360
+  T get h360 => this..height = 360.h;
+
+  /// set the height 365
+  T get h365 => this..height = 365.h;
+
+  /// set the height 370
+  T get h370 => this..height = 370.h;
+
+  /// set the height 375
+  T get h375 => this..height = 375.h;
+
+  /// set the height 380
+  T get h380 => this..height = 380.h;
+
+  /// set the height 385
+  T get h385 => this..height = 385.h;
+
+  /// set the height 390
+  T get h390 => this..height = 390.h;
+
+  /// set the height 395
+  T get h395 => this..height = 395.h;
+
+  /// set the height 400
+  T get h400 => this..height = 400.h;
+
+  /// set the width 1
   T get w1 => this..width = 1.w;
 
-  ///set width=2
+  /// set the width 2
   T get w2 => this..width = 2.w;
 
-  ///set width=3
+  /// set the width 3
   T get w3 => this..width = 3.w;
 
-  ///set width=4
+  /// set the width 4
   T get w4 => this..width = 4.w;
 
-  ///set width=5
+  /// set the width 5
   T get w5 => this..width = 5.w;
 
-  ///set width=6
+  /// set the width 6
   T get w6 => this..width = 6.w;
 
-  ///set width=7
+  /// set the width 7
   T get w7 => this..width = 7.w;
 
-  ///set width=8
+  /// set the width 8
   T get w8 => this..width = 8.w;
 
-  ///set width=8
+  /// set the width 9
   T get w9 => this..width = 9.w;
 
-  ///set width=10
+  /// set the width 10
   T get w10 => this..width = 10.w;
 
-  ///set width=12
+  /// set the width 11
+  T get w11 => this..width = 11.w;
+
+  /// set the width 12
   T get w12 => this..width = 12.w;
 
-  ///set width=14
+  /// set the width 13
+  T get w13 => this..width = 13.w;
+
+  /// set the width 14
   T get w14 => this..width = 14.w;
 
-  ///set width=16
+  /// set the width 15
+  T get w15 => this..width = 15.w;
+
+  /// set the width 16
   T get w16 => this..width = 16.w;
 
-  ///set width=18
+  /// set the width 17
+  T get w17 => this..width = 17.w;
+
+  /// set the width 18
   T get w18 => this..width = 18.w;
 
-  ///set width=20
+  /// set the width 19
+  T get w19 => this..width = 19.w;
+
+  /// set the width 20
   T get w20 => this..width = 20.w;
 
-  ///set width=22
+  /// set the width 22
   T get w22 => this..width = 22.w;
 
-  ///set width=24
+  /// set the width 24
   T get w24 => this..width = 24.w;
 
-  ///set width=26
+  /// set the width 26
   T get w26 => this..width = 26.w;
 
-  ///set width=28
+  /// set the width 28
   T get w28 => this..width = 28.w;
 
-  ///set width=30
+  /// set the width 30
   T get w30 => this..width = 30.w;
 
-  ///set width=32
+  /// set the width 32
   T get w32 => this..width = 32.w;
 
-  ///set width=34
+  /// set the width 34
   T get w34 => this..width = 34.w;
 
-  ///set width=36
+  /// set the width 36
   T get w36 => this..width = 36.w;
 
-  ///set width=38
+  /// set the width 38
   T get w38 => this..width = 38.w;
 
-  ///set width=40
+  /// set the width 40
   T get w40 => this..width = 40.w;
 
-  ///set width=42
+  /// set the width 42
   T get w42 => this..width = 42.w;
 
-  ///set width=44
+  /// set the width 44
   T get w44 => this..width = 44.w;
 
-  ///set width=46
+  /// set the width 46
   T get w46 => this..width = 46.w;
 
-  ///set width=48
+  /// set the width 48
   T get w48 => this..width = 48.w;
 
-  ///set width=50
+  /// set the width 50
   T get w50 => this..width = 50.w;
 
-  ///set width=52
+  /// set the width 52
   T get w52 => this..width = 52.w;
 
-  ///set width=54
+  /// set the width 54
   T get w54 => this..width = 54.w;
 
-  ///set width=56
+  /// set the width 56
   T get w56 => this..width = 56.w;
 
-  ///set width=58
+  /// set the width 58
   T get w58 => this..width = 58.w;
 
-  ///set width=60
+  /// set the width 60
   T get w60 => this..width = 60.w;
 
-  ///set width=62
+  /// set the width 62
   T get w62 => this..width = 62.w;
 
-  ///set width=64
+  /// set the width 64
   T get w64 => this..width = 64.w;
 
-  ///set width=66
+  /// set the width 66
   T get w66 => this..width = 66.w;
 
-  ///set width=68
+  /// set the width 68
   T get w68 => this..width = 68.w;
 
-  ///set width=70
+  /// set the width 70
   T get w70 => this..width = 70.w;
 
-  ///set width=72
+  /// set the width 72
   T get w72 => this..width = 72.w;
 
-  ///set width=74
+  /// set the width 74
   T get w74 => this..width = 74.w;
 
-  ///set width=76
+  /// set the width 76
   T get w76 => this..width = 76.w;
 
-  ///set width=78
+  /// set the width 78
   T get w78 => this..width = 78.w;
 
-  ///set width=80
+  /// set the width 80
   T get w80 => this..width = 80.w;
 
-  ///set width=82
+  /// set the width 82
   T get w82 => this..width = 82.w;
 
-  ///set width=84
+  /// set the width 84
   T get w84 => this..width = 84.w;
 
-  ///set width=86
+  /// set the width 86
   T get w86 => this..width = 86.w;
 
-  ///set width=88
+  /// set the width 88
   T get w88 => this..width = 88.w;
 
-  ///set width=90
+  /// set the width 90
   T get w90 => this..width = 90.w;
 
-  ///set width=92
+  /// set the width 92
   T get w92 => this..width = 92.w;
 
-  ///set width=94
+  /// set the width 94
   T get w94 => this..width = 94.w;
 
-  ///set width=96
+  /// set the width 96
   T get w96 => this..width = 96.w;
 
-  ///set width=98
+  /// set the width 98
   T get w98 => this..width = 98.w;
 
-  ///1set width=00
+  /// set the width 55
+  T get w55 => this..width = 55.w;
+
+  /// set the width 65
+  T get w65 => this..width = 65.w;
+
+  /// set the width 75
+  T get w75 => this..width = 75.w;
+
+  /// set the width 85
+  T get w85 => this..width = 85.w;
+
+  /// set the width 95
+  T get w95 => this..width = 95.w;
+
+  /// set the width 100
   T get w100 => this..width = 100.w;
 
-  ///1set width=20
+  /// set the width 105
+  T get w105 => this..width = 105.w;
+
+  /// set the width 110
+  T get w110 => this..width = 110.w;
+
+  /// set the width 115
+  T get w115 => this..width = 115.w;
+
+  /// set the width 120
   T get w120 => this..width = 120.w;
 
-  ///1set width=50
+  /// set the width 125
+  T get w125 => this..width = 125.w;
+
+  /// set the width 130
+  T get w130 => this..width = 130.w;
+
+  /// set the width 135
+  T get w135 => this..width = 135.w;
+
+  /// set the width 140
+  T get w140 => this..width = 140.w;
+
+  /// set the width 145
+  T get w145 => this..width = 145.w;
+
+  /// set the width 150
   T get w150 => this..width = 150.w;
 
-  ///2set width=00
+  /// set the width 155
+  T get w155 => this..width = 155.w;
+
+  /// set the width 160
+  T get w160 => this..width = 160.w;
+
+  /// set the width 165
+  T get w165 => this..width = 165.w;
+
+  /// set the width 170
+  T get w170 => this..width = 170.w;
+
+  /// set the width 175
+  T get w175 => this..width = 175.w;
+
+  /// set the width 180
+  T get w180 => this..width = 180.w;
+
+  /// set the width 185
+  T get w185 => this..width = 185.w;
+
+  /// set the width 190
+  T get w190 => this..width = 190.w;
+
+  /// set the width 195
+  T get w195 => this..width = 195.w;
+
+  /// set the width 200
   T get w200 => this..width = 200.w;
 
-  ///2set width=50
+  /// set the width 205
+  T get w205 => this..width = 205.w;
+
+  /// set the width 210
+  T get w210 => this..width = 210.w;
+
+  /// set the width 215
+  T get w215 => this..width = 215.w;
+
+  /// set the width 220
+  T get w220 => this..width = 220.w;
+
+  /// set the width 225
+  T get w225 => this..width = 225.w;
+
+  /// set the width 230
+  T get w230 => this..width = 230.w;
+
+  /// set the width 235
+  T get w235 => this..width = 235.w;
+
+  /// set the width 240
+  T get w240 => this..width = 240.w;
+
+  /// set the width 245
+  T get w245 => this..width = 245.w;
+
+  /// set the width 250
   T get w250 => this..width = 250.w;
 
-  ///3set width=00
+  /// set the width 255
+  T get w255 => this..width = 255.w;
+
+  /// set the width 260
+  T get w260 => this..width = 260.w;
+
+  /// set the width 265
+  T get w265 => this..width = 265.w;
+
+  /// set the width 270
+  T get w270 => this..width = 270.w;
+
+  /// set the width 275
+  T get w275 => this..width = 275.w;
+
+  /// set the width 280
+  T get w280 => this..width = 280.w;
+
+  /// set the width 285
+  T get w285 => this..width = 285.w;
+
+  /// set the width 290
+  T get w290 => this..width = 290.w;
+
+  /// set the width 295
+  T get w295 => this..width = 295.w;
+
+  /// set the width 300
   T get w300 => this..width = 300.w;
 
-  ///3set width=50
+  /// set the width 305
+  T get w305 => this..width = 305.w;
+
+  /// set the width 310
+  T get w310 => this..width = 310.w;
+
+  /// set the width 315
+  T get w315 => this..width = 315.w;
+
+  /// set the width 320
+  T get w320 => this..width = 320.w;
+
+  /// set the width 325
+  T get w325 => this..width = 325.w;
+
+  /// set the width 330
+  T get w330 => this..width = 330.w;
+
+  /// set the width 335
+  T get w335 => this..width = 335.w;
+
+  /// set the width 340
+  T get w340 => this..width = 340.w;
+
+  /// set the width 345
+  T get w345 => this..width = 345.w;
+
+  /// set the width 350
   T get w350 => this..width = 350.w;
+
+  /// set the width 355
+  T get w355 => this..width = 355.w;
+
+  /// set the width 360
+  T get w360 => this..width = 360.w;
+
+  /// set the width 365
+  T get w365 => this..width = 365.w;
+
+  /// set the width 370
+  T get w370 => this..width = 370.w;
+
+  /// set the width 375
+  T get w375 => this..width = 375.w;
+
+  /// set the width 380
+  T get w380 => this..width = 380.w;
+
+  /// set the width 385
+  T get w385 => this..width = 385.w;
+
+  /// set the width 390
+  T get w390 => this..width = 390.w;
+
+  /// set the width 395
+  T get w395 => this..width = 395.w;
+
+  /// set the width 400
+  T get w400 => this..width = 400.w;
+
+  /// set the size 1
+  T get s1 => this..size = 1.r;
 
   /// set the size 2
   T get s2 => this..size = 2.r;
 
-  /// set the size 1
+  /// set the size 3
   T get s3 => this..size = 3.r;
 
   /// set the size 4
   T get s4 => this..size = 4.r;
 
-  /// set the size 4
+  /// set the size 5
   T get s5 => this..size = 5.r;
 
   /// set the size 6
@@ -481,17 +868,32 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the size 10
   T get s10 => this..size = 10.r;
 
+  /// set the size 11
+  T get s11 => this..size = 11.r;
+
   /// set the size 12
   T get s12 => this..size = 12.r;
+
+  /// set the size 13
+  T get s13 => this..size = 13.r;
 
   /// set the size 14
   T get s14 => this..size = 14.r;
 
+  /// set the size 15
+  T get s15 => this..size = 15.r;
+
   /// set the size 16
   T get s16 => this..size = 16.r;
 
+  /// set the size 17
+  T get s17 => this..size = 17.r;
+
   /// set the size 18
   T get s18 => this..size = 18.r;
+
+  /// set the size 19
+  T get s19 => this..size = 19.r;
 
   /// set the size 20
   T get s20 => this..size = 20.r;
@@ -613,24 +1015,201 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the size 98
   T get s98 => this..size = 98.r;
 
+  /// set the size 55
+  T get s55 => this..size = 55.r;
+
+  /// set the size 65
+  T get s65 => this..size = 65.r;
+
+  /// set the size 75
+  T get s75 => this..size = 75.r;
+
+  /// set the size 85
+  T get s85 => this..size = 85.r;
+
+  /// set the size 95
+  T get s95 => this..size = 95.r;
+
   /// set the size 100
   T get s100 => this..size = 100.r;
+
+  /// set the size 105
+  T get s105 => this..size = 105.r;
+
+  /// set the size 110
+  T get s110 => this..size = 110.r;
+
+  /// set the size 115
+  T get s115 => this..size = 115.r;
 
   /// set the size 120
   T get s120 => this..size = 120.r;
 
+  /// set the size 125
+  T get s125 => this..size = 125.r;
+
+  /// set the size 130
+  T get s130 => this..size = 130.r;
+
+  /// set the size 135
+  T get s135 => this..size = 135.r;
+
+  /// set the size 140
+  T get s140 => this..size = 140.r;
+
+  /// set the size 145
+  T get s145 => this..size = 145.r;
+
   /// set the size 150
   T get s150 => this..size = 150.r;
+
+  /// set the size 155
+  T get s155 => this..size = 155.r;
+
+  /// set the size 160
+  T get s160 => this..size = 160.r;
+
+  /// set the size 165
+  T get s165 => this..size = 165.r;
+
+  /// set the size 170
+  T get s170 => this..size = 170.r;
+
+  /// set the size 175
+  T get s175 => this..size = 175.r;
+
+  /// set the size 180
+  T get s180 => this..size = 180.r;
+
+  /// set the size 185
+  T get s185 => this..size = 185.r;
+
+  /// set the size 190
+  T get s190 => this..size = 190.r;
+
+  /// set the size 195
+  T get s195 => this..size = 195.r;
 
   /// set the size 200
   T get s200 => this..size = 200.r;
 
+  /// set the size 205
+  T get s205 => this..size = 205.r;
+
+  /// set the size 210
+  T get s210 => this..size = 210.r;
+
+  /// set the size 215
+  T get s215 => this..size = 215.r;
+
+  /// set the size 220
+  T get s220 => this..size = 220.r;
+
+  /// set the size 225
+  T get s225 => this..size = 225.r;
+
+  /// set the size 230
+  T get s230 => this..size = 230.r;
+
+  /// set the size 235
+  T get s235 => this..size = 235.r;
+
+  /// set the size 240
+  T get s240 => this..size = 240.r;
+
+  /// set the size 245
+  T get s245 => this..size = 245.r;
+
   /// set the size 250
   T get s250 => this..size = 250.r;
+
+  /// set the size 255
+  T get s255 => this..size = 255.r;
+
+  /// set the size 260
+  T get s260 => this..size = 260.r;
+
+  /// set the size 265
+  T get s265 => this..size = 265.r;
+
+  /// set the size 270
+  T get s270 => this..size = 270.r;
+
+  /// set the size 275
+  T get s275 => this..size = 275.r;
+
+  /// set the size 280
+  T get s280 => this..size = 280.r;
+
+  /// set the size 285
+  T get s285 => this..size = 285.r;
+
+  /// set the size 290
+  T get s290 => this..size = 290.r;
+
+  /// set the size 295
+  T get s295 => this..size = 295.r;
 
   /// set the size 300
   T get s300 => this..size = 300.r;
 
+  /// set the size 305
+  T get s305 => this..size = 305.r;
+
+  /// set the size 310
+  T get s310 => this..size = 310.r;
+
+  /// set the size 315
+  T get s315 => this..size = 315.r;
+
+  /// set the size 320
+  T get s320 => this..size = 320.r;
+
+  /// set the size 325
+  T get s325 => this..size = 325.r;
+
+  /// set the size 330
+  T get s330 => this..size = 330.r;
+
+  /// set the size 335
+  T get s335 => this..size = 335.r;
+
+  /// set the size 340
+  T get s340 => this..size = 340.r;
+
+  /// set the size 345
+  T get s345 => this..size = 345.r;
+
   /// set the size 350
   T get s350 => this..size = 350.r;
+
+  /// set the size 355
+  T get s355 => this..size = 355.r;
+
+  /// set the size 360
+  T get s360 => this..size = 360.r;
+
+  /// set the size 365
+  T get s365 => this..size = 365.r;
+
+  /// set the size 370
+  T get s370 => this..size = 370.r;
+
+  /// set the size 375
+  T get s375 => this..size = 375.r;
+
+  /// set the size 380
+  T get s380 => this..size = 380.r;
+
+  /// set the size 385
+  T get s385 => this..size = 385.r;
+
+  /// set the size 390
+  T get s390 => this..size = 390.r;
+
+  /// set the size 395
+  T get s395 => this..size = 395.r;
+
+  /// set the size 400
+  T get s400 => this..size = 400.r;
 }

@@ -7,8 +7,6 @@ part 'tailwind_ext.g.dart';
 
 /// define the custom size here
 extension SizeExt<T extends SizeBuilder> on T {
-  T get h365 => this..height = 365.h;
-
   T get s121 => this..size = 121.r;
 }
 

@@ -42,6 +42,8 @@ mixin BorderRadiusBuilder {
 extension BorderRadiusBuilderExt<T extends BorderRadiusBuilder> on T {
   T r(double radius) => this..radius = radius;
 
+  T rounded(double radius) => this..radius = radius;
+
   ///set all radius is 1
   T get rounded1 => this..radius = 1.r;
 
