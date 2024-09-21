@@ -9,6 +9,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:flutter_tailwind/src/image_loader/shimmer_loader_config.dart';
 
 part 'circle_image.g.dart';
+
 part 'image_loader.g.dart';
 
 bool _isNetUrl(String? url) {

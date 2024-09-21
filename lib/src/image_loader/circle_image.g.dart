@@ -43,6 +43,13 @@ class _CircleImage extends StatelessWidget {
     return useSingleCache ? null : ((radius! * _devicePixelRatio!).toInt());
   }
 
+  bool get _isFile {
+    if (kIsWeb) return false;
+
+    var imageFile = File(url ?? '');
+    return url != null && url!.isNotEmpty && imageFile.existsSync();
+  }
+
   @override
   Widget build(BuildContext context) {
     _collect(url);
@@ -124,9 +131,7 @@ class _CircleImage extends StatelessWidget {
             : finalErrorBuilder,
       );
     } else {
-      var imageFile = File(url ?? '');
-      var isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
-      if (isFile) {
+      if (_isFile) {
         return _buildBorderCircleImage(
           border,
           borderColor,
@@ -135,7 +140,7 @@ class _CircleImage extends StatelessWidget {
             transitionOnUserGestures: transitionOnUserGestures,
             child: CircleAvatar(
               radius: radius,
-              backgroundImage: FileImage(imageFile),
+              backgroundImage: FileImage(File(url!)),
               backgroundColor: Colors.transparent,
             ),
           ),

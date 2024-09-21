@@ -41,6 +41,13 @@ class _Image extends StatelessWidget {
     this.boxShadow,
   });
 
+  bool get _isFile {
+    if (kIsWeb) return false;
+
+    var imageFile = File(url ?? '');
+    return url != null && url!.isNotEmpty && imageFile.existsSync();
+  }
+
   int? _getMemCacheWidth(double? width) {
     return useSingleCache ? null : (width != null ? (width * _devicePixelRatio!).toInt() : null);
   }
@@ -118,16 +125,14 @@ class _Image extends StatelessWidget {
   //加载文件型图片
   Widget _loadFileOrAssertImage(
       LoadingErrorWidgetBuilder? errorBuilder, double? width, double? height, BuildContext context) {
-    var imageFile = File(url ?? '');
-    var isFile = url != null && url!.isNotEmpty && imageFile.existsSync();
-    if (isFile) {
+    if (_isFile) {
       return _buildBorderCircleImage(
         border,
         borderColor,
         _buildHeroWidget(heroTag,
             transitionOnUserGestures: transitionOnUserGestures,
             child: Image.file(
-              imageFile,
+              File(url!),
               fit: fit,
               cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
               //cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
