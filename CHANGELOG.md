@@ -1,3 +1,7 @@
+## 1.2.7
+
+- add more padding value and margin value
+
 ## 1.2.6
 
 - fixed the web cannot load image problem.
