@@ -20,18 +20,16 @@ class _IconBuilder extends MkBuilder<Widget>
 
   @override
   Widget get mk {
-    Widget child = Icon(
-      icon,
-      size: size ?? height ?? width,
-      color: innerColor.opacity(innerOpacity),
-      shadows: shadows,
-      textDirection: textDirection,
-      applyTextScaling: false,
+    return createPadding(
+      Icon(
+        icon,
+        size: size ?? height ?? width,
+        color: innerColor.opacity(innerOpacity),
+        shadows: shadows,
+        textDirection: textDirection,
+        applyTextScaling: false,
+      ),
     );
-    if (hasPadding) {
-      return Padding(padding: finalPadding!, child: child);
-    }
-    return child;
   }
 }
 

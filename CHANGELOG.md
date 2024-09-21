@@ -1,5 +1,8 @@
-## 1.2.7
+## 1.2.8
 
+- add the padding widget and let some width directly support padding,so no need wrap into padding
+
+- ## 1.2.7
 - add more padding value and margin value
 
 ## 1.2.6

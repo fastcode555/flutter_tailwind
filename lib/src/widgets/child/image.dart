@@ -57,12 +57,7 @@ class ImageBuilder extends MkBuilder<Widget>
   ImageBuilder._(this.image, this.type);
 
   @override
-  Widget get mk {
-    if (hasPadding) {
-      return Padding(padding: finalPadding!, child: _buildImage());
-    }
-    return _buildImage();
-  }
+  Widget get mk => createPadding(_buildImage());
 
   Widget _buildImage() {
     if (type == _asset) {

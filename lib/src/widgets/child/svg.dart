@@ -34,26 +34,24 @@ class _SvgBuilder extends MkBuilder<Widget>
 
   @override
   Widget get mk {
-    Widget child = SvgPicture.asset(
-      file,
-      width: size ?? width,
-      bundle: bundle,
-      height: size ?? height,
-      fit: fit ?? BoxFit.contain,
-      excludeFromSemantics: excludeFromSemantics ?? false,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,
-      matchTextDirection: matchTextDirection ?? false,
-      alignment: alignment ?? Alignment.center,
-      semanticsLabel: semanticsLabel,
-      theme: theme,
-      placeholderBuilder: placeholderBuilder,
-      clipBehavior: clipBehavior ?? Clip.hardEdge,
-      colorFilter: _finalColorFilter,
+    return createPadding(
+      SvgPicture.asset(
+        file,
+        width: size ?? width,
+        bundle: bundle,
+        height: size ?? height,
+        fit: fit ?? BoxFit.contain,
+        excludeFromSemantics: excludeFromSemantics ?? false,
+        allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,
+        matchTextDirection: matchTextDirection ?? false,
+        alignment: alignment ?? Alignment.center,
+        semanticsLabel: semanticsLabel,
+        theme: theme,
+        placeholderBuilder: placeholderBuilder,
+        clipBehavior: clipBehavior ?? Clip.hardEdge,
+        colorFilter: _finalColorFilter,
+      ),
     );
-    if (hasPadding) {
-      return Padding(padding: finalPadding!, child: child);
-    }
-    return child;
   }
 }
 

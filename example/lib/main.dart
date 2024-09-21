@@ -78,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 shaderMask.blue.red.orange.centerRight.centerLeft.child('It is LinearGradient'.text.white.mk),
               ],
             ),
-            sizedBox.wFull.child('Check Box'.text.red.f30.mk),
+            sizedBox.wFull.child(
+              'Check Box'.text.red.f30.mk,
+            ),
             shaderMask.blue.red.child(
               checkBox.blue.justIcon.white.borderBlack.onChanged(false, (value) {}),
             ),
@@ -302,6 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
               invisibleWidget: R.icEyeSlashFill.svg.s20.red.mk,
               visibleWidget: R.icEyeFill.svg.s20.red.mk,
             ),
+
             Input.outline(
               lableText: 'Please input password',
               prefixIconBuilder: (focus) => Icons.ac_unit.icon.s20.color(focus ? Colors.red : Colors.grey).mk,
@@ -331,7 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 100.h,
               decoration: bd.decorMain.mk,
             ),
-            container.s100.greenAccent.borderBrown.rounded8.border5.mk,
+            container.s100.amberAccent.borderBrown.rounded8.border5.mk,
             container.s100.greenAccent.borderBrown.opacity50.rounded8.border5.mk,
             container.s100.decorMain.mk,
             container.s100.decorTradition.mk,

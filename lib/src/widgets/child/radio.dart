@@ -41,23 +41,25 @@ _RadioBuilder get radio => _RadioBuilder();
 class _RadioBuilder extends _BaseRadioBuilder {
   @override
   Widget onChanged<T>(T initialValue, T groupValue, ValueChanged<T> onChanged) {
-    return AnimatedRadio<T>(
-      width: _width,
-      height: _height,
-      size: _size,
-      color: innerColor,
-      borderColor: borderColor,
-      value: initialValue,
-      onChanged: onChanged,
-      borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4.r)),
-      shape: shape ?? BoxShape.rectangle,
-      enableBorder: _enableBorder,
-      icon: _finalIcon,
-      justIcon: _justIcon,
-      boxShadow: boxShadow,
-      systemStyle: _material,
-      ratio: _ratio,
-      groupValue: groupValue,
+    return createPadding(
+      AnimatedRadio<T>(
+        width: _width,
+        height: _height,
+        size: _size,
+        color: innerColor,
+        borderColor: borderColor,
+        value: initialValue,
+        onChanged: onChanged,
+        borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4.r)),
+        shape: shape ?? BoxShape.rectangle,
+        enableBorder: _enableBorder,
+        icon: _finalIcon,
+        justIcon: _justIcon,
+        boxShadow: boxShadow,
+        systemStyle: _material,
+        ratio: _ratio,
+        groupValue: groupValue,
+      ),
     );
   }
 }

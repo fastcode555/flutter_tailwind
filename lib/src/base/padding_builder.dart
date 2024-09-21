@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// Barry
 /// @date 2024/8/26
 /// describe:
+
 mixin PaddingBuilder {
   double? paddingValue;
   double? paddingLeft;
@@ -37,6 +38,13 @@ mixin PaddingBuilder {
       );
     }
     return null;
+  }
+
+  Widget createPadding(Widget child) {
+    if (hasPadding) {
+      Padding(padding: finalPadding!, child: child);
+    }
+    return child;
   }
 }
 

@@ -15,22 +15,24 @@ _CheckBoxBuilder get checkBox => _CheckBoxBuilder();
 class _CheckBoxBuilder extends _BaseCheckBoxBuilder<bool> {
   @override
   Widget onChanged(bool initialValue, Function(bool value) onChanged) {
-    return AnimatedCheckBox(
-      width: _width,
-      height: _height,
-      size: _size,
-      color: innerColor,
-      borderColor: borderColor,
-      value: initialValue,
-      onChanged: onChanged,
-      borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4.r)),
-      shape: shape ?? BoxShape.rectangle,
-      enableBorder: _enableBorder,
-      icon: _finalIcon,
-      justIcon: _justIcon,
-      boxShadow: boxShadow,
-      systemStyle: _material,
-      ratio: _ratio,
+    return createPadding(
+      AnimatedCheckBox(
+        width: _width,
+        height: _height,
+        size: _size,
+        color: innerColor,
+        borderColor: borderColor,
+        value: initialValue,
+        onChanged: onChanged,
+        borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4.r)),
+        shape: shape ?? BoxShape.rectangle,
+        enableBorder: _enableBorder,
+        icon: _finalIcon,
+        justIcon: _justIcon,
+        boxShadow: boxShadow,
+        systemStyle: _material,
+        ratio: _ratio,
+      ),
     );
   }
 }

@@ -14,7 +14,8 @@ abstract class _BaseRadioBuilder extends RadioCallBackBuilder
         RadioMixin,
         IconBuilder,
         AspectRatioBuilder,
-        ShadowBuilder {
+        ShadowBuilder,
+        PaddingBuilder {
   double get _width => width ?? size ?? 28.r;
 
   double get _height => height ?? size ?? 28.r;

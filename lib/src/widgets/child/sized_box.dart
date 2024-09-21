@@ -8,15 +8,17 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 ///[SizedBox]
 _SizedBoxBuilder get sizedBox => _SizedBoxBuilder._();
 
-class _SizedBoxBuilder extends ChildBuilder<Widget> with SizeBuilder {
+class _SizedBoxBuilder extends ChildBuilder<Widget> with SizeBuilder, PaddingBuilder {
   _SizedBoxBuilder._();
 
   @override
   Widget child(Widget child) {
-    return SizedBox(
-      width: size ?? width,
-      height: size ?? height,
-      child: child,
+    return createPadding(
+      SizedBox(
+        width: size ?? width,
+        height: size ?? height,
+        child: child,
+      ),
     );
   }
 }
