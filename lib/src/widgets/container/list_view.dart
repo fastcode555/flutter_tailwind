@@ -114,7 +114,7 @@ class _GridViewBuilder extends ItemBuilder
         return _buildGridView(itemCount, builder, stepBuilder, count);
       });
     }
-    var gridView;
+    Widget gridView;
     if (_staggered) {
       gridView = _buildStaggeredGridView(itemCount, builder, stepBuilder, _crossAxisCount);
     } else {
