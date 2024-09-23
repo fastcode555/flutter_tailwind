@@ -41,7 +41,7 @@ mixin MarginBuilder {
 
   Widget createMargin(Widget child) {
     if (hasMargin) {
-      Padding(padding: finalMargin!, child: child);
+      return Padding(padding: finalMargin!, child: child);
     }
     return child;
   }

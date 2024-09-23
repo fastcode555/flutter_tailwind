@@ -42,7 +42,7 @@ mixin PaddingBuilder {
 
   Widget createPadding(Widget child) {
     if (hasPadding) {
-      Padding(padding: finalPadding!, child: child);
+      return Padding(padding: finalPadding!, child: child);
     }
     return child;
   }
