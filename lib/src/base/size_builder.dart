@@ -20,7 +20,7 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   double get _screenH => ScreenUtil().screenHeight;
 
-  double get _screenW => ScreenUtil().screenHeight;
+  double get _screenW => ScreenUtil().screenWidth;
 
   double get _sFull => _screenW < _screenH ? _screenH : _screenW;
 

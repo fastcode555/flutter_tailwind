@@ -199,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
             text('Hello').styleMain.mk,
             'Hello world'.text.styleTest.mk,
             'Hello world'.text.styleAccent.mk,
+            '测试'.strokeText.greenAccent.blue.f20.bold.lineThrough.mk,
             textRich.greenAccent.children([
               TextSpan(text: 'Hello ', style: ts.brown.f20.mk),
               TextSpan(text: 'World', style: ts.red.f20.mk),

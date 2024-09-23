@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'text.g.dart';
 
@@ -16,17 +17,21 @@ mixin CompletedTextStyleBuilder {
 ///# eg:
 ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
 ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
-_TextBuilder text(String value) => _TextBuilder._(value);
+TextBuilder text(String? value) => TextBuilder._(value ?? '');
 
 ///[Text.rich]
 RichTextBuilder get textRich => RichTextBuilder._();
+
+StrokeTextBuilder strokeText(String? value) => StrokeTextBuilder._(value ?? '');
 
 extension TextBuilderStringExt on String? {
   ///[Text]
   ///# eg:
   ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
   ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
-  _TextBuilder get text => _TextBuilder._(this ?? '');
+  TextBuilder get text => TextBuilder._(this ?? '');
+
+  StrokeTextBuilder get strokeText => StrokeTextBuilder._(this ?? '');
 }
 
 TextStyleBuilder get ts => TextStyleBuilder();
@@ -99,7 +104,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
 }
 
 ///[Text]
-class _TextBuilder extends MkBuilder<Widget>
+class TextBuilder extends MkBuilder<Widget>
     with
         TextAlignBuilder,
         ColorBuilder,
@@ -115,7 +120,7 @@ class _TextBuilder extends MkBuilder<Widget>
         OpacityBuilder {
   final String? value;
 
-  _TextBuilder._(this.value);
+  TextBuilder._(this.value);
 
   @override
   Widget get mk {
@@ -233,5 +238,97 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
       return Padding(padding: finalPadding!, child: child);
     }
     return child;
+  }
+}
+
+class StrokeTextBuilder extends MkBuilder<Widget>
+    with
+        TextAlignBuilder,
+        ColorBuilder,
+        FontSizeBuilder,
+        FontWeightBuilder,
+        TextFeature,
+        MaxLineBuilder,
+        TextDirectionBuilder,
+        CompletedTextStyleBuilder,
+        TextBaselineBuilder,
+        PaddingBuilder,
+        OpacityBuilder {
+  final String? value;
+
+  StrokeTextBuilder._(this.value);
+
+  @override
+  Widget get mk {
+    return createPadding(
+      Stack(
+        children: [
+          Text(
+            value ?? '',
+            style: style ??
+                TextStyle(
+                  fontSize: fontSize,
+                  decoration: _decoration,
+                  overflow: _overflow,
+                  decorationStyle: _decorationStyle,
+                  decorationColor: _decorationColor.opacity(innerOpacity),
+                  fontStyle: _fontStyle,
+                  fontFamily: fontFamily,
+                  decorationThickness: _decorationThickness,
+                  fontWeight: fontWeight,
+                  textBaseline: textBaseline,
+                  fontFamilyFallback: _fontFamilyFallback,
+                  letterSpacing: _letterSpacing,
+                  wordSpacing: _wordSpacing,
+                  height: _height,
+                  leadingDistribution: _leadingDistribution,
+                  locale: _locale,
+                  background: _background,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 5
+                    ..color = innerColors.get(1).opacity(innerOpacity) ?? Colors.orange,
+                  shadows: shadows,
+                  fontFeatures: _fontFeatures,
+                  fontVariations: _fontVariations,
+                ),
+            textAlign: textAlign,
+            textDirection: textDirection,
+            maxLines: innerMaxLines,
+          ),
+          Text(
+            value ?? '',
+            style: style ??
+                TextStyle(
+                  fontSize: fontSize,
+                  color: innerColors.get(0).opacity(innerOpacity),
+                  decoration: _decoration,
+                  overflow: _overflow,
+                  decorationStyle: _decorationStyle,
+                  decorationColor: _decorationColor.opacity(innerOpacity),
+                  fontStyle: _fontStyle,
+                  fontFamily: fontFamily,
+                  decorationThickness: _decorationThickness,
+                  fontWeight: fontWeight,
+                  textBaseline: textBaseline,
+                  fontFamilyFallback: _fontFamilyFallback,
+                  letterSpacing: _letterSpacing,
+                  wordSpacing: _wordSpacing,
+                  height: _height,
+                  leadingDistribution: _leadingDistribution,
+                  locale: _locale,
+                  background: _background,
+                  foreground: _foreground,
+                  shadows: shadows,
+                  fontFeatures: _fontFeatures,
+                  fontVariations: _fontVariations,
+                ),
+            textAlign: textAlign,
+            textDirection: textDirection,
+            maxLines: innerMaxLines,
+          ),
+        ],
+      ),
+    );
   }
 }

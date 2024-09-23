@@ -4,6 +4,7 @@ export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 export 'src/base/alignment_builder.dart';
 export 'src/base/aspect_ratio_builder.dart';
+export 'src/base/axis_builder.dart';
 export 'src/base/blend_mode_builder.dart';
 export 'src/base/border_radius_builder.dart';
 export 'src/base/border_width_builder.dart';
@@ -19,6 +20,7 @@ export 'src/base/opacity_builder.dart';
 export 'src/base/padding_builder.dart';
 export 'src/base/shadow_builder.dart';
 export 'src/base/size_builder.dart';
+export 'src/base/spacing_builder.dart';
 export 'src/base/text_feature.dart';
 
 /// export extension

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/base/axis_builder.dart';
+import 'package:flutter_tailwind/src/base/spacing_builder.dart';
 
 part 'list_view.g.dart';
 
@@ -10,8 +12,8 @@ part 'list_view.g.dart';
 _ListViewBuilder get listview => _ListViewBuilder._();
 
 class _ListViewBuilder extends ItemBuilder
-    with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin {
-  bool get _isHorizontal => scrollDirection == Axis.horizontal;
+    with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin, AxisBuilder {
+  bool get _isHorizontal => direction == Axis.horizontal;
 
   ///判断
   bool get _hasSeparated =>
@@ -47,7 +49,7 @@ class _ListViewBuilder extends ItemBuilder
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
-        scrollDirection: scrollDirection ?? Axis.vertical,
+        scrollDirection: direction ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,
         shrinkWrap: _shrinkWrap,
@@ -59,7 +61,7 @@ class _ListViewBuilder extends ItemBuilder
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
-        scrollDirection: scrollDirection ?? Axis.vertical,
+        scrollDirection: direction ?? Axis.vertical,
         controller: _controller,
         reverse: _reverse,
         shrinkWrap: _shrinkWrap,
@@ -95,7 +97,7 @@ class _ListViewBuilder extends ItemBuilder
 _GridViewBuilder get gridview => _GridViewBuilder._();
 
 class _GridViewBuilder extends ItemBuilder
-    with ScrollFeature, PaddingBuilder, GridViewFeature, AspectRatioBuilder, StepMixin {
+    with ScrollFeature, PaddingBuilder, GridViewFeature, AspectRatioBuilder, StepMixin, AxisBuilder, SpacingBuilder {
   _GridViewBuilder._();
 
   @override
@@ -106,7 +108,7 @@ class _GridViewBuilder extends ItemBuilder
   }) {
     if (_childWidth != null) {
       return LayoutBuilder(builder: (context, constraints) {
-        var count = constraints.maxWidth ~/ (_childWidth! + (_crossAxisSpacing ?? _spacing ?? 0.0));
+        var count = constraints.maxWidth ~/ (_childWidth! + (innerCrossAxisSpacing ?? innerSpacing ?? 0.0));
         count = count < 2 ? 2 : count;
         if (_staggered) {
           return _buildStaggeredGridView(itemCount, builder, stepBuilder, count);
@@ -136,14 +138,14 @@ class _GridViewBuilder extends ItemBuilder
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount ?? 2,
-        mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
-        crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
+        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
+        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
         childAspectRatio: innerRatio ?? 1.0,
       ),
       itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
       itemCount: _itemCount(itemCount, stepBuilder),
       padding: finalPadding,
-      scrollDirection: scrollDirection ?? Axis.vertical,
+      scrollDirection: direction ?? Axis.vertical,
       controller: _controller,
       reverse: _reverse,
       shrinkWrap: _shrinkWrap,
@@ -159,12 +161,12 @@ class _GridViewBuilder extends ItemBuilder
   ) {
     return MasonryGridView.count(
       crossAxisCount: crossAxisCount ?? 2,
-      mainAxisSpacing: _mainAxisSpacing ?? _spacing ?? 0.0,
-      crossAxisSpacing: _crossAxisSpacing ?? _spacing ?? 0.0,
+      mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
+      crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
       itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
       itemCount: _itemCount(itemCount, stepBuilder),
       padding: finalPadding,
-      scrollDirection: scrollDirection ?? Axis.vertical,
+      scrollDirection: direction ?? Axis.vertical,
       controller: _controller,
       reverse: _reverse,
       shrinkWrap: _shrinkWrap,
