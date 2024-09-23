@@ -13,13 +13,13 @@ class _TextButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return TextButton.icon(
+    return createMargin(TextButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       icon: _finalIcon,
       style: _buttonStyle,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
-    );
+    ));
   }
 }
 
@@ -28,13 +28,13 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return OutlinedButton.icon(
+    return createMargin(OutlinedButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
-    );
+    ));
   }
 }
 
@@ -43,13 +43,13 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return ElevatedButton.icon(
+    return createMargin(ElevatedButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
-    );
+    ));
   }
 }
 
@@ -61,13 +61,13 @@ class _IconButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return IconButton(
+    return createMargin(IconButton(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       icon: _finalIcon ?? gapEmpty,
       padding: finalPadding,
       iconSize: size ?? width ?? height,
       color: (borderColor ?? innerColor).opacity(innerOpacity),
       style: _buttonStyle,
-    );
+    ));
   }
 }

@@ -171,6 +171,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// padding all 80
   T get p80 => this..paddingValue = 80.r;
 
+  /// padding all *82
+  T get p82 => this..paddingValue = 82.r;
+
+  /// padding all *84
+  T get p84 => this..paddingValue = 84.r;
+
+  /// padding all *86
+  T get p86 => this..paddingValue = 86.r;
+
+  /// padding all *88
+  T get p88 => this..paddingValue = 88.r;
+
+  /// padding all *90
+  T get p90 => this..paddingValue = 90.r;
+
+  /// padding all *92
+  T get p92 => this..paddingValue = 92.r;
+
+  /// padding all *94
+  T get p94 => this..paddingValue = 94.r;
+
+  /// padding all *96
+  T get p96 => this..paddingValue = 96.r;
+
+  /// padding all *98
+  T get p98 => this..paddingValue = 98.r;
+
+  /// padding all *100
+  T get p100 => this..paddingValue = 100.r;
+
   ///padding left 2
   T get pl2 => this..paddingLeft = 2.r;
 
@@ -290,6 +320,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding left is 80
   T get pl80 => this..paddingLeft = 80.r;
+
+  /// set the padding left is 82
+  T get pl82 => this..paddingLeft = 82.r;
+
+  /// set the padding left is 84
+  T get pl84 => this..paddingLeft = 84.r;
+
+  /// set the padding left is 86
+  T get pl86 => this..paddingLeft = 86.r;
+
+  /// set the padding left is 88
+  T get pl88 => this..paddingLeft = 88.r;
+
+  /// set the padding left is 90
+  T get pl90 => this..paddingLeft = 90.r;
+
+  /// set the padding left is 92
+  T get pl92 => this..paddingLeft = 92.r;
+
+  /// set the padding left is 94
+  T get pl94 => this..paddingLeft = 94.r;
+
+  /// set the padding left is 96
+  T get pl96 => this..paddingLeft = 96.r;
+
+  /// set the padding left is 98
+  T get pl98 => this..paddingLeft = 98.r;
+
+  /// set the padding left is 100
+  T get pl100 => this..paddingLeft = 100.r;
 
   ///padding right 2
   T get pr2 => this..paddingRight = 2.r;
@@ -411,6 +471,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding right is 80
   T get pr80 => this..paddingRight = 80.r;
 
+  /// set the padding right is 82
+  T get pr82 => this..paddingRight = 82.r;
+
+  /// set the padding right is 84
+  T get pr84 => this..paddingRight = 84.r;
+
+  /// set the padding right is 86
+  T get pr86 => this..paddingRight = 86.r;
+
+  /// set the padding right is 88
+  T get pr88 => this..paddingRight = 88.r;
+
+  /// set the padding right is 90
+  T get pr90 => this..paddingRight = 90.r;
+
+  /// set the padding right is 92
+  T get pr92 => this..paddingRight = 92.r;
+
+  /// set the padding right is 94
+  T get pr94 => this..paddingRight = 94.r;
+
+  /// set the padding right is 96
+  T get pr96 => this..paddingRight = 96.r;
+
+  /// set the padding right is 98
+  T get pr98 => this..paddingRight = 98.r;
+
+  /// set the padding right is 100
+  T get pr100 => this..paddingRight = 100.r;
+
   ///padding top 2
   T get pt2 => this..paddingTop = 2.r;
 
@@ -530,6 +620,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding top is 80
   T get pt80 => this..paddingTop = 80.r;
+
+  /// set the padding top is 82
+  T get pt82 => this..paddingTop = 82.r;
+
+  /// set the padding top is 84
+  T get pt84 => this..paddingTop = 84.r;
+
+  /// set the padding top is 86
+  T get pt86 => this..paddingTop = 86.r;
+
+  /// set the padding top is 88
+  T get pt88 => this..paddingTop = 88.r;
+
+  /// set the padding top is 90
+  T get pt90 => this..paddingTop = 90.r;
+
+  /// set the padding top is 92
+  T get pt92 => this..paddingTop = 92.r;
+
+  /// set the padding top is 94
+  T get pt94 => this..paddingTop = 94.r;
+
+  /// set the padding top is 96
+  T get pt96 => this..paddingTop = 96.r;
+
+  /// set the padding top is 98
+  T get pt98 => this..paddingTop = 98.r;
+
+  /// set the padding top is 100
+  T get pt100 => this..paddingTop = 100.r;
 
   ///padding bottom 2
   T get pb2 => this..paddingBottom = 2.r;
@@ -651,6 +771,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding bottom is 80
   T get pb80 => this..paddingBottom = 80.r;
 
+  /// set the padding bottom is 82
+  T get pb82 => this..paddingBottom = 82.r;
+
+  /// set the padding bottom is 84
+  T get pb84 => this..paddingBottom = 84.r;
+
+  /// set the padding bottom is 86
+  T get pb86 => this..paddingBottom = 86.r;
+
+  /// set the padding bottom is 88
+  T get pb88 => this..paddingBottom = 88.r;
+
+  /// set the padding bottom is 90
+  T get pb90 => this..paddingBottom = 90.r;
+
+  /// set the padding bottom is 92
+  T get pb92 => this..paddingBottom = 92.r;
+
+  /// set the padding bottom is 94
+  T get pb94 => this..paddingBottom = 94.r;
+
+  /// set the padding bottom is 96
+  T get pb96 => this..paddingBottom = 96.r;
+
+  /// set the padding bottom is 98
+  T get pb98 => this..paddingBottom = 98.r;
+
+  /// set the padding bottom is 100
+  T get pb100 => this..paddingBottom = 100.r;
+
   /// padding horizontal value 2
   T get ph2 => this..paddingHorizontal = 2.r;
 
@@ -771,6 +921,36 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding horizontal value is 80
   T get ph80 => this..paddingHorizontal = 80.r;
 
+  /// set the padding horizontal is 82
+  T get ph82 => this..paddingHorizontal = 82.r;
+
+  /// set the padding horizontal is 84
+  T get ph84 => this..paddingHorizontal = 84.r;
+
+  /// set the padding horizontal is 86
+  T get ph86 => this..paddingHorizontal = 86.r;
+
+  /// set the padding horizontal is 88
+  T get ph88 => this..paddingHorizontal = 88.r;
+
+  /// set the padding horizontal is 90
+  T get ph90 => this..paddingHorizontal = 90.r;
+
+  /// set the padding horizontal is 92
+  T get ph92 => this..paddingHorizontal = 92.r;
+
+  /// set the padding horizontal is 94
+  T get ph94 => this..paddingHorizontal = 94.r;
+
+  /// set the padding horizontal is 96
+  T get ph96 => this..paddingHorizontal = 96.r;
+
+  /// set the padding horizontal is 98
+  T get ph98 => this..paddingHorizontal = 98.r;
+
+  /// set the padding horizontal is 100
+  T get ph100 => this..paddingHorizontal = 100.r;
+
   ///padding vertical value = 2
   T get pv2 => this..paddingVertical = 2.r;
 
@@ -890,4 +1070,34 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding vertical value is 80
   T get pv80 => this..paddingVertical = 80.r;
+
+  /// set the padding vertical is 82
+  T get pv82 => this..paddingVertical = 82.r;
+
+  /// set the padding vertical is 84
+  T get pv84 => this..paddingVertical = 84.r;
+
+  /// set the padding vertical is 86
+  T get pv86 => this..paddingVertical = 86.r;
+
+  /// set the padding vertical is 88
+  T get pv88 => this..paddingVertical = 88.r;
+
+  /// set the padding vertical is 90
+  T get pv90 => this..paddingVertical = 90.r;
+
+  /// set the padding vertical is 92
+  T get pv92 => this..paddingVertical = 92.r;
+
+  /// set the padding vertical is 94
+  T get pv94 => this..paddingVertical = 94.r;
+
+  /// set the padding vertical is 96
+  T get pv96 => this..paddingVertical = 96.r;
+
+  /// set the padding vertical is 98
+  T get pv98 => this..paddingVertical = 98.r;
+
+  /// set the padding vertical is 100
+  T get pv100 => this..paddingVertical = 100.r;
 }

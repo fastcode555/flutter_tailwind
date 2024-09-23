@@ -22,7 +22,7 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
 
   double get _screenW => ScreenUtil().screenWidth;
 
-  double get _sFull => _screenW < _screenH ? _screenH : _screenW;
+  double get _sFull => _screenW < _screenH ? _screenW : _screenH;
 
   /// set the height double.infini
   T get hInfinity => this..height = double.infinity;
@@ -30,59 +30,185 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the height _scree
   T get hFull => this..height = _screenH;
 
-  /// set the height _screenH *
+  /// set the height _screenH 5
+  T get hFull5 => this..height = _screenH * .05;
+
+  /// set the height _screenH 10
+  T get hFull10 => this..height = _screenH * .1;
+
+  /// set the height _screenH 15
+  T get hFull15 => this..height = _screenH * .15;
+
+  /// set the height _screenH 20
   T get hFull20 => this..height = _screenH * .2;
 
-  /// set the height _screenH *
+  /// set the height _screenH 25
+  T get hFull25 => this..height = _screenH * .25;
+
+  /// set the height _screenH 30
+  T get hFull30 => this..height = _screenH * .3;
+
+  /// set the height _screenH 35
+  T get hFull35 => this..height = _screenH * .35;
+
+  /// set the height _screenH 40
+  T get hFull40 => this..height = _screenH * .4;
+
+  /// set the height _screenH 45
+  T get hFull45 => this..height = _screenH * .45;
+
+  /// set the height _screenH 50
   T get hFull50 => this..height = _screenH * .5;
 
-  /// set the height _screenH *
+  /// set the height _screenH 55
+  T get hFull55 => this..height = _screenH * .55;
+
+  /// set the height _screenH 60
   T get hFull60 => this..height = _screenH * .6;
 
-  /// set the height _screenH *
+  /// set the height _screenH 65
+  T get hFull65 => this..height = _screenH * .65;
+
+  /// set the height _screenH 70
   T get hFull70 => this..height = _screenH * .7;
 
-  /// set the height _screenH *
+  /// set the height _screenH 75
+  T get hFull75 => this..height = _screenH * .75;
+
+  /// set the height _screenH 80
   T get hFull80 => this..height = _screenH * .8;
+
+  /// set the height _screenH 85
+  T get hFull85 => this..height = _screenH * .85;
+
+  /// set the height _screenH 90
+  T get hFull90 => this..height = _screenH * .9;
+
+  /// set the height _screenH 95
+  T get hFull95 => this..height = _screenH * .95;
 
   /// set the width is screen width
   T get wFull => this..width = _screenW;
 
   T get wInfinity => this..width = double.infinity;
 
-  /// set the width is screen width*0.2
+  /// set the width is screen width*5
+  T get wFull5 => this..width = _screenW * .05;
+
+  /// set the width is screen width*10
+  T get wFull10 => this..width = _screenW * .1;
+
+  /// set the width is screen width*15
+  T get wFull15 => this..width = _screenW * .15;
+
+  /// set the width is screen width*20
   T get wFull20 => this..width = _screenW * .2;
 
-  /// set the width is screen width*0.5
+  /// set the width is screen width*25
+  T get wFull25 => this..width = _screenW * .25;
+
+  /// set the width is screen width*30
+  T get wFull30 => this..width = _screenW * .3;
+
+  /// set the width is screen width*35
+  T get wFull35 => this..width = _screenW * .35;
+
+  /// set the width is screen width*40
+  T get wFull40 => this..width = _screenW * .4;
+
+  /// set the width is screen width*45
+  T get wFull45 => this..width = _screenW * .45;
+
+  /// set the width is screen width*50
   T get wFull50 => this..width = _screenW * .5;
 
-  /// set the width is screen width*0.6
+  /// set the width is screen width*55
+  T get wFull55 => this..width = _screenW * .55;
+
+  /// set the width is screen width*60
   T get wFull60 => this..width = _screenW * .6;
 
-  /// set the width is screen width*0.7
+  /// set the width is screen width*65
+  T get wFull65 => this..width = _screenW * .65;
+
+  /// set the width is screen width*70
   T get wFull70 => this..width = _screenW * .7;
 
-  /// set the width is screen width*0.8
+  /// set the width is screen width*75
+  T get wFull75 => this..width = _screenW * .75;
+
+  /// set the width is screen width*80
   T get wFull80 => this..width = _screenW * .8;
+
+  /// set the width is screen width*85
+  T get wFull85 => this..width = _screenW * .85;
+
+  /// set the width is screen width*90
+  T get wFull90 => this..width = _screenW * .9;
+
+  /// set the width is screen width*95
+  T get wFull95 => this..width = _screenW * .95;
 
   T get sFull => this..size = _screenW < _screenH ? _screenH : _screenW;
 
   T get sInfinity => this..size = double.infinity;
 
-  /// set the width and the height is its 0.2
+  /// set the width and the width or height is its *5
+  T get sFull5 => this..size = _sFull * .05;
+
+  /// set the width and the width or height is its *10
+  T get sFull10 => this..size = _sFull * .1;
+
+  /// set the width and the width or height is its *15
+  T get sFull15 => this..size = _sFull * .15;
+
+  /// set the width and the width or height is its *20
   T get sFull20 => this..size = _sFull * .2;
 
-  /// set the width and the height is its 0.5
+  /// set the width and the width or height is its *25
+  T get sFull25 => this..size = _sFull * .25;
+
+  /// set the width and the width or height is its *30
+  T get sFull30 => this..size = _sFull * .3;
+
+  /// set the width and the width or height is its *35
+  T get sFull35 => this..size = _sFull * .35;
+
+  /// set the width and the width or height is its *40
+  T get sFull40 => this..size = _sFull * .4;
+
+  /// set the width and the width or height is its *45
+  T get sFull45 => this..size = _sFull * .45;
+
+  /// set the width and the width or height is its *50
   T get sFull50 => this..size = _sFull * .5;
 
-  /// set the width and the height is its 0.6
+  /// set the width and the width or height is its *55
+  T get sFull55 => this..size = _sFull * .55;
+
+  /// set the width and the width or height is its *60
   T get sFull60 => this..size = _sFull * .6;
 
-  /// set the width and the height is its 0.7
+  /// set the width and the width or height is its *65
+  T get sFull65 => this..size = _sFull * .65;
+
+  /// set the width and the width or height is its *70
   T get sFull70 => this..size = _sFull * .7;
 
-  /// set the width and the height is its 0.8
+  /// set the width and the width or height is its *75
+  T get sFull75 => this..size = _sFull * .75;
+
+  /// set the width and the width or height is its *80
   T get sFull80 => this..size = _sFull * .8;
+
+  /// set the width and the width or height is its *85
+  T get sFull85 => this..size = _sFull * .85;
+
+  /// set the width and the width or height is its *90
+  T get sFull90 => this..size = _sFull * .9;
+
+  /// set the width and the width or height is its *95
+  T get sFull95 => this..size = _sFull * .95;
 
   T get sScreenH => this..size = _screenH;
 

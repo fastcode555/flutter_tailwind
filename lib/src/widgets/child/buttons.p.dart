@@ -77,6 +77,7 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         BorderColorBuilder,
         ButtonIconBuilder,
         PaddingBuilder,
+        MarginBuilder,
         SizeBuilder,
         OpacityBuilder,
         IconBuilder {

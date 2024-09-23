@@ -153,7 +153,7 @@ extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
 ///)
 ContainerBuilder get container => ContainerBuilder();
 
-class ContainerBuilder extends ChildMkBuilder<Container>
+class ContainerBuilder extends ChildMkBuilder<Widget>
     with
         ColorBuilder,
         SizeBuilder,
@@ -196,11 +196,17 @@ class ContainerBuilder extends ChildMkBuilder<Container>
     );
   }
 
+  bool get _useContainer =>
+      width != null || height != null || size != null || hasPadding || hasMargin || alignment != null;
+
   @override
-  Container get mk => Container(
+  Widget get mk {
+    if (_useContainer) {
+      return Container(
         width: width ?? size,
         height: height ?? size,
         padding: finalPadding,
+        margin: finalMargin,
         alignment: alignment,
         decoration: decoration ??
             BoxDecoration(
@@ -211,15 +217,43 @@ class ContainerBuilder extends ChildMkBuilder<Container>
               boxShadow: boxShadow,
             ),
       );
+    }
+
+    return DecoratedBox(
+      decoration: decoration ??
+          BoxDecoration(
+            color: innerColor.opacity(innerOpacity),
+            shape: shape ?? BoxShape.rectangle,
+            border: _internalBorder,
+            borderRadius: _internalBorderRadius,
+            boxShadow: boxShadow,
+          ),
+    );
+  }
 
   @override
-  Container child(Widget child) {
-    return Container(
-      width: width ?? size,
-      height: height ?? size,
-      padding: finalPadding,
-      margin: finalMargin,
-      alignment: alignment,
+  Widget child(Widget child) {
+    if (_useContainer) {
+      return Container(
+        width: width ?? size,
+        height: height ?? size,
+        padding: finalPadding,
+        margin: finalMargin,
+        alignment: alignment,
+        decoration: decoration ??
+            BoxDecoration(
+              color: innerColor.opacity(innerOpacity),
+              shape: shape ?? BoxShape.rectangle,
+              border: _internalBorder,
+              borderRadius: _internalBorderRadius,
+              boxShadow: boxShadow,
+              image: _decorImage,
+            ),
+        child: child,
+      );
+    }
+
+    return DecoratedBox(
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),

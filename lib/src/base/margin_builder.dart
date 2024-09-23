@@ -38,6 +38,13 @@ mixin MarginBuilder {
     }
     return null;
   }
+
+  Widget createMargin(Widget child) {
+    if (hasMargin) {
+      Padding(padding: finalMargin!, child: child);
+    }
+    return child;
+  }
 }
 
 extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
@@ -163,6 +170,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   /// set the margin value is 80
   T get m80 => this..marginValue = 80.r;
 
+  /// set the margin value is 82
+  T get m82 => this..marginValue = 82.r;
+
+  /// set the margin value is 84
+  T get m84 => this..marginValue = 84.r;
+
+  /// set the margin value is 86
+  T get m86 => this..marginValue = 86.r;
+
+  /// set the margin value is 88
+  T get m88 => this..marginValue = 88.r;
+
+  /// set the margin value is 90
+  T get m90 => this..marginValue = 90.r;
+
+  /// set the margin value is 92
+  T get m92 => this..marginValue = 92.r;
+
+  /// set the margin value is 94
+  T get m94 => this..marginValue = 94.r;
+
+  /// set the margin value is 96
+  T get m96 => this..marginValue = 96.r;
+
+  /// set the margin value is 98
+  T get m98 => this..marginValue = 98.r;
+
+  /// set the margin value is 100
+  T get m100 => this..marginValue = 100.r;
+
   /// set the margin left is 2
   T get ml2 => this..marginLeft = 2.r;
 
@@ -282,6 +319,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin left is 80
   T get ml80 => this..marginLeft = 80.r;
+
+  /// set the margin left is 82
+  T get ml82 => this..marginLeft = 82.r;
+
+  /// set the margin left is 84
+  T get ml84 => this..marginLeft = 84.r;
+
+  /// set the margin left is 86
+  T get ml86 => this..marginLeft = 86.r;
+
+  /// set the margin left is 88
+  T get ml88 => this..marginLeft = 88.r;
+
+  /// set the margin left is 90
+  T get ml90 => this..marginLeft = 90.r;
+
+  /// set the margin left is 92
+  T get ml92 => this..marginLeft = 92.r;
+
+  /// set the margin left is 94
+  T get ml94 => this..marginLeft = 94.r;
+
+  /// set the margin left is 96
+  T get ml96 => this..marginLeft = 96.r;
+
+  /// set the margin left is 98
+  T get ml98 => this..marginLeft = 98.r;
+
+  /// set the margin left is 100
+  T get ml100 => this..marginLeft = 100.r;
 
   /// set the margin right is 2
   T get mr2 => this..marginRight = 2.r;
@@ -403,6 +470,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   /// set the margin right is 80
   T get mr80 => this..marginRight = 80.r;
 
+  /// set the margin right is 82
+  T get mr82 => this..marginRight = 82.r;
+
+  /// set the margin right is 84
+  T get mr84 => this..marginRight = 84.r;
+
+  /// set the margin right is 86
+  T get mr86 => this..marginRight = 86.r;
+
+  /// set the margin right is 88
+  T get mr88 => this..marginRight = 88.r;
+
+  /// set the margin right is 90
+  T get mr90 => this..marginRight = 90.r;
+
+  /// set the margin right is 92
+  T get mr92 => this..marginRight = 92.r;
+
+  /// set the margin right is 94
+  T get mr94 => this..marginRight = 94.r;
+
+  /// set the margin right is 96
+  T get mr96 => this..marginRight = 96.r;
+
+  /// set the margin right is 98
+  T get mr98 => this..marginRight = 98.r;
+
+  /// set the margin right is 100
+  T get mr100 => this..marginRight = 100.r;
+
   /// set the margin top is 2
   T get mt2 => this..marginTop = 2.r;
 
@@ -522,6 +619,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin top is 80
   T get mt80 => this..marginTop = 80.r;
+
+  /// set the margin top is 82
+  T get mt82 => this..marginTop = 82.r;
+
+  /// set the margin top is 84
+  T get mt84 => this..marginTop = 84.r;
+
+  /// set the margin top is 86
+  T get mt86 => this..marginTop = 86.r;
+
+  /// set the margin top is 88
+  T get mt88 => this..marginTop = 88.r;
+
+  /// set the margin top is 90
+  T get mt90 => this..marginTop = 90.r;
+
+  /// set the margin top is 92
+  T get mt92 => this..marginTop = 92.r;
+
+  /// set the margin top is 94
+  T get mt94 => this..marginTop = 94.r;
+
+  /// set the margin top is 96
+  T get mt96 => this..marginTop = 96.r;
+
+  /// set the margin top is 98
+  T get mt98 => this..marginTop = 98.r;
+
+  /// set the margin top is 100
+  T get mt100 => this..marginTop = 100.r;
 
   /// set the margin bottom is 2
   T get mb2 => this..marginBottom = 2.r;
@@ -643,6 +770,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   /// set the margin bottom is 80
   T get mb80 => this..marginBottom = 80.r;
 
+  /// set the margin bottom is 82
+  T get mb82 => this..marginBottom = 82.r;
+
+  /// set the margin bottom is 84
+  T get mb84 => this..marginBottom = 84.r;
+
+  /// set the margin bottom is 86
+  T get mb86 => this..marginBottom = 86.r;
+
+  /// set the margin bottom is 88
+  T get mb88 => this..marginBottom = 88.r;
+
+  /// set the margin bottom is 90
+  T get mb90 => this..marginBottom = 90.r;
+
+  /// set the margin bottom is 92
+  T get mb92 => this..marginBottom = 92.r;
+
+  /// set the margin bottom is 94
+  T get mb94 => this..marginBottom = 94.r;
+
+  /// set the margin bottom is 96
+  T get mb96 => this..marginBottom = 96.r;
+
+  /// set the margin bottom is 98
+  T get mb98 => this..marginBottom = 98.r;
+
+  /// set the margin bottom is 100
+  T get mb100 => this..marginBottom = 100.r;
+
   /// set the margin horizontal value is 2
   T get mh2 => this..marginHorizontal = 2.r;
 
@@ -763,6 +920,36 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   /// set the margin horizontal value is 80
   T get mh80 => this..marginHorizontal = 80.r;
 
+  /// set the margin horizontal is 82
+  T get mh82 => this..marginHorizontal = 82.r;
+
+  /// set the margin horizontal is 84
+  T get mh84 => this..marginHorizontal = 84.r;
+
+  /// set the margin horizontal is 86
+  T get mh86 => this..marginHorizontal = 86.r;
+
+  /// set the margin horizontal is 88
+  T get mh88 => this..marginHorizontal = 88.r;
+
+  /// set the margin horizontal is 90
+  T get mh90 => this..marginHorizontal = 90.r;
+
+  /// set the margin horizontal is 92
+  T get mh92 => this..marginHorizontal = 92.r;
+
+  /// set the margin horizontal is 94
+  T get mh94 => this..marginHorizontal = 94.r;
+
+  /// set the margin horizontal is 96
+  T get mh96 => this..marginHorizontal = 96.r;
+
+  /// set the margin horizontal is 98
+  T get mh98 => this..marginHorizontal = 98.r;
+
+  /// set the margin horizontal is 100
+  T get mh100 => this..marginHorizontal = 100.r;
+
   /// set the margin vertical value is 2
   T get mv2 => this..marginVertical = 2.r;
 
@@ -882,4 +1069,34 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin vertical value is 80
   T get mv80 => this..marginVertical = 80.r;
+
+  /// set the margin vertical is 82
+  T get mv82 => this..marginVertical = 82.r;
+
+  /// set the margin vertical is 84
+  T get mv84 => this..marginVertical = 84.r;
+
+  /// set the margin vertical is 86
+  T get mv86 => this..marginVertical = 86.r;
+
+  /// set the margin vertical is 88
+  T get mv88 => this..marginVertical = 88.r;
+
+  /// set the margin vertical is 90
+  T get mv90 => this..marginVertical = 90.r;
+
+  /// set the margin vertical is 92
+  T get mv92 => this..marginVertical = 92.r;
+
+  /// set the margin vertical is 94
+  T get mv94 => this..marginVertical = 94.r;
+
+  /// set the margin vertical is 96
+  T get mv96 => this..marginVertical = 96.r;
+
+  /// set the margin vertical is 98
+  T get mv98 => this..marginVertical = 98.r;
+
+  /// set the margin vertical is 100
+  T get mv100 => this..marginVertical = 100.r;
 }
