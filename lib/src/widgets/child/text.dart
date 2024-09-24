@@ -117,6 +117,7 @@ class TextBuilder extends MkBuilder<Widget>
         TextBaselineBuilder,
         PaddingBuilder,
         TextColorBuilder,
+        _ExpandedMixin,
         OpacityBuilder {
   final String? value;
 
@@ -124,7 +125,7 @@ class TextBuilder extends MkBuilder<Widget>
 
   @override
   Widget get mk {
-    return createPadding(
+    var child = createPadding(
       Text(
         value ?? '',
         style:
@@ -182,6 +183,11 @@ class TextBuilder extends MkBuilder<Widget>
         maxLines: innerMaxLines,
       ),
     );
+
+    if (_expanded) {
+      child = Expanded(child: child);
+    }
+    return child;
   }
 }
 
@@ -197,45 +203,49 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
+        _ExpandedMixin,
         TextColorBuilder,
         OpacityBuilder {
   RichTextBuilder._();
 
   @override
   Widget children(List<InlineSpan>? children) {
-    Widget child = Text.rich(
-      TextSpan(children: children),
-      style: style ??
-          TextStyle(
-            fontSize: fontSize,
-            color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
-            decoration: _decoration,
-            overflow: _overflow,
-            decorationStyle: _decorationStyle,
-            decorationColor: _decorationColor.opacity(innerOpacity),
-            fontStyle: _fontStyle,
-            fontFamily: fontFamily,
-            decorationThickness: _decorationThickness,
-            fontWeight: fontWeight,
-            textBaseline: textBaseline,
-            fontFamilyFallback: _fontFamilyFallback,
-            letterSpacing: _letterSpacing,
-            wordSpacing: _wordSpacing,
-            height: _height,
-            leadingDistribution: _leadingDistribution,
-            locale: _locale,
-            background: _background,
-            foreground: _foreground,
-            shadows: shadows,
-            fontFeatures: _fontFeatures,
-            fontVariations: _fontVariations,
-          ),
-      textAlign: textAlign,
-      textDirection: textDirection,
-      maxLines: innerMaxLines,
+    var child = createPadding(
+      Text.rich(
+        TextSpan(children: children),
+        style: style ??
+            TextStyle(
+              fontSize: fontSize,
+              color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
+              decoration: _decoration,
+              overflow: _overflow,
+              decorationStyle: _decorationStyle,
+              decorationColor: _decorationColor.opacity(innerOpacity),
+              fontStyle: _fontStyle,
+              fontFamily: fontFamily,
+              decorationThickness: _decorationThickness,
+              fontWeight: fontWeight,
+              textBaseline: textBaseline,
+              fontFamilyFallback: _fontFamilyFallback,
+              letterSpacing: _letterSpacing,
+              wordSpacing: _wordSpacing,
+              height: _height,
+              leadingDistribution: _leadingDistribution,
+              locale: _locale,
+              background: _background,
+              foreground: _foreground,
+              shadows: shadows,
+              fontFeatures: _fontFeatures,
+              fontVariations: _fontVariations,
+            ),
+        textAlign: textAlign,
+        textDirection: textDirection,
+        maxLines: innerMaxLines,
+      ),
     );
-    if (hasPadding) {
-      return Padding(padding: finalPadding!, child: child);
+
+    if (_expanded) {
+      child = Expanded(child: child);
     }
     return child;
   }
@@ -253,6 +263,7 @@ class StrokeTextBuilder extends MkBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
+        _ExpandedMixin,
         OpacityBuilder {
   final String? value;
 
@@ -260,7 +271,7 @@ class StrokeTextBuilder extends MkBuilder<Widget>
 
   @override
   Widget get mk {
-    return createPadding(
+    var child = createPadding(
       Stack(
         children: [
           Text(
@@ -330,5 +341,10 @@ class StrokeTextBuilder extends MkBuilder<Widget>
         ],
       ),
     );
+
+    if (_expanded) {
+      child = Expanded(child: child);
+    }
+    return child;
   }
 }

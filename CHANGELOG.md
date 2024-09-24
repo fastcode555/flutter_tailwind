@@ -1,8 +1,21 @@
+## 1.3.2
+
+- let text support expanded
+
+## 1.3.1
+
+- fixed the padding problem
+
+## 1.3.0
+
+- add more prefer define padding ,margin and others
+
 ## 1.2.8
 
 - add the padding widget and let some width directly support padding,so no need wrap into padding
 
-- ## 1.2.7
+## 1.2.7
+
 - add more padding value and margin value
 
 ## 1.2.6

@@ -75,7 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 shaderMask.blue.red.orange.child(
                   const Text('It is LinearGradient', style: TextStyle(color: Colors.white)),
                 ),
-                shaderMask.blue.red.orange.centerRight.centerLeft.child('It is LinearGradient'.text.white.mk),
+                shaderMask.blue.red.orange.centerRight.centerLeft.child(
+                  'It is LinearGradient'.text.white.mk,
+                ),
               ],
             ),
             sizedBox.wFull.child(
@@ -194,7 +196,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
 
             sizedBox.wFull.child('Text'.text.red.f30.mk),
-            'Hello world'.text.dashed.lightGreen.f30.bold.lineThrough.mk,
+            Row(
+              children: [
+                'Hello world'.text.expanded.dashed.lightGreen.f30.bold.lineThrough.mk,
+                'At the end'.text.red.bold.f32.mk,
+              ],
+            ),
             'Hello world'.text.dashed.lightGreen.f30.opacity50.bold.lineThrough.mk,
             text('Hello').styleMain.mk,
             'Hello world'.text.styleTest.mk,

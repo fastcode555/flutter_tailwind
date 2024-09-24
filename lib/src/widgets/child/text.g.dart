@@ -1,5 +1,9 @@
 part of 'text.dart';
 
+mixin _ExpandedMixin {
+  bool _expanded = false;
+}
+
 mixin TextFeature {
   Color? _decorationColor;
   FontStyle? _fontStyle;
@@ -20,6 +24,10 @@ mixin TextFeature {
 
   TextOverflow? _overflow;
   TextDecorationStyle? _decorationStyle;
+}
+
+extension ExpandedExt<T extends _ExpandedMixin> on T {
+  T get expanded => this.._expanded = true;
 }
 
 extension TextCommonFeatureExt<T extends TextFeature> on T {
