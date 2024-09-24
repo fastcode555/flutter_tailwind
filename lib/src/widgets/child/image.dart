@@ -46,6 +46,7 @@ class ImageBuilder extends MkBuilder<Widget>
         BorderRadiusBuilder,
         PaddingBuilder,
         ShadowBuilder,
+        ColorBuilder,
         OpacityBuilder {
   final String? image;
   final int type;
@@ -116,6 +117,7 @@ class ImageBuilder extends MkBuilder<Widget>
               ? DecorationImage(
                   image: AssetImage(image!),
                   fit: fit ?? BoxFit.cover,
+                  colorFilter: innerColor != null ? ColorFilter.mode(innerColor!, BlendMode.srcIn) : null,
                   alignment: alignment ?? Alignment.center,
                 )
               : null,
@@ -133,6 +135,7 @@ class ImageBuilder extends MkBuilder<Widget>
       width: size ?? width,
       height: size ?? height,
       alignment: alignment ?? Alignment.center,
+      color: innerColor,
     );
   }
 }
