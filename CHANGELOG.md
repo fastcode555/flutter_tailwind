@@ -1,3 +1,8 @@
+## 1.3.4
+
+- add the AutoSizeText as basic component,people can use 'text.f30.f10.black.mk'，f30:max font
+  size,f10 min font size
+
 ## 1.3.2
 
 - let text support expanded
