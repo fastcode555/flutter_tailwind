@@ -24,6 +24,7 @@ mixin TextFeature {
 
   TextOverflow? _overflow;
   TextDecorationStyle? _decorationStyle;
+  bool? _softWrap;
 }
 
 extension ExpandedExt<T extends _ExpandedMixin> on T {
@@ -31,6 +32,8 @@ extension ExpandedExt<T extends _ExpandedMixin> on T {
 }
 
 extension TextCommonFeatureExt<T extends TextFeature> on T {
+  T get softWrap => this.._softWrap = true;
+
   T fontFamilyFallback(List<String>? fontFamilyFallback) => this.._fontFamilyFallback = fontFamilyFallback;
 
   T letterSpacing(double? letterSpacing) => this.._letterSpacing = letterSpacing;

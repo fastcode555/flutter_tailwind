@@ -7,6 +7,10 @@ import 'package:flutter_tailwind/src/utils/list_ext.dart';
 /// @date 2024/9/17
 /// describe:
 
+/// # eg:
+/// shaderMask.blue.red.orange.centerRight.centerLeft.child(
+///  'It is LinearGradient'.text.white.mk,
+/// )
 _ShaderMaskBuilder get shaderMask => _ShaderMaskBuilder();
 
 _LinearGradientBuilder get linearGradient => _LinearGradientBuilder();

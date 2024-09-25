@@ -11,13 +11,13 @@ extension ButtonIconBuilderExt<T extends ButtonIconBuilder> on T {
 }
 
 ///[TextButton.icon]
-_TextButtonBuilder textButton(String text) => _TextButtonBuilder._(text);
+_TextButtonBuilder textButton(String? text) => _TextButtonBuilder._(text ?? '');
 
 ///[OutlinedButton.icon]
-_OutlinedButtonBuilder outlinedButton(String text) => _OutlinedButtonBuilder._(text);
+_OutlinedButtonBuilder outlinedButton(String? text) => _OutlinedButtonBuilder._(text ?? '');
 
 ///[ElevatedButton.icon]
-_ElevatedButtonBuilder elevatedButton(String text) => _ElevatedButtonBuilder._(text);
+_ElevatedButtonBuilder elevatedButton(String? text) => _ElevatedButtonBuilder._(text ?? '');
 
 ///[OutlinedButton.icon]
 _IconButtonBuilder get iconButton => _IconButtonBuilder._();

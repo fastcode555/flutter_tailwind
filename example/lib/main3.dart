@@ -1,6 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:example/res/app_image_config.dart';
 import 'package:example/res/r.dart';
-import 'package:example/res/tailwind_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
@@ -58,6 +58,34 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(16.r),
         child: Column(
           children: [
+            Row(
+              children: [
+                text('helloworld' * 2).black.f30.ellipsis.maxLine1.mk,
+                spacer3,
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: AutoSizeText(
+                    'A really long String',
+                    style: TextStyle(color: Colors.black, fontSize: 30.sp),
+                    minFontSize: 18,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                spacer3,
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: text('helloworld' * 2).black.f30.f10.maxLine1.ellipsis.mk,
+                ),
+                spacer2,
+              ],
+            ),
             R.icAirPlay.svg.red.pt50.pb70.mk,
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.s100.mk,
             'https://gd-hbimg.huaban.com/'.image.border5.borderBrown.circle.s100.mk,

@@ -14,6 +14,10 @@ ImageBuilder asset(String? path) => ImageBuilder._(path, _asset);
 ///[ImageLoader.image]
 ImageBuilder image(String? path) => ImageBuilder._(path, _image);
 
+extension ImageBuilderExt<T extends ImageBuilder> on T {
+  T get singleCache => this.._singleCache = true;
+}
+
 extension StringImageTailWind on String {
   ///[Image.asset]
   ///# eg:
@@ -53,6 +57,8 @@ class ImageBuilder extends MkBuilder<Widget>
 
   String? _heroTag;
 
+  bool _singleCache = false;
+
   ImageBuilder hero(String hero) => this.._heroTag = hero;
 
   ImageBuilder._(this.image, this.type);
@@ -76,6 +82,7 @@ class ImageBuilder extends MkBuilder<Widget>
         border: innerBorderWidth,
         heroTag: _heroTag,
         boxShadow: boxShadow,
+        useSingleCache: _singleCache,
       );
     }
     if (hasRadius) {
@@ -89,6 +96,7 @@ class ImageBuilder extends MkBuilder<Widget>
         borderColor: borderColor.opacity(innerOpacity),
         border: innerBorderWidth,
         boxShadow: boxShadow,
+        useSingleCache: _singleCache,
       );
     }
     return ImageLoader.image(
@@ -100,6 +108,7 @@ class ImageBuilder extends MkBuilder<Widget>
       borderColor: borderColor.opacity(innerOpacity),
       border: innerBorderWidth,
       boxShadow: boxShadow,
+      useSingleCache: _singleCache,
     );
   }
 
