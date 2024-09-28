@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io' show File;
 import 'dart:math';
 import 'dart:ui';
@@ -9,8 +10,27 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:flutter_tailwind/src/image_loader/shimmer_loader_config.dart';
 
 part 'circle_image.g.dart';
-
 part 'image_loader.g.dart';
+
+///data:image/jpeg;base64,
+///data:image/png;base64,
+///data:image/.*?;base64,
+final _base64Header = 'data:image/';
+final _base64 = 'base64,';
+
+extension _StringExt on String? {
+  bool get _isBase64 {
+    if (this == null || this!.isEmpty) return false;
+    var value = this!;
+    return value.startsWith(_base64Header) && value.contains(_base64);
+  }
+
+  Uint8List get _base64Body {
+    final index = this!.indexOf(_base64);
+    final body = this!.substring(index + _base64.length, this!.length);
+    return base64.decode(body);
+  }
+}
 
 bool _isNetUrl(String? url) {
   if (url == null || url.trim().isEmpty) return false;
@@ -38,6 +58,9 @@ Widget _buildBorderCircleImage(
   List<BoxShadow>? boxShadow,
 }) {
   if ((borderColor != null && border != null && border > 0) || boxShadow != null) {
+    if (shape != BoxShape.circle && radius != null) {
+      child = ClipRRect(borderRadius: BorderRadius.circular(radius), child: child);
+    }
     return Container(
       decoration: BoxDecoration(
         shape: shape,
@@ -47,9 +70,6 @@ Widget _buildBorderCircleImage(
       ),
       child: child,
     );
-  }
-  if (shape != BoxShape.circle && radius != null) {
-    return ClipRRect(borderRadius: BorderRadius.circular(radius), child: child);
   }
   return child;
 }

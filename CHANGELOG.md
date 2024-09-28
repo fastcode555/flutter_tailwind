@@ -1,3 +1,8 @@
+## 1.3.5
+
+- let the image loader support loading base64 picture
+
+
 ## 1.3.4
 
 - add the AutoSizeText as basic component,people can use 'text.f30.f10.black.mk'，f30:max font

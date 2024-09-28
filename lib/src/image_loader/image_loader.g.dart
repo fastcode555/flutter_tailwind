@@ -117,14 +117,35 @@ class _Image extends StatelessWidget {
         placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
         errorWidget: _buildErrorWidgetBuilder(context, url, finalW, finalH, finalErrorBuilder, radius),
       );
-    } else {
-      return _loadFileOrAssertImage(finalErrorBuilder, finalW, finalH, context);
     }
+
+    return _loadFileOrAssertImage(finalErrorBuilder, finalW, finalH, context);
   }
 
   //加载文件型图片
   Widget _loadFileOrAssertImage(
       LoadingErrorWidgetBuilder? errorBuilder, double? width, double? height, BuildContext context) {
+    if (url._isBase64) {
+      return _buildBorderCircleImage(
+        border,
+        borderColor,
+        _buildHeroWidget(
+          heroTag,
+          transitionOnUserGestures: transitionOnUserGestures,
+          child: Image.memory(
+            url._base64Body,
+            fit: fit,
+            width: width,
+            height: height,
+          ),
+        ),
+        boxShadow: boxShadow,
+        shape: BoxShape.rectangle,
+        radius: radius,
+      );
+    }
+
+    //if the url is File will load with file
     if (_isFile) {
       return _buildBorderCircleImage(
         border,
@@ -152,32 +173,32 @@ class _Image extends StatelessWidget {
         shape: BoxShape.rectangle,
         radius: radius,
       );
-    } else {
-      return _buildBorderCircleImage(
-        border,
-        borderColor,
-        _buildHeroWidget(
-          heroTag,
-          transitionOnUserGestures: transitionOnUserGestures,
-          child: Image.asset(
-            url != null && url!.isNotEmpty ? url! : errorHolder ?? '',
-            width: width,
-            height: height,
-            fit: fit,
-            cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
-            cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
-            errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-              return errorHolder != null
-                  ? Image.asset(errorHolder ?? '', width: width, height: height, fit: fit)
-                  : (errorBuilder != null ? errorBuilder(context, url ?? '', error) : const SizedBox());
-            },
-          ),
-        ),
-        boxShadow: boxShadow,
-        shape: BoxShape.rectangle,
-        radius: radius,
-      );
     }
+
+    return _buildBorderCircleImage(
+      border,
+      borderColor,
+      _buildHeroWidget(
+        heroTag,
+        transitionOnUserGestures: transitionOnUserGestures,
+        child: Image.asset(
+          url != null && url!.isNotEmpty ? url! : errorHolder ?? '',
+          width: width,
+          height: height,
+          fit: fit,
+          cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+          cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+          errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+            return errorHolder != null
+                ? Image.asset(errorHolder ?? '', width: width, height: height, fit: fit)
+                : (errorBuilder != null ? errorBuilder(context, url ?? '', error) : const SizedBox());
+          },
+        ),
+      ),
+      boxShadow: boxShadow,
+      shape: BoxShape.rectangle,
+      radius: radius,
+    );
   }
 
   PlaceholderWidgetBuilder? _buildPlaceWidgetBuilder(

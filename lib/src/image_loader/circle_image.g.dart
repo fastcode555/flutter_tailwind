@@ -130,39 +130,61 @@ class _CircleImage extends StatelessWidget {
                 )
             : finalErrorBuilder,
       );
-    } else {
-      if (_isFile) {
-        return _buildBorderCircleImage(
-          border,
-          borderColor,
-          _buildHeroWidget(
-            heroTag,
-            transitionOnUserGestures: transitionOnUserGestures,
-            child: CircleAvatar(
-              radius: radius,
-              backgroundImage: FileImage(File(url!)),
-              backgroundColor: Colors.transparent,
+    }
+
+    if (url._isBase64) {
+      return _buildBorderCircleImage(
+        border,
+        borderColor,
+        _buildHeroWidget(
+          heroTag,
+          transitionOnUserGestures: transitionOnUserGestures,
+          child: CircleAvatar(
+            radius: radius,
+            child: ClipOval(
+              child: Image.memory(
+                url._base64Body,
+                fit: fit,
+                width: radius! * 2,
+                height: radius! * 2,
+              ),
             ),
           ),
-        );
-      } else {
-        return errorHolder != null
-            ? _buildBorderCircleImage(
-                border,
-                borderColor,
-                _buildHeroWidget(
-                  heroTag,
-                  transitionOnUserGestures: transitionOnUserGestures,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(errorHolder ?? ''),
-                    radius: radius,
-                    backgroundColor: Colors.transparent,
-                  ),
-                ),
-                boxShadow: boxShadow,
-              )
-            : finalErrorBuilder!(context, url ?? '', Object());
-      }
+        ),
+      );
     }
+
+    if (_isFile) {
+      return _buildBorderCircleImage(
+        border,
+        borderColor,
+        _buildHeroWidget(
+          heroTag,
+          transitionOnUserGestures: transitionOnUserGestures,
+          child: CircleAvatar(
+            radius: radius,
+            backgroundImage: FileImage(File(url!)),
+            backgroundColor: Colors.transparent,
+          ),
+        ),
+      );
+    }
+
+    return errorHolder != null
+        ? _buildBorderCircleImage(
+            border,
+            borderColor,
+            _buildHeroWidget(
+              heroTag,
+              transitionOnUserGestures: transitionOnUserGestures,
+              child: CircleAvatar(
+                backgroundImage: AssetImage(errorHolder ?? ''),
+                radius: radius,
+                backgroundColor: Colors.transparent,
+              ),
+            ),
+            boxShadow: boxShadow,
+          )
+        : finalErrorBuilder!(context, url ?? '', Object());
   }
 }
