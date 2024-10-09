@@ -71,6 +71,10 @@ Widget _buildBorderCircleImage(
       child: child,
     );
   }
+
+  if (shape != BoxShape.circle && radius != null) {
+    child = ClipRRect(borderRadius: BorderRadius.circular(radius), child: child);
+  }
   return child;
 }
 

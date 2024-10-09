@@ -1,3 +1,8 @@
+## 1.3.6
+
+- fix the bug which cannot load the rounded image
+
+
 ## 1.3.5
 
 - let the image loader support loading base64 picture

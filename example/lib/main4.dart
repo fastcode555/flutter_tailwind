@@ -1,12 +1,11 @@
-/// Barry
-/// @date 2024/9/28
-/// describe:
+import 'package:example/consts.dart';
 import 'package:example/res/app_image_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
-import 'consts.dart';
-
+/// Barry
+/// @date 2024/9/28
+/// describe:
 void main() {
   runApp(const MyApp());
 }
@@ -44,6 +43,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final String _link = 'https://gd-hbimg.huaban.com/a24927d45ca73a5a6147bf3ffd4208a07cef4a15f6e87-72pNrh';
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             base64Pic.image.s100.rounded16.borderBlack.border2.mk,
             fishes.image.circle.borderOrange.s100.border2.mk,
+            _link.image.s100.mk,
+            image('').s200.rounded8.mk,
+            _link.image.border5.rounded8.s100.mk,
+            _link.image.rounded12.s100.mk,
+            _link.image.rounded12.opacity50.s100.mk,
+            _link.image.borderLightGreen.border5.s100.mk,
+            _link.image.borderLightGreen.border5.rounded12.s100.mk,
+            _link.image.borderLightGreen.border5.rounded22.s100.mk,
+            _link.image.borderLightGreen.border5.opacity50.rounded22.s100.mk,
           ],
         ),
       ),
