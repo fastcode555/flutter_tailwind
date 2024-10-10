@@ -1,9 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 2024/8/26
 /// describe:
+_PBuilder get p => _PBuilder();
+
+class _PBuilder extends MkBuilder<EdgeInsetsGeometry> with PaddingBuilder {
+  @override
+  EdgeInsetsGeometry get mk {
+    if (hasPadding) {
+      return finalPadding!;
+    }
+    return EdgeInsets.zero;
+  }
+}
 
 mixin PaddingBuilder {
   double? paddingValue;

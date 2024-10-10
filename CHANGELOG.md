@@ -1,3 +1,8 @@
+## 1.3.7
+
+- add the p,to generate the EdgeInsetsGeometry
+
+
 ## 1.3.6
 
 - fix the bug which cannot load the rounded image

@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.r),
+        padding: p16,
         child: Column(
           children: [
             base64Pic.image.s100.rounded16.borderBlack.border2.mk,
