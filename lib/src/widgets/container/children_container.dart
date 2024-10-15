@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/base/expanded_builder.dart';
 
 part 'children_container.g.dart';
 
@@ -32,7 +33,7 @@ class _StackBuilder extends ChildrenBuilder<Widget>
 }
 
 abstract class _LinearBuilder extends ChildrenBuilder<Widget>
-    with TextDirectionBuilder, TextBaselineBuilder, LinearFeature, SizeBuilder, PaddingBuilder {
+    with TextDirectionBuilder, TextBaselineBuilder, LinearFeature, SizeBuilder, PaddingBuilder, ExpandedBuilder {
   Widget _buildWrapWidget(Widget child) {
     if (size != null || width != null || height != null) {
       child = SizedBox(width: size ?? width, height: size ?? height, child: child);
@@ -40,10 +41,7 @@ abstract class _LinearBuilder extends ChildrenBuilder<Widget>
     if (hasPadding) {
       child = Padding(padding: finalPadding!, child: child);
     }
-    if (_expanded) {
-      child = Expanded(child: child);
-    }
-    return child;
+    return createExpanded(child);
   }
 }
 

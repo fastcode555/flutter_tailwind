@@ -155,8 +155,6 @@ extension GridViewFeatureExt<T extends GridViewFeature> on T {
   T get crossAxisCount9 => this.._crossAxisCount = 9;
 
   T get crossAxisCount10 => this.._crossAxisCount = 10;
-
-
 }
 
 mixin ScrollFeature {
@@ -165,7 +163,6 @@ mixin ScrollFeature {
   bool _shrinkWrap = false;
   ScrollPhysics? _physics;
   IndexedWidgetBuilder? _separatorBuilder;
-  bool _expanded = false;
 }
 
 extension ScrollFeatureExt<T extends ScrollFeature> on T {
@@ -178,6 +175,4 @@ extension ScrollFeatureExt<T extends ScrollFeature> on T {
   T scrollController(ScrollController controller) => this.._controller = controller;
 
   T separatedBuilder(IndexedWidgetBuilder builder) => this.._separatorBuilder = builder;
-
-  T get expanded => this.._expanded = true;
 }

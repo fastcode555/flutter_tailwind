@@ -6,11 +6,8 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'text.g.dart';
-
 part 'text_rich.g.dart';
-
 part 'text_stroke.g.dart';
-
 part 'text_style.g.dart';
 
 /// Barry
@@ -59,7 +56,7 @@ class TextBuilder extends MkBuilder<Widget>
         TextBaselineBuilder,
         PaddingBuilder,
         TextColorBuilder,
-        _ExpandedMixin,
+        ExpandedBuilder,
         OpacityBuilder {
   final String? value;
 
@@ -144,12 +141,7 @@ class TextBuilder extends MkBuilder<Widget>
         maxLines: innerMaxLines,
       );
     }
-
     child = createPadding(child);
-
-    if (_expanded) {
-      child = Expanded(child: child);
-    }
-    return child;
+    return createExpanded(child);
   }
 }

@@ -12,7 +12,7 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
-        _ExpandedMixin,
+        ExpandedBuilder,
         TextColorBuilder,
         OpacityBuilder {
   RichTextBuilder._();
@@ -53,10 +53,6 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
         softWrap: _softWrap,
       ),
     );
-
-    if (_expanded) {
-      child = Expanded(child: child);
-    }
-    return child;
+    return createExpanded(child);
   }
 }

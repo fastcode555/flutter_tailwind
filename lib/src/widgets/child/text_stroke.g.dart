@@ -12,7 +12,7 @@ class StrokeTextBuilder extends MkBuilder<Widget>
         CompletedTextStyleBuilder,
         TextBaselineBuilder,
         PaddingBuilder,
-        _ExpandedMixin,
+        ExpandedBuilder,
         OpacityBuilder {
   final String? value;
 
@@ -92,10 +92,6 @@ class StrokeTextBuilder extends MkBuilder<Widget>
         ],
       ),
     );
-
-    if (_expanded) {
-      child = Expanded(child: child);
-    }
-    return child;
+    return createExpanded(child);
   }
 }

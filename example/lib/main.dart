@@ -59,6 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
+            Row(children: [
+              '测试'.text.mk,
+              container.expanded.red.pl16.child(
+                'ssss'.text.white.mk,
+              ),
+            ],),
             Switch(value: false, onChanged: _onChanged),
             sizedBox.wFull.child('ShaderMask'.text.red.f30.mk),
             Column(

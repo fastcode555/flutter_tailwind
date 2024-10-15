@@ -1,3 +1,8 @@
+## 1.3.8
+
+- also let the container have expanded feature
+
+
 ## 1.3.7
 
 - add the p,to generate the EdgeInsetsGeometry

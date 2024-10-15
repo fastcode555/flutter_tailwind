@@ -10,7 +10,6 @@ mixin LinearFeature {
   MainAxisAlignment? _mainAxisAlignment;
   CrossAxisAlignment? _crossAxisAlignment;
   VerticalDirection? _verticalDirection;
-  bool _expanded = false;
 }
 
 ///[Stack]
@@ -54,8 +53,6 @@ extension LinearFeatureExt<T extends LinearFeature> on T {
   T get down => this.._verticalDirection = VerticalDirection.down;
 
   T get up => this.._verticalDirection = VerticalDirection.up;
-
-  T get expanded => this.._expanded = true;
 }
 
 extension StackFeatureExt<T extends StackFeature> on T {
