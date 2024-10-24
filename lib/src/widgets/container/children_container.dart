@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/base/expanded_builder.dart';
 
 part 'children_container.g.dart';
 
@@ -9,12 +8,13 @@ part 'children_container.g.dart';
 /// describe:
 
 class _StackBuilder extends ChildrenBuilder<Widget>
-    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder {
+    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder, KeyBuilder {
   _StackBuilder._();
 
   @override
   Widget children(List<Widget> children) {
     Widget child = Stack(
+      key: innerKey,
       alignment: _alignment,
       textDirection: textDirection,
       fit: _fit,
@@ -33,7 +33,14 @@ class _StackBuilder extends ChildrenBuilder<Widget>
 }
 
 abstract class _LinearBuilder extends ChildrenBuilder<Widget>
-    with TextDirectionBuilder, TextBaselineBuilder, LinearFeature, SizeBuilder, PaddingBuilder, ExpandedBuilder {
+    with
+        TextDirectionBuilder,
+        TextBaselineBuilder,
+        LinearFeature,
+        SizeBuilder,
+        PaddingBuilder,
+        ExpandedBuilder,
+        KeyBuilder {
   Widget _buildWrapWidget(Widget child) {
     if (size != null || width != null || height != null) {
       child = SizedBox(width: size ?? width, height: size ?? height, child: child);
@@ -51,6 +58,7 @@ class _RowBuilder extends _LinearBuilder {
   @override
   Widget children(List<Widget> children) {
     return _buildWrapWidget(Row(
+      key: innerKey,
       mainAxisAlignment: _mainAxisAlignment ?? MainAxisAlignment.start,
       crossAxisAlignment: _crossAxisAlignment ?? CrossAxisAlignment.center,
       mainAxisSize: _mainAxisSize ?? MainAxisSize.max,
@@ -68,6 +76,7 @@ class _ColumnBuilder extends _LinearBuilder {
   @override
   Widget children(List<Widget> children) {
     return _buildWrapWidget(Column(
+      key: innerKey,
       mainAxisAlignment: _mainAxisAlignment ?? MainAxisAlignment.start,
       crossAxisAlignment: _crossAxisAlignment ?? CrossAxisAlignment.center,
       mainAxisSize: _mainAxisSize ?? MainAxisSize.max,

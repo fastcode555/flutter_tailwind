@@ -10,7 +10,15 @@ part 'list_view.g.dart';
 _ListViewBuilder get listview => _ListViewBuilder._();
 
 class _ListViewBuilder extends ItemBuilder
-    with ScrollFeature, PaddingBuilder, SizeBuilder, SeparatorBuilder, StepMixin, AxisBuilder, ExpandedBuilder {
+    with
+        ScrollFeature,
+        PaddingBuilder,
+        SizeBuilder,
+        SeparatorBuilder,
+        StepMixin,
+        AxisBuilder,
+        ExpandedBuilder,
+        KeyBuilder {
   bool get _isHorizontal => direction == Axis.horizontal;
 
   ///判断
@@ -44,6 +52,7 @@ class _ListViewBuilder extends ItemBuilder
     Widget? listview;
     if (_hasSeparated) {
       listview = ListView.separated(
+        key: innerKey,
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
@@ -56,6 +65,7 @@ class _ListViewBuilder extends ItemBuilder
       );
     } else {
       listview = ListView.builder(
+        key: innerKey,
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
@@ -99,7 +109,8 @@ class _GridViewBuilder extends ItemBuilder
         StepMixin,
         AxisBuilder,
         SpacingBuilder,
-        ExpandedBuilder {
+        ExpandedBuilder,
+        KeyBuilder {
   _GridViewBuilder._();
 
   @override
@@ -135,6 +146,7 @@ class _GridViewBuilder extends ItemBuilder
     int? crossAxisCount,
   ) {
     return GridView.builder(
+      key: innerKey,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount ?? 2,
         mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
@@ -159,6 +171,7 @@ class _GridViewBuilder extends ItemBuilder
     int? crossAxisCount,
   ) {
     return MasonryGridView.count(
+      key: innerKey,
       crossAxisCount: crossAxisCount ?? 2,
       mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
       crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,

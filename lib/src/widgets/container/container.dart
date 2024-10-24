@@ -169,7 +169,8 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         MarginBuilder,
         ImageProviderBuilderMixin,
         OpacityBuilder,
-        ExpandedBuilder {
+        ExpandedBuilder,
+        KeyBuilder {
   BoxBorder? _border;
   BorderSide? _borderLeft;
   BorderSide? _borderRight;
@@ -205,6 +206,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     if (_useContainer) {
       return createExpanded(
         Container(
+          key: innerKey,
           width: width ?? size,
           height: height ?? size,
           padding: finalPadding,
@@ -223,6 +225,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     }
 
     return createExpanded(DecoratedBox(
+      key: innerKey,
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
@@ -238,6 +241,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
   Widget child(Widget child) {
     if (_useContainer) {
       return createExpanded(Container(
+        key: innerKey,
         width: width ?? size,
         height: height ?? size,
         padding: finalPadding,
@@ -257,6 +261,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     }
 
     return createExpanded(DecoratedBox(
+      key: innerKey,
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
