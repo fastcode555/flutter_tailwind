@@ -15,7 +15,8 @@ _ShaderMaskBuilder get shaderMask => _ShaderMaskBuilder();
 
 _LinearGradientBuilder get linearGradient => _LinearGradientBuilder();
 
-class _ShaderMaskBuilder extends ChildBuilder<Widget> with ColorBuilder, AlignmentBuilder, TitleModelBuilder {
+class _ShaderMaskBuilder extends ChildBuilder<Widget>
+    with ColorBuilder, AlignmentBuilder, TitleModelBuilder, OpacityBuilder {
   @override
   Widget child(Widget child) {
     return ShaderMask(
@@ -25,7 +26,9 @@ class _ShaderMaskBuilder extends ChildBuilder<Widget> with ColorBuilder, Alignme
           end: alignments.get(1) ?? Alignment.centerRight,
           tileMode: tileMode ?? TileMode.clamp,
           // transform:,
-          colors: innerColors ?? [],
+          colors: innerOpacity != null
+              ? (innerColors ?? []).map((color) => color.withOpacity(innerOpacity!)).toList()
+              : innerColors ?? [],
         ).createShader(bounds);
       },
       child: child,
@@ -33,13 +36,16 @@ class _ShaderMaskBuilder extends ChildBuilder<Widget> with ColorBuilder, Alignme
   }
 }
 
-class _LinearGradientBuilder extends MkBuilder<LinearGradient> with ColorBuilder, AlignmentBuilder, TitleModelBuilder {
+class _LinearGradientBuilder extends MkBuilder<LinearGradient>
+    with ColorBuilder, AlignmentBuilder, TitleModelBuilder, OpacityBuilder {
   @override
   LinearGradient get mk => LinearGradient(
         begin: alignments.get(0) ?? alignment ?? Alignment.centerLeft,
         end: alignments.get(1) ?? Alignment.centerRight,
         tileMode: tileMode ?? TileMode.clamp,
         // transform:,
-        colors: innerColors ?? [],
+        colors: innerOpacity != null
+            ? (innerColors ?? []).map((color) => color.withOpacity(innerOpacity!)).toList()
+            : innerColors ?? [],
       );
 }
