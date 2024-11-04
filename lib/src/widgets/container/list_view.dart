@@ -98,6 +98,7 @@ class _ListViewBuilder extends ItemBuilder
 }
 
 /// [GridView.builder]
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_5.png?raw=true)
 _GridViewBuilder get gridview => _GridViewBuilder._();
 
 class _GridViewBuilder extends ItemBuilder

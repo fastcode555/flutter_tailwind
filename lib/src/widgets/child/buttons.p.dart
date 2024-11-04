@@ -37,6 +37,7 @@ extension ButtonStringExt on String? {
   ///- 'Text Button'.textButton.yellow.icon(_link).s18.end.rounded8.borderGreen.click(onTap: () {}),
   ///- 'Text Button'.textButton.textColor(Colours.redAccent).rounded8.borderGreen.click(onTap: () {}),
   ///- 'Text Button'.textButton.textColor(Colours.redAccent).opacity50.rounded8.borderGreen.click(onTap: () {}),
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/button_image.png?raw=true)
   _TextButtonBuilder get textButton => _TextButtonBuilder._(this ?? '');
 
   ///[OutlinedButton.icon]
@@ -51,6 +52,7 @@ extension ButtonStringExt on String? {
   ///- 'Outline Button'.outlinedButton.icDefPlaylist.s18.end.borderRedColor.border2.click(onTap: () {}),
   ///- 'Outline Button'.outlinedButton.icon(_link).s18.end.borderRedColor.border2.click(onTap: () {}),
   ///- 'Outline Button'.outlinedButton.icon('${_link}2342').s18.end.borderRedColor.border2.click(onTap: () {}),
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/button_image.png?raw=true)
   _OutlinedButtonBuilder get outlinedButton => _OutlinedButtonBuilder._(this ?? '');
 
   ///[ElevatedButton.icon]
@@ -64,6 +66,7 @@ extension ButtonStringExt on String? {
   ///- 'Elevated Button'.elevatedButton.icDefPlaylist.s20.end.blue.borderRedColor.textWhite.click(),
   ///- 'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.textWhite.click(),
   ///- 'Elevated Button'.elevatedButton.icon(_link).s20.end.blue.borderRedColor.opacity50.textWhite.click(),
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/button_image.png?raw=true)
   _ElevatedButtonBuilder get elevatedButton => _ElevatedButtonBuilder._(this ?? '');
 }
 

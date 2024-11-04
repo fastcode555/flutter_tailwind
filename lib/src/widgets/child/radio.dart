@@ -36,6 +36,7 @@ part 'radio.g.dart';
 ///- radio.circle.justIcon.red.icAwesomePen.onChanged(0, groupValue, _OnRadioChanged),
 ///- radio.circle.justIcon.red.icAwesomePen.onChanged(1, groupValue, _OnRadioChanged),
 ///- radio.circle.justIcon.red.icAwesomePen.onChanged(2, groupValue, _OnRadioChanged),
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/radio_image.png?raw=true)
 _RadioBuilder get radio => _RadioBuilder();
 
 class _RadioBuilder extends _BaseRadioBuilder {

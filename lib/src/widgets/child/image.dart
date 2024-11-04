@@ -24,7 +24,7 @@ extension StringImageTailWind on String {
   ///- R.icDefPlaylist.asset.border2.borderLightGreen.s100.mk,
   ///- asset(R.icDefPlaylist).border2.borderLightGreen.s100.mk,
   ///
-  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_and_icon_image.png?raw=true)
   ImageBuilder get asset => ImageBuilder._(this, _asset);
 
   ///
@@ -33,11 +33,11 @@ extension StringImageTailWind on String {
   /// - link.image.borderPink.border5.s100.mk
   /// - image(link).borderPink.border5.s100.mk
   ///
-  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/url_image.png?raw=true)
   ImageBuilder get image => ImageBuilder._(this, _image);
 }
 
-///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_1.png?raw=true)
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/link_image/image_and_icon_image.png?raw=true)
 class ImageBuilder extends MkBuilder<Widget>
     with
         SizeBuilder,

@@ -151,6 +151,7 @@ extension BoxDecorationBuilderExt on _BoxDecorationBuilder {
 ///container.s100.greenAccent.borderBrown.rounded8.border5.child(
 /// child,
 ///)
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/container_image.png?raw=true)
 ContainerBuilder get container => ContainerBuilder();
 
 class ContainerBuilder extends ChildMkBuilder<Widget>

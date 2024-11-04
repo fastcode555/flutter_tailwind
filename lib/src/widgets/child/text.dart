@@ -23,6 +23,7 @@ mixin CompletedTextStyleBuilder {
 ///# eg:
 ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
 ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
+///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/text_image.png?raw=true)
 TextBuilder text(String? value) => TextBuilder._(value ?? '');
 
 ///[Text.rich]
@@ -35,6 +36,7 @@ extension TextBuilderStringExt on String? {
   ///# eg:
   ///- 'Hello-world'.text.dashed.lightGreen.f30.bold.lineThrough.mk
   ///- text('Hello-world').dashed.lightGreen.f30.bold.lineThrough.mk
+  ///![](https://github.com/fastcode555/flutter_tailwind/blob/master/images/text_image.png?raw=true)
   TextBuilder get text => TextBuilder._(this ?? '');
 
   StrokeTextBuilder get strokeText => StrokeTextBuilder._(this ?? '');
