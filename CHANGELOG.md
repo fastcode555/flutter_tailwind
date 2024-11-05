@@ -1,3 +1,7 @@
+## 1.4.2
+
+- Just update the document
+
 ## 1.4.1
 
 - Provide more expanded*
