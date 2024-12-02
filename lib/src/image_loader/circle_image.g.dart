@@ -65,6 +65,7 @@ class _CircleImage extends StatelessWidget {
     if (_isNetUrl(url)) {
       return CachedNetworkImage(
         imageUrl: url!,
+        key: ValueKey(url),
         memCacheHeight: _getMemCacheWidth(),
         memCacheWidth: _getMemCacheHeight(),
         fadeOutDuration: fadeOutDuration ?? const Duration(milliseconds: 1000),
