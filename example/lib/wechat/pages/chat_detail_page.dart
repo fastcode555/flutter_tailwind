@@ -44,17 +44,15 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       ),
       body: column.children([
         // Messages list
-        Expanded(
-          child: listview.expanded.reverse.builder(
-            _messages.length,
-            (context, index) {
-              final message = _messages[index];
-              return ChatMessageItem(
-                message: message,
-                avatar: message.isMe ? null : widget.avatar,
-              );
-            },
-          ),
+        listview.expanded.reverse.builder(
+          _messages.length,
+          (context, index) {
+            final message = _messages[index];
+            return ChatMessageItem(
+              message: message,
+              avatar: message.isMe ? null : widget.avatar,
+            );
+          },
         ),
         // Input area
         container.white.shadowSm.p8.child(

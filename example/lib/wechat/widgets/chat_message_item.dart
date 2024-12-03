@@ -18,8 +18,8 @@ class ChatMessageItem extends StatelessWidget {
   final String? avatar;
 
   const ChatMessageItem({
-    super.key,
     required this.message,
+    super.key,
     this.avatar,
   });
 

@@ -9,11 +9,11 @@ class DiscoverSectionItem extends StatelessWidget {
   final Widget? trailing;
 
   const DiscoverSectionItem({
-    super.key,
     required this.icon,
     required this.iconBgColor,
     required this.title,
     required this.onTap,
+    super.key,
     this.trailing,
   });
 

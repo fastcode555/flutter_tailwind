@@ -8,10 +8,10 @@ class MeSectionItem extends StatelessWidget {
   final Widget? trailing;
 
   const MeSectionItem({
-    super.key,
     required this.icon,
     required this.title,
     required this.onTap,
+    super.key,
     this.trailing,
   });
 

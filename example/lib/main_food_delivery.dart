@@ -90,9 +90,7 @@ class _FoodDeliveryPageState extends State<FoodDeliveryPage> {
         onPageChanged: (index) => setState(() => _currentBannerIndex = index % _banners.length),
         itemBuilder: (context, index) {
           final banner = _banners[index % _banners.length];
-          return container.ph16.child(
-            banner.imageUrl.image.rounded16.cover.mk,
-          );
+          return banner.imageUrl.image.ph16.rounded16.cover.mk;
         },
       ),
     );

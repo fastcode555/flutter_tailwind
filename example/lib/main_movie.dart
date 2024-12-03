@@ -58,20 +58,18 @@ class _MovieItem extends StatelessWidget {
         // 使用AspectRatio控制海报图片比例，电影海报通常是2:3的比例
         movie.posterUrl.image.roundedT16.cover.mk,
         // 电影信息
-        padding.ph12.pt12.child(
-          column.crossStart.spaceEvenly.children([
-            // 电影名称
-            movie.title.text.bold.f14.maxLine1.ellipsis.mk,
-            // 评分
-            row.children(
-              [
-                Icons.star.icon.yellow.s14.mk,
-                w4,
-                '${movie.rating}'.text.f12.orange.bold.mk,
-              ],
-            ),
-          ]),
-        ),
+        column.crossStart.ph12.pt12.spaceEvenly.children([
+          // 电影名称
+          movie.title.text.bold.f14.maxLine1.ellipsis.mk,
+          // 评分
+          row.children(
+            [
+              Icons.star.icon.yellow.s14.mk,
+              w4,
+              '${movie.rating}'.text.f12.orange.bold.mk,
+            ],
+          ),
+        ]),
       ]),
     );
   }

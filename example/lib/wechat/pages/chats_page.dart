@@ -18,11 +18,7 @@ class ChatsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: listview
-          .separated(
-        const Divider(height: 1),
-      )
-          .builder(
+      body: listview.divider.builder(
         _mockChats.length,
         (context, index) {
           final chat = _mockChats[index];
