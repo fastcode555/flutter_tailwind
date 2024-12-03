@@ -83,9 +83,8 @@ class _FoodDeliveryPageState extends State<FoodDeliveryPage> {
   }
 
   Widget _buildBanner() {
-    return SizedBox(
-      height: 160.h,
-      child: PageView.builder(
+    return sizedBox.h160.child(
+      PageView.builder(
         controller: _bannerController,
         itemCount: _banners.length * 1000, // 实现无限循环
         onPageChanged: (index) => setState(() => _currentBannerIndex = index % _banners.length),
@@ -102,9 +101,8 @@ class _FoodDeliveryPageState extends State<FoodDeliveryPage> {
   Widget _buildCategories() {
     return container.ph16.child(
       column.children([
-        'Categories'.text.bold.f16.mk,
-        h12,
-        gridview.neverScroll.crossAxisCount4.spacing12.shrinkWrap.ratio(0.9).builder(
+        'Categories'.text.bold.f16.pb12.mk,
+        gridview.neverScroll.crossAxisCount4.spacing12.shrinkWrap.ratio90.builder(
           _categories.length,
           (context, index) {
             final category = _categories[index];
@@ -123,10 +121,7 @@ class _FoodDeliveryPageState extends State<FoodDeliveryPage> {
 
   Widget _buildRestaurants() {
     return column.children([
-      container.ph16.child(
-        'Popular Restaurants'.text.bold.f16.mk,
-      ),
-      h12,
+      'Popular Restaurants'.text.bold.ph16.f16.pb12.mk,
       listview.separated16.ph16.neverScroll.shrinkWrap.builder(
         _restaurants.length,
         (context, index) {
@@ -134,28 +129,23 @@ class _FoodDeliveryPageState extends State<FoodDeliveryPage> {
           return container.rounded16.cardShadow.white.child(
             column.children([
               restaurant.imageUrl.image.h160.roundedT16.wFull.cover.mk,
-              padding.p12.child(
-                column.crossStart.children([
-                  Row(
-                    children: [
-                      restaurant.name.text.bold.f16.expanded.mk,
-                      container.ph8.pv4.rounded8.amber.opacity10.child(
-                        '${restaurant.rating}分'.text.orange.bold.f12.mk,
-                      ),
-                    ],
-                  ),
-                  h8,
-                  Row(
-                    children: [
-                      '月售${restaurant.monthSales}'.text.grey.f12.mk,
-                      w16,
-                      '${restaurant.deliveryTime}分钟'.text.grey.f12.mk,
-                      w16,
-                      '${restaurant.distance}km'.text.grey.f12.mk,
-                    ],
-                  ),
-                ]),
-              ),
+              column.crossStart.p12.children([
+                row.children(
+                  [
+                    restaurant.name.text.bold.f16.expanded.mk,
+                    container.ph8.pv4.rounded8.amber.opacity10.child(
+                      '${restaurant.rating}分'.text.orange.bold.f12.mk,
+                    ),
+                  ],
+                ),
+                row.pt8.children(
+                  [
+                    '月售${restaurant.monthSales}'.text.grey.f12.pr16.mk,
+                    '${restaurant.deliveryTime}分钟'.text.grey.f12.pr16.mk,
+                    '${restaurant.distance}km'.text.grey.f12.mk,
+                  ],
+                ),
+              ]),
             ]),
           );
         },

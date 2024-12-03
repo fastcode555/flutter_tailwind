@@ -59,19 +59,18 @@ class _MyHomePageState extends State<MyHomePage> {
           runSpacing: 2.r,
           spacing: 2.r,
           children: [
-            Row(
-              children: [
+            row.children(
+              [
                 'left part'.text.mk,
                 container.expanded.red.pl16.ml8.child(
                   'right part'.text.white.mk,
-                ),
+                )
               ],
             ),
             Switch(value: false, onChanged: _onChanged),
             sizedBox.wFull.child('ShaderMask'.text.red.f30.mk),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+            column.min.children(
+              [
                 ShaderMask(
                   shaderCallback: (Rect bounds) {
                     return const LinearGradient(
@@ -260,9 +259,9 @@ class _MyHomePageState extends State<MyHomePage> {
             'werwe'.image.border5.borderBrown.circle.s100.mk,
 
             sizedBox.wFull.child('Input'.text.red.f30.mk),
-            const Row(
-              children: [
-                Expanded(
+            row.children(
+              [
+                const Expanded(
                   child: Input(
                     prefixIcon: Icon(Icons.ac_unit, size: 20),
                     hintText: 'test',
@@ -270,13 +269,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 w16,
-                Expanded(child: Input()),
+                const Expanded(child: Input()),
               ],
             ),
             h6,
-            SizedBox(
-              height: 35,
-              child: Input(
+            sizedBox.h36.child(
+              Input(
                 prefixIcon: R.icAwesomePen.svg.blueAccent.p12.mk,
                 hintText: "I'm wrong",
                 lableText: "I'm wrong",

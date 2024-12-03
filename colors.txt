@@ -1,0 +1,807 @@
+
+  ///set the textColor [Colors.transparent]
+  T get textTransparent => this..textColor(Colors.transparent);
+
+  ///set the textColor [Colors.black]
+  T get textBlack => this..textColor(Colors.black);
+
+  ///set the textColor [Colors.black87]
+  T get textBlack87 => this..textColor(Colors.black87);
+
+  ///set the textColor [Colors.black54]
+  T get textBlack54 => this..textColor(Colors.black54);
+
+  ///set the textColor [Colors.black45]
+  T get textBlack45 => this..textColor(Colors.black45);
+
+  ///set the textColor [Colors.black38]
+  T get textBlack38 => this..textColor(Colors.black38);
+
+  ///set the textColor [Colors.black26]
+  T get textBlack26 => this..textColor(Colors.black26);
+
+  ///set the textColor [Colors.black12]
+  T get textBlack12 => this..textColor(Colors.black12);
+
+  ///set the textColor [Colors.white]
+  T get textWhite => this..textColor(Colors.white);
+
+  ///set the textColor [Colors.white70]
+  T get textWhite70 => this..textColor(Colors.white70);
+
+  ///set the textColor [Colors.white60]
+  T get textWhite60 => this..textColor(Colors.white60);
+
+  ///set the textColor [Colors.white54]
+  T get textWhite54 => this..textColor(Colors.white54);
+
+  ///set the textColor [Colors.white38]
+  T get textWhite38 => this..textColor(Colors.white38);
+
+  ///set the textColor [Colors.white30]
+  T get textWhite30 => this..textColor(Colors.white30);
+
+  ///set the textColor [Colors.white12]
+  T get textWhite12 => this..textColor(Colors.white12);
+
+  ///set the textColor [Colors.red]
+  T get textRed => this..textColor(Colors.red);
+
+  ///set the textColor [Colors.red[50]]
+  T get textRed50 => this..textColor(Colors.red[50]);
+
+  ///set the textColor [Colors.red[100]]
+  T get textRed100 => this..textColor(Colors.red[100]);
+
+  ///set the textColor [Colors.red[200]]
+  T get textRed200 => this..textColor(Colors.red[200]);
+
+  ///set the textColor [Colors.red[300]]
+  T get textRed300 => this..textColor(Colors.red[300]);
+
+  ///set the textColor [Colors.red[400]]
+  T get textRed400 => this..textColor(Colors.red[400]);
+
+  ///set the textColor [Colors.red[500]]
+  T get textRed500 => this..textColor(Colors.red[500]);
+
+  ///set the textColor [Colors.red[600]]
+  T get textRed600 => this..textColor(Colors.red[600]);
+
+  ///set the textColor [Colors.red[700]]
+  T get textRed700 => this..textColor(Colors.red[700]);
+
+  ///set the textColor [Colors.red[800]]
+  T get textRed800 => this..textColor(Colors.red[800]);
+
+  ///set the textColor [Colors.red[900]]
+  T get textRed900 => this..textColor(Colors.red[900]);
+
+  ///set the textColor [Colors.redAccent]
+  T get textRedAccent => this..textColor(Colors.redAccent);
+
+  ///set the textColor [Colors.redAccent[100]]
+  T get textRedAccent100 => this..textColor(Colors.redAccent[100]);
+
+  ///set the textColor [Colors.redAccent[200]]
+  T get textRedAccent200 => this..textColor(Colors.redAccent[200]);
+
+  ///set the textColor [Colors.redAccent[400]]
+  T get textRedAccent400 => this..textColor(Colors.redAccent[400]);
+
+  ///set the textColor [Colors.redAccent[700]]
+  T get textRedAccent700 => this..textColor(Colors.redAccent[700]);
+
+  ///set the textColor [Colors.green]
+  T get textGreen => this..textColor(Colors.green);
+
+  ///set the textColor [Colors.green[50]]
+  T get textGreen50 => this..textColor(Colors.green[50]);
+
+  ///set the textColor [Colors.green[100]]
+  T get textGreen100 => this..textColor(Colors.green[100]);
+
+  ///set the textColor [Colors.green[200]]
+  T get textGreen200 => this..textColor(Colors.green[200]);
+
+  ///set the textColor [Colors.green[300]]
+  T get textGreen300 => this..textColor(Colors.green[300]);
+
+  ///set the textColor [Colors.green[400]]
+  T get textGreen400 => this..textColor(Colors.green[400]);
+
+  ///set the textColor [Colors.green[500]]
+  T get textGreen500 => this..textColor(Colors.green[500]);
+
+  ///set the textColor [Colors.green[600]]
+  T get textGreen600 => this..textColor(Colors.green[600]);
+
+  ///set the textColor [Colors.green[700]]
+  T get textGreen700 => this..textColor(Colors.green[700]);
+
+  ///set the textColor [Colors.green[800]]
+  T get textGreen800 => this..textColor(Colors.green[800]);
+
+  ///set the textColor [Colors.green[900]]
+  T get textGreen900 => this..textColor(Colors.green[900]);
+
+  ///set the textColor [Colors.greenAccent]
+  T get textGreenAccent => this..textColor(Colors.greenAccent);
+
+  ///set the textColor [Colors.greenAccent[100]]
+  T get textGreenAccent100 => this..textColor(Colors.greenAccent[100]);
+
+  ///set the textColor [Colors.greenAccent[200]]
+  T get textGreenAccent200 => this..textColor(Colors.greenAccent[200]);
+
+  ///set the textColor [Colors.greenAccent[400]]
+  T get textGreenAccent400 => this..textColor(Colors.greenAccent[400]);
+
+  ///set the textColor [Colors.greenAccent[700]]
+  T get textGreenAccent700 => this..textColor(Colors.greenAccent[700]);
+
+  ///set the textColor [Colors.lightGreen]
+  T get textLightGreen => this..textColor(Colors.lightGreen);
+
+  ///set the textColor [Colors.lightGreen[50]]
+  T get textLightGreen50 => this..textColor(Colors.lightGreen[50]);
+
+  ///set the textColor [Colors.lightGreen[100]]
+  T get textLightGreen100 => this..textColor(Colors.lightGreen[100]);
+
+  ///set the textColor [Colors.lightGreen[200]]
+  T get textLightGreen200 => this..textColor(Colors.lightGreen[200]);
+
+  ///set the textColor [Colors.lightGreen[300]]
+  T get textLightGreen300 => this..textColor(Colors.lightGreen[300]);
+
+  ///set the textColor [Colors.lightGreen[400]]
+  T get textLightGreen400 => this..textColor(Colors.lightGreen[400]);
+
+  ///set the textColor [Colors.lightGreen[500]]
+  T get textLightGreen500 => this..textColor(Colors.lightGreen[500]);
+
+  ///set the textColor [Colors.lightGreen[600]]
+  T get textLightGreen600 => this..textColor(Colors.lightGreen[600]);
+
+  ///set the textColor [Colors.lightGreen[700]]
+  T get textLightGreen700 => this..textColor(Colors.lightGreen[700]);
+
+  ///set the textColor [Colors.lightGreen[800]]
+  T get textLightGreen800 => this..textColor(Colors.lightGreen[800]);
+
+  ///set the textColor [Colors.lightGreen[900]]
+  T get textLightGreen900 => this..textColor(Colors.lightGreen[900]);
+
+  ///set the textColor [Colors.lime]
+  T get textLime => this..textColor(Colors.lime);
+
+  ///set the textColor [Colors.lime[50]]
+  T get textLime50 => this..textColor(Colors.lime[50]);
+
+  ///set the textColor [Colors.lime[100]]
+  T get textLime100 => this..textColor(Colors.lime[100]);
+
+  ///set the textColor [Colors.lime[200]]
+  T get textLime200 => this..textColor(Colors.lime[200]);
+
+  ///set the textColor [Colors.lime[300]]
+  T get textLime300 => this..textColor(Colors.lime[300]);
+
+  ///set the textColor [Colors.lime[400]]
+  T get textLime400 => this..textColor(Colors.lime[400]);
+
+  ///set the textColor [Colors.lime[500]]
+  T get textLime500 => this..textColor(Colors.lime[500]);
+
+  ///set the textColor [Colors.lime[600]]
+  T get textLime600 => this..textColor(Colors.lime[600]);
+
+  ///set the textColor [Colors.lime[700]]
+  T get textLime700 => this..textColor(Colors.lime[700]);
+
+  ///set the textColor [Colors.lime[800]]
+  T get textLime800 => this..textColor(Colors.lime[800]);
+
+  ///set the textColor [Colors.lime[900]]
+  T get textLime900 => this..textColor(Colors.lime[900]);
+
+  ///set the textColor [Colors.blue]
+  T get textBlue => this..textColor(Colors.blue);
+
+  ///set the textColor [Colors.blue[50]]
+  T get textBlue50 => this..textColor(Colors.blue[50]);
+
+  ///set the textColor [Colors.blue[100]]
+  T get textBlue100 => this..textColor(Colors.blue[100]);
+
+  ///set the textColor [Colors.blue[200]]
+  T get textBlue200 => this..textColor(Colors.blue[200]);
+
+  ///set the textColor [Colors.blue[300]]
+  T get textBlue300 => this..textColor(Colors.blue[300]);
+
+  ///set the textColor [Colors.blue[400]]
+  T get textBlue400 => this..textColor(Colors.blue[400]);
+
+  ///set the textColor [Colors.blue[500]]
+  T get textBlue500 => this..textColor(Colors.blue[500]);
+
+  ///set the textColor [Colors.blue[600]]
+  T get textBlue600 => this..textColor(Colors.blue[600]);
+
+  ///set the textColor [Colors.blue[700]]
+  T get textBlue700 => this..textColor(Colors.blue[700]);
+
+  ///set the textColor [Colors.blue[800]]
+  T get textBlue800 => this..textColor(Colors.blue[800]);
+
+  ///set the textColor [Colors.blue[900]]
+  T get textBlue900 => this..textColor(Colors.blue[900]);
+
+  ///set the textColor [Colors.blueAccent]
+  T get textBlueAccent => this..textColor(Colors.blueAccent);
+
+  ///set the textColor [Colors.blueAccent[100]]
+  T get textBlueAccent100 => this..textColor(Colors.blueAccent[100]);
+
+  ///set the textColor [Colors.blueAccent[200]]
+  T get textBlueAccent200 => this..textColor(Colors.blueAccent[200]);
+
+  ///set the textColor [Colors.blueAccent[400]]
+  T get textBlueAccent400 => this..textColor(Colors.blueAccent[400]);
+
+  ///set the textColor [Colors.blueAccent[700]]
+  T get textBlueAccent700 => this..textColor(Colors.blueAccent[700]);
+
+  ///set the textColor [Colors.lightBlue]
+  T get textLightBlue => this..textColor(Colors.lightBlue);
+
+  ///set the textColor [Colors.lightBlue[50]]
+  T get textLightBlue50 => this..textColor(Colors.lightBlue[50]);
+
+  ///set the textColor [Colors.lightBlue[100]]
+  T get textLightBlue100 => this..textColor(Colors.lightBlue[100]);
+
+  ///set the textColor [Colors.lightBlue[200]]
+  T get textLightBlue200 => this..textColor(Colors.lightBlue[200]);
+
+  ///set the textColor [Colors.lightBlue[300]]
+  T get textLightBlue300 => this..textColor(Colors.lightBlue[300]);
+
+  ///set the textColor [Colors.lightBlue[400]]
+  T get textLightBlue400 => this..textColor(Colors.lightBlue[400]);
+
+  ///set the textColor [Colors.lightBlue[500]]
+  T get textLightBlue500 => this..textColor(Colors.lightBlue[500]);
+
+  ///set the textColor [Colors.lightBlue[600]]
+  T get textLightBlue600 => this..textColor(Colors.lightBlue[600]);
+
+  ///set the textColor [Colors.lightBlue[700]]
+  T get textLightBlue700 => this..textColor(Colors.lightBlue[700]);
+
+  ///set the textColor [Colors.lightBlue[800]]
+  T get textLightBlue800 => this..textColor(Colors.lightBlue[800]);
+
+  ///set the textColor [Colors.lightBlue[900]]
+  T get textLightBlue900 => this..textColor(Colors.lightBlue[900]);
+
+  ///set the textColor [Colors.blueGrey]
+  T get textBlueGrey => this..textColor(Colors.blueGrey);
+
+  ///set the textColor [Colors.blueGrey[50]]
+  T get textBlueGrey50 => this..textColor(Colors.blueGrey[50]);
+
+  ///set the textColor [Colors.blueGrey[100]]
+  T get textBlueGrey100 => this..textColor(Colors.blueGrey[100]);
+
+  ///set the textColor [Colors.blueGrey[200]]
+  T get textBlueGrey200 => this..textColor(Colors.blueGrey[200]);
+
+  ///set the textColor [Colors.blueGrey[300]]
+  T get textBlueGrey300 => this..textColor(Colors.blueGrey[300]);
+
+  ///set the textColor [Colors.blueGrey[400]]
+  T get textBlueGrey400 => this..textColor(Colors.blueGrey[400]);
+
+  ///set the textColor [Colors.blueGrey[500]]
+  T get textBlueGrey500 => this..textColor(Colors.blueGrey[500]);
+
+  ///set the textColor [Colors.blueGrey[600]]
+  T get textBlueGrey600 => this..textColor(Colors.blueGrey[600]);
+
+  ///set the textColor [Colors.blueGrey[700]]
+  T get textBlueGrey700 => this..textColor(Colors.blueGrey[700]);
+
+  ///set the textColor [Colors.blueGrey[800]]
+  T get textBlueGrey800 => this..textColor(Colors.blueGrey[800]);
+
+  ///set the textColor [Colors.blueGrey[900]]
+  T get textBlueGrey900 => this..textColor(Colors.blueGrey[900]);
+
+  ///set the textColor [Colors.indigoAccent]
+  T get textIndigoAccent => this..textColor(Colors.indigoAccent);
+
+  ///set the textColor [Colors.indigoAccent[100]]
+  T get textIndigoAccent100 => this..textColor(Colors.indigoAccent[100]);
+
+  ///set the textColor [Colors.indigoAccent[200]]
+  T get textIndigoAccent200 => this..textColor(Colors.indigoAccent[200]);
+
+  ///set the textColor [Colors.indigoAccent[400]]
+  T get textIndigoAccent400 => this..textColor(Colors.indigoAccent[400]);
+
+  ///set the textColor [Colors.indigoAccent[700]]
+  T get textIndigoAccent700 => this..textColor(Colors.indigoAccent[700]);
+
+  ///set the textColor [Colors.yellow]
+  T get textYellow => this..textColor(Colors.yellow);
+
+  ///set the textColor [Colors.yellow[50]]
+  T get textYellow50 => this..textColor(Colors.yellow[50]);
+
+  ///set the textColor [Colors.yellow[100]]
+  T get textYellow100 => this..textColor(Colors.yellow[100]);
+
+  ///set the textColor [Colors.yellow[200]]
+  T get textYellow200 => this..textColor(Colors.yellow[200]);
+
+  ///set the textColor [Colors.yellow[300]]
+  T get textYellow300 => this..textColor(Colors.yellow[300]);
+
+  ///set the textColor [Colors.yellow[400]]
+  T get textYellow400 => this..textColor(Colors.yellow[400]);
+
+  ///set the textColor [Colors.yellow[500]]
+  T get textYellow500 => this..textColor(Colors.yellow[500]);
+
+  ///set the textColor [Colors.yellow[600]]
+  T get textYellow600 => this..textColor(Colors.yellow[600]);
+
+  ///set the textColor [Colors.yellow[700]]
+  T get textYellow700 => this..textColor(Colors.yellow[700]);
+
+  ///set the textColor [Colors.yellow[800]]
+  T get textYellow800 => this..textColor(Colors.yellow[800]);
+
+  ///set the textColor [Colors.yellow[900]]
+  T get textYellow900 => this..textColor(Colors.yellow[900]);
+
+  ///set the textColor [Colors.yellowAccent]
+  T get textYellowAccent => this..textColor(Colors.yellowAccent);
+
+  ///set the textColor [Colors.yellowAccent[100]]
+  T get textYellowAccent100 => this..textColor(Colors.yellowAccent[100]);
+
+  ///set the textColor [Colors.yellowAccent[200]]
+  T get textYellowAccent200 => this..textColor(Colors.yellowAccent[200]);
+
+  ///set the textColor [Colors.yellowAccent[400]]
+  T get textYellowAccent400 => this..textColor(Colors.yellowAccent[400]);
+
+  ///set the textColor [Colors.yellowAccent[700]]
+  T get textYellowAccent700 => this..textColor(Colors.yellowAccent[700]);
+
+  ///set the textColor [Colors.amber]
+  T get textAmber => this..textColor(Colors.amber);
+
+  ///set the textColor [Colors.amber[50]]
+  T get textAmber50 => this..textColor(Colors.amber[50]);
+
+  ///set the textColor [Colors.amber[100]]
+  T get textAmber100 => this..textColor(Colors.amber[100]);
+
+  ///set the textColor [Colors.amber[200]]
+  T get textAmber200 => this..textColor(Colors.amber[200]);
+
+  ///set the textColor [Colors.amber[300]]
+  T get textAmber300 => this..textColor(Colors.amber[300]);
+
+  ///set the textColor [Colors.amber[400]]
+  T get textAmber400 => this..textColor(Colors.amber[400]);
+
+  ///set the textColor [Colors.amber[500]]
+  T get textAmber500 => this..textColor(Colors.amber[500]);
+
+  ///set the textColor [Colors.amber[600]]
+  T get textAmber600 => this..textColor(Colors.amber[600]);
+
+  ///set the textColor [Colors.amber[700]]
+  T get textAmber700 => this..textColor(Colors.amber[700]);
+
+  ///set the textColor [Colors.amber[800]]
+  T get textAmber800 => this..textColor(Colors.amber[800]);
+
+  ///set the textColor [Colors.amber[900]]
+  T get textAmber900 => this..textColor(Colors.amber[900]);
+
+  ///set the textColor [Colors.amberAccent]
+  T get textAmberAccent => this..textColor(Colors.amberAccent);
+
+  ///set the textColor [Colors.amberAccent[100]]
+  T get textAmberAccent100 => this..textColor(Colors.amberAccent[100]);
+
+  ///set the textColor [Colors.amberAccent[200]]
+  T get textAmberAccent200 => this..textColor(Colors.amberAccent[200]);
+
+  ///set the textColor [Colors.amberAccent[400]]
+  T get textAmberAccent400 => this..textColor(Colors.amberAccent[400]);
+
+  ///set the textColor [Colors.amberAccent[700]]
+  T get textAmberAccent700 => this..textColor(Colors.amberAccent[700]);
+
+  ///set the textColor [Colors.purple]
+  T get textPurple => this..textColor(Colors.purple);
+
+  ///set the textColor [Colors.purple[50]]
+  T get textPurple50 => this..textColor(Colors.purple[50]);
+
+  ///set the textColor [Colors.purple[100]]
+  T get textPurple100 => this..textColor(Colors.purple[100]);
+
+  ///set the textColor [Colors.purple[200]]
+  T get textPurple200 => this..textColor(Colors.purple[200]);
+
+  ///set the textColor [Colors.purple[300]]
+  T get textPurple300 => this..textColor(Colors.purple[300]);
+
+  ///set the textColor [Colors.purple[400]]
+  T get textPurple400 => this..textColor(Colors.purple[400]);
+
+  ///set the textColor [Colors.purple[500]]
+  T get textPurple500 => this..textColor(Colors.purple[500]);
+
+  ///set the textColor [Colors.purple[600]]
+  T get textPurple600 => this..textColor(Colors.purple[600]);
+
+  ///set the textColor [Colors.purple[700]]
+  T get textPurple700 => this..textColor(Colors.purple[700]);
+
+  ///set the textColor [Colors.purple[800]]
+  T get textPurple800 => this..textColor(Colors.purple[800]);
+
+  ///set the textColor [Colors.purple[900]]
+  T get textPurple900 => this..textColor(Colors.purple[900]);
+
+  ///set the textColor [Colors.purpleAccent]
+  T get textPurpleAccent => this..textColor(Colors.purpleAccent);
+
+  ///set the textColor [Colors.purpleAccent[100]]
+  T get textPurpleAccent100 => this..textColor(Colors.purpleAccent[100]);
+
+  ///set the textColor [Colors.purpleAccent[200]]
+  T get textPurpleAccent200 => this..textColor(Colors.purpleAccent[200]);
+
+  ///set the textColor [Colors.purpleAccent[400]]
+  T get textPurpleAccent400 => this..textColor(Colors.purpleAccent[400]);
+
+  ///set the textColor [Colors.purpleAccent[700]]
+  T get textPurpleAccent700 => this..textColor(Colors.purpleAccent[700]);
+
+  ///set the textColor [Colors.orange]
+  T get textOrange => this..textColor(Colors.orange);
+
+  ///set the textColor [Colors.orange[50]]
+  T get textOrange50 => this..textColor(Colors.orange[50]);
+
+  ///set the textColor [Colors.orange[100]]
+  T get textOrange100 => this..textColor(Colors.orange[100]);
+
+  ///set the textColor [Colors.orange[200]]
+  T get textOrange200 => this..textColor(Colors.orange[200]);
+
+  ///set the textColor [Colors.orange[300]]
+  T get textOrange300 => this..textColor(Colors.orange[300]);
+
+  ///set the textColor [Colors.orange[400]]
+  T get textOrange400 => this..textColor(Colors.orange[400]);
+
+  ///set the textColor [Colors.orange[500]]
+  T get textOrange500 => this..textColor(Colors.orange[500]);
+
+  ///set the textColor [Colors.orange[600]]
+  T get textOrange600 => this..textColor(Colors.orange[600]);
+
+  ///set the textColor [Colors.orange[700]]
+  T get textOrange700 => this..textColor(Colors.orange[700]);
+
+  ///set the textColor [Colors.orange[800]]
+  T get textOrange800 => this..textColor(Colors.orange[800]);
+
+  ///set the textColor [Colors.orange[900]]
+  T get textOrange900 => this..textColor(Colors.orange[900]);
+
+  ///set the textColor [Colors.orangeAccent]
+  T get textOrangeAccent => this..textColor(Colors.orangeAccent);
+
+  ///set the textColor [Colors.orangeAccent[100]]
+  T get textOrangeAccent100 => this..textColor(Colors.orangeAccent[100]);
+
+  ///set the textColor [Colors.orangeAccent[200]]
+  T get textOrangeAccent200 => this..textColor(Colors.orangeAccent[200]);
+
+  ///set the textColor [Colors.orangeAccent[400]]
+  T get textOrangeAccent400 => this..textColor(Colors.orangeAccent[400]);
+
+  ///set the textColor [Colors.orangeAccent[700]]
+  T get textOrangeAccent700 => this..textColor(Colors.orangeAccent[700]);
+
+  ///set the textColor [Colors.brown]
+  T get textBrown => this..textColor(Colors.brown);
+
+  ///set the textColor [Colors.brown[50]]
+  T get textBrown50 => this..textColor(Colors.brown[50]);
+
+  ///set the textColor [Colors.brown[100]]
+  T get textBrown100 => this..textColor(Colors.brown[100]);
+
+  ///set the textColor [Colors.brown[200]]
+  T get textBrown200 => this..textColor(Colors.brown[200]);
+
+  ///set the textColor [Colors.brown[300]]
+  T get textBrown300 => this..textColor(Colors.brown[300]);
+
+  ///set the textColor [Colors.brown[400]]
+  T get textBrown400 => this..textColor(Colors.brown[400]);
+
+  ///set the textColor [Colors.brown[500]]
+  T get textBrown500 => this..textColor(Colors.brown[500]);
+
+  ///set the textColor [Colors.brown[600]]
+  T get textBrown600 => this..textColor(Colors.brown[600]);
+
+  ///set the textColor [Colors.brown[700]]
+  T get textBrown700 => this..textColor(Colors.brown[700]);
+
+  ///set the textColor [Colors.brown[800]]
+  T get textBrown800 => this..textColor(Colors.brown[800]);
+
+  ///set the textColor [Colors.brown[900]]
+  T get textBrown900 => this..textColor(Colors.brown[900]);
+
+  ///set the textColor [Colors.pink]
+  T get textPink => this..textColor(Colors.pink);
+
+  ///set the textColor [Colors.pink[50]]
+  T get textPink50 => this..textColor(Colors.pink[50]);
+
+  ///set the textColor [Colors.pink[100]]
+  T get textPink100 => this..textColor(Colors.pink[100]);
+
+  ///set the textColor [Colors.pink[200]]
+  T get textPink200 => this..textColor(Colors.pink[200]);
+
+  ///set the textColor [Colors.pink[300]]
+  T get textPink300 => this..textColor(Colors.pink[300]);
+
+  ///set the textColor [Colors.pink[400]]
+  T get textPink400 => this..textColor(Colors.pink[400]);
+
+  ///set the textColor [Colors.pink[500]]
+  T get textPink500 => this..textColor(Colors.pink[500]);
+
+  ///set the textColor [Colors.pink[600]]
+  T get textPink600 => this..textColor(Colors.pink[600]);
+
+  ///set the textColor [Colors.pink[700]]
+  T get textPink700 => this..textColor(Colors.pink[700]);
+
+  ///set the textColor [Colors.pink[800]]
+  T get textPink800 => this..textColor(Colors.pink[800]);
+
+  ///set the textColor [Colors.pink[900]]
+  T get textPink900 => this..textColor(Colors.pink[900]);
+
+  ///set the textColor [Colors.grey]
+  T get textGrey => this..textColor(Colors.grey);
+
+  ///set the textColor [Colors.grey[50]]
+  T get textGrey50 => this..textColor(Colors.grey[50]);
+
+  ///set the textColor [Colors.grey[100]]
+  T get textGrey100 => this..textColor(Colors.grey[100]);
+
+  ///set the textColor [Colors.grey[200]]
+  T get textGrey200 => this..textColor(Colors.grey[200]);
+
+  ///set the textColor [Colors.grey[300]]
+  T get textGrey300 => this..textColor(Colors.grey[300]);
+
+  ///set the textColor [Colors.grey[400]]
+  T get textGrey400 => this..textColor(Colors.grey[400]);
+
+  ///set the textColor [Colors.grey[500]]
+  T get textGrey500 => this..textColor(Colors.grey[500]);
+
+  ///set the textColor [Colors.grey[600]]
+  T get textGrey600 => this..textColor(Colors.grey[600]);
+
+  ///set the textColor [Colors.grey[700]]
+  T get textGrey700 => this..textColor(Colors.grey[700]);
+
+  ///set the textColor [Colors.grey[800]]
+  T get textGrey800 => this..textColor(Colors.grey[800]);
+
+  ///set the textColor [Colors.grey[900]]
+  T get textGrey900 => this..textColor(Colors.grey[900]);
+
+  ///set the textColor [Colors.cyan]
+  T get textCyan => this..textColor(Colors.cyan);
+
+  ///set the textColor [Colors.cyan[50]]
+  T get textCyan50 => this..textColor(Colors.cyan[50]);
+
+  ///set the textColor [Colors.cyan[100]]
+  T get textCyan100 => this..textColor(Colors.cyan[100]);
+
+  ///set the textColor [Colors.cyan[200]]
+  T get textCyan200 => this..textColor(Colors.cyan[200]);
+
+  ///set the textColor [Colors.cyan[300]]
+  T get textCyan300 => this..textColor(Colors.cyan[300]);
+
+  ///set the textColor [Colors.cyan[400]]
+  T get textCyan400 => this..textColor(Colors.cyan[400]);
+
+  ///set the textColor [Colors.cyan[500]]
+  T get textCyan500 => this..textColor(Colors.cyan[500]);
+
+  ///set the textColor [Colors.cyan[600]]
+  T get textCyan600 => this..textColor(Colors.cyan[600]);
+
+  ///set the textColor [Colors.cyan[700]]
+  T get textCyan700 => this..textColor(Colors.cyan[700]);
+
+  ///set the textColor [Colors.cyan[800]]
+  T get textCyan800 => this..textColor(Colors.cyan[800]);
+
+  ///set the textColor [Colors.cyan[900]]
+  T get textCyan900 => this..textColor(Colors.cyan[900]);
+
+  ///set the textColor [Colors.deepOrange]
+  T get textDeepOrange => this..textColor(Colors.deepOrange);
+
+  ///set the textColor [Colors.deepOrange[50]]
+  T get textDeepOrange50 => this..textColor(Colors.deepOrange[50]);
+
+  ///set the textColor [Colors.deepOrange[100]]
+  T get textDeepOrange100 => this..textColor(Colors.deepOrange[100]);
+
+  ///set the textColor [Colors.deepOrange[200]]
+  T get textDeepOrange200 => this..textColor(Colors.deepOrange[200]);
+
+  ///set the textColor [Colors.deepOrange[300]]
+  T get textDeepOrange300 => this..textColor(Colors.deepOrange[300]);
+
+  ///set the textColor [Colors.deepOrange[400]]
+  T get textDeepOrange400 => this..textColor(Colors.deepOrange[400]);
+
+  ///set the textColor [Colors.deepOrange[500]]
+  T get textDeepOrange500 => this..textColor(Colors.deepOrange[500]);
+
+  ///set the textColor [Colors.deepOrange[600]]
+  T get textDeepOrange600 => this..textColor(Colors.deepOrange[600]);
+
+  ///set the textColor [Colors.deepOrange[700]]
+  T get textDeepOrange700 => this..textColor(Colors.deepOrange[700]);
+
+  ///set the textColor [Colors.deepOrange[800]]
+  T get textDeepOrange800 => this..textColor(Colors.deepOrange[800]);
+
+  ///set the textColor [Colors.deepOrange[900]]
+  T get textDeepOrange900 => this..textColor(Colors.deepOrange[900]);
+
+  ///set the textColor [Colors.teal]
+  T get textTeal => this..textColor(Colors.teal);
+
+  ///set the textColor [Colors.teal[50]]
+  T get textTeal50 => this..textColor(Colors.teal[50]);
+
+  ///set the textColor [Colors.teal[100]]
+  T get textTeal100 => this..textColor(Colors.teal[100]);
+
+  ///set the textColor [Colors.teal[200]]
+  T get textTeal200 => this..textColor(Colors.teal[200]);
+
+  ///set the textColor [Colors.teal[300]]
+  T get textTeal300 => this..textColor(Colors.teal[300]);
+
+  ///set the textColor [Colors.teal[400]]
+  T get textTeal400 => this..textColor(Colors.teal[400]);
+
+  ///set the textColor [Colors.teal[500]]
+  T get textTeal500 => this..textColor(Colors.teal[500]);
+
+  ///set the textColor [Colors.teal[600]]
+  T get textTeal600 => this..textColor(Colors.teal[600]);
+
+  ///set the textColor [Colors.teal[700]]
+  T get textTeal700 => this..textColor(Colors.teal[700]);
+
+  ///set the textColor [Colors.teal[800]]
+  T get textTeal800 => this..textColor(Colors.teal[800]);
+
+  ///set the textColor [Colors.teal[900]]
+  T get textTeal900 => this..textColor(Colors.teal[900]);
+
+  ///set the textColor [Colors.tealAccent]
+  T get textTealAccent => this..textColor(Colors.tealAccent);
+
+  ///set the textColor [Colors.tealAccent[100]]
+  T get textTealAccent100 => this..textColor(Colors.tealAccent[100]);
+
+  ///set the textColor [Colors.tealAccent[200]]
+  T get textTealAccent200 => this..textColor(Colors.tealAccent[200]);
+
+  ///set the textColor [Colors.tealAccent[400]]
+  T get textTealAccent400 => this..textColor(Colors.tealAccent[400]);
+
+  ///set the textColor [Colors.tealAccent[700]]
+  T get textTealAccent700 => this..textColor(Colors.tealAccent[700]);
+
+  ///set the textColor [Colors.deepPurple]
+  T get textDeepPurple => this..textColor(Colors.deepPurple);
+
+  ///set the textColor [Colors.deepPurple[50]]
+  T get textDeepPurple50 => this..textColor(Colors.deepPurple[50]);
+
+  ///set the textColor [Colors.deepPurple[100]]
+  T get textDeepPurple100 => this..textColor(Colors.deepPurple[100]);
+
+  ///set the textColor [Colors.deepPurple[200]]
+  T get textDeepPurple200 => this..textColor(Colors.deepPurple[200]);
+
+  ///set the textColor [Colors.deepPurple[300]]
+  T get textDeepPurple300 => this..textColor(Colors.deepPurple[300]);
+
+  ///set the textColor [Colors.deepPurple[400]]
+  T get textDeepPurple400 => this..textColor(Colors.deepPurple[400]);
+
+  ///set the textColor [Colors.deepPurple[500]]
+  T get textDeepPurple500 => this..textColor(Colors.deepPurple[500]);
+
+  ///set the textColor [Colors.deepPurple[600]]
+  T get textDeepPurple600 => this..textColor(Colors.deepPurple[600]);
+
+  ///set the textColor [Colors.deepPurple[700]]
+  T get textDeepPurple700 => this..textColor(Colors.deepPurple[700]);
+
+  ///set the textColor [Colors.deepPurple[800]]
+  T get textDeepPurple800 => this..textColor(Colors.deepPurple[800]);
+
+  ///set the textColor [Colors.deepPurple[900]]
+  T get textDeepPurple900 => this..textColor(Colors.deepPurple[900]);
+
+  ///set the textColor [Colors.indigo]
+  T get textIndigo => this..textColor(Colors.indigo);
+
+  ///set the textColor [Colors.indigo[50]]
+  T get textIndigo50 => this..textColor(Colors.indigo[50]);
+
+  ///set the textColor [Colors.indigo[100]]
+  T get textIndigo100 => this..textColor(Colors.indigo[100]);
+
+  ///set the textColor [Colors.indigo[200]]
+  T get textIndigo200 => this..textColor(Colors.indigo[200]);
+
+  ///set the textColor [Colors.indigo[300]]
+  T get textIndigo300 => this..textColor(Colors.indigo[300]);
+
+  ///set the textColor [Colors.indigo[400]]
+  T get textIndigo400 => this..textColor(Colors.indigo[400]);
+
+  ///set the textColor [Colors.indigo[500]]
+  T get textIndigo500 => this..textColor(Colors.indigo[500]);
+
+  ///set the textColor [Colors.indigo[600]]
+  T get textIndigo600 => this..textColor(Colors.indigo[600]);
+
+  ///set the textColor [Colors.indigo[700]]
+  T get textIndigo700 => this..textColor(Colors.indigo[700]);
+
+  ///set the textColor [Colors.indigo[800]]
+  T get textIndigo800 => this..textColor(Colors.indigo[800]);
+
+  ///set the textColor [Colors.indigo[900]]
+  T get textIndigo900 => this..textColor(Colors.indigo[900]);

@@ -63,8 +63,8 @@ class _MovieItem extends StatelessWidget {
             // 电影名称
             movie.title.text.bold.f14.maxLine1.ellipsis.mk,
             // 评分
-            Row(
-              children: [
+            row.children(
+              [
                 Icons.star.icon.yellow.s14.mk,
                 w4,
                 '${movie.rating}'.text.f12.orange.bold.mk,

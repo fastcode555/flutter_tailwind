@@ -1,0 +1,7 @@
+  T get tealAccent100 => this..color(Colors.tealAccent[100]);
+
+  T get tealAccent200 => this..color(Colors.tealAccent[200]);
+
+  T get tealAccent400 => this..color(Colors.tealAccent[400]);
+
+  T get tealAccent700 => this..color(Colors.tealAccent[700]);

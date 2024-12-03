@@ -55,17 +55,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          children: [
-            Row(
-              children: [
+        padding: p16,
+        child: column.children(
+          [
+            row.children(
+              [
                 text('helloworld' * 2).black.f30.ellipsis.maxLine1.mk,
                 spacer3,
               ],
             ),
-            Row(
-              children: [
+            row.children(
+              [
                 Expanded(
                   child: AutoSizeText(
                     'A really long String',
@@ -78,11 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 spacer3,
               ],
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: text('helloworld' * 2).black.f30.f10.maxLine1.ellipsis.mk,
-                ),
+            row.children(
+              [
+                text('helloworld' * 2).expanded.black.f30.f10.maxLine1.ellipsis.mk,
                 spacer2,
               ],
             ),

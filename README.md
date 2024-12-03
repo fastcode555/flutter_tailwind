@@ -248,3 +248,15 @@ gridview.neverScroll.childWidth50.step4.spacing8.p8.shrinkWrap.builder(
 stepBuilder: (_, __) => container.rounded8.red.center.child("Ads".text.white.mk),
 ), 
 ```
+
+# Demo
+> using flutter_tailwind to write the ui code
+
+## main_wechat
+![Alt](images/wechat.jpg)
+
+## main_food
+![Alt](images/main_food.jpg)
+
+## main_movie
+![Alt](images/main_movie.jpg)
