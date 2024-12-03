@@ -4,6 +4,7 @@ export 'child/icon.dart';
 export 'child/image.dart';
 export 'child/input.dart';
 export 'child/padding.dart';
+export 'child/positioned.dart';
 export 'child/radio.dart';
 export 'child/shader_mask.dart';
 export 'child/sized_box.dart';

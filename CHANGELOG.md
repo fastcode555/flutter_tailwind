@@ -1,3 +1,7 @@
+## 1.4.4
+
+- add the positioned widget
+
 ## 1.4.2
 
 - Just update the document

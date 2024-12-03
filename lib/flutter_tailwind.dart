@@ -20,6 +20,7 @@ export 'src/base/max_line_builder.dart';
 export 'src/base/mk_builder.dart';
 export 'src/base/opacity_builder.dart';
 export 'src/base/padding_builder.dart';
+export 'src/base/positioned_builder.dart';
 export 'src/base/shadow_builder.dart';
 export 'src/base/size_builder.dart';
 export 'src/base/spacing_builder.dart';
