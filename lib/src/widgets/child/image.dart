@@ -90,6 +90,7 @@ class ImageBuilder extends MkBuilder<Widget>
         image,
         fit: fit ?? BoxFit.cover,
         radius: radius,
+        borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
         width: size ?? width,
         height: size ?? height,
         heroTag: _heroTag,

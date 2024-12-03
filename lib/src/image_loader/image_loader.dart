@@ -259,7 +259,7 @@ class ImageLoader extends StatelessWidget {
     double? height,
     double? radius = 0,
     String? thumbUrl,
-    BorderRadius? borderRadius,
+    BorderRadiusGeometry? borderRadius,
     this.border = 0.0,
     this.borderColor = Colors.white,
     this.transitionOnUserGestures = false,
