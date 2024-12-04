@@ -22,7 +22,7 @@ I hope to make something like tailwind that can simplify the description of styl
 
   这种写法不够简洁，而且层级过多，直接采用**container.ph16.white.child**()
 
-- mk一定是在最后面的，在代码中只有widget开头才使用padding，不然就是用p，注意没有all，而是p，如all12，需要改成p12
+- 如果没有child()，children(),click(),mk一般是在最后面的，在代码中只有widget开头才使用padding，不然就是用p，注意没有all，而是p，如all12，需要改成p12
 
 ## ScreenShot
 ![Alt](images/check_box_image.png)
