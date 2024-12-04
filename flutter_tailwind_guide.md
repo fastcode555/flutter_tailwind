@@ -200,3 +200,41 @@ Icons.person.icon.s24.grey.mk//✅，更推荐
 - 当Container这个组件过于复杂时，比如说支持transform等，可以直接使用flutter Container组件，不适用flutter_tailwind的风格
 
 - 不支持center.child,请直接使用flutter的原始组件Center(child: child)，
+
+- 设置宽高间距
+
+  ```dart
+  // ❌ 错误
+  sizedBox.h16.mk
+  sizedBox.w16.mk
+  // ✅ 正确，宽高可以直接设置这个间距，只有当有widget的时候，才可以设置
+  h16,
+  w16,
+  sizedBox.h30.child(
+    text("child").white.f14.mk,
+  )
+  ```
+
+- flutter_tailwind中，没有以**make()**的方法，有的是**mk**，即**make**的缩写，例如
+  ```dart
+    text("child").white.f14.mk,
+  ```
+
+- 系统的颜色，在使用flutter_tailwind时，可以采用如下策略
+    ```dart
+    // ❌ 错误
+    container.color(Colors.grey[100]).s24.mk
+    // ✅ 正确
+    container.grey100.s24.mk
+    ```
+
+- 对于text字体的设置，flutter_tailwind使用的是如下策略
+  ```dart
+  // ❌ 错误
+  'text'.text.bold.size(16.sp)
+  // ✅ 正确
+  'text'.text.bold.f16.mk
+  'text'.text.bold.f(16).mk
+  ```
+
+  
