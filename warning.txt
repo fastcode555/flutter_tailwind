@@ -119,6 +119,27 @@ textRich.children([
 - styleAccent: 绿色强调样式（greenAccent.f20.bold.underline）
 - styleTest: 测试样式（dashed.lightGreen.f30.bold.lineThrough）
 
+### 1.2.5 TextStyle 快捷方式 (ts)
+// ts 是 TextStyle 的快捷方式，用于快速创建文本样式
+```dart
+// 1. 基本用法
+ts.red.f16.bold.mk  // 创建红色、16号、粗体的文本样式
+
+// 2. 常用组合
+ts.grey500.f14.mk  // 次要文本样式
+ts.black.f16.bold.mk  // 标题文本样式
+ts.blue.f16.underline.mk  // 链接文本样式
+ts.red.f12.lineThrough.mk  // 删除线文本样式
+
+// 3. 在富文本中使用
+TextSpan(text: 'Hello', style: ts.brown.f20.mk)
+```
+
+注意：
+1. ts 后必须使用 .mk 结束链式调用
+2. 可以组合使用颜色、字号、字重、装饰等属性
+3. 主要用于创建 TextStyle 对象
+
 ### 1.3 Image
 // 基本用法
 "图片URL".image.circle.s50.mk
@@ -473,7 +494,7 @@ h4, h8, h12, h16
 
 ### 4.1 基础颜色
 - 基础颜色: red, blue, green, yellow 等
-- 灰度颜色: grey, black, white 等
+- ��度颜色: grey, black, white 等
 - Material 颜色: redAccent, blueAccent 等
 
 ### 4.2 颜色色阶支持
@@ -598,7 +619,7 @@ h4, h8, h12, h16
 ## 7. 性能优化建议
 
 1. 使用 const 构造器
-2. 合理拆分组件
+2. 合理拆��组件
 3. 避免不必要的重建
 4. 使用 ListView.builder 而不是 ListView
 5. 图片加载使用 CacheNetworkImage
@@ -607,7 +628,7 @@ h4, h8, h12, h16
 ## 8. 开发建议
 
 1. 保持代码风格一致
-2. 遵���链式调用顺序
+2. 遵循链式调用顺序
 3. 避免过度嵌套
 4. 合理使用间距组件
 5. 注意组件复用
@@ -630,3 +651,128 @@ h4, h8, h12, h16
 - styleMain: 用于 text 组件
 - styleTest: 用于 text 组件
 - styleAccent: 用于 text 组件 
+
+## 9. 自定义属性扩展
+
+### 9.1 扩展方式
+在 tailwind_ext.dart 文件中添加扩展，主要支持以下几种类型：
+
+1. 尺寸扩展 (SizeBuilder)
+```dart
+extension SizeExt<T extends SizeBuilder> on T {
+  // 添加自定义尺寸 s121
+  T get s121 => this..size = 121.r;
+}
+```
+
+2. 文本特性扩展 (TextFeature)
+```dart
+extension TextFeatureExt<T extends TextFeature> on T {
+  // 添加自定义字体
+  T get conther => this..fontFamily = R.conther;
+}
+```
+
+3. 字体大小扩展 (FontSizeBuilder)
+```dart
+extension FontSizeExt<T extends FontSizeBuilder> on T {
+  // 添加自定义字号 f100
+  T get f100 => this..font(100.sp);
+}
+```
+
+4. 图标扩展 (IconBuilder)
+```dart
+extension IconExt<T extends IconBuilder> on T {
+  // 添加自定义图标
+  T get icDefAvatar => this..icon(R.icDefAvatar);
+  T get icAirPlay => this..icon(R.icAirPlay);
+}
+```
+
+5. 文本样式扩展 (CompletedTextStyleBuilder)
+```dart
+extension TextStyleExt<T extends CompletedTextStyleBuilder> on T {
+  // 添加预定义文本样式
+  T get styleMain => this..style = ts.redAccent.f16.bold.underline.mk;
+}
+```
+
+注意：
+1. tailwind_ext.g.dart 文件仅包含颜色相关的扩展，不要手动修改
+2. 所有自定义扩展都应该添加到 tailwind_ext.dart 文件中
+3. 扩展时注意使用正确的基类（SizeBuilder、TextFeature等）
+4. 自定义属性应该遵循项目的命名规范 
+
+### 9.2 装饰器扩展
+```dart
+/// 自定义装饰器样式 (CompleteDecoration)
+extension DecorationExt<T extends CompleteDecoration> on T {
+  // 预定义装饰器样式
+  T get decorMain => this
+    ..decoration = bd.greenAccent.circle.borderBrown.customShadow.border5.mk;
+
+  // 使用传统方式定义装饰器
+  T get decorTradition => this
+    ..decoration = BoxDecoration(
+      color: Colors.greenAccent,
+      border: Border.all(color: Colors.brown, width: 5.r),
+      borderRadius: BorderRadius.circular(8.r),
+      boxShadow: const [
+        BoxShadow(
+          color: Color(0x78000000),
+          offset: Offset(0, 4),
+          blurRadius: 4,
+        ),
+      ],
+    );
+}
+```
+
+### 9.3 阴影扩展
+```dart
+/// 自定义阴影样式 (ShadowBuilder)
+extension ShadowExt<T extends ShadowBuilder> on T {
+  T get customShadow => this
+    ..boxShadow = const [
+      BoxShadow(
+        color: Color(0x78000000),
+        offset: Offset(0, 4),
+        blurRadius: 4,
+      )
+    ];
+}
+```
+
+注意：
+1. 装饰器扩展可以组合使用多个属性，如 circle、border、shadow 等
+2. 阴影扩展支持自定义颜色、偏移和模糊程度
+3. 可以使用 Flutter 原生写法或 Tailwind 链式写法
+4. 所有尺寸相关的值都需要使用 .r 进行屏幕适配
+
+### 1.3.1 BoxDecoration 快捷方式 (bd)
+// bd 是 BoxDecoration 的快捷方式，用于快速创建装饰样式
+```dart
+// 1. 基本用法
+bd.red.rounded8.mk  // 红色背景，8dp圆角
+
+// 2. 常用组合
+bd.white.rounded16.cardShadow.mk  // 白色卡片样式
+bd.grey100.circle.mk  // 圆形灰色背景
+bd.transparent.border1.borderGrey.mk  // 透明背景带边框
+bd.greenAccent.borderBrown.rounded8.border5.mk  // 复杂装饰样式
+
+// 3. 在容器中使用
+Container(
+  decoration: bd.white.rounded16.cardShadow.mk,
+)
+
+// 4. 支持自定义阴影
+bd.white.rounded16.customShadow.mk
+```
+
+注意：
+1. bd 后必须使用 .mk 结束链式调用
+2. 可以组合使用颜色、圆角、边框、阴影等属性
+3. 主要用于创建 BoxDecoration 对象
+4. 支持与自定义装饰器样式组合使用 
