@@ -8,7 +8,7 @@ part 'children_container.g.dart';
 /// describe:
 
 class _StackBuilder extends ChildrenBuilder<Widget>
-    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder, KeyBuilder {
+    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder, KeyBuilder, ColorBuilder {
   _StackBuilder._();
 
   @override
@@ -27,6 +27,9 @@ class _StackBuilder extends ChildrenBuilder<Widget>
     if (hasPadding) {
       child = Padding(padding: finalPadding!, child: child);
     }
+    if (innerColor != null) {
+      child = DecoratedBox(decoration: BoxDecoration(color: innerColor), child: child);
+    }
 
     return child;
   }
@@ -40,13 +43,17 @@ abstract class _LinearBuilder extends ChildrenBuilder<Widget>
         SizeBuilder,
         PaddingBuilder,
         ExpandedBuilder,
-        KeyBuilder {
+        KeyBuilder,
+        ColorBuilder {
   Widget _buildWrapWidget(Widget child) {
     if (size != null || width != null || height != null) {
       child = SizedBox(width: size ?? width, height: size ?? height, child: child);
     }
     if (hasPadding) {
       child = Padding(padding: finalPadding!, child: child);
+    }
+    if (innerColor != null) {
+      child = DecoratedBox(decoration: BoxDecoration(color: innerColor), child: child);
     }
     return createExpanded(child);
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry
 /// @date 7/11/23
@@ -17,6 +18,8 @@ mixin TextColorBuilder {
 
 extension TextColorBuilderExt<T extends TextColorBuilder> on T {
   T textColor(Color? color) => this..innerTextColor = color;
+
+  T get textPrimary => this..textColor(Tailwind.instance.primary);
 
   ///set the textColor [Colors.transparent]
   T get textTransparent => this..textColor(Colors.transparent);
@@ -840,6 +843,9 @@ extension ColorBuilderExt<T extends ColorBuilder> on T {
   }
 
   ///flutter system color [Colors.transparent]
+  T get primary => this..color(Tailwind.instance.primary);
+
+  ///flutter system color [Colors.transparent]
   T get transparent => this..color(Colors.transparent);
 
   ///flutter system color [Colors.black]
@@ -977,6 +983,7 @@ extension ColorBuilderExt<T extends ColorBuilder> on T {
   /// ![](https://flutter.github.io/assets-for-api-docs/assets/material/Colors.lime.png)
   /// ![](https://flutter.github.io/assets-for-api-docs
   ///flutter system color [Colors.greenAccent]/assets/material/Colors.limeAccent.png)
+
   T get greenAccent => this..color(Colors.greenAccent);
 
   ///flutter system color [Colors.greenAccent[100]]
@@ -1660,6 +1667,8 @@ extension ColorBuilderExt<T extends ColorBuilder> on T {
 
 extension BorderColorBuilderExt<T extends BorderColorBuilder> on T {
   T border(Color? borderColor) => this..borderColor = borderColor;
+
+  T get borderPrimary => this..border(Tailwind.instance.primary);
 
   ///set the border color [Colors.transparent]
   T get borderTransparent => this..border(Colors.transparent);
