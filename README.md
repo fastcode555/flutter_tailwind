@@ -2,28 +2,6 @@
 
 I hope to make something like tailwind that can simplify the description of style and improve efficiency.
 
-## Warning（pls pay attentiion here）
-
-- There is no px, py in the project, only ph (**padding-horizontal**) and pv (**padding-vertical**),p(**padding**),pt(**padding-top**),pb(**padding-bottom**),pl(**padding-left**),pr(**padding-right**)
-
-- For colors in the project, such as red, if you want to use the color **Colors.red.withOpacity**(0.1), you can use something like container.**red.opacity10**.mk
-
-- Row component and Column component, please directly **row.children**(), **column.children** when writing. Also note that these two components directly support the padding attribute, which can be written like **row .children.ph16.children**(),**column.children.ph16.children**()
-
-- When using click events, please use child first, and then add the click event. The click event must be added last, such as:
-
-  container.child().click(onTap:(){}),
-
-- When using **iconClick**, components should not set padding, such as p8, p16, etc.
-
-- **text**, **container**, **column**, **row**, **listview**, **gridview** and other components have **expanded** attributes. Please set expanded directly without wrapping it under the expanded component. This is to reduce the hierarchy and make the code look more concise.
-
-- 注意，container已经支持**marggin,padding**跟**color**，跟**shadow**了，请不要出现**container.ph16.child(container.white.child**())这种用写法
-
-  这种写法不够简洁，而且层级过多，直接采用**container.ph16.white.child**()
-
-- 如果没有child()，children(),click(),mk一般是在最后面的，在代码中只有widget开头才使用padding，不然就是用p，注意没有all，而是p，如all12，需要改成p12
-
 ## ScreenShot
 ![Alt](images/check_box_image.png)
 
