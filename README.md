@@ -240,6 +240,11 @@ stepBuilder: (_, __) => container.rounded8.red.center.child("Ads".text.white.mk)
 # Demo
 > using flutter_tailwind to write the ui code
 
+## main_facebook
+![Alt](images/facebook_01.jpg)
+![Alt](images/facebook_02.jpg)
+![Alt](images/facebook_03.jpg)
+
 ## main_wechat
 ![Alt](images/wechat.jpg)
 
