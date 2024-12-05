@@ -12,7 +12,7 @@ extension SizeExt<T extends SizeBuilder> on T {
 
 /// define the custom text feature here
 extension TextFeatureExt<T extends TextFeature> on T {
-  T get conther => this..fontFamily = R.conther;
+  T get conther => this..innerFontFamily = R.conther;
 }
 
 /// define the custom text size here

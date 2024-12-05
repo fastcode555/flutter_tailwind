@@ -102,7 +102,7 @@ final _mockMovies = [
   const Movie(
     title: 'The Dark Knight',
     posterUrl: 'https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg',
-    rating: 9.0,
+    rating: 9,
   ),
   const Movie(
     title: 'Pulp Fiction',
