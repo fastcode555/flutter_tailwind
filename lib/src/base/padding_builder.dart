@@ -62,6 +62,9 @@ mixin PaddingBuilder {
 extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T padding(EdgeInsetsGeometry? padding) => this.._innerPadding = padding;
 
+  ///padding all 0
+  T get p0 => this..paddingValue = 0;
+
   ///padding all 2
   T get p2 => this..paddingValue = 2.r;
 
@@ -212,6 +215,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// padding all *100
   T get p100 => this..paddingValue = 100.r;
 
+  ///padding left 0
+  T get pl0 => this..paddingLeft = 0;
+
   ///padding left 2
   T get pl2 => this..paddingLeft = 2.r;
 
@@ -361,6 +367,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding left is 100
   T get pl100 => this..paddingLeft = 100.r;
+
+  ///padding right 0
+  T get pr0 => this..paddingRight = 0;
 
   ///padding right 2
   T get pr2 => this..paddingRight = 2.r;
@@ -513,6 +522,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T get pr100 => this..paddingRight = 100.r;
 
   ///padding top 2
+  T get pt0 => this..paddingTop = 0;
+
+  ///padding top 2
   T get pt2 => this..paddingTop = 2.r;
 
   ///padding top 4
@@ -661,6 +673,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding top is 100
   T get pt100 => this..paddingTop = 100.r;
+
+  ///padding bottom 0
+  T get pb0 => this..paddingBottom = 0;
 
   ///padding bottom 2
   T get pb2 => this..paddingBottom = 2.r;
@@ -812,6 +827,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding bottom is 100
   T get pb100 => this..paddingBottom = 100.r;
 
+  /// padding horizontal value 0
+  T get ph0 => this..paddingHorizontal = 0;
+
   /// padding horizontal value 2
   T get ph2 => this..paddingHorizontal = 2.r;
 
@@ -961,6 +979,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding horizontal is 100
   T get ph100 => this..paddingHorizontal = 100.r;
+
+  ///padding vertical value = 0
+  T get pv0 => this..paddingVertical = 0;
 
   ///padding vertical value = 2
   T get pv2 => this..paddingVertical = 2.r;

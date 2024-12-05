@@ -132,11 +132,9 @@ class FacebookChatDetailPage extends StatelessWidget {
           ],
           Expanded(
             child: column.crossStart.children([
-              container.wFull70.child(
-                container.p12.color(isSelf ? Colors.blue : Colors.grey[100]).rounded16.child(
-                      text.text.f14.color(isSelf ? Colors.white : Colors.black).mk,
-                    ),
-              ),
+              container.p12.wFull70.rounded16.color(isSelf ? Colors.blue : Colors.grey[100]).child(
+                    text.text.f14.color(isSelf ? Colors.white : Colors.black).mk,
+                  ),
               h4,
               time.text.grey600.f12.mk,
             ]),
@@ -144,9 +142,7 @@ class FacebookChatDetailPage extends StatelessWidget {
           if (isSelf) ...[
             w8,
             container.s32.circle
-                .child(
-                  avatar.image.s32.circle.mk,
-                )
+                .child(avatar.image.s32.circle.mk)
                 .click(onTap: () => AppRoutes.toUserProfile(context, userId)),
           ],
         ]),

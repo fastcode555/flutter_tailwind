@@ -3,7 +3,7 @@ part of 'text.dart';
 mixin TextFeature {
   Color? _decorationColor;
   FontStyle? _fontStyle;
-  String? fontFamily;
+  String? innerFontFamily;
   double? _decorationThickness;
   List<String>? _fontFamilyFallback;
   double? _letterSpacing;
@@ -27,6 +27,8 @@ extension TextCommonFeatureExt<T extends TextFeature> on T {
   T get softWrap => this.._softWrap = true;
 
   T fontFamilyFallback(List<String>? fontFamilyFallback) => this.._fontFamilyFallback = fontFamilyFallback;
+
+  T fontFamily(String fontFamily) => this..innerFontFamily = fontFamily;
 
   T letterSpacing(double? letterSpacing) => this.._letterSpacing = letterSpacing;
 

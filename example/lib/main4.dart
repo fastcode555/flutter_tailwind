@@ -62,6 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: p16,
         child: Column(
           children: [
+            container.borderT10.white.borderRed.border1.borderB0.s200.mk,
+            container.borderB10.white.borderGreen.border1.borderT0.s200.mk,
+            container.borderLeft(1, Colors.green).borderRight(2, Colors.amberAccent).white.s200.mk,
             base64Pic.image.s100.rounded16.borderBlack.border2.mk,
             fishes.image.circle.borderOrange.s100.border2.mk,
             _link.image.s100.mk,

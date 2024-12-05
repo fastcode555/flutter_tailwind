@@ -50,6 +50,9 @@ mixin MarginBuilder {
 extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   T margin(EdgeInsetsGeometry? padding) => this.._innerMargin = padding;
 
+  ///set the margin value is value
+  T m(double value) => this..marginValue = value;
+
   ///set the margin value is 2
   T get m2 => this..marginValue = 2.r;
 
@@ -201,6 +204,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   T get m100 => this..marginValue = 100.r;
 
   /// set the margin left is 2
+  T ml(double value) => this..marginLeft = value;
+
+  /// set the margin left is 2
   T get ml2 => this..marginLeft = 2.r;
 
   /// set the margin left is 4
@@ -349,6 +355,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin left is 100
   T get ml100 => this..marginLeft = 100.r;
+
+  /// set the margin right is value
+  T mr(double value) => this..marginRight = value;
 
   /// set the margin right is 2
   T get mr2 => this..marginRight = 2.r;
@@ -501,6 +510,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   T get mr100 => this..marginRight = 100.r;
 
   /// set the margin top is 2
+  T mt(double value) => this..marginTop = value;
+
+  /// set the margin top is 2
   T get mt2 => this..marginTop = 2.r;
 
   /// set the margin top is 4
@@ -649,6 +661,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin top is 100
   T get mt100 => this..marginTop = 100.r;
+
+  /// set the margin bottom is 2
+  T mb(double value) => this..marginBottom = value;
 
   /// set the margin bottom is 2
   T get mb2 => this..marginBottom = 2.r;
@@ -801,6 +816,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
   T get mb100 => this..marginBottom = 100.r;
 
   /// set the margin horizontal value is 2
+  T mh(double value) => this..marginHorizontal = value;
+
+  /// set the margin horizontal value is 2
   T get mh2 => this..marginHorizontal = 2.r;
 
   /// set the margin horizontal value is 4
@@ -949,6 +967,9 @@ extension MarginBuilderBuilderExt<T extends MarginBuilder> on T {
 
   /// set the margin horizontal is 100
   T get mh100 => this..marginHorizontal = 100.r;
+
+  /// set the margin vertical value is value
+  T mv(double value) => this..marginVertical = value;
 
   /// set the margin vertical value is 2
   T get mv2 => this..marginVertical = 2.r;

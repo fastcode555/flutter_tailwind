@@ -52,14 +52,20 @@ class _BoxDecorationBuilder
 
   BoxBorder? get _internalBorder {
     if (_border != null) return _border;
-    if (borderColor != null) {
-      return Border.all(color: borderColor!, width: innerBorderWidth ?? 1.0);
-    }
+    final borderTop = innerBorderT ?? innerBorderWidth ?? 0;
+    final borderLeft = innerBorderL ?? innerBorderWidth ?? 0;
+    final borderRight = innerBorderR ?? innerBorderWidth ?? 0;
+    final borderBottom = innerBorderB ?? innerBorderWidth ?? 0;
+
+    final borderT = BorderSide(color: innerBorderTColor ?? borderColor ?? Colors.white, width: borderTop);
+    final borderL = BorderSide(color: innerBorderLColor ?? borderColor ?? Colors.white, width: borderLeft);
+    final borderR = BorderSide(color: innerBorderRColor ?? borderColor ?? Colors.white, width: borderRight);
+    final borderB = BorderSide(color: innerBorderBColor ?? borderColor ?? Colors.white, width: borderBottom);
     return Border(
-      top: _borderTop ?? BorderSide.none,
-      bottom: _borderBottom ?? BorderSide.none,
-      left: _borderLeft ?? BorderSide.none,
-      right: _borderRight ?? BorderSide.none,
+      top: _borderTop ?? (borderTop <= 0 ? BorderSide.none : borderT),
+      bottom: _borderBottom ?? (borderBottom <= 0 ? BorderSide.none : borderB),
+      left: _borderLeft ?? (borderLeft <= 0 ? BorderSide.none : borderL),
+      right: _borderRight ?? (borderRight<= 0 ? BorderSide.none : borderR),
     );
   }
 
@@ -172,12 +178,6 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         OpacityBuilder,
         ExpandedBuilder,
         KeyBuilder {
-  BoxBorder? _border;
-  BorderSide? _borderLeft;
-  BorderSide? _borderRight;
-  BorderSide? _borderTop;
-  BorderSide? _borderBottom;
-
   BorderRadiusGeometry? get _internalBorderRadius {
     if (isCircle) return null;
     if (hasRadius) {
@@ -186,18 +186,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     return null;
   }
 
-  BoxBorder? get _internalBorder {
-    if (_border != null) return _border;
-    if (borderColor != null) {
-      return Border.all(color: borderColor.opacity(innerOpacity)!, width: innerBorderWidth ?? 1.0);
-    }
-    return Border(
-      top: _borderTop ?? BorderSide.none,
-      bottom: _borderBottom ?? BorderSide.none,
-      left: _borderLeft ?? BorderSide.none,
-      right: _borderRight ?? BorderSide.none,
-    );
-  }
+  BoxBorder? get _internalBorder => createBorder(borderColor);
 
   bool get _useContainer =>
       width != null || height != null || size != null || hasPadding || hasMargin || alignment != null;

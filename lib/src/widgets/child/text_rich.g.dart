@@ -31,7 +31,7 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
               decorationStyle: _decorationStyle,
               decorationColor: _decorationColor.opacity(innerOpacity),
               fontStyle: _fontStyle,
-              fontFamily: fontFamily,
+              fontFamily: innerFontFamily,
               decorationThickness: _decorationThickness,
               fontWeight: fontWeight,
               textBaseline: textBaseline,

@@ -29,6 +29,10 @@ extension PositionedBuilderBuilderExt<T extends PositionedBuilder> on T {
 
   T t(double value) => this..top = value;
 
+  T get l0 => this..left = 0.r;
+
+  T get l1 => this..left = 1.r;
+
   T get l2 => this..left = 2.r;
 
   /// set the margin left is 4
@@ -177,6 +181,12 @@ extension PositionedBuilderBuilderExt<T extends PositionedBuilder> on T {
 
   /// set the margin left is 100
   T get l100 => this..left = 100.r;
+
+  /// set the margin right is 0
+  T get r0 => this..right = 0.r;
+
+  /// set the margin right is 1
+  T get r1 => this..right = 1.r;
 
   /// set the margin right is 2
   T get r2 => this..right = 2.r;
@@ -328,6 +338,12 @@ extension PositionedBuilderBuilderExt<T extends PositionedBuilder> on T {
   /// set the margin right is 100
   T get r100 => this..right = 100.r;
 
+  /// set the margin top is 1
+  T get t0 => this..top = 0.r;
+
+  /// set the margin top is 1
+  T get t1 => this..top = 1.r;
+
   /// set the margin top is 2
   T get t2 => this..top = 2.r;
 
@@ -477,6 +493,12 @@ extension PositionedBuilderBuilderExt<T extends PositionedBuilder> on T {
 
   /// set the margin top is 100
   T get t100 => this..top = 100.r;
+
+  /// set the margin bottom is 0
+  T get b0 => this..bottom = 0.r;
+
+  /// set the margin bottom is 1
+  T get b1 => this..bottom = 1.r;
 
   /// set the margin bottom is 2
   T get b2 => this..bottom = 2.r;
