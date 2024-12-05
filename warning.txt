@@ -65,6 +65,35 @@ container.s(167).mk  // 宽高相同
 2. 特殊尺寸才使用自定义方法
 3. 所有支持大小设置的组件都遵循相同的使用方式
 
+### 1.1.2 Container 使用限制
+对于复杂的 Container 属性，建议使用 Flutter 原生写法：
+
+// ❌ 不要使用 flutter_tailwind 风格
+```dart
+// 不支持复杂变换和渐变等属性
+container.transform(...).gradient(...).maxWidth(...).mk
+```
+
+// ✅ 直接使用 Flutter Container
+```dart
+Container(
+  transform: Matrix4.rotationZ(0.1),
+  constraints: BoxConstraints(maxWidth: 200),
+  decoration: BoxDecoration(
+    gradient: LinearGradient(colors: [Colors.red, Colors.blue]),
+  ),
+  child: widget,
+)
+```
+
+注意：以下复杂属性请使用 Flutter 原生 Container：
+1. transform: 变换矩阵
+2. maxWidth/maxHeight: 最大尺寸约束
+3. gradient: 渐变色
+4. constraints: 尺寸约束
+5. clipBehavior: 裁剪行为
+6. 其他需要精细控制的复杂属性
+
 ### 1.2 Text
 // 基本用法
 "文本内容".text.f16.bold.grey.mk
@@ -238,7 +267,7 @@ R.icLogo.svg.black.s24.iconClick()
 // 基本用法
 checkBox.blue.onChanged(false, _onChanged)
 
-// 带边框
+// 带框
 checkBox.blue.borderBlack.onChanged(false, _onChanged)
 
 // 圆形
@@ -290,7 +319,7 @@ Container(
 
 // 常用性
 - 预定义样式: decorMain, decorTradition
-- 透明度: opacity50
+- 透明��: opacity50
 - 圆形: circle
 - 阴影: cardShadow
 - 边框: border5, borderBrown
@@ -361,7 +390,7 @@ column.grey100.ph16.pv8.w200.children([
 - 间距: spaceEvenly
 
 ### 2.3 ListView
-// 基本用法
+// 本用法
 listview.separated16.builder(
   itemCount,
   (context, index) => widget,
@@ -448,7 +477,7 @@ stack.red.p16.h200.children([
 ## 3. 间距使用
 
 ### 3.1 Padding
-// 支持的方向
+// ✅ 支持的写法
 - p16: 所有方向
 - ph16: 水平方向
 - pv16: 垂直方向
@@ -457,7 +486,23 @@ stack.red.p16.h200.children([
 - pl16: 左侧
 - pr16: 右侧
 
-注意：不支持 px, py, all 等写法
+// ❌ 不支持的写法
+1. 不支持 px, py:
+   - px16  // ❌ 错误，使用 ph16 代替
+   - py16  // ❌ 错误，使用 pv16 代替
+
+2. 不支持 all:
+   - all16  // ❌ 错误，使用 p16 代替
+   - all8   // ❌ 错误，使用 p8 代替
+
+// 示例
+// ❌ 错误写法
+container.px16.py8.child(widget)
+container.all16.child(widget)
+
+// ✅ 正确写法
+container.ph16.pv8.child(widget)
+container.p16.child(widget)
 
 ### 3.1.1 Padding组件
 // 基本用法
@@ -494,7 +539,7 @@ h4, h8, h12, h16
 
 ### 4.1 基础颜色
 - 基础颜色: red, blue, green, yellow 等
-- ��度颜色: grey, black, white 等
+- 度颜色: grey, black, white 等
 - Material 颜色: redAccent, blueAccent 等
 
 ### 4.2 颜色色阶支持
@@ -551,7 +596,7 @@ h4, h8, h12, h16
 1. 链式调用顺序：
    - 颜色放最前面
    - 布局样式放中间
-   - children/child 放在 click 前面
+   - children/child ���在 click 前面
    - click 永远放最后
 
 2. mk 的使用：
@@ -611,7 +656,7 @@ h4, h8, h12, h16
 
 5. 边框颜色写法错误：
    // ❌ 错误
-   container.border1.red  // 错误：直接使用颜色名
+   container.border1.red  // 错���：直接使用颜色名
    
    // ✅ 正确
    container.border1.borderRed  // 正确：使用 border 前缀
@@ -619,7 +664,7 @@ h4, h8, h12, h16
 ## 7. 性能优化建议
 
 1. 使用 const 构造器
-2. 合理拆��组件
+2. 合理拆组件
 3. 避免不必要的重建
 4. 使用 ListView.builder 而不是 ListView
 5. 图片加载使用 CacheNetworkImage
@@ -668,7 +713,7 @@ extension SizeExt<T extends SizeBuilder> on T {
 2. 文本特性扩展 (TextFeature)
 ```dart
 extension TextFeatureExt<T extends TextFeature> on T {
-  // 添加自定义字体
+  // 添加自定义字
   T get conther => this..fontFamily = R.conther;
 }
 ```
@@ -712,7 +757,7 @@ extension DecorationExt<T extends CompleteDecoration> on T {
   T get decorMain => this
     ..decoration = bd.greenAccent.circle.borderBrown.customShadow.border5.mk;
 
-  // 使用传统方式定义装饰器
+  // 使用传统方式���义装饰器
   T get decorTradition => this
     ..decoration = BoxDecoration(
       color: Colors.greenAccent,
@@ -759,7 +804,7 @@ bd.red.rounded8.mk  // 红色背景，8dp圆角
 // 2. 常用组合
 bd.white.rounded16.cardShadow.mk  // 白色卡片样式
 bd.grey100.circle.mk  // 圆形灰色背景
-bd.transparent.border1.borderGrey.mk  // 透明背景带边框
+bd.transparent.border1.borderGrey.mk  // ��明背景带边框
 bd.greenAccent.borderBrown.rounded8.border5.mk  // 复杂装饰样式
 
 // 3. 在容器中使用
