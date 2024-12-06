@@ -17,6 +17,7 @@ class FacebookSettingsDetailPage extends StatelessWidget {
       body: ListView(
         children: [
           if (title == '隐私设置') _buildPrivacySettings(),
+          if (title == '安全和登录') _buildSecuritySettings(),
           if (title == '通知') _buildNotificationSettings(),
           if (title == '语言') _buildLanguageSettings(),
           if (title == '深色模式') _buildDarkModeSettings(),
@@ -36,6 +37,21 @@ class FacebookSettingsDetailPage extends StatelessWidget {
         _buildSelectItem('谁可以看到我的好友列表', '所有人'),
         _buildSelectItem('谁可以看到我的生日', '仅好友'),
         _buildSelectItem('谁可以给我发消息', '所有人'),
+      ]),
+    ]);
+  }
+
+  Widget _buildSecuritySettings() {
+    return column.children([
+      _buildSection('登录安全', [
+        _buildSelectItem('双重认证', '已开启'),
+        _buildSelectItem('登录提醒', '已开启'),
+        _buildActionItem('修改密码'),
+      ]),
+      h8,
+      _buildSection('设备管理', [
+        _buildActionItem('当前登录设备'),
+        _buildActionItem('登录记录'),
       ]),
     ]);
   }
@@ -112,6 +128,17 @@ class FacebookSettingsDetailPage extends StatelessWidget {
             w8,
             Icons.chevron_right.icon.grey600.s24.mk,
           ]),
+        ]),
+      ),
+    );
+  }
+
+  Widget _buildActionItem(String label) {
+    return container.borderB1.borderGrey200.child(
+      container.p16.child(
+        row.spaceBetween.children([
+          label.text.f16.mk,
+          Icons.chevron_right.icon.grey600.s24.mk,
         ]),
       ),
     );

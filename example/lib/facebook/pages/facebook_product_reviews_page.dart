@@ -47,7 +47,7 @@ class FacebookProductReviewsPage extends StatelessWidget {
                 '物流快(98)',
                 '服务好(76)',
                 '性价比高(45)',
-              ].map((e) => _buildTag(e)).toList(),
+              ].map(_buildTag).toList(),
             ),
           ),
           h8,

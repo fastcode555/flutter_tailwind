@@ -50,7 +50,7 @@ class FacebookProductFilterPage extends StatelessWidget {
                   '1000-3000',
                   '3000-5000',
                   '5000以上',
-                ].map((e) => _buildPriceTag(e)).toList(),
+                ].map(_buildPriceTag).toList(),
               ),
             ]),
           ),
@@ -67,7 +67,7 @@ class FacebookProductFilterPage extends StatelessWidget {
                 'Xiaomi',
                 'OPPO',
                 'VIVO',
-              ].map((e) => _buildBrandTag(e)).toList(),
+              ].map(_buildBrandTag).toList(),
             ),
           ),
           // 商品状态
@@ -82,7 +82,7 @@ class FacebookProductFilterPage extends StatelessWidget {
                 '95新',
                 '9成新',
                 '8成新',
-              ].map((e) => _buildConditionTag(e)).toList(),
+              ].map(_buildConditionTag).toList(),
             ),
           ),
           // 更多筛选

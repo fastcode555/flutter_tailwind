@@ -26,10 +26,8 @@ class FacebookProfileEditPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     'https://picsum.photos/200'.image.s100.circle.mk,
-                    Positioned(
-                      right: 0,
-                      bottom: 0,
-                      child: container.s32.circle.blue.center.child(
+                    positioned.r0.b0.child(
+                      container.s32.circle.blue.center.child(
                         Icons.camera_alt.icon.white.s20.mk,
                       ),
                     ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import '../routes/app_routes.dart';
 
 class FacebookStoryCreatePage extends StatefulWidget {
   const FacebookStoryCreatePage({super.key});
@@ -14,7 +13,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
   String _text = '';
   Color _textColor = Colors.white;
   double _fontSize = 24;
-  Color _backgroundColor = Colors.black;
+  final Color _backgroundColor = Colors.black;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +27,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: [
-          container.blue.rounded8.p12.ph16.m8.center
-              .child("分享故事".text.white.f14.bold.mk)
-              .click(onTap: _shareStory),
+          container.blue.rounded8.p12.ph16.m8.center.child('分享故事'.text.white.f14.bold.mk).click(onTap: _shareStory),
         ],
       ),
       body: Stack(
@@ -39,7 +36,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
           if (_selectedImage != null)
             _selectedImage!.image.wFull.hFull.cover.mk
           else
-            container.wFull.hFull.color(_backgroundColor),
+            container.wFull.hFull.color(_backgroundColor).mk,
 
           // 文字内容
           if (_text.isNotEmpty)
@@ -54,9 +51,9 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
                 // 文字输入框
                 container.white12.rounded24.p12.child(
                   TextField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      hintText: "输入文字...",
+                    style: const TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                      hintText: '输入文字...',
                       hintStyle: TextStyle(color: Colors.white70),
                       border: InputBorder.none,
                     ),
@@ -70,22 +67,22 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
                   child: row.children([
                     _buildToolButton(
                       Icons.image,
-                      "添加图片",
+                      '添加图片',
                       onTap: _pickImage,
                     ),
                     _buildToolButton(
                       Icons.color_lens,
-                      "文字颜色",
+                      '文字颜色',
                       onTap: _showColorPicker,
                     ),
                     _buildToolButton(
                       Icons.text_fields,
-                      "字体大小",
+                      '字体大小',
                       onTap: _showFontSizeOptions,
                     ),
                     _buildToolButton(
                       Icons.format_paint,
-                      "背景颜色",
+                      '背景颜色',
                       onTap: _showBackgroundColorPicker,
                     ),
                   ]),
@@ -105,18 +102,16 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
   }) {
     return container.mr16.child(
       column.center.children([
-        container.s50.circle.black54.center
-            .child(icon.icon.white.s24.mk)
-            .click(onTap: onTap),
+        container.s50.circle.black54.center.child(icon.icon.white.s24.mk).click(onTap: onTap),
         h8,
         label.text.white.f12.mk,
       ]),
     );
   }
 
-  void _pickImage() async {
+  Future<void> _pickImage() async {
     // TODO: 实现图片选择
-    setState(() => _selectedImage = "https://picsum.photos/500/800");
+    setState(() => _selectedImage = 'https://picsum.photos/500/800');
   }
 
   void _showColorPicker() {
@@ -125,7 +120,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
       backgroundColor: Colors.transparent,
       builder: (context) => container.white.roundedT16.p16.child(
         column.crossStart.children([
-          "文字颜色".text.f16.bold.mk,
+          '文字颜色'.text.f16.bold.mk,
           h16,
           Wrap(
             spacing: 16,
@@ -139,7 +134,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
               Colors.yellow,
               Colors.purple,
               Colors.orange,
-            ].map((color) => _buildColorOption(color)).toList(),
+            ].map(_buildColorOption).toList(),
           ),
         ]),
       ),
@@ -147,14 +142,10 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
   }
 
   Widget _buildColorOption(Color color) {
-    return container.s50.circle
-        .color(color)
-        .border2
-        .borderGrey200
-        .click(onTap: () {
-          setState(() => _textColor = color);
-          Navigator.pop(context);
-        });
+    return container.s50.circle.color(color).border2.borderGrey200.click(onTap: () {
+      setState(() => _textColor = color);
+      Navigator.pop(context);
+    });
   }
 
   void _showFontSizeOptions() {
@@ -163,7 +154,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
       backgroundColor: Colors.transparent,
       builder: (context) => container.white.roundedT16.p16.child(
         column.crossStart.children([
-          "字体大小".text.f16.bold.mk,
+          '字体大小'.text.f16.bold.mk,
           h16,
           Slider(
             value: _fontSize,
@@ -184,7 +175,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
       backgroundColor: Colors.transparent,
       builder: (context) => container.white.roundedT16.p16.child(
         column.crossStart.children([
-          "背景颜色".text.f16.bold.mk,
+          '背景颜色'.text.f16.bold.mk,
           h16,
           Wrap(
             spacing: 16,
@@ -198,7 +189,7 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
               Colors.orange,
               Colors.teal,
               Colors.indigo,
-            ].map((color) => _buildColorOption(color)).toList(),
+            ].map(_buildColorOption).toList(),
           ),
         ]),
       ),

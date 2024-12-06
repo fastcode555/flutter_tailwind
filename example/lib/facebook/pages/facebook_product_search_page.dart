@@ -26,7 +26,7 @@ class FacebookProductSearchPage extends StatelessWidget {
             column.crossStart.children([
               row.spaceBetween.children([
                 '搜索历史'.text.grey600.f14.mk,
-                '清空'.text.grey600.f14.mk.click(onTap: () => _clearHistory()),
+                '清空'.text.grey600.f14.mk.click(onTap: _clearHistory),
               ]),
               h16,
               Wrap(

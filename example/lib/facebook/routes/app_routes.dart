@@ -1,31 +1,50 @@
 import 'package:example/facebook/models/post.dart';
 import 'package:example/facebook/models/product.dart';
 import 'package:example/facebook/models/story.dart';
+import 'package:example/facebook/pages/facebook_about_page.dart';
+import 'package:example/facebook/pages/facebook_app_rating_page.dart';
+import 'package:example/facebook/pages/facebook_app_share_page.dart';
+import 'package:example/facebook/pages/facebook_archived_content_page.dart';
+import 'package:example/facebook/pages/facebook_block_list_page.dart';
 import 'package:example/facebook/pages/facebook_chat_detail_page.dart';
 import 'package:example/facebook/pages/facebook_chat_settings_page.dart';
+import 'package:example/facebook/pages/facebook_check_update_page.dart';
 import 'package:example/facebook/pages/facebook_comment_reply_page.dart';
 import 'package:example/facebook/pages/facebook_comments_page.dart';
+import 'package:example/facebook/pages/facebook_feedback_page.dart';
 import 'package:example/facebook/pages/facebook_friends_page.dart';
+import 'package:example/facebook/pages/facebook_help_center_page.dart';
 import 'package:example/facebook/pages/facebook_image_edit_page.dart';
 import 'package:example/facebook/pages/facebook_image_preview_page.dart';
+import 'package:example/facebook/pages/facebook_login_history_page.dart';
+import 'package:example/facebook/pages/facebook_login_page.dart';
 import 'package:example/facebook/pages/facebook_main_page.dart';
 import 'package:example/facebook/pages/facebook_messenger_page.dart';
 import 'package:example/facebook/pages/facebook_notifications_page.dart';
+import 'package:example/facebook/pages/facebook_open_source_page.dart';
 import 'package:example/facebook/pages/facebook_post_detail_page.dart';
 import 'package:example/facebook/pages/facebook_post_edit_page.dart';
+import 'package:example/facebook/pages/facebook_privacy_policy_page.dart';
 import 'package:example/facebook/pages/facebook_product_category_page.dart';
 import 'package:example/facebook/pages/facebook_product_detail_page.dart';
+import 'package:example/facebook/pages/facebook_profile_edit_page.dart';
 import 'package:example/facebook/pages/facebook_search_results_page.dart';
+import 'package:example/facebook/pages/facebook_settings_detail_page.dart';
 import 'package:example/facebook/pages/facebook_settings_page.dart';
 import 'package:example/facebook/pages/facebook_story_create_page.dart';
 import 'package:example/facebook/pages/facebook_story_view_page.dart';
+import 'package:example/facebook/pages/facebook_update_log_page.dart';
+import 'package:example/facebook/pages/facebook_user_agreement_page.dart';
 import 'package:example/facebook/pages/facebook_user_profile_page.dart';
 import 'package:example/facebook/pages/facebook_video_call_page.dart';
 import 'package:example/facebook/pages/facebook_voice_call_page.dart';
+import 'package:example/facebook/pages/facebook_register_page.dart';
+import 'package:example/facebook/pages/facebook_forgot_password_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
-  static const String main = '/';
+  static const String root = '/';
+  static const String main = '/main';
   static const String messenger = '/messenger';
   static const String notifications = '/notifications';
   static const String friends = '/friends';
@@ -46,11 +65,35 @@ class AppRoutes {
   static const String imagePreview = '/image/preview';
   static const String productDetail = '/product/detail';
   static const String productCategory = '/product/category';
+  static const String settingsDetail = '/settings/detail';
+  static const String blockList = '/settings/block-list';
+  static const String archivedContent = '/settings/archived-content';
+  static const String loginHistory = '/settings/login-history';
+  static const String helpCenter = '/settings/help-center';
+  static const String feedback = '/settings/feedback';
+  static const String about = '/settings/about';
+  static const String userAgreement = '/settings/user-agreement';
+  static const String privacyPolicy = '/settings/privacy-policy';
+  static const String openSource = '/settings/open-source';
+  static const String updateLog = '/settings/update-log';
+  static const String appRating = '/settings/app-rating';
+  static const String appShare = '/settings/app-share';
+  static const String checkUpdate = '/settings/check-update';
+  static const String profileEdit = '/profile/edit';
+  static const String login = '/login';
+  static const String register = '/register';
+  static const String forgotPassword = '/forgot-password';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case root:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookLoginPage(),
+        );
       case main:
-        return MaterialPageRoute(builder: (_) => const FacebookMainPage());
+        return MaterialPageRoute(
+          builder: (_) => const FacebookMainPage(),
+        );
       case messenger:
         return MaterialPageRoute(builder: (_) => const FacebookMessengerPage());
       case notifications:
@@ -132,6 +175,81 @@ class AppRoutes {
         final category = settings.arguments! as String;
         return MaterialPageRoute(
           builder: (_) => FacebookProductCategoryPage(category: category),
+        );
+      case settingsDetail:
+        final args = settings.arguments! as Map<String, dynamic>;
+        return MaterialPageRoute(
+          builder: (_) => FacebookSettingsDetailPage(
+            title: args['title'] as String,
+          ),
+        );
+      case blockList:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookBlockListPage(),
+        );
+      case archivedContent:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookArchivedContentPage(),
+        );
+      case loginHistory:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookLoginHistoryPage(),
+        );
+      case helpCenter:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookHelpCenterPage(),
+        );
+      case feedback:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookFeedbackPage(),
+        );
+      case about:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookAboutPage(),
+        );
+      case userAgreement:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookUserAgreementPage(),
+        );
+      case privacyPolicy:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookPrivacyPolicyPage(),
+        );
+      case openSource:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookOpenSourcePage(),
+        );
+      case updateLog:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookUpdateLogPage(),
+        );
+      case appRating:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookAppRatingPage(),
+        );
+      case appShare:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookAppSharePage(),
+        );
+      case checkUpdate:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookCheckUpdatePage(),
+        );
+      case profileEdit:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookProfileEditPage(),
+        );
+      case login:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookLoginPage(),
+        );
+      case register:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookRegisterPage(),
+        );
+      case forgotPassword:
+        return MaterialPageRoute(
+          builder: (_) => const FacebookForgotPasswordPage(),
         );
       default:
         return MaterialPageRoute(
@@ -282,5 +400,94 @@ class AppRoutes {
 
   static void toProductCategory(BuildContext context, String category) {
     Navigator.pushNamed(context, productCategory, arguments: category);
+  }
+
+  static void toSettingsDetail(BuildContext context, String title) {
+    Navigator.pushNamed(
+      context,
+      settingsDetail,
+      arguments: {'title': title},
+    );
+  }
+
+  static void toBlockList(BuildContext context) {
+    Navigator.pushNamed(context, blockList);
+  }
+
+  static void toArchivedContent(BuildContext context) {
+    Navigator.pushNamed(context, archivedContent);
+  }
+
+  static void toLoginHistory(BuildContext context) {
+    Navigator.pushNamed(context, loginHistory);
+  }
+
+  static void toHelpCenter(BuildContext context) {
+    Navigator.pushNamed(context, helpCenter);
+  }
+
+  static void toFeedback(BuildContext context) {
+    Navigator.pushNamed(context, feedback);
+  }
+
+  static void toAbout(BuildContext context) {
+    Navigator.pushNamed(context, about);
+  }
+
+  static void toUserAgreement(BuildContext context) {
+    Navigator.pushNamed(context, userAgreement);
+  }
+
+  static void toPrivacyPolicy(BuildContext context) {
+    Navigator.pushNamed(context, privacyPolicy);
+  }
+
+  static void toOpenSource(BuildContext context) {
+    Navigator.pushNamed(context, openSource);
+  }
+
+  static void toUpdateLog(BuildContext context) {
+    Navigator.pushNamed(context, updateLog);
+  }
+
+  static void toAppRating(BuildContext context) {
+    Navigator.pushNamed(context, appRating);
+  }
+
+  static void toAppShare(BuildContext context) {
+    Navigator.pushNamed(context, appShare);
+  }
+
+  static void toCheckUpdate(BuildContext context) {
+    Navigator.pushNamed(context, checkUpdate);
+  }
+
+  static void toProfileEdit(BuildContext context) {
+    Navigator.pushNamed(context, profileEdit);
+  }
+
+  static void toLogin(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      login,
+      (route) => false,
+    );
+  }
+
+  static void toMain(BuildContext context) {
+    // 清除所有路由并导航到主页
+    Navigator.pushNamedAndRemoveUntil(
+      context, 
+      main,
+      (route) => false,
+    );
+  }
+
+  static void toRegister(BuildContext context) {
+    Navigator.pushNamed(context, register);
+  }
+
+  static void toForgotPassword(BuildContext context) {
+    Navigator.pushNamed(context, forgotPassword);
   }
 }

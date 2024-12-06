@@ -53,7 +53,7 @@ class FacebookUserProfilePage extends StatelessWidget {
                       '发消息'.text.grey800.f14.bold.mk,
                     ),
                     w8,
-                    container.grey200.rounded8.p12.w40.center.child(
+                    container.grey200.rounded8.p12.center.child(
                       Icons.more_horiz.icon.grey800.s24.mk,
                     ),
                   ]),
@@ -83,7 +83,7 @@ class FacebookUserProfilePage extends StatelessWidget {
                     '查看全部'.text.blue.f14.mk,
                   ]),
                   h16,
-                  container.h200.child(
+                  container.h400.child(
                     GridView.count(
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 3,
@@ -107,11 +107,12 @@ class FacebookUserProfilePage extends StatelessWidget {
                     '查看全部'.text.blue.f14.mk,
                   ]),
                   h16,
-                  container.h200.child(
+                  container.h300.child(
                     GridView.count(
                       physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 3,
                       mainAxisSpacing: 8,
+                      childAspectRatio: 0.8,
                       crossAxisSpacing: 8,
                       children: List.generate(
                         6,
@@ -128,7 +129,7 @@ class FacebookUserProfilePage extends StatelessWidget {
               ),
               h8,
               // 帖子列表
-              container.white.p16.child(
+              container.white.p16.wFull.child(
                 column.crossStart.children([
                   '帖子'.text.f16.bold.mk,
                   h16,
