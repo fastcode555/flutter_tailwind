@@ -8,6 +8,8 @@ class Product {
   final String category;
   final String condition;
   final String description;
+  final bool isFavorite;
+  final int favoriteCount;
 
   Product({
     required this.imageUrl,
@@ -19,7 +21,37 @@ class Product {
     required this.category,
     required this.condition,
     required this.description,
+    this.isFavorite = false,
+    this.favoriteCount = 0,
   });
+
+  Product copyWith({
+    String? imageUrl,
+    String? name,
+    double? price,
+    String? location,
+    String? sellerAvatar,
+    String? sellerName,
+    String? category,
+    String? condition,
+    String? description,
+    bool? isFavorite,
+    int? favoriteCount,
+  }) {
+    return Product(
+      imageUrl: imageUrl ?? this.imageUrl,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      location: location ?? this.location,
+      sellerAvatar: sellerAvatar ?? this.sellerAvatar,
+      sellerName: sellerName ?? this.sellerName,
+      category: category ?? this.category,
+      condition: condition ?? this.condition,
+      description: description ?? this.description,
+      isFavorite: isFavorite ?? this.isFavorite,
+      favoriteCount: favoriteCount ?? this.favoriteCount,
+    );
+  }
 }
 
 final products = [

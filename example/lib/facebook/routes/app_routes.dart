@@ -1,4 +1,5 @@
 import 'package:example/facebook/models/post.dart';
+import 'package:example/facebook/models/product.dart';
 import 'package:example/facebook/models/story.dart';
 import 'package:example/facebook/pages/facebook_chat_detail_page.dart';
 import 'package:example/facebook/pages/facebook_chat_settings_page.dart';
@@ -12,6 +13,8 @@ import 'package:example/facebook/pages/facebook_messenger_page.dart';
 import 'package:example/facebook/pages/facebook_notifications_page.dart';
 import 'package:example/facebook/pages/facebook_post_detail_page.dart';
 import 'package:example/facebook/pages/facebook_post_edit_page.dart';
+import 'package:example/facebook/pages/facebook_product_category_page.dart';
+import 'package:example/facebook/pages/facebook_product_detail_page.dart';
 import 'package:example/facebook/pages/facebook_search_results_page.dart';
 import 'package:example/facebook/pages/facebook_settings_page.dart';
 import 'package:example/facebook/pages/facebook_story_create_page.dart';
@@ -41,6 +44,8 @@ class AppRoutes {
   static const String chatSettings = '/chat-settings';
   static const String userProfile = '/user/profile';
   static const String imagePreview = '/image/preview';
+  static const String productDetail = '/product/detail';
+  static const String productCategory = '/product/category';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -117,6 +122,16 @@ class AppRoutes {
             imageUrls: args['imageUrls'] as List<String>,
             initialIndex: args['initialIndex'] as int? ?? 0,
           ),
+        );
+      case productDetail:
+        final product = settings.arguments! as Product;
+        return MaterialPageRoute(
+          builder: (_) => FacebookProductDetailPage(product: product),
+        );
+      case productCategory:
+        final category = settings.arguments! as String;
+        return MaterialPageRoute(
+          builder: (_) => FacebookProductCategoryPage(category: category),
         );
       default:
         return MaterialPageRoute(
@@ -197,7 +212,8 @@ class AppRoutes {
     Navigator.pushNamed(context, postEdit);
   }
 
-  static void toVoiceCall(BuildContext context, {
+  static void toVoiceCall(
+    BuildContext context, {
     required String userName,
     required String userAvatar,
   }) {
@@ -211,7 +227,8 @@ class AppRoutes {
     );
   }
 
-  static void toVideoCall(BuildContext context, {
+  static void toVideoCall(
+    BuildContext context, {
     required String userName,
     required String userAvatar,
   }) {
@@ -225,7 +242,8 @@ class AppRoutes {
     );
   }
 
-  static void toChatSettings(BuildContext context, {
+  static void toChatSettings(
+    BuildContext context, {
     required String userName,
     required String userAvatar,
   }) {
@@ -257,4 +275,12 @@ class AppRoutes {
       },
     );
   }
-} 
+
+  static void toProductDetail(BuildContext context, Product product) {
+    Navigator.pushNamed(context, productDetail, arguments: product);
+  }
+
+  static void toProductCategory(BuildContext context, String category) {
+    Navigator.pushNamed(context, productCategory, arguments: category);
+  }
+}

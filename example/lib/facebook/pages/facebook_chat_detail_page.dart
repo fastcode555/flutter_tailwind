@@ -124,9 +124,7 @@ class FacebookChatDetailPage extends StatelessWidget {
         row.crossStart.children([
           if (!isSelf) ...[
             container.s32.circle
-                .child(
-                  avatar.image.s32.circle.mk,
-                )
+                .child(avatar.image.s32.circle.mk)
                 .click(onTap: () => AppRoutes.toUserProfile(context, userId)),
             w8,
           ],
