@@ -8,6 +8,12 @@ part 'tailwind_ext.g.dart';
 /// define the custom size here
 extension SizeExt<T extends SizeBuilder> on T {
   T get s121 => this..size = 121.r;
+
+  T get w500 => this..width = 500.w;
+
+  T get h600 => this..height = 600.h;
+
+  T get w600 => this..width = 600.w;
 }
 
 /// define the custom text feature here

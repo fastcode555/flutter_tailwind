@@ -35,6 +35,9 @@ dependencies:
   share_plus: ^10.1.2
   path_provider: ^2.1.1
   http: ^1.1.0
+  get: ^4.6.6
+  fl_chart: ^0.69.2
+  get_storage: ^2.1.1
 
   flutter_tailwind:
     path: ../

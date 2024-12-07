@@ -116,6 +116,9 @@ extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
   ///[FontWeight.bold]
   T get bold => this..fontWeight = FontWeight.bold;
 
+  ///[FontWeight.bold]
+  T isBold(bool isBold) => this..fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+
   ///[FontWeight.w800]
   T get extrabold => this..fontWeight = FontWeight.w800;
 

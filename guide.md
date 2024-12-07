@@ -406,7 +406,7 @@ listview.separated16.builder(
 
 ### 2.4 GridView
 // 基本用法
-gridview.crossAxisCount2.spacing16.builder(
+gridview.crossAxisCount2.p16.builder(
   itemCount,
   (context, index) => widget,
 )
@@ -418,13 +418,13 @@ gridview.staggered.childWidth50.spacing8.p8.shrinkWrap.builder(
 )
 
 // 固定列数的网格
-gridview.crossAxisCount4.spacing16.builder(
+gridview.crossAxisCount4.p16.builder(
   itemCount,
   (_, __) => widget,
 )
 
 // 固定子项宽度的网格
-gridview.childWidth100.spacing16.builder(
+gridview.childWidth100.p16.builder(
   itemCount,
   (_, __) => widget,
 )

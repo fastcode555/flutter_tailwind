@@ -16,7 +16,17 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the height
   T h(double height) => this..height = height;
 
+  /// set the size
   T s(double size) => this..size = size;
+
+  /// set the width
+  T width(double width) => this..width = width;
+
+  /// set the height
+  T height(double height) => this..height = height;
+
+  /// set the size
+  T size(double size) => this..size = size;
 
   double get _screenH => ScreenUtil().screenHeight;
 

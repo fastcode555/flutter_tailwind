@@ -35,7 +35,7 @@ class FacebookMarketplacePage extends StatelessWidget {
         ),
         // 商品列表
         Expanded(
-          child: gridview.crossAxisCount2.spacing16.p16.ratio80.builder(
+          child: gridview.crossAxisCount2.p16.p16.ratio80.builder(
             20,
             (context, index) => _buildProductItem(context),
           ),
