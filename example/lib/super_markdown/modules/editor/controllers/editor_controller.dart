@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class EditorController extends GetxController {
+  final controller = TextEditingController();
   final EditorService _editorService = Get.find();
   final MarkdownService _markdownService = Get.find();
 
@@ -22,6 +23,9 @@ class EditorController extends GetxController {
   void onTextChanged(String text) {
     _content.value = text;
     _editorService.setContent(text);
+    if (controller.text != text) {
+      controller.text = text;
+    }
   }
 
   // 保存文件
@@ -44,7 +48,6 @@ class EditorController extends GetxController {
       selection.end,
       '$prefix${text.substring(selection.start, selection.end)}$suffix',
     );
-
     onTextChanged(newText);
   }
 
@@ -214,7 +217,7 @@ ${selection.textInside(text)}
 
     // 检查是否已经是粗体
     final isBold = selectedText.startsWith('**') && selectedText.endsWith('**');
-    
+
     if (isBold) {
       // 移除粗体标记
       final newText = selectedText.substring(2, selectedText.length - 2);
@@ -234,9 +237,8 @@ ${selection.textInside(text)}
     final selectedText = text.substring(selection.start, selection.end);
 
     // 检查是否已经是斜体
-    final isItalic = selectedText.startsWith('*') && selectedText.endsWith('*') &&
-        !selectedText.startsWith('**');
-    
+    final isItalic = selectedText.startsWith('*') && selectedText.endsWith('*') && !selectedText.startsWith('**');
+
     if (isItalic) {
       // 移除斜体标记
       final newText = selectedText.substring(1, selectedText.length - 1);
@@ -283,10 +285,10 @@ ${selection.textInside(text)}
 
             // 匹配信息
             Obx(() => Text(
-              foundPositions.isEmpty
-                  ? '未找到匹配'
-                  : '找到 ${foundPositions.length} 处匹配 (${currentIndex.value + 1}/${foundPositions.length})',
-            )),
+                  foundPositions.isEmpty
+                      ? '未找到匹配'
+                      : '找到 ${foundPositions.length} 处匹配 (${currentIndex.value + 1}/${foundPositions.length})',
+                )),
           ],
         ),
         actions: [
@@ -370,10 +372,10 @@ ${selection.textInside(text)}
 
             // 匹配信息
             Obx(() => Text(
-              foundPositions.isEmpty
-                  ? '未找到匹配'
-                  : '找到 ${foundPositions.length} 处匹配 (${currentIndex.value + 1}/${foundPositions.length})',
-            )),
+                  foundPositions.isEmpty
+                      ? '未找到匹配'
+                      : '找到 ${foundPositions.length} 处匹配 (${currentIndex.value + 1}/${foundPositions.length})',
+                )),
           ],
         ),
         actions: [

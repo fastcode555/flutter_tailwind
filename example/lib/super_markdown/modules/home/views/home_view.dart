@@ -11,7 +11,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: container.p32.child(
-        column.children([
+        column.crossStart.children([
           // 标题
           row.spaceBetween.children([
             'Super Markdown'.text.f32.bold.mk,

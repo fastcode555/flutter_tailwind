@@ -58,6 +58,7 @@ class EditorView extends GetView<EditorController> {
 
   Widget _buildEditorArea() {
     return EditorArea(
+      controller: controller.controller,
       onChanged: controller.onTextChanged,
       onSave: controller.saveFile,
     );

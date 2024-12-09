@@ -11,9 +11,13 @@ import 'package:get/get.dart';
 class EditorArea extends StatefulWidget {
   final Function(String) onChanged;
   final VoidCallback onSave;
+  final TextEditingController controller;
 
   const EditorArea({
-    required this.onChanged, required this.onSave, super.key,
+    required this.onChanged,
+    required this.onSave,
+    required this.controller,
+    super.key,
   });
 
   @override
@@ -45,7 +49,7 @@ class _EditorAreaState extends State<EditorArea> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController()..addListener(_handleTextChange);
+    _controller = widget.controller..addListener(_handleTextChange);
     _focusNode = FocusNode();
   }
 
@@ -106,7 +110,7 @@ class _EditorAreaState extends State<EditorArea> {
     // 设置建议框位置（在光标下方）
     _suggestionPosition.value = Offset(
       globalPosition.dx,
-      globalPosition.dy + 24, // 光标高度
+      globalPosition.dy - 30, // 光标高度
     );
   }
 
@@ -130,7 +134,6 @@ class _EditorAreaState extends State<EditorArea> {
         offset: start + suggestion.length,
       ),
     );
-
     // 如果是函数，添加括号
     if (_isFunction(suggestion)) {
       _insertText('()');

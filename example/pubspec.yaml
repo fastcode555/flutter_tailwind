@@ -33,7 +33,7 @@ dependencies:
   photo_view: ^0.15.0
   image_gallery_saver: ^2.0.3
   share_plus: ^10.1.2
-  path_provider: ^2.1.1
+  path_provider: ^2.1.5
   http: ^1.1.0
   get: ^4.6.6
   fl_chart: ^0.69.2
@@ -41,12 +41,12 @@ dependencies:
   image_picker: ^1.0.7
   highlight: ^0.7.0
   flutter_highlight: ^0.7.0
-  flutter_markdown: ^0.6.18
-  url_launcher: ^6.2.4
+  flutter_markdown: ^0.7.4+3
+  url_launcher: ^6.3.1
   file_picker: ^8.1.4
   shared_preferences: ^2.3.3
   pdf: ^3.10.7
-  markdown: ^7.2.1
+  markdown: ^7.2.2
   html: ^0.15.4
   flutter_math_fork: ^0.7.2
   graphview: ^1.2.0
