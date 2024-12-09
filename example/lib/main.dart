@@ -55,10 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 2.r),
-        child: Wrap(
-          runSpacing: 2.r,
-          spacing: 2.r,
-          children: [
+        child: wrap.spacing2.runSpacing2.children(
+          [
             row.children(
               [
                 'left part'.text.mk,
@@ -170,8 +168,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ValueListenableBuilder<int>(
               valueListenable: _notifier,
               builder: (_, groupValue, __) {
-                return Wrap(
-                  children: [
+                return wrap.children(
+                  [
                     radio.onChanged(0, groupValue, _OnRadioChanged),
                     radio.onChanged(1, groupValue, _OnRadioChanged),
                     radio.onChanged(2, groupValue, _OnRadioChanged),

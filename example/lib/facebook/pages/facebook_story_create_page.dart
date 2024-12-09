@@ -122,10 +122,8 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
         column.crossStart.children([
           '文字颜色'.text.f16.bold.mk,
           h16,
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
+          wrap.spacing16.runSpacing16.children(
+            [
               Colors.white,
               Colors.black,
               Colors.red,
@@ -177,10 +175,8 @@ class _FacebookStoryCreatePageState extends State<FacebookStoryCreatePage> {
         column.crossStart.children([
           '背景颜色'.text.f16.bold.mk,
           h16,
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            children: [
+          wrap.spacing16.runSpacing16.children(
+            [
               Colors.black,
               Colors.blue,
               Colors.red,

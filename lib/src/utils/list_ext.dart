@@ -9,4 +9,17 @@ extension ListExt<T> on List<T>? {
     }
     return null;
   }
+
+  List<T> joinWidget(T separatedWidth) {
+    if (this == null || this!.isEmpty) return <T>[];
+    final newChildren = <T>[];
+    for (var i = 0; i < this!.length; i++) {
+      final t = this![i];
+      newChildren.add(t);
+      if (i != this!.length - 1) {
+        newChildren.add(separatedWidth);
+      }
+    }
+    return newChildren;
+  }
 }

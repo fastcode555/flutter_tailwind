@@ -48,11 +48,6 @@ extension LinearFeatureExt<T extends LinearFeature> on T {
   T get crossStretch => this.._crossAxisAlignment = CrossAxisAlignment.stretch;
 
   T get crossBaseline => this.._crossAxisAlignment = CrossAxisAlignment.baseline;
-
-  /// vertical direction
-  T get down => this.._verticalDirection = VerticalDirection.down;
-
-  T get up => this.._verticalDirection = VerticalDirection.up;
 }
 
 extension StackFeatureExt<T extends StackFeature> on T {

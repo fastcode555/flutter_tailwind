@@ -42,10 +42,8 @@ class FacebookProductFilterPage extends StatelessWidget {
                 ),
               ]),
               h16,
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
+              wrap.spacing8.runSpacing8.children(
+                [
                   '0-1000',
                   '1000-3000',
                   '3000-5000',
@@ -57,10 +55,8 @@ class FacebookProductFilterPage extends StatelessWidget {
           // 品牌
           _buildSection(
             '品牌',
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
+            child: wrap.spacing8.runSpacing8.children(
+              [
                 'Apple',
                 'Samsung',
                 'Huawei',
@@ -73,10 +69,8 @@ class FacebookProductFilterPage extends StatelessWidget {
           // 商品状态
           _buildSection(
             '商品状态',
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
+            child: wrap.spacing8.runSpacing8.children(
+              [
                 '全新',
                 '99新',
                 '95新',

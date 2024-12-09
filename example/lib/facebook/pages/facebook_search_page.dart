@@ -24,20 +24,21 @@ class FacebookSearchPage extends StatelessWidget {
           column.crossStart.children([
             '搜索历史'.text.grey600.f14.mk,
             h12,
-            Wrap(
-              spacing: 8,
-              children: [
+            wrap.spacing8.children(
+              [
                 '朋友',
                 '视频',
                 '群组',
                 '商品',
-              ].map((e) => container.grey200.rounded16.p8.child(
-                e.text.f14.mk,
-              )).toList(),
+              ]
+                  .map((e) => container.grey200.rounded16.p8.child(
+                        e.text.f14.mk,
+                      ))
+                  .toList(),
             ),
           ]),
         ),
       ]),
     );
   }
-} 
+}

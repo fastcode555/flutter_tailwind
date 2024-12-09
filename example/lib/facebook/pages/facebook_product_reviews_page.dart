@@ -39,10 +39,8 @@ class FacebookProductReviewsPage extends StatelessWidget {
           h8,
           // 评价标签
           container.white.p16.child(
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
+            wrap.spacing8.runSpacing8.children(
+              [
                 '质量不错(123)',
                 '物流快(98)',
                 '服务好(76)',
@@ -103,10 +101,8 @@ class FacebookProductReviewsPage extends StatelessWidget {
         '这是一条商品评价内容...'.text.f14.mk,
         h12,
         // 评价图片
-        Wrap(
-          spacing: 8.r,
-          runSpacing: 8.r,
-          children: [
+        wrap.spacing8.runSpacing8.children(
+          [
             'https://picsum.photos/200'.image.s80.rounded8.mk,
             'https://picsum.photos/201'.image.s80.rounded8.mk,
             'https://picsum.photos/202'.image.s80.rounded8.mk,

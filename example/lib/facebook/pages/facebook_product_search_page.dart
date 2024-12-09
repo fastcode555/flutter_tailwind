@@ -29,10 +29,8 @@ class FacebookProductSearchPage extends StatelessWidget {
                 '清空'.text.grey600.f14.mk.click(onTap: _clearHistory),
               ]),
               h16,
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: [
+              wrap.spacing8.runSpacing8.children(
+                [
                   'iPhone',
                   '电脑',
                   '耳机',
@@ -56,29 +54,33 @@ class FacebookProductSearchPage extends StatelessWidget {
   }
 
   Widget _buildHistoryItem(BuildContext context, String keyword) {
-    return container.grey100.rounded16.p8.ph12.child(
-      row.center.children([
-        keyword.text.f14.mk,
-        w8,
-        Icons.close.icon.grey600.s16.mk.click(
-          onTap: () => _removeHistory(keyword),
-        ),
-      ]),
-    ).click(onTap: () => _search(context, keyword));
+    return container.grey100.rounded16.p8.ph12
+        .child(
+          row.center.children([
+            keyword.text.f14.mk,
+            w8,
+            Icons.close.icon.grey600.s16.mk.click(
+              onTap: () => _removeHistory(keyword),
+            ),
+          ]),
+        )
+        .click(onTap: () => _search(context, keyword));
   }
 
   Widget _buildHotSearchList(BuildContext context) {
     return column.children(
       List.generate(
         5,
-        (index) => container.pv12.child(
-          row.children([
-            '${index + 1}'.text.grey600.f14.mk,
-            w16,
-            'Hot Keyword ${index + 1}'.text.f14.expanded.mk,
-            '${10000 - index * 1000}次搜索'.text.grey600.f12.mk,
-          ]),
-        ).click(onTap: () => _search(context, 'Hot Keyword ${index + 1}')),
+        (index) => container.pv12
+            .child(
+              row.children([
+                '${index + 1}'.text.grey600.f14.mk,
+                w16,
+                'Hot Keyword ${index + 1}'.text.f14.expanded.mk,
+                '${10000 - index * 1000}次搜索'.text.grey600.f12.mk,
+              ]),
+            )
+            .click(onTap: () => _search(context, 'Hot Keyword ${index + 1}')),
       ),
     );
   }
@@ -94,4 +96,4 @@ class FacebookProductSearchPage extends StatelessWidget {
   void _removeHistory(String keyword) {
     // TODO: 删除单个搜索历史
   }
-} 
+}

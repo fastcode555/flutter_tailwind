@@ -11,5 +11,6 @@ export 'child/sized_box.dart';
 export 'child/svg.dart';
 export 'child/text.dart';
 export 'child/widgets.dart';
+export 'child/wrap.dart';
 export 'container/container.dart';
 export 'container/list_view.dart';

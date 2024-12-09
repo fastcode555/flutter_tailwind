@@ -42,10 +42,8 @@ class FacebookProductDetailPage extends StatelessWidget {
                   ]),
                   h16,
                   // 商品状态
-                  Wrap(
-                    spacing: 8.r,
-                    runSpacing: 8.r,
-                    children: [
+                  wrap.spacing8.runSpacing8.children(
+                    [
                       _buildTag(product.condition),
                       _buildTag(product.category),
                     ],

@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
             shaderMask.blue.red.orange.topLeft.bottomRight.child(
               '我会被作用于渐变效果'.text.white.mk,
             ),
-            Wrap(
-              children: [
+            wrap.children(
+              [
                 shaderMask.blue.red.child(
                   checkBox.circle.blue.justIcon.white.borderBlack.onChanged(false, (value) {}),
                 ),

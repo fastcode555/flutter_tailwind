@@ -5,13 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 /// describe:
 mixin SpacingBuilder {
   ///设置间距的
-  double? innerSpacing, innerMainAxisSpacing, innerCrossAxisSpacing;
+  double? innerSpacing, innerRunSpacing, innerMainAxisSpacing, innerCrossAxisSpacing;
 }
 
 extension SpacingBuilderExt<T extends SpacingBuilder> on T {
   T spacing(double spacing) => this..innerSpacing = spacing;
 
   T mainAxisSpacing(double mainAxisSpacing) => this..innerMainAxisSpacing = mainAxisSpacing;
+
+  T runSpacing(double runSpacing) => this..innerRunSpacing = runSpacing;
 
   T crossAxisSpacing(double crossAxisSpacing) => this..innerCrossAxisSpacing = crossAxisSpacing;
 
@@ -46,6 +48,38 @@ extension SpacingBuilderExt<T extends SpacingBuilder> on T {
   T get spacing30 => this..innerSpacing = 30.r;
 
   T get spacing32 => this..innerSpacing = 32.r;
+
+  T get runSpacing2 => this..innerRunSpacing = 2.r;
+
+  T get runSpacing4 => this..innerRunSpacing = 4.r;
+
+  T get runSpacing6 => this..innerRunSpacing = 6.r;
+
+  T get runSpacing8 => this..innerRunSpacing = 8.r;
+
+  T get runSpacing10 => this..innerRunSpacing = 10.r;
+
+  T get runSpacing12 => this..innerRunSpacing = 12.r;
+
+  T get runSpacing14 => this..innerRunSpacing = 14.r;
+
+  T get runSpacing16 => this..innerRunSpacing = 16.r;
+
+  T get runSpacing18 => this..innerRunSpacing = 18.r;
+
+  T get runSpacing20 => this..innerRunSpacing = 20.r;
+
+  T get runSpacing22 => this..innerRunSpacing = 22.r;
+
+  T get runSpacing24 => this..innerRunSpacing = 24.r;
+
+  T get runSpacing26 => this..innerRunSpacing = 26.r;
+
+  T get runSpacing28 => this..innerRunSpacing = 28.r;
+
+  T get runSpacing30 => this..innerRunSpacing = 30.r;
+
+  T get runSpacing32 => this..innerRunSpacing = 32.r;
 
   T get mainSpacing2 => this..innerMainAxisSpacing = 2.r;
 

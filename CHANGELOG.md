@@ -1,3 +1,7 @@
+## 1.4.8
+
+- Add the wrap widget
+
 ## 1.4.7
 
 - 1.Support maxW, maxH

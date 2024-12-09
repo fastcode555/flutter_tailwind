@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'children_container.g.dart';
 
@@ -44,7 +45,8 @@ abstract class _LinearBuilder extends ChildrenBuilder<Widget>
         PaddingBuilder,
         ExpandedBuilder,
         KeyBuilder,
-        ColorBuilder {
+        ColorBuilder,
+        SpacingBuilder {
   Widget _buildWrapWidget(Widget child) {
     if (size != null || width != null || height != null) {
       child = SizedBox(width: size ?? width, height: size ?? height, child: child);
@@ -64,6 +66,8 @@ class _RowBuilder extends _LinearBuilder {
 
   @override
   Widget children(List<Widget> children) {
+    final spacing = innerSpacing ?? innerRunSpacing ?? innerMainAxisSpacing ?? innerCrossAxisSpacing;
+
     return _buildWrapWidget(Row(
       key: innerKey,
       mainAxisAlignment: _mainAxisAlignment ?? MainAxisAlignment.start,
@@ -72,7 +76,7 @@ class _RowBuilder extends _LinearBuilder {
       textDirection: textDirection,
       textBaseline: textBaseline,
       verticalDirection: _verticalDirection ?? VerticalDirection.down,
-      children: children,
+      children: spacing != null ? children.joinWidget(SizedBox(width: spacing)) : children,
     ));
   }
 }
@@ -82,6 +86,7 @@ class _ColumnBuilder extends _LinearBuilder {
 
   @override
   Widget children(List<Widget> children) {
+    final spacing = innerSpacing ?? innerRunSpacing ?? innerMainAxisSpacing ?? innerCrossAxisSpacing;
     return _buildWrapWidget(Column(
       key: innerKey,
       mainAxisAlignment: _mainAxisAlignment ?? MainAxisAlignment.start,
@@ -90,7 +95,7 @@ class _ColumnBuilder extends _LinearBuilder {
       textDirection: textDirection,
       textBaseline: textBaseline,
       verticalDirection: _verticalDirection ?? VerticalDirection.down,
-      children: children,
+      children: spacing != null ? children.joinWidget(SizedBox(height: spacing)) : children,
     ));
   }
 }
