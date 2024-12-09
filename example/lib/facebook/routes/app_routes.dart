@@ -12,6 +12,7 @@ import 'package:example/facebook/pages/facebook_check_update_page.dart';
 import 'package:example/facebook/pages/facebook_comment_reply_page.dart';
 import 'package:example/facebook/pages/facebook_comments_page.dart';
 import 'package:example/facebook/pages/facebook_feedback_page.dart';
+import 'package:example/facebook/pages/facebook_forgot_password_page.dart';
 import 'package:example/facebook/pages/facebook_friends_page.dart';
 import 'package:example/facebook/pages/facebook_help_center_page.dart';
 import 'package:example/facebook/pages/facebook_image_edit_page.dart';
@@ -28,6 +29,7 @@ import 'package:example/facebook/pages/facebook_privacy_policy_page.dart';
 import 'package:example/facebook/pages/facebook_product_category_page.dart';
 import 'package:example/facebook/pages/facebook_product_detail_page.dart';
 import 'package:example/facebook/pages/facebook_profile_edit_page.dart';
+import 'package:example/facebook/pages/facebook_register_page.dart';
 import 'package:example/facebook/pages/facebook_search_results_page.dart';
 import 'package:example/facebook/pages/facebook_settings_detail_page.dart';
 import 'package:example/facebook/pages/facebook_settings_page.dart';
@@ -38,8 +40,6 @@ import 'package:example/facebook/pages/facebook_user_agreement_page.dart';
 import 'package:example/facebook/pages/facebook_user_profile_page.dart';
 import 'package:example/facebook/pages/facebook_video_call_page.dart';
 import 'package:example/facebook/pages/facebook_voice_call_page.dart';
-import 'package:example/facebook/pages/facebook_register_page.dart';
-import 'package:example/facebook/pages/facebook_forgot_password_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
