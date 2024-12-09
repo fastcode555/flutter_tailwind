@@ -6,9 +6,15 @@ class AutoCompleteOverlay extends StatelessWidget {
   final ValueChanged<String> onSelected;
   final VoidCallback onDismiss;
   final Offset position;
+  final int selectedIndex;
 
   const AutoCompleteOverlay({
-    required this.suggestions, required this.onSelected, required this.onDismiss, required this.position, super.key,
+    required this.suggestions,
+    required this.onSelected,
+    required this.onDismiss,
+    required this.position,
+    required this.selectedIndex,
+    super.key,
   });
 
   @override
@@ -19,28 +25,36 @@ class AutoCompleteOverlay extends StatelessWidget {
       child: Material(
         elevation: 8,
         borderRadius: BorderRadius.circular(8),
-        child: container.white.rounded8.w200.maxH(300).child(
+        child: container.white.rounded8.w200.maxH(26.0 * 6).child(
           ListView.builder(
-            shrinkWrap: true,
             itemCount: suggestions.length,
-            itemBuilder: (context, index) => _buildSuggestionItem(suggestions[index]),
+            itemExtent: 26.0,
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) => _buildSuggestionItem(
+              suggestions[index],
+              isSelected: index == selectedIndex,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildSuggestionItem(String suggestion) {
-    return container.p8.grey100.child(
+  Widget _buildSuggestionItem(String suggestion, {required bool isSelected}) {
+    return container.p8
+        .color(isSelected ? Colors.blue.withOpacity(0.1) : Colors.grey[100])
+        .child(
       row.children([
         // 图标
-        _getIcon(suggestion).icon.grey600.s16.mk,
+        _getIcon(suggestion).icon.color(isSelected ? Colors.blue : Colors.grey[600]).s16.mk,
         w8,
         // 文本
-        Expanded(child: suggestion.text.f14.mk),
+        Expanded(
+          child: suggestion.text.color(isSelected ? Colors.blue : Colors.black).f14.mk,
+        ),
         // 快捷键提示
         if (_getShortcut(suggestion) != null)
-          _getShortcut(suggestion)!.text.grey400.f12.mk,
+          _getShortcut(suggestion)!.text.color(isSelected ? Colors.blue : Colors.grey[400]).f12.mk,
       ]),
     ).click(onTap: () {
       onSelected(suggestion);
