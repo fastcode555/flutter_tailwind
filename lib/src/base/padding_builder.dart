@@ -62,6 +62,9 @@ mixin PaddingBuilder {
 extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T padding(EdgeInsetsGeometry? padding) => this.._innerPadding = padding;
 
+  ///padding all padding
+  T p(double padding) => this..paddingValue = padding;
+
   ///padding all 0
   T get p0 => this..paddingValue = 0;
 
@@ -216,6 +219,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   T get p100 => this..paddingValue = 100.r;
 
   ///padding left 0
+  T pl(double paddingLeft) => this..paddingLeft = paddingLeft;
+
+  ///padding left 0
   T get pl0 => this..paddingLeft = 0;
 
   ///padding left 2
@@ -367,6 +373,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding left is 100
   T get pl100 => this..paddingLeft = 100.r;
+
+  ///padding right value
+  T pr(double paddingRight) => this..paddingRight = paddingRight;
 
   ///padding right 0
   T get pr0 => this..paddingRight = 0;
@@ -521,7 +530,10 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding right is 100
   T get pr100 => this..paddingRight = 100.r;
 
-  ///padding top 2
+  ///padding top paddingTop
+  T pt(double paddingTop) => this..paddingTop = paddingTop;
+
+  ///padding top 0
   T get pt0 => this..paddingTop = 0;
 
   ///padding top 2
@@ -673,6 +685,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding top is 100
   T get pt100 => this..paddingTop = 100.r;
+
+  ///padding bottom paddingBottom
+  T pb(double paddingBottom) => this..paddingBottom = paddingBottom;
 
   ///padding bottom 0
   T get pb0 => this..paddingBottom = 0;
@@ -827,6 +842,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
   /// set the padding bottom is 100
   T get pb100 => this..paddingBottom = 100.r;
 
+  /// padding horizontal value paddingHorizontal
+  T ph(double paddingHorizontal) => this..paddingHorizontal = paddingHorizontal;
+
   /// padding horizontal value 0
   T get ph0 => this..paddingHorizontal = 0;
 
@@ -979,6 +997,9 @@ extension PaddingBuilderExt<T extends PaddingBuilder> on T {
 
   /// set the padding horizontal is 100
   T get ph100 => this..paddingHorizontal = 100.r;
+
+  ///padding vertical value = paddingVertical
+  T pv(double paddingVertical) => this..paddingVertical = paddingVertical;
 
   ///padding vertical value = 0
   T get pv0 => this..paddingVertical = 0;

@@ -65,7 +65,7 @@ class _BoxDecorationBuilder
       top: _borderTop ?? (borderTop <= 0 ? BorderSide.none : borderT),
       bottom: _borderBottom ?? (borderBottom <= 0 ? BorderSide.none : borderB),
       left: _borderLeft ?? (borderLeft <= 0 ? BorderSide.none : borderL),
-      right: _borderRight ?? (borderRight<= 0 ? BorderSide.none : borderR),
+      right: _borderRight ?? (borderRight <= 0 ? BorderSide.none : borderR),
     );
   }
 
@@ -189,7 +189,16 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
   BoxBorder? get _internalBorder => createBorder(borderColor);
 
   bool get _useContainer =>
-      width != null || height != null || size != null || hasPadding || hasMargin || alignment != null;
+      width != null || height != null || size != null || hasPadding || hasMargin || alignment != null || hasConstraint;
+
+  BoxConstraints? get _constraints => hasConstraint
+      ? BoxConstraints(
+          maxWidth: innerMaxWidth ?? double.infinity,
+          maxHeight: innerMaxHeight ?? double.infinity,
+          minWidth: innerMinWidth ?? 0.0,
+          minHeight: innerMinHeight ?? 0.0,
+        )
+      : null;
 
   @override
   Widget get mk {
@@ -202,6 +211,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
           padding: finalPadding,
           margin: finalMargin,
           alignment: alignment,
+          constraints: _constraints,
           decoration: decoration ??
               BoxDecoration(
                 color: innerColor.opacity(innerOpacity),
@@ -237,6 +247,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         padding: finalPadding,
         margin: finalMargin,
         alignment: alignment,
+        constraints: _constraints,
         decoration: decoration ??
             BoxDecoration(
               color: innerColor.opacity(innerOpacity),

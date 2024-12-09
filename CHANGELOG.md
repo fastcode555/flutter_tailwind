@@ -1,3 +1,8 @@
+## 1.4.7
+
+- 1.Support maxW, maxH
+- 2.Support setting the color of a border individually for the container
+
 ## 1.4.4
 
 - add the positioned widget

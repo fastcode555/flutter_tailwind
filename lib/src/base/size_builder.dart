@@ -7,9 +7,41 @@ mixin SizeBuilder {
   double? width;
   double? height;
   double? size;
+
+  double? innerMaxWidth;
+  double? innerMaxHeight;
+  double? innerMinWidth;
+  double? innerMinHeight;
+
+  bool get hasConstraint =>
+      innerMaxWidth != null || innerMaxHeight != null || innerMinWidth != null || innerMinHeight != null;
 }
 
 extension SizeBuilderExt<T extends SizeBuilder> on T {
+  ///set the max width
+  T maxW(double width) => this..innerMaxWidth = width;
+
+  ///set the max width
+  T maxWidth(double width) => this..innerMaxWidth = width;
+
+  ///set the max height
+  T maxH(double height) => this..innerMaxHeight = height;
+
+  ///set the max height
+  T maxHeight(double height) => this..innerMaxHeight = height;
+
+  ///set the min width
+  T minW(double width) => this..innerMinWidth = width;
+
+  ///set the min width
+  T minWidth(double width) => this..innerMinWidth = width;
+
+  ///set the min height
+  T minH(double height) => this..innerMinHeight = height;
+
+  ///set the min height
+  T minHeight(double height) => this..innerMinHeight = height;
+
   /// set the width
   T w(double width) => this..width = width;
 
