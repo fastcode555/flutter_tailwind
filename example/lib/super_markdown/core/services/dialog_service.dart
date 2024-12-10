@@ -63,4 +63,4 @@ class DialogService extends GetxService {
       return null;
     }
   }
-} 
+}

@@ -118,9 +118,7 @@ class _FacebookForgotPasswordPageState extends State<FacebookForgotPasswordPage>
           ),
         ),
         w16,
-        container.blue.rounded8.p12.ph16.center
-            .child('获取验证码'.text.white.f14.bold.mk)
-            .click(onTap: _getVerifyCode),
+        container.blue.rounded8.p12.ph16.center.child('获取验证码'.text.white.f14.bold.mk).click(onTap: _getVerifyCode),
       ]),
     ]);
   }

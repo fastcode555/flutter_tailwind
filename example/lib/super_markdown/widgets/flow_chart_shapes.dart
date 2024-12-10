@@ -80,7 +80,7 @@ class FlowChartShapePainter extends CustomPainter {
   void _drawDatabase(Canvas canvas, Size size, Paint fill, Paint stroke) {
     final rect = Rect.fromLTWH(0, 0, size.width, size.height);
     final topRect = Rect.fromLTWH(0, 0, size.width, size.height * 0.2);
-    
+
     // 绘制主体圆柱
     canvas.drawRRect(
       RRect.fromRectAndRadius(rect, Radius.circular(size.width * 0.2)),
@@ -174,4 +174,4 @@ class FlowChartShapePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-} 
+}

@@ -12,7 +12,8 @@ class InteractiveSequenceDiagram extends StatefulWidget {
   final ValueChanged<String>? onElementSelected;
 
   const InteractiveSequenceDiagram({
-    required this.code, super.key,
+    required this.code,
+    super.key,
     this.theme = const SequenceDiagramTheme(),
     this.enableZoom = true,
     this.enablePan = true,

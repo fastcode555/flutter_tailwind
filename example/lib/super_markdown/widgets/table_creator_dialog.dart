@@ -5,7 +5,8 @@ class TableCreatorDialog extends StatefulWidget {
   final ValueChanged<String> onCreated;
 
   const TableCreatorDialog({
-    required this.onCreated, super.key,
+    required this.onCreated,
+    super.key,
   });
 
   @override
@@ -130,7 +131,7 @@ class _TableCreatorDialogState extends State<TableCreatorDialog> {
     for (var i = 0; i < (_hasHeader ? _rows - 1 : _rows); i++) {
       buffer.write('|');
       for (var j = 0; j < _columns; j++) {
-        buffer.write(' 内容${i + 1}-${j + 1} |');
+        buffer.write('${i + 1}-${j + 1} |');
       }
       buffer.writeln();
     }
@@ -138,4 +139,4 @@ class _TableCreatorDialogState extends State<TableCreatorDialog> {
     widget.onCreated(buffer.toString());
     Navigator.pop(context);
   }
-} 
+}

@@ -17,19 +17,19 @@ class ThemeService extends GetxService {
   final _isDark = false.obs;
 
   // 主题配置
-  final _editorTheme = <String,dynamic>{}.obs;
-  final _syntaxTheme = <String,dynamic>{}.obs;
-  final _uiTheme = <String,dynamic>{}.obs;
+  final _editorTheme = <String, dynamic>{}.obs;
+  final _syntaxTheme = <String, dynamic>{}.obs;
+  final _uiTheme = <String, dynamic>{}.obs;
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    
+
     // 初始化主题服务
     Get.put(EditorTheme({}));
     Get.put(SyntaxTheme({}));
     Get.put(UiTheme({}));
-    
+
     _prefs = await SharedPreferences.getInstance();
     await _loadCustomThemes();
     await _loadThemeMode();
@@ -306,10 +306,7 @@ class ThemeService extends GetxService {
       'shadows': theme.shadows?.map(_shadowToJson).toList(),
       'gradient': theme.gradient != null
           ? {
-              'colors': (theme.gradient! as LinearGradient)
-                  .colors
-                  .map((c) => c.value)
-                  .toList(),
+              'colors': (theme.gradient! as LinearGradient).colors.map((c) => c.value).toList(),
               'begin': {
                 'x': (theme.gradient! as LinearGradient).begin as Alignment,
                 'y': (theme.gradient! as LinearGradient).begin as Alignment,
@@ -336,10 +333,7 @@ class ThemeService extends GetxService {
       'strokeCap': theme.strokeCap.index,
       'gradient': theme.gradient != null
           ? {
-              'colors': (theme.gradient! as LinearGradient)
-                  .colors
-                  .map((c) => c.value)
-                  .toList(),
+              'colors': (theme.gradient! as LinearGradient).colors.map((c) => c.value).toList(),
               'begin': {
                 'x': (theme.gradient! as LinearGradient).begin as Alignment,
                 'y': (theme.gradient! as LinearGradient).begin as Alignment,
@@ -378,14 +372,10 @@ class ThemeService extends GetxService {
       fontSize: json['fontSize'],
       fontWeight: FontWeight.values[json['fontWeight']],
       cornerRadius: json['cornerRadius'],
-      shadows: (json['shadows'] as List?)
-          ?.map((s) => _shadowFromJson(s))
-          .toList(),
+      shadows: (json['shadows'] as List?)?.map((s) => _shadowFromJson(s)).toList(),
       gradient: json['gradient'] != null
           ? LinearGradient(
-              colors: (json['gradient']['colors'] as List)
-                  .map((c) => Color(c))
-                  .toList(),
+              colors: (json['gradient']['colors'] as List).map((c) => Color(c)).toList(),
               begin: json['gradient']['begin'] as Alignment,
               end: json['gradient']['end'] as Alignment,
             )
@@ -406,16 +396,12 @@ class ThemeService extends GetxService {
       strokeCap: StrokeCap.values[json['strokeCap']],
       gradient: json['gradient'] != null
           ? LinearGradient(
-              colors: (json['gradient']['colors'] as List)
-                  .map((c) => Color(c))
-                  .toList(),
+              colors: (json['gradient']['colors'] as List).map((c) => Color(c)).toList(),
               begin: json['gradient']['begin'] as Alignment,
               end: json['gradient']['end'] as Alignment,
             )
           : null,
-      animationColors: (json['animationColors'] as List?)
-          ?.map((c) => Color(c))
-          .toList(),
+      animationColors: (json['animationColors'] as List?)?.map((c) => Color(c)).toList(),
     );
   }
 

@@ -5,7 +5,8 @@ class TableEditor extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   const TableEditor({
-    required this.onChanged, super.key,
+    required this.onChanged,
+    super.key,
   });
 
   @override
@@ -37,7 +38,7 @@ class _TableEditorState extends State<TableEditor> {
 
   void _updateMarkdown() {
     final buffer = StringBuffer();
-    
+
     // 生成表头
     buffer.write('|');
     for (var j = 0; j < _columns; j++) {
@@ -81,38 +82,44 @@ class _TableEditorState extends State<TableEditor> {
         // 表格设置
         _buildTableSettings(),
         h16,
-        
+
         // 表格编辑器
         container.border1.borderGrey200.rounded8.child(
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DataTable(
-              columns: List.generate(_columns, (index) => DataColumn(
-                label: TextField(
-                  controller: _controllers[0][index],
-                  decoration: const InputDecoration(
-                    hintText: '列标题',
-                    border: InputBorder.none,
-                  ),
-                ),
-              )),
-              rows: List.generate(_rows - 1, (i) => DataRow(
-                cells: List.generate(_columns, (j) => DataCell(
-                  TextField(
-                    controller: _controllers[i + 1][j],
-                    decoration: const InputDecoration(
-                      hintText: '单元格内容',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                )),
-              )),
+              columns: List.generate(
+                  _columns,
+                  (index) => DataColumn(
+                        label: TextField(
+                          controller: _controllers[0][index],
+                          decoration: const InputDecoration(
+                            hintText: '列标题',
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      )),
+              rows: List.generate(
+                  _rows - 1,
+                  (i) => DataRow(
+                        cells: List.generate(
+                            _columns,
+                            (j) => DataCell(
+                                  TextField(
+                                    controller: _controllers[i + 1][j],
+                                    decoration: const InputDecoration(
+                                      hintText: '单元格内容',
+                                      border: InputBorder.none,
+                                    ),
+                                  ),
+                                )),
+                      )),
             ),
           ),
         ),
-        
+
         h16,
-        
+
         // 预览
         _buildTablePreview(),
       ]),
@@ -127,10 +134,12 @@ class _TableEditorState extends State<TableEditor> {
         h4,
         DropdownButton<int>(
           value: _rows,
-          items: List.generate(8, (i) => i + 2).map((count) => DropdownMenuItem(
-            value: count,
-            child: count.toString().text.f14.mk,
-          )).toList(),
+          items: List.generate(8, (i) => i + 2)
+              .map((count) => DropdownMenuItem(
+                    value: count,
+                    child: count.toString().text.f14.mk,
+                  ))
+              .toList(),
           onChanged: (value) {
             if (value != null) {
               setState(() {
@@ -148,10 +157,12 @@ class _TableEditorState extends State<TableEditor> {
         h4,
         DropdownButton<int>(
           value: _columns,
-          items: List.generate(8, (i) => i + 2).map((count) => DropdownMenuItem(
-            value: count,
-            child: count.toString().text.f14.mk,
-          )).toList(),
+          items: List.generate(8, (i) => i + 2)
+              .map((count) => DropdownMenuItem(
+                    value: count,
+                    child: count.toString().text.f14.mk,
+                  ))
+              .toList(),
           onChanged: (value) {
             if (value != null) {
               setState(() {
@@ -169,12 +180,16 @@ class _TableEditorState extends State<TableEditor> {
     return container.grey100.p16.rounded8.child(
       Table(
         border: TableBorder.all(color: Colors.grey[300]!),
-        children: List.generate(_rows, (i) => TableRow(
-          children: List.generate(_columns, (j) => container.p8.child(
-            _controllers[i][j].text.text.f14.mk,
-          )),
-        )),
+        children: List.generate(
+            _rows,
+            (i) => TableRow(
+                  children: List.generate(
+                      _columns,
+                      (j) => container.p8.child(
+                            _controllers[i][j].text.text.f14.mk,
+                          )),
+                )),
       ),
     );
   }
-} 
+}

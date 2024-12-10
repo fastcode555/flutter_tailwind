@@ -14,7 +14,8 @@ class CodeBlockEditor extends StatelessWidget {
   final Map<String, TextStyle>? theme;
 
   const CodeBlockEditor({
-    required this.code, super.key,
+    required this.code,
+    super.key,
     this.language,
     this.readOnly = false,
     this.onChanged,

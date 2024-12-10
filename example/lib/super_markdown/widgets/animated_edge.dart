@@ -9,7 +9,10 @@ class AnimatedEdge extends StatefulWidget {
   final EdgeStyle style;
 
   const AnimatedEdge({
-    required this.start, required this.end, required this.style, super.key,
+    required this.start,
+    required this.end,
+    required this.style,
+    super.key,
   });
 
   @override

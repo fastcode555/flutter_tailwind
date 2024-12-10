@@ -8,7 +8,8 @@ class PreviewArea extends StatelessWidget {
   final ScrollController? scrollController;
 
   const PreviewArea({
-    required this.markdown, super.key,
+    required this.markdown,
+    super.key,
     this.scrollController,
   });
 
@@ -28,30 +29,12 @@ class PreviewArea extends StatelessWidget {
           }
         },
         styleSheet: MarkdownStyleSheet(
-          h1: const TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-          ),
-          h2: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-          h3: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          h4: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-          h5: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-          h6: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-          ),
+          h1: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+          h2: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          h3: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          h4: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          h5: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          h6: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           p: const TextStyle(fontSize: 16),
           code: TextStyle(
             backgroundColor: Colors.grey[200],
@@ -66,9 +49,7 @@ class PreviewArea extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
           tableHead: const TextStyle(fontWeight: FontWeight.bold),
-          tableBorder: TableBorder.all(
-            color: Colors.grey[300]!,
-          ),
+          tableBorder: TableBorder.all(color: Colors.grey[300]!),
         ),
       ),
     );

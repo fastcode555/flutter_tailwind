@@ -29,7 +29,8 @@ class Notification {
     required this.userId,
     required this.userAvatar,
     required this.userName,
-    required this.timestamp, this.content,
+    required this.timestamp,
+    this.content,
     this.isRead = false,
     this.targetId,
     this.imageUrl,
@@ -107,4 +108,4 @@ final notifications = [
     content: '今天生日',
     timestamp: DateTime.now(),
   ),
-]; 
+];

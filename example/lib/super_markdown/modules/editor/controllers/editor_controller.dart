@@ -2,6 +2,7 @@ import 'package:example/super_markdown/core/services/editor_service.dart';
 import 'package:example/super_markdown/core/services/markdown_service.dart';
 import 'package:example/super_markdown/widgets/table_creator_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:get/get.dart';
 
 class EditorController extends GetxController {
@@ -98,80 +99,42 @@ class EditorController extends GetxController {
   }
 
   // 插入代码块
-  void insertCodeBlock({String? language}) {
-    final text = _editorService.content;
-    final selection = _editorService.selection;
-    final before = text.substring(0, selection.baseOffset);
-    final after = text.substring(selection.extentOffset);
-
-    // 构建代码块
-    final codeBlock = '''
-```${language ?? ''}
-${selection.textInside(text)}
-```
-''';
-
-    // 插入代码块
-    _editorService.setContent(before + codeBlock + after);
-
-    // 更新光标位置到代码块内部
-    final newOffset = before.length + codeBlock.indexOf('\n') + 1;
-    _editorService.setSelection(TextSelection.collapsed(offset: newOffset));
-
-    // 通知更新
-    update();
-  }
-
-  // 添加一个辅助方法来显示语言选择对话框
-  Future<void> showLanguageDialog(BuildContext context) async {
-    final languages = [
-      'dart',
-      'javascript',
-      'python',
-      'java',
-      'cpp',
-      'csharp',
-      'html',
-      'css',
-      'json',
-      'yaml',
-      'markdown',
-      'bash',
-      'sql',
-    ];
-
-    final language = await showDialog<String>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('选择编程语言'),
-        content: SizedBox(
-          width: double.maxFinite,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: languages.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(languages[index]),
-              onTap: () => Navigator.pop(context, languages[index]),
+  void insertCodeBlock({String? language = ''}) {
+    Get.dialog(
+      AlertDialog(
+        title: '插入代码块'.text.f16.bold.mk,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // 语言选择
+            DropdownButton<String>(
+              value: 'dart',
+              items: const [
+                DropdownMenuItem(value: 'dart', child: Text('Dart')),
+                DropdownMenuItem(value: 'javascript', child: Text('JavaScript')),
+                DropdownMenuItem(value: 'python', child: Text('Python')),
+                DropdownMenuItem(value: 'java', child: Text('Java')),
+                DropdownMenuItem(value: 'cpp', child: Text('C++')),
+                DropdownMenuItem(value: 'csharp', child: Text('C#')),
+                DropdownMenuItem(value: 'html', child: Text('HTML')),
+                DropdownMenuItem(value: 'css', child: Text('CSS')),
+                DropdownMenuItem(value: 'json', child: Text('JSON')),
+                DropdownMenuItem(value: 'yaml', child: Text('YAML')),
+                DropdownMenuItem(value: 'markdown', child: Text('Markdown')),
+                DropdownMenuItem(value: 'bash', child: Text('Bash')),
+                DropdownMenuItem(value: 'sql', child: Text('SQL')),
+              ],
+              onChanged: (language) {
+                if (language != null) {
+                  insertText('\n```$language\n\n```\n');
+                  Get.back();
+                }
+              },
             ),
-          ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('取消'),
-          ),
-        ],
       ),
     );
-
-    if (language != null) {
-      insertCodeBlock(language: language);
-    }
-  }
-
-  // 添加一个方法来处理工具栏的代码块按钮点击
-  void onCodeBlockButtonPressed(BuildContext context) {
-    showLanguageDialog(context);
   }
 
   // 切换预览模式

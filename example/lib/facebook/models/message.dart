@@ -58,4 +58,4 @@ final chats = [
     unreadCount: 1,
   ),
   // 添加更多聊天数据...
-]; 
+];

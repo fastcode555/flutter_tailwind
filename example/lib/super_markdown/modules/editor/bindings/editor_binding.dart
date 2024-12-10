@@ -6,4 +6,4 @@ class EditorBinding extends Bindings {
   void dependencies() {
     Get.lazyPut<EditorController>(EditorController.new);
   }
-} 
+}

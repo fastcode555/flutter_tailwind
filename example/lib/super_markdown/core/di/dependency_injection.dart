@@ -15,9 +15,9 @@ class DependencyInjection {
     Get.lazyPut<MarkdownService>(MarkdownService.new, fenix: true);
     Get.lazyPut<FileService>(FileService.new, fenix: true);
     Get.lazyPut<ThemeService>(ThemeService.new, fenix: true);
-    Get.lazyPut<SettingsService>(SettingsService.new, fenix: true);
+    Get.put(SettingsService());
     Get.lazyPut<ShortcutService>(ShortcutService.new, fenix: true);
     Get.lazyPut<DialogService>(DialogService.new, fenix: true);
     Get.lazyPut<MathCalculatorService>(MathCalculatorService.new, fenix: true);
   }
-} 
+}

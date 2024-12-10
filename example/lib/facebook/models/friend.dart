@@ -37,7 +37,8 @@ class Friend {
     required this.userAvatar,
     required this.userName,
     required this.mutualFriends,
-    required this.lastActive, this.isOnline = false,
+    required this.lastActive,
+    this.isOnline = false,
   });
 }
 
@@ -61,4 +62,4 @@ final friends = [
     isOnline: true,
     lastActive: DateTime.now(),
   ),
-]; 
+];

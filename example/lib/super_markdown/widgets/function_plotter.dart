@@ -16,7 +16,8 @@ class FunctionPlotter extends StatefulWidget {
   final Color color;
 
   const FunctionPlotter({
-    required this.function, super.key,
+    required this.function,
+    super.key,
     this.paramFunction,
     this.isPolar = false,
     this.xMin = -10,
@@ -63,7 +64,7 @@ class _FunctionPlotterState extends State<FunctionPlotter> {
       final x = widget.xMin + dx * i;
       final expr = widget.function.replaceAll('x', x.toString());
       final y = ExpressionParser.evaluate(expr);
-      
+
       if (y != null && y.isFinite && y >= widget.yMin && y <= widget.yMax) {
         _points.add(Offset(x, y));
       }
@@ -72,20 +73,24 @@ class _FunctionPlotterState extends State<FunctionPlotter> {
 
   void _calculateParametricPoints() {
     if (widget.paramFunction == null) return;
-    
+
     final dt = (widget.xMax - widget.xMin) / widget.samples;
     for (var i = 0; i <= widget.samples; i++) {
       final t = widget.xMin + dt * i;
       final xExpr = widget.function.replaceAll('t', t.toString());
       final yExpr = widget.paramFunction!.replaceAll('t', t.toString());
-      
+
       final x = ExpressionParser.evaluate(xExpr);
       final y = ExpressionParser.evaluate(yExpr);
-      
-      if (x != null && y != null && 
-          x.isFinite && y.isFinite &&
-          x >= widget.xMin && x <= widget.xMax &&
-          y >= widget.yMin && y <= widget.yMax) {
+
+      if (x != null &&
+          y != null &&
+          x.isFinite &&
+          y.isFinite &&
+          x >= widget.xMin &&
+          x <= widget.xMax &&
+          y >= widget.yMin &&
+          y <= widget.yMax) {
         _points.add(Offset(x, y));
       }
     }
@@ -97,13 +102,12 @@ class _FunctionPlotterState extends State<FunctionPlotter> {
       final theta = i * dTheta;
       final expr = widget.function.replaceAll('theta', theta.toString());
       final r = ExpressionParser.evaluate(expr);
-      
+
       if (r != null && r.isFinite) {
         final x = r * math.cos(theta);
         final y = r * math.sin(theta);
-        
-        if (x >= widget.xMin && x <= widget.xMax &&
-            y >= widget.yMin && y <= widget.yMax) {
+
+        if (x >= widget.xMin && x <= widget.xMax && y >= widget.yMin && y <= widget.yMax) {
           _points.add(Offset(x, y));
         }
       }
@@ -177,13 +181,13 @@ class _FunctionPainter extends CustomPainter {
 
     // 绘制网格
     _drawGrid(canvas, size);
-    
+
     // 绘制坐标轴
     _drawAxes(canvas, size);
-    
+
     // 绘制函数曲线
     _drawFunction(canvas, size);
-    
+
     canvas.restore();
   }
 
@@ -312,4 +316,4 @@ class _FunctionPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-} 
+}

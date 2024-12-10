@@ -40,8 +40,8 @@ class FacebookPostList extends StatelessWidget {
           ),
           // 帖子图片
           if (post.imageUrl != null)
-            post.imageUrl!.image.wFull.h200.cover.mk
-                .click(onTap: () => AppRoutes.toImagePreview(
+            post.imageUrl!.image.wFull.h200.cover.mk.click(
+                onTap: () => AppRoutes.toImagePreview(
                       context,
                       [post.imageUrl!],
                     )),

@@ -51,4 +51,4 @@ final videos = [
     shares: 30,
     views: 3000,
   ),
-]; 
+];

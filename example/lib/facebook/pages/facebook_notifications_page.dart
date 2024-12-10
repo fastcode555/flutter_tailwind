@@ -40,4 +40,4 @@ class FacebookNotificationsPage extends StatelessWidget {
       ])),
     );
   }
-} 
+}

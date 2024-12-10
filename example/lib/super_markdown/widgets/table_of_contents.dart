@@ -6,7 +6,9 @@ class TableOfContents extends StatelessWidget {
   final ValueChanged<int> onHeadingSelected;
 
   const TableOfContents({
-    required this.markdown, required this.onHeadingSelected, super.key,
+    required this.markdown,
+    required this.onHeadingSelected,
+    super.key,
   });
 
   @override
@@ -23,11 +25,11 @@ class TableOfContents extends StatelessWidget {
             itemBuilder: (context, index) {
               final heading = headings[index];
               return container.pl((heading.level - 1) * 16.0).child(
-                TextButton(
-                  onPressed: () => onHeadingSelected(heading.offset),
-                  child: heading.text.text.f14.mk,
-                ),
-              );
+                    TextButton(
+                      onPressed: () => onHeadingSelected(heading.offset),
+                      child: heading.text.text.f14.mk,
+                    ),
+                  );
             },
           ),
         ),
@@ -66,4 +68,4 @@ class HeadingNode {
     required this.text,
     required this.offset,
   });
-} 
+}

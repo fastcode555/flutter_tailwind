@@ -7,7 +7,8 @@ class LatexEditor extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   const LatexEditor({
-    required this.onChanged, super.key,
+    required this.onChanged,
+    super.key,
     this.initialValue = '',
   });
 
@@ -22,8 +23,7 @@ class _LatexEditorState extends State<LatexEditor> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue)
-      ..addListener(_onLatexChanged);
+    _controller = TextEditingController(text: widget.initialValue)..addListener(_onLatexChanged);
   }
 
   void _onLatexChanged() {
@@ -107,4 +107,4 @@ class _LatexEditorState extends State<LatexEditor> {
     _controller.dispose();
     super.dispose();
   }
-} 
+}

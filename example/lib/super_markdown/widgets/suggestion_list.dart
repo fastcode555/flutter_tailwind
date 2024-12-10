@@ -7,7 +7,9 @@ class SuggestionList extends StatelessWidget {
   final Function(Suggestion) onSelected;
 
   const SuggestionList({
-    required this.suggestions, required this.onSelected, super.key,
+    required this.suggestions,
+    required this.onSelected,
+    super.key,
   });
 
   @override

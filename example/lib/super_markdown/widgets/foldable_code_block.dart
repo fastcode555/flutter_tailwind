@@ -10,7 +10,9 @@ class FoldableCodeBlock extends StatefulWidget {
   final VoidCallback? onCopy;
 
   const FoldableCodeBlock({
-    required this.code, required this.language, super.key,
+    required this.code,
+    required this.language,
+    super.key,
     this.showLineNumbers = true,
     this.onCopy,
   });
@@ -155,10 +157,7 @@ class _FoldableCodeBlockState extends State<FoldableCodeBlock> {
                         row.children([
                           if (hasSubRegion)
                             IconButton(
-                              icon: (isFolded
-                                      ? Icons.chevron_right
-                                      : Icons.expand_more)
-                                  .icon.grey400.s12.mk,
+                              icon: (isFolded ? Icons.chevron_right : Icons.expand_more).icon.grey400.s12.mk,
                               onPressed: () => _toggleFold(lineNumber),
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(
@@ -234,9 +233,7 @@ class _FoldableCodeBlockState extends State<FoldableCodeBlock> {
 
   bool _isLineFolded(int lineNumber) {
     for (final region in _regions) {
-      if (region.startLine <= lineNumber &&
-          region.endLine >= lineNumber &&
-          _foldedRegions[region.startLine] == true) {
+      if (region.startLine <= lineNumber && region.endLine >= lineNumber && _foldedRegions[region.startLine] == true) {
         return true;
       }
     }
@@ -270,4 +267,4 @@ class VisibleLine {
     required this.lineNumber,
     required this.content,
   });
-} 
+}

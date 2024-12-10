@@ -1,4 +1,3 @@
-
 class EditorTheme {
   final Map<String, dynamic> settings;
 
@@ -27,4 +26,4 @@ class UiTheme {
   void updateTheme(Map<String, dynamic> newSettings) {
     settings.addAll(newSettings);
   }
-} 
+}

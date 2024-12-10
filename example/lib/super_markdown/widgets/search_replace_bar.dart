@@ -9,7 +9,11 @@ class SearchReplaceBar extends StatefulWidget {
   final VoidCallback onClose;
 
   const SearchReplaceBar({
-    required this.text, required this.onTextChanged, required this.onMatchSelected, required this.onClose, super.key,
+    required this.text,
+    required this.onTextChanged,
+    required this.onMatchSelected,
+    required this.onClose,
+    super.key,
   });
 
   @override

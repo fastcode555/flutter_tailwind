@@ -9,7 +9,9 @@ class ThemeEditor extends StatefulWidget {
   final ValueChanged<FlowChartTheme> onThemeChanged;
 
   const ThemeEditor({
-    required this.initialTheme, required this.onThemeChanged, super.key,
+    required this.initialTheme,
+    required this.onThemeChanged,
+    super.key,
   });
 
   @override

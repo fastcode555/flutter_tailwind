@@ -7,7 +7,8 @@ class MathEditor extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
   const MathEditor({
-    required this.onChanged, super.key,
+    required this.onChanged,
+    super.key,
     this.initialValue = '',
   });
 

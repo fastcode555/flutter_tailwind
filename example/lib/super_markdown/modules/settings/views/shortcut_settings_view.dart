@@ -112,4 +112,4 @@ class ShortcutSettingsView extends GetView<ShortcutSettingsController> {
     // 开始录制
     controller.startRecording(shortcutKey);
   }
-} 
+}

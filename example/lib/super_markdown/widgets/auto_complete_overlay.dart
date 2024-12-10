@@ -19,44 +19,46 @@ class AutoCompleteOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxCount = suggestions.length < 6 ? suggestions.length : 6;
     return Positioned(
       left: position.dx,
       top: position.dy,
       child: Material(
         elevation: 8,
         borderRadius: BorderRadius.circular(8),
-        child: container.white.rounded8.w200.maxH(26.0 * 6).child(
-          ListView.builder(
-            itemCount: suggestions.length,
-            itemExtent: 26.0,
-            padding: EdgeInsets.zero,
-            itemBuilder: (context, index) => _buildSuggestionItem(
-              suggestions[index],
-              isSelected: index == selectedIndex,
+        child: container.white.rounded8.w200.maxH(26.0.h * maxCount).child(
+              ListView.builder(
+                itemCount: suggestions.length,
+                itemExtent: 26.0.h,
+                padding: EdgeInsets.zero,
+                itemBuilder: (context, index) => _buildSuggestionItem(
+                  suggestions[index],
+                  isSelected: index == selectedIndex,
+                ),
+              ),
             ),
-          ),
-        ),
       ),
     );
   }
 
   Widget _buildSuggestionItem(String suggestion, {required bool isSelected}) {
     return container.p8
-        .color(isSelected ? Colors.blue.withOpacity(0.1) : Colors.grey[100])
+        .color(isSelected ? Colors.blue.withOpacity(0.1) : null)
         .child(
-      row.children([
-        // 图标
-        _getIcon(suggestion).icon.color(isSelected ? Colors.blue : Colors.grey[600]).s16.mk,
-        w8,
-        // 文本
-        Expanded(
-          child: suggestion.text.color(isSelected ? Colors.blue : Colors.black).f14.mk,
-        ),
-        // 快捷键提示
-        if (_getShortcut(suggestion) != null)
-          _getShortcut(suggestion)!.text.color(isSelected ? Colors.blue : Colors.grey[400]).f12.mk,
-      ]),
-    ).click(onTap: () {
+          row.children([
+            // 图标
+            _getIcon(suggestion).icon.color(isSelected ? Colors.blue : Colors.grey[600]).s16.mk,
+            w8,
+            // 文本
+            Expanded(
+              child: suggestion.text.color(isSelected ? Colors.blue : Colors.black).f12.mk,
+            ),
+            // 快捷键提示
+            if (_getShortcut(suggestion) != null)
+              _getShortcut(suggestion)!.text.color(isSelected ? Colors.blue : Colors.grey[400]).f12.mk,
+          ]),
+        )
+        .click(onTap: () {
       onSelected(suggestion);
       onDismiss();
     });
@@ -143,4 +145,4 @@ class AutoCompleteOverlay extends StatelessWidget {
     };
     return descriptions[suggestion] ?? '';
   }
-} 
+}

@@ -32,11 +32,9 @@ class FacebookPhoneLoginPage extends StatelessWidget {
           // 用户协议
           row.center.children([
             '登录即表示同意'.text.grey600.f12.mk,
-            '用户协议'.text.blue.f12.mk
-                .click(onTap: () => AppRoutes.toUserAgreement(context)),
+            '用户协议'.text.blue.f12.mk.click(onTap: () => AppRoutes.toUserAgreement(context)),
             '和'.text.grey600.f12.mk,
-            '隐私政策'.text.blue.f12.mk
-                .click(onTap: () => AppRoutes.toPrivacyPolicy(context)),
+            '隐私政策'.text.blue.f12.mk.click(onTap: () => AppRoutes.toPrivacyPolicy(context)),
           ]),
         ],
       ),
@@ -89,4 +87,4 @@ class FacebookPhoneLoginPage extends StatelessWidget {
     // TODO: 实现手机号登录
     AppRoutes.toMain(context);
   }
-} 
+}

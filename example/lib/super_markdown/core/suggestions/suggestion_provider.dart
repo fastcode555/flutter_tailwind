@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 
 // 提示类型
 enum SuggestionType {
-  heading,     // 标题
-  format,      // 格式化
-  list,        // 列表
-  link,        // 链接
-  table,       // 表格
-  codeBlock,   // 代码块
-  math,        // 数学公式
-  custom       // 自定义
+  heading, // 标题
+  format, // 格式化
+  list, // 列表
+  link, // 链接
+  table, // 表格
+  codeBlock, // 代码块
+  math, // 数学公式
+  custom // 自定义
 }
 
 // 提示项
 class Suggestion {
-  final String label;          // 显示文本
-  final String insertText;     // 插入文本
-  final String description;    // 描述
-  final SuggestionType type;   // 类型
-  final String? example;       // 示例
-  final String? shortcut;      // 快捷键
-  final IconData? icon;        // 图标
+  final String label; // 显示文本
+  final String insertText; // 插入文本
+  final String description; // 描述
+  final SuggestionType type; // 类型
+  final String? example; // 示例
+  final String? shortcut; // 快捷键
+  final IconData? icon; // 图标
 
   const Suggestion({
     required this.label,
@@ -83,9 +83,10 @@ class SuggestionProvider {
     final suggestions = getAllSuggestions();
     if (text.isEmpty) return suggestions;
 
-    return suggestions.where((s) => 
-      s.label.toLowerCase().contains(text.toLowerCase()) ||
-      s.description.toLowerCase().contains(text.toLowerCase())
-    ).toList();
+    return suggestions
+        .where((s) =>
+            s.label.toLowerCase().contains(text.toLowerCase()) ||
+            s.description.toLowerCase().contains(text.toLowerCase()))
+        .toList();
   }
-} 
+}

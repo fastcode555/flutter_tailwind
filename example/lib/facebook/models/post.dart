@@ -13,7 +13,10 @@ class Post {
     required this.userName,
     required this.timeAgo,
     required this.content,
-    required this.likes, required this.comments, required this.shares, this.imageUrl,
+    required this.likes,
+    required this.comments,
+    required this.shares,
+    this.imageUrl,
   });
 }
 
@@ -39,4 +42,4 @@ final posts = [
     shares: 24,
   ),
   // 添加更多帖子数据...
-]; 
+];

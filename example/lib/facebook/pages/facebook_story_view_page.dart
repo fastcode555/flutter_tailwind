@@ -103,16 +103,16 @@ class _FacebookStoryViewPageState extends State<FacebookStoryViewPage> with Sing
                     for (int i = 0; i < widget.stories.length; i++)
                       Expanded(
                         child: container.h2.ml(i > 0 ? 4 : 0).child(
-                          LinearProgressIndicator(
-                            value: i < _currentIndex
-                                ? 1.0
-                                : i == _currentIndex
-                                    ? _progressController.value
-                                    : 0.0,
-                            backgroundColor: Colors.white30,
-                            valueColor: const AlwaysStoppedAnimation(Colors.white),
-                          ),
-                        ),
+                              LinearProgressIndicator(
+                                value: i < _currentIndex
+                                    ? 1.0
+                                    : i == _currentIndex
+                                        ? _progressController.value
+                                        : 0.0,
+                                backgroundColor: Colors.white30,
+                                valueColor: const AlwaysStoppedAnimation(Colors.white),
+                              ),
+                            ),
                       ),
                   ]),
                   h16,
@@ -175,12 +175,14 @@ class _FacebookStoryViewPageState extends State<FacebookStoryViewPage> with Sing
   }
 
   Widget _buildOptionItem(IconData icon, String label, {bool isRed = false}) {
-    return container.p16.wFull.child(
-      row.children([
-        icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
-        w16,
-        label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
-      ]),
-    ).click(onTap: () => Navigator.pop(context));
+    return container.p16.wFull
+        .child(
+          row.children([
+            icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
+            w16,
+            label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
+          ]),
+        )
+        .click(onTap: () => Navigator.pop(context));
   }
-} 
+}

@@ -9,7 +9,7 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: Colors.grey.shade50,
     dividerColor: Colors.grey.shade200,
-    
+
     // 编辑器主题
     extensions: [
       EditorThemeData(
@@ -41,7 +41,7 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: Colors.grey.shade900,
     dividerColor: Colors.grey.shade700,
-    
+
     // 编辑器主题
     extensions: [
       EditorThemeData(
@@ -144,4 +144,4 @@ class SyntaxHighlightTheme {
     required this.number,
     required this.punctuation,
   });
-} 
+}

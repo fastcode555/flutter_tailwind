@@ -7,7 +7,10 @@ class UnitConversionHelper extends StatelessWidget {
   final VoidCallback onClose;
 
   const UnitConversionHelper({
-    required this.fromUnit, required this.toUnit, required this.onClose, super.key,
+    required this.fromUnit,
+    required this.toUnit,
+    required this.onClose,
+    super.key,
   });
 
   @override
@@ -22,14 +25,14 @@ class UnitConversionHelper extends StatelessWidget {
             onPressed: onClose,
           ),
         ]),
-        
+
         h16,
-        
+
         // 转换公式
         _buildConversionFormula(),
-        
+
         h16,
-        
+
         // 常用转换示例
         _buildExamples(),
       ]),
@@ -57,8 +60,8 @@ class UnitConversionHelper extends StatelessWidget {
       '示例:'.text.grey600.f14.mk,
       h8,
       ...examples.map((example) => container.p8.child(
-        example.text.f14.mk,
-      )),
+            example.text.f14.mk,
+          )),
     ]);
   }
 
@@ -71,7 +74,7 @@ class UnitConversionHelper extends StatelessWidget {
       'k->c': '°C = K - 273.15',
       'f->k': 'K = (°F + 459.67) × 5/9',
       'k->f': '°F = K × 9/5 - 459.67',
-      
+
       // 长度转换
       'km->m': '1 km = 1000 m',
       'm->cm': '1 m = 100 cm',
@@ -80,38 +83,38 @@ class UnitConversionHelper extends StatelessWidget {
       'ft->m': '1 ft = 0.3048 m',
       'in->cm': '1 in = 2.54 cm',
       'yd->m': '1 yd = 0.9144 m',
-      
+
       // 重量转换
       'kg->g': '1 kg = 1000 g',
       'g->mg': '1 g = 1000 mg',
       'lb->kg': '1 lb = 0.453592 kg',
       'oz->g': '1 oz = 28.3495 g',
       't->kg': '1 t = 1000 kg',
-      
+
       // 面积转换
       'km2->m2': '1 km² = 1,000,000 m²',
       'm2->cm2': '1 m² = 10,000 cm²',
       'ha->m2': '1 ha = 10,000 m²',
       'acre->m2': '1 acre = 4046.86 m²',
       'sqft->m2': '1 ft² = 0.092903 m²',
-      
+
       // 体积转换
       'm3->l': '1 m³ = 1000 L',
       'l->ml': '1 L = 1000 mL',
       'gal->l': '1 gal = 3.78541 L',
       'qt->l': '1 qt = 0.946353 L',
       'pt->l': '1 pt = 0.473176 L',
-      
+
       // 速度转换
       'kph->mps': '1 km/h = 0.277778 m/s',
       'mph->kph': '1 mph = 1.60934 km/h',
       'knot->kph': '1 knot = 1.852 km/h',
-      
+
       // 压力转换
       'bar->pa': '1 bar = 100,000 Pa',
       'psi->pa': '1 psi = 6894.76 Pa',
       'atm->pa': '1 atm = 101,325 Pa',
-      
+
       // 能量转换
       'kj->j': '1 kJ = 1000 J',
       'kcal->j': '1 kcal = 4184 J',
@@ -134,7 +137,7 @@ class UnitConversionHelper extends StatelessWidget {
         '100°C = 373.15K (水的沸点)',
         '-273.15°C = 0K (绝对零度)',
       ],
-      
+
       // 长度转换示例
       'km->m': [
         '1 km = 1000 m',
@@ -147,7 +150,7 @@ class UnitConversionHelper extends StatelessWidget {
         '26.2 mi = 42.195 km (马拉松距离)',
         '100 mi = 160.934 km',
       ],
-      
+
       // 重量转换示例
       'kg->g': [
         '1 kg = 1000 g',
@@ -160,7 +163,7 @@ class UnitConversionHelper extends StatelessWidget {
         '2.2 lb ≈ 1 kg',
         '100 lb = 45.3592 kg',
       ],
-      
+
       // 更多示例...
     };
     return examples['$fromUnit->$toUnit'] ?? [];
@@ -178,4 +181,4 @@ class UnitConversionHelper extends StatelessWidget {
     };
     return unitTypes[fromUnit];
   }
-} 
+}

@@ -27,4 +27,4 @@ class Routes {
       search: (context) => const FacebookSearchPage(),
     };
   }
-} 
+}

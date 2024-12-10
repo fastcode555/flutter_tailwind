@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
@@ -10,7 +9,10 @@ class CalculatorHistoryViewer extends StatelessWidget {
   final VoidCallback onClear;
 
   const CalculatorHistoryViewer({
-    required this.history, required this.onSelect, required this.onClear, super.key,
+    required this.history,
+    required this.onSelect,
+    required this.onClear,
+    super.key,
   });
 
   @override

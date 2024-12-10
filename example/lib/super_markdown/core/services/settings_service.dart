@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService extends GetxService {
   late final SharedPreferences _prefs;
-  
+
   // 键名常量
   static const String kThemeMode = 'theme_mode';
   static const String kLivePreview = 'live_preview';
@@ -69,4 +69,4 @@ class SettingsService extends GetxService {
       kAutoSaveInterval: _prefs.getString(kAutoSaveInterval) ?? '1分钟',
     };
   }
-} 
+}

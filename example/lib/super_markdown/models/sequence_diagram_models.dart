@@ -1,5 +1,3 @@
-
-
 class SequenceDiagram {
   final List<Participant> participants;
   final List<Message> messages;

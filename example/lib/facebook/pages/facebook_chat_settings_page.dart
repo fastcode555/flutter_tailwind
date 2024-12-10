@@ -72,15 +72,17 @@ class FacebookChatSettingsPage extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return container.borderB1.borderGrey200.child(
-      container.p16.child(
-        row.children([
-          icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
-          w16,
-          label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
-          const Spacer(),
-          Icons.chevron_right.icon.grey600.s24.mk,
-        ]),
-      ).click(onTap: onTap),
+      container.p16
+          .child(
+            row.children([
+              icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
+              w16,
+              label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
+              const Spacer(),
+              Icons.chevron_right.icon.grey600.s24.mk,
+            ]),
+          )
+          .click(onTap: onTap),
     );
   }
 
@@ -100,4 +102,4 @@ class FacebookChatSettingsPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

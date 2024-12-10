@@ -10,7 +10,9 @@ class CodeBlock extends StatelessWidget {
   final VoidCallback? onCopy;
 
   const CodeBlock({
-    required this.code, required this.language, super.key,
+    required this.code,
+    required this.language,
+    super.key,
     this.showLineNumbers = true,
     this.onCopy,
   });
@@ -80,4 +82,4 @@ class CodeBlock extends StatelessWidget {
       ]),
     );
   }
-} 
+}

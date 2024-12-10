@@ -79,4 +79,4 @@ class FacebookFriendsListPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

@@ -111,12 +111,14 @@ class _FacebookImagePreviewPageState extends State<FacebookImagePreviewPage> {
   }
 
   Widget _buildOptionItem(IconData icon, String label, {bool isRed = false}) {
-    return container.p16.wFull.child(
-      row.children([
-        icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
-        w16,
-        label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
-      ]),
-    ).click(onTap: () => Navigator.pop(context));
+    return container.p16.wFull
+        .child(
+          row.children([
+            icon.icon.s24.color(isRed ? Colors.red : Colors.grey[800]).mk,
+            w16,
+            label.text.f16.color(isRed ? Colors.red : Colors.black).mk,
+          ]),
+        )
+        .click(onTap: () => Navigator.pop(context));
   }
 }

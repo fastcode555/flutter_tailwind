@@ -9,7 +9,8 @@ class FlowChart extends StatefulWidget {
   final FlowChartTheme? theme;
 
   const FlowChart({
-    required this.code, super.key,
+    required this.code,
+    super.key,
     this.theme,
   });
 
@@ -265,10 +266,10 @@ class _FlowChartState extends State<FlowChart> with SingleTickerProviderStateMix
 
     final theme = widget.theme ?? FlowChartThemes.light;
     final defaultTheme = theme.defaultNodeTheme;
-    
+
     final styleMap = <String, dynamic>{};
     final pairs = style.split(',');
-    
+
     for (final pair in pairs) {
       final parts = pair.trim().split(':');
       if (parts.length == 2) {
@@ -298,10 +299,10 @@ class _FlowChartState extends State<FlowChart> with SingleTickerProviderStateMix
 
     final theme = widget.theme ?? FlowChartThemes.light;
     final defaultTheme = theme.defaultEdgeTheme;
-    
+
     final styleMap = <String, dynamic>{};
     final pairs = style.split(',');
-    
+
     for (final pair in pairs) {
       final parts = pair.trim().split(':');
       if (parts.length == 2) {
@@ -332,16 +333,26 @@ class _FlowChartState extends State<FlowChart> with SingleTickerProviderStateMix
       return Color(int.parse(value.substring(1), radix: 16) + 0xFF000000);
     }
     switch (value.toLowerCase()) {
-      case 'red': return Colors.red;
-      case 'blue': return Colors.blue;
-      case 'green': return Colors.green;
-      case 'yellow': return Colors.yellow;
-      case 'orange': return Colors.orange;
-      case 'purple': return Colors.purple;
-      case 'grey': return Colors.grey;
-      case 'black': return Colors.black;
-      case 'white': return Colors.white;
-      default: return null;
+      case 'red':
+        return Colors.red;
+      case 'blue':
+        return Colors.blue;
+      case 'green':
+        return Colors.green;
+      case 'yellow':
+        return Colors.yellow;
+      case 'orange':
+        return Colors.orange;
+      case 'purple':
+        return Colors.purple;
+      case 'grey':
+        return Colors.grey;
+      case 'black':
+        return Colors.black;
+      case 'white':
+        return Colors.white;
+      default:
+        return null;
     }
   }
 
@@ -353,10 +364,14 @@ class _FlowChartState extends State<FlowChart> with SingleTickerProviderStateMix
   FontWeight? _parseFontWeight(String? value) {
     if (value == null) return null;
     switch (value.toLowerCase()) {
-      case 'bold': return FontWeight.bold;
-      case 'normal': return FontWeight.normal;
-      case 'light': return FontWeight.w300;
-      default: return null;
+      case 'bold':
+        return FontWeight.bold;
+      case 'normal':
+        return FontWeight.normal;
+      case 'light':
+        return FontWeight.w300;
+      default:
+        return null;
     }
   }
 
@@ -396,19 +411,26 @@ class _FlowChartState extends State<FlowChart> with SingleTickerProviderStateMix
   PaintingStyle? _parsePaintingStyle(String? value) {
     if (value == null) return null;
     switch (value.toLowerCase()) {
-      case 'fill': return PaintingStyle.fill;
-      case 'stroke': return PaintingStyle.stroke;
-      default: return null;
+      case 'fill':
+        return PaintingStyle.fill;
+      case 'stroke':
+        return PaintingStyle.stroke;
+      default:
+        return null;
     }
   }
 
   StrokeCap? _parseStrokeCap(String? value) {
     if (value == null) return null;
     switch (value.toLowerCase()) {
-      case 'butt': return StrokeCap.butt;
-      case 'round': return StrokeCap.round;
-      case 'square': return StrokeCap.square;
-      default: return null;
+      case 'butt':
+        return StrokeCap.butt;
+      case 'round':
+        return StrokeCap.round;
+      case 'square':
+        return StrokeCap.square;
+      default:
+        return null;
     }
   }
 

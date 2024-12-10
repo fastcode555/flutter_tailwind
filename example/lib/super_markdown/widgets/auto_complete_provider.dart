@@ -1,4 +1,3 @@
-
 class AutoCompleteProvider {
   // 提示类型
   static const markdownSyntax = {
@@ -15,9 +14,16 @@ class AutoCompleteProvider {
   // LaTeX符号
   static const mathSymbols = {
     r'\': [
-      r'\alpha', r'\beta', r'\gamma', r'\delta',
-      r'\sum', r'\int', r'\frac{a}{b}', r'\sqrt{x}',
-      r'\lim_{x \to \infty}', r'\begin{matrix}',
+      r'\alpha',
+      r'\beta',
+      r'\gamma',
+      r'\delta',
+      r'\sum',
+      r'\int',
+      r'\frac{a}{b}',
+      r'\sqrt{x}',
+      r'\lim_{x \to \infty}',
+      r'\begin{matrix}',
     ],
   };
 
@@ -124,4 +130,4 @@ class AutoCompleteProvider {
     final firstWord = line.trim().split(' ').first;
     return sequenceSyntax[firstWord] ?? [];
   }
-} 
+}

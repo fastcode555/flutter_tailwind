@@ -49,7 +49,7 @@ class FeedbackController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    
+
     // 初始化控制器
     titleController = TextEditingController();
     descriptionController = TextEditingController();
@@ -62,7 +62,7 @@ class FeedbackController extends GetxController {
 
     // 加载系统信息
     systemInfo.value = await _logService.getSystemInfo();
-    
+
     // 加载历史记录
     await _loadHistory();
   }
@@ -73,7 +73,7 @@ class FeedbackController extends GetxController {
     titleController.dispose();
     descriptionController.dispose();
     emailController.dispose();
-    
+
     // 清理临时文件
     _clearTempFiles();
     super.onClose();
@@ -339,7 +339,8 @@ class LogSelectorDialog extends StatelessWidget {
   final List<LogFile> logs;
 
   const LogSelectorDialog({
-    required this.logs, super.key,
+    required this.logs,
+    super.key,
   });
 
   @override

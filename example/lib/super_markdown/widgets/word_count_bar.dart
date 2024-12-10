@@ -5,7 +5,8 @@ class WordCountBar extends StatelessWidget {
   final String text;
 
   const WordCountBar({
-    required this.text, super.key,
+    required this.text,
+    super.key,
   });
 
   @override

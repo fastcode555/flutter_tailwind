@@ -6,7 +6,8 @@ class ImageManager extends StatefulWidget {
   final ValueChanged<List<String>> onChanged;
 
   const ImageManager({
-    required this.onChanged, super.key,
+    required this.onChanged,
+    super.key,
     this.initialImages = const [],
   });
 
@@ -68,11 +69,9 @@ class _ImageManagerState extends State<ImageManager> {
       children: [
         _images[index].image.s100.rounded8.cover.mk,
         positioned.r4.t4.child(
-          container.red.circle.s24.center
-              .child(Icons.close.icon.white.s16.mk)
-              .click(onTap: () => _removeImage(index)),
+          container.red.circle.s24.center.child(Icons.close.icon.white.s16.mk).click(onTap: () => _removeImage(index)),
         ),
       ],
     );
   }
-} 
+}

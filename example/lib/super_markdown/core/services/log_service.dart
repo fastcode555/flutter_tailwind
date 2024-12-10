@@ -51,7 +51,7 @@ class LogService extends GetxService {
       try {
         final logFile = File('${_logDir.path}/app_${DateTime.now().toIso8601String()}.log');
         _logSink = logFile.openWrite(mode: FileMode.writeOnlyAppend);
-        
+
         // 记录启动信息
         final startMessage = '=== App Started at ${DateTime.now()} ===';
         _logSink?.writeln(startMessage);
@@ -106,9 +106,7 @@ class LogService extends GetxService {
   }
 
   // 导出日志
-  Future<void> exportLogs() async {
-
-  }
+  Future<void> exportLogs() async {}
 
   // 获取系统信息
   Future<Map<String, dynamic>> getSystemInfo() async {

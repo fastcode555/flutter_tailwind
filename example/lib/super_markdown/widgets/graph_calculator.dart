@@ -109,19 +109,19 @@ class _GraphCalculatorState extends State<GraphCalculator> {
         row.children([
           '函数类型:'.text.f14.mk,
           Obx(() => DropdownButton<String>(
-            value: _selectedType.value,
-            items: _functionTypes
-                .map((type) => DropdownMenuItem(
-                      value: type,
-                      child: type.text.f14.mk,
-                    ))
-                .toList(),
-            onChanged: (value) {
-              if (value != null) {
-                _selectedType.value = value;
-              }
-            },
-          )),
+                value: _selectedType.value,
+                items: _functionTypes
+                    .map((type) => DropdownMenuItem(
+                          value: type,
+                          child: type.text.f14.mk,
+                        ))
+                    .toList(),
+                onChanged: (value) {
+                  if (value != null) {
+                    _selectedType.value = value;
+                  }
+                },
+              )),
         ]),
 
         h16,
@@ -173,8 +173,8 @@ class _GraphCalculatorState extends State<GraphCalculator> {
 
         // 函数列表
         Obx(() => column.children(
-          _functions.map(_buildFunctionItem).toList(),
-        )),
+              _functions.map(_buildFunctionItem).toList(),
+            )),
 
         h16,
 
@@ -280,4 +280,4 @@ class _GraphCalculatorState extends State<GraphCalculator> {
     _paramFunctionController.dispose();
     super.dispose();
   }
-} 
+}

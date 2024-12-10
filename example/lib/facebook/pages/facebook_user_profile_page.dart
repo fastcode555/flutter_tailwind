@@ -91,8 +91,7 @@ class FacebookUserProfilePage extends StatelessWidget {
                       crossAxisSpacing: 8,
                       children: List.generate(
                         9,
-                        (index) => 'https://picsum.photos/200?random=$index'
-                            .image.wFull.hFull.cover.rounded8.mk,
+                        (index) => 'https://picsum.photos/200?random=$index'.image.wFull.hFull.cover.rounded8.mk,
                       ),
                     ),
                   ),
@@ -117,8 +116,7 @@ class FacebookUserProfilePage extends StatelessWidget {
                       children: List.generate(
                         6,
                         (index) => column.crossStart.children([
-                          'https://picsum.photos/200?random=${index + 10}'
-                              .image.wFull.h100.cover.rounded8.mk,
+                          'https://picsum.photos/200?random=${index + 10}'.image.wFull.h100.cover.rounded8.mk,
                           h4,
                           '好友名称'.text.f14.bold.mk,
                         ]),

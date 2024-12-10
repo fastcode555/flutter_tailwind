@@ -8,7 +8,8 @@ class WysiwygToolbar extends StatelessWidget {
   final ToolbarTheme? theme;
 
   const WysiwygToolbar({
-    required this.controller, super.key,
+    required this.controller,
+    super.key,
     this.theme,
   });
 

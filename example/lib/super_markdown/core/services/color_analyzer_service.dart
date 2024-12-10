@@ -190,4 +190,4 @@ class AccessibilityInfo {
     required this.wcagAAA,
     required this.bestTextColor,
   });
-} 
+}

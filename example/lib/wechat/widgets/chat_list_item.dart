@@ -10,7 +10,11 @@ class ChatListItem extends StatelessWidget {
   final bool hasUnread;
 
   const ChatListItem({
-    required this.avatar, required this.name, required this.lastMessage, required this.time, super.key,
+    required this.avatar,
+    required this.name,
+    required this.lastMessage,
+    required this.time,
+    super.key,
     this.hasUnread = false,
   });
 

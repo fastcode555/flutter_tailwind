@@ -47,7 +47,10 @@ class _FacebookAppRatingPageState extends State<FacebookAppRatingPage> {
                 for (var i = 1; i <= 5; i++)
                   container.p8.child(
                     (i <= _rating ? Icons.star : Icons.star_border)
-                        .icon.amber.s32.mk
+                        .icon
+                        .amber
+                        .s32
+                        .mk
                         .click(onTap: () => setState(() => _rating = i)),
                   ),
               ]),
@@ -75,9 +78,7 @@ class _FacebookAppRatingPageState extends State<FacebookAppRatingPage> {
           ),
           h16,
           // 提交按钮
-          container.blue.rounded8.p16.center
-              .child('提交评价'.text.white.f16.bold.mk)
-              .click(onTap: _submitRating),
+          container.blue.rounded8.p16.center.child('提交评价'.text.white.f16.bold.mk).click(onTap: _submitRating),
         ],
       ),
     );
@@ -121,4 +122,4 @@ class _FacebookAppRatingPageState extends State<FacebookAppRatingPage> {
     );
     Navigator.pop(context);
   }
-} 
+}

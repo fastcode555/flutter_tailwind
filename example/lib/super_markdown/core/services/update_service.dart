@@ -14,7 +14,7 @@ class UpdateService extends GetxService {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         final latestVersion = data['version'];
-        
+
         if (_compareVersion(latestVersion, _currentVersion) > 0) {
           return UpdateInfo(
             version: latestVersion,
@@ -66,4 +66,4 @@ class UpdateInfo {
     required this.description,
     required this.downloadUrl,
   });
-} 
+}

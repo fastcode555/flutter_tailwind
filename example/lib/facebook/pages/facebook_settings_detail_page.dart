@@ -3,6 +3,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 class FacebookSettingsDetailPage extends StatelessWidget {
   final String title;
+
   const FacebookSettingsDetailPage({
     required this.title,
     super.key,
@@ -158,4 +159,4 @@ class FacebookSettingsDetailPage extends StatelessWidget {
       ),
     );
   }
-} 
+}

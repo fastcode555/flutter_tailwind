@@ -88,39 +88,37 @@ class SettingsView extends GetView<SettingsController> {
   }
 
   Widget _buildSection(String title, List<Widget> children) {
-    return column.children([
-      container.p16.grey100.child(
-        title.text.grey600.f14.mk,
-      ),
+    return column.crossStart.children([
+      title.text.black.bold.p16.f16.mk,
       ...children,
     ]);
   }
 
   Widget _buildThemeModeSetting() {
-    return container.white.p16.borderB1.borderGrey200.child(
+    return container.white.p16.borderB1.borderGrey200.wFull.child(
       column.crossStart.children([
         '主题模式'.text.f16.mk,
         h8,
         Obx(() => SegmentedButton<ThemeMode>(
-          segments: const [
-            ButtonSegment(
-              value: ThemeMode.system,
-              label: Text('跟随系统'),
-            ),
-            ButtonSegment(
-              value: ThemeMode.light,
-              label: Text('浅色'),
-            ),
-            ButtonSegment(
-              value: ThemeMode.dark,
-              label: Text('深色'),
-            ),
-          ],
-          selected: {controller.themeMode},
-          onSelectionChanged: (Set<ThemeMode> modes) {
-            controller.setThemeMode(modes.first);
-          },
-        )),
+              segments: const [
+                ButtonSegment(
+                  value: ThemeMode.system,
+                  label: Text('跟随系统'),
+                ),
+                ButtonSegment(
+                  value: ThemeMode.light,
+                  label: Text('浅色'),
+                ),
+                ButtonSegment(
+                  value: ThemeMode.dark,
+                  label: Text('深色'),
+                ),
+              ],
+              selected: {controller.themeMode},
+              onSelectionChanged: (Set<ThemeMode> modes) {
+                controller.setThemeMode(modes.first);
+              },
+            )),
       ]),
     );
   }
@@ -153,9 +151,9 @@ class SettingsView extends GetView<SettingsController> {
           subtitle.text.grey600.f14.mk,
         ]),
         Obx(() => Switch(
-          value: value.value,
-          onChanged: onChanged,
-        )),
+              value: value.value,
+              onChanged: onChanged,
+            )),
       ]),
     );
   }
@@ -175,10 +173,12 @@ class SettingsView extends GetView<SettingsController> {
         ]),
         DropdownButton<String>(
           value: value,
-          items: options.map((option) => DropdownMenuItem(
-            value: option,
-            child: option.text.f14.mk,
-          )).toList(),
+          items: options
+              .map((option) => DropdownMenuItem(
+                    value: option,
+                    child: option.text.f14.mk,
+                  ))
+              .toList(),
           onChanged: (value) {
             if (value != null) onChanged(value);
           },
@@ -213,4 +213,4 @@ class SettingsView extends GetView<SettingsController> {
       ]),
     );
   }
-} 
+}

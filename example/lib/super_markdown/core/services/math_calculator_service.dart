@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 class MathCalculatorService extends GetxService {
   // 变量存储
   final Map<String, double> _variables = {};
-  
+
   // 计算历史
   final RxList<String> history = <String>[].obs;
-  
+
   // 支持的函数
   final Map<String, double Function(double)> _functions = {
     // 基本三角函数
@@ -19,36 +19,36 @@ class MathCalculatorService extends GetxService {
     'asin': math.asin,
     'acos': math.acos,
     'atan': math.atan,
-    
+
     // 双曲函数
     'sinh': (x) => (math.exp(x) - math.exp(-x)) / 2,
     'cosh': (x) => (math.exp(x) + math.exp(-x)) / 2,
     'tanh': (x) => (math.exp(x) - math.exp(-x)) / (math.exp(x) + math.exp(-x)),
-    
+
     // 反双曲函数
     'asinh': (x) => math.log(x + math.sqrt(x * x + 1)),
     'acosh': (x) => math.log(x + math.sqrt(x * x - 1)),
     'atanh': (x) => 0.5 * math.log((1 + x) / (1 - x)),
-    
+
     // 指数和对数
     'exp': math.exp,
     'log': math.log,
     'log10': (x) => math.log(x) / math.ln10,
     'log2': (x) => math.log(x) / math.ln2,
-    
+
     // 幂运算和根
     'sqrt': math.sqrt,
-    'cbrt': (x) => math.pow(x, 1/3).toDouble(),
+    'cbrt': (x) => math.pow(x, 1 / 3).toDouble(),
     'pow2': (x) => x * x,
     'pow3': (x) => x * x * x,
-    
+
     // 取整和绝对值
     'abs': (x) => x.abs(),
     'ceil': (x) => x.ceil().toDouble(),
     'floor': (x) => x.floor().toDouble(),
     'round': (x) => x.round().toDouble(),
     'trunc': (x) => x.truncate().toDouble(),
-    
+
     // 角度转换
     'rad': (x) => x * math.pi / 180, // 度转弧度
     'deg': (x) => x * 180 / math.pi, // 弧度转度
@@ -147,7 +147,7 @@ class MathCalculatorService extends GetxService {
       if (expression.contains('->')) {
         return _handleUnitConversion(expression);
       }
-      
+
       // 检查是否是数学表达式
       if (!expression.contains('=')) {
         return null;
@@ -160,7 +160,7 @@ class MathCalculatorService extends GetxService {
       }
 
       final expr = parts[0];
-      
+
       // 解析表达式
       final result = ExpressionParser.evaluate(expr);
       if (result == null) return null;
@@ -168,16 +168,16 @@ class MathCalculatorService extends GetxService {
       // 格式化结果
       final formattedResult = _formatNumber(result);
       final resultText = '$expr = $formattedResult';
-      
+
       // 添加到历史记录
       history.insert(0, resultText);
       if (history.length > 100) {
         history.removeLast();
       }
-      
+
       // 保存结果到变量
       _variables['ans'] = result;
-      
+
       return resultText;
     } catch (e) {
       return null;
@@ -191,7 +191,7 @@ class MathCalculatorService extends GetxService {
 
     final varName = parts[0].trim();
     final expr = parts[1];
-    
+
     final value = _evaluateExpression(expr);
     if (value == null) return null;
 
@@ -218,8 +218,7 @@ class MathCalculatorService extends GetxService {
     // 查找单位类型
     String? unitType;
     for (final type in _unitConversions.keys) {
-      if (_unitConversions[type]!.containsKey(sourceUnit) &&
-          _unitConversions[type]!.containsKey(targetUnit)) {
+      if (_unitConversions[type]!.containsKey(sourceUnit) && _unitConversions[type]!.containsKey(targetUnit)) {
         unitType = type;
         break;
       }
@@ -242,7 +241,7 @@ class MathCalculatorService extends GetxService {
       if (funcMatch != null) {
         final funcName = funcMatch.group(1)!;
         final arg = funcMatch.group(2)!;
-        
+
         if (_functions.containsKey(funcName)) {
           final value = _evaluateExpression(arg);
           if (value != null) {
@@ -262,20 +261,20 @@ class MathCalculatorService extends GetxService {
       if (addParts.length > 1) {
         var result = _evaluateExpression(addParts[0]) ?? 0;
         var index = addParts[0].length;
-        
+
         for (var i = 1; i < addParts.length; i++) {
           final op = expr[index];
           final value = _evaluateExpression(addParts[i]) ?? 0;
-          
+
           if (op == '+') {
             result += value;
           } else {
             result -= value;
           }
-          
+
           index += addParts[i].length + 1;
         }
-        
+
         return result;
       }
 
@@ -284,20 +283,20 @@ class MathCalculatorService extends GetxService {
       if (mulParts.length > 1) {
         var result = _evaluateExpression(mulParts[0]) ?? 0;
         var index = mulParts[0].length;
-        
+
         for (var i = 1; i < mulParts.length; i++) {
           final op = expr[index];
           final value = _evaluateExpression(mulParts[i]) ?? 0;
-          
+
           if (op == '*') {
             result *= value;
           } else if (value != 0) {
             result /= value;
           }
-          
+
           index += mulParts[i].length + 1;
         }
-        
+
         return result;
       }
 
@@ -305,12 +304,12 @@ class MathCalculatorService extends GetxService {
       final powParts = expr.split('^');
       if (powParts.length > 1) {
         var result = _evaluateExpression(powParts[0]) ?? 0;
-        
+
         for (var i = 1; i < powParts.length; i++) {
           final exponent = _evaluateExpression(powParts[i]) ?? 0;
           result = math.pow(result, exponent).toDouble();
         }
-        
+
         return result;
       }
 
@@ -374,7 +373,7 @@ class MathCalculatorService extends GetxService {
         case 'c':
           celsius = value;
         case 'f':
-          celsius = (value - 32) * 5/9;
+          celsius = (value - 32) * 5 / 9;
         case 'k':
           celsius = value - 273.15;
         default:
@@ -386,7 +385,7 @@ class MathCalculatorService extends GetxService {
         case 'c':
           return celsius;
         case 'f':
-          return celsius * 9/5 + 32;
+          return celsius * 9 / 5 + 32;
         case 'k':
           return celsius + 273.15;
         default:
@@ -409,4 +408,4 @@ class MathCalculatorService extends GetxService {
       return number.toStringAsFixed(6).replaceAll(RegExp(r'\.?0+$'), '');
     }
   }
-} 
+}

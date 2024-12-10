@@ -147,7 +147,8 @@ class ExportTemplate {
   ExportTemplate({
     required this.name,
     required this.type,
-    required this.styles, this.path,
+    required this.styles,
+    this.path,
     this.layouts,
     this.pageSetup,
   });

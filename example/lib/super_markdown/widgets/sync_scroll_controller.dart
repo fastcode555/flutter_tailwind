@@ -21,7 +21,7 @@ class SyncScrollController {
     final editorPosition = editor.position;
     final previewPosition = preview.position;
     final ratio = previewPosition.maxScrollExtent / editorPosition.maxScrollExtent;
-    
+
     preview.jumpTo(editor.offset * ratio);
     _syncingEditor = false;
   }
@@ -33,7 +33,7 @@ class SyncScrollController {
     final editorPosition = editor.position;
     final previewPosition = preview.position;
     final ratio = editorPosition.maxScrollExtent / previewPosition.maxScrollExtent;
-    
+
     editor.jumpTo(preview.offset * ratio);
     _syncingPreview = false;
   }
@@ -42,4 +42,4 @@ class SyncScrollController {
     editor.removeListener(_onEditorScroll);
     preview.removeListener(_onPreviewScroll);
   }
-} 
+}

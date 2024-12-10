@@ -5,7 +5,9 @@ class ShortcutWrapper extends StatelessWidget {
   final Map<ShortcutActivator, VoidCallback> shortcuts;
 
   const ShortcutWrapper({
-    required this.child, required this.shortcuts, super.key,
+    required this.child,
+    required this.shortcuts,
+    super.key,
   });
 
   @override
@@ -19,7 +21,7 @@ class ShortcutWrapper extends StatelessWidget {
         //     const SingleActivator(LogicalKeyboardKey.keyZ, control: true),
         // LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyY):
         //     const SingleActivator(LogicalKeyboardKey.keyY, control: true),
-            
+
         // 格式化
         // LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyB):
         //     const SingleActivator(LogicalKeyboardKey.keyB, control: true),
@@ -30,8 +32,7 @@ class ShortcutWrapper extends StatelessWidget {
       },
       child: Actions(
         actions: {
-          for (final entry in shortcuts.entries)
-            SingleActivator: CallbackAction(onInvoke: (_) => entry.value),
+          for (final entry in shortcuts.entries) SingleActivator: CallbackAction(onInvoke: (_) => entry.value),
         },
         child: Focus(
           autofocus: true,
@@ -40,4 +41,4 @@ class ShortcutWrapper extends StatelessWidget {
       ),
     );
   }
-} 
+}

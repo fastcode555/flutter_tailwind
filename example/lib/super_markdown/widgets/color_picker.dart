@@ -12,7 +12,9 @@ class ColorPicker extends StatefulWidget {
   final bool enableCustomColors;
 
   const ColorPicker({
-    required this.color, required this.onColorChanged, super.key,
+    required this.color,
+    required this.onColorChanged,
+    super.key,
     this.enableAlpha = true,
     this.enableCustomColors = true,
   });

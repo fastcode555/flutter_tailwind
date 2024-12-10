@@ -99,10 +99,10 @@ class ShortcutService extends GetxService {
   // 更新快捷键
   Future<void> updateShortcut(String key, Set<LogicalKeyboardKey> keySet) async {
     if (!_shortcuts.containsKey(key)) return;
-    
+
     // 保存原始快捷键，以便恢复
     final originalBinding = _shortcuts[key];
-    
+
     try {
       _shortcuts[key] = _shortcuts[key]!.copyWith(keySet: keySet);
       await _saveShortcuts();
@@ -129,23 +129,23 @@ class ShortcutService extends GetxService {
   // 检查快捷键冲突
   List<ShortcutBinding> checkConflicts(Set<LogicalKeyboardKey> keySet) {
     final conflicts = <ShortcutBinding>[];
-    
+
     for (final binding in _shortcuts.values) {
       if (_isKeySetsEqual(binding.keySet, keySet)) {
         conflicts.add(binding);
       }
     }
-    
+
     return conflicts;
   }
 
   // 移除快捷键
   Future<void> removeShortcut(String key) async {
     if (!_shortcuts.containsKey(key)) return;
-    
+
     // 保存原始快捷键，以便恢复
     final originalBinding = _shortcuts[key];
-    
+
     try {
       _shortcuts.remove(key);
       await _saveShortcuts();
@@ -185,7 +185,7 @@ class ShortcutService extends GetxService {
 
     // 收集当前按下的键
     final pressedKeys = <LogicalKeyboardKey>{};
-    
+
     // 检查修饰键
     if (HardwareKeyboard.instance.isControlPressed) {
       pressedKeys.add(LogicalKeyboardKey.control);
@@ -196,7 +196,7 @@ class ShortcutService extends GetxService {
     if (HardwareKeyboard.instance.isAltPressed) {
       pressedKeys.add(LogicalKeyboardKey.alt);
     }
-    
+
     // 添加当前按下的键
     pressedKeys.add(event.logicalKey);
 

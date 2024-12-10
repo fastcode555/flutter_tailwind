@@ -7,7 +7,10 @@ class OutlineNavigator extends StatefulWidget {
   final ScrollController scrollController;
 
   const OutlineNavigator({
-    required this.markdown, required this.onHeadingSelected, required this.scrollController, super.key,
+    required this.markdown,
+    required this.onHeadingSelected,
+    required this.scrollController,
+    super.key,
   });
 
   @override

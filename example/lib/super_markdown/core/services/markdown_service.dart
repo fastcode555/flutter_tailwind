@@ -32,10 +32,9 @@ class MarkdownService extends GetxService {
 
   // 解析Markdown文本
   String parseMarkdown(String text) {
-    // TODO: 添加自定义语法支持
     return text;
   }
 
   // 获取样式表
   MarkdownStyleSheet get styleSheet => _markdownConfig;
-} 
+}

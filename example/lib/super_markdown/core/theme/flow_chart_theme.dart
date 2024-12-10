@@ -132,4 +132,4 @@ class EdgeTheme {
       animationColors: t < 0.5 ? a.animationColors : b.animationColors,
     );
   }
-} 
+}

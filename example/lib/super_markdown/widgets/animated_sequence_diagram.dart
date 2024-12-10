@@ -10,7 +10,9 @@ class AnimatedSequenceDiagram extends StatefulWidget {
   final Curve animationCurve;
 
   const AnimatedSequenceDiagram({
-    required this.diagram, required this.theme, super.key,
+    required this.diagram,
+    required this.theme,
+    super.key,
     this.animated = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.animationCurve = Curves.easeInOut,

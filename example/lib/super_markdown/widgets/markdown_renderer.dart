@@ -7,7 +7,8 @@ class MarkdownRenderer extends StatelessWidget {
   final String markdown;
 
   const MarkdownRenderer({
-    required this.markdown, super.key,
+    required this.markdown,
+    super.key,
   });
 
   @override

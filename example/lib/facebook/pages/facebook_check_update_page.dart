@@ -71,9 +71,7 @@ class _FacebookCheckUpdatePageState extends State<FacebookCheckUpdatePage> {
           ),
           h16,
           // 手动检查按钮
-          container.blue.rounded8.p16.center
-              .child('立即检查更新'.text.white.f16.bold.mk)
-              .click(onTap: _checkUpdate),
+          container.blue.rounded8.p16.center.child('立即检查更新'.text.white.f16.bold.mk).click(onTap: _checkUpdate),
         ],
       ),
     );
@@ -111,4 +109,4 @@ class _FacebookCheckUpdatePageState extends State<FacebookCheckUpdatePage> {
       SnackBar(content: '已是最新版本'.text.white.mk),
     );
   }
-} 
+}

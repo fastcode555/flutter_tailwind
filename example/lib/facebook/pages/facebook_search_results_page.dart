@@ -128,4 +128,4 @@ class FacebookSearchResultsPage extends StatelessWidget {
       itemBuilder: (context, index) => _buildGroupItem(),
     );
   }
-} 
+}

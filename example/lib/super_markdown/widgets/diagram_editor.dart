@@ -9,7 +9,8 @@ class DiagramEditor extends StatefulWidget {
   final SequenceDiagramTheme theme;
 
   const DiagramEditor({
-    required this.initialCode, super.key,
+    required this.initialCode,
+    super.key,
     this.onChanged,
     this.theme = const SequenceDiagramTheme(),
   });

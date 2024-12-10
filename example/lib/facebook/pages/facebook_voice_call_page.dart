@@ -62,11 +62,15 @@ class FacebookVoiceCallPage extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return column.center.children([
-      container.s60.circle.color(color ?? Colors.grey[800]).center.child(
+      container.s60.circle
+          .color(color ?? Colors.grey[800])
+          .center
+          .child(
             icon.icon.white.s24.mk,
-          ).click(onTap: onTap),
+          )
+          .click(onTap: onTap),
       h8,
       label.text.white.f12.mk,
     ]);
   }
-} 
+}

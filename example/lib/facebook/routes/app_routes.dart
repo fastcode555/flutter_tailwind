@@ -477,7 +477,7 @@ class AppRoutes {
   static void toMain(BuildContext context) {
     // 清除所有路由并导航到主页
     Navigator.pushNamedAndRemoveUntil(
-      context, 
+      context,
       main,
       (route) => false,
     );

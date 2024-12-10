@@ -8,7 +8,9 @@ class ContactListItem extends StatelessWidget {
   final VoidCallback onTap;
 
   const ContactListItem({
-    required this.name, required this.onTap, super.key,
+    required this.name,
+    required this.onTap,
+    super.key,
     this.avatar,
     this.icon,
   }) : assert(avatar != null || icon != null);

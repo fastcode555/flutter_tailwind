@@ -76,4 +76,4 @@ class ThemeEditorController extends GetxController {
       snackPosition: SnackPosition.BOTTOM,
     );
   }
-} 
+}

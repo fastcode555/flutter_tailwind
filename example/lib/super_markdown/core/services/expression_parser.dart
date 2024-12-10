@@ -23,29 +23,29 @@ class ExpressionParser {
     'asin': math.asin,
     'acos': math.acos,
     'atan': math.atan,
-    
+
     // 双曲函数
     'sinh': (x) => (math.exp(x) - math.exp(-x)) / 2,
     'cosh': (x) => (math.exp(x) + math.exp(-x)) / 2,
     'tanh': (x) => (math.exp(x) - math.exp(-x)) / (math.exp(x) + math.exp(-x)),
-    
+
     // 反双曲函数
     'asinh': (x) => math.log(x + math.sqrt(x * x + 1)),
     'acosh': (x) => math.log(x + math.sqrt(x * x - 1)),
     'atanh': (x) => 0.5 * math.log((1 + x) / (1 - x)),
-    
+
     // 指数和对数
     'exp': math.exp,
     'log': math.log,
     'log2': (x) => math.log(x) / math.ln2,
     'log10': (x) => math.log(x) / math.ln10,
-    
+
     // 幂运算和根
     'sqrt': math.sqrt,
-    'cbrt': (x) => math.pow(x, 1/3).toDouble(),
+    'cbrt': (x) => math.pow(x, 1 / 3).toDouble(),
     'pow2': (x) => x * x,
     'pow3': (x) => x * x * x,
-    
+
     // 取整和绝对值
     'abs': (x) => x.abs(),
     'ceil': (x) => x.ceil().toDouble(),
@@ -53,7 +53,7 @@ class ExpressionParser {
     'round': (x) => x.round().toDouble(),
     'trunc': (x) => x.truncate().toDouble(),
     'sign': (x) => x.sign,
-    
+
     // 特殊函数
     'gamma': _gamma,
     'factorial': _factorial,
@@ -65,13 +65,13 @@ class ExpressionParser {
     try {
       // 处理科学计数法
       expression = _normalizeScientificNotation(expression);
-      
+
       // 替换常量
       expression = _replaceConstants(expression);
-      
+
       // 处理函数调用
       expression = _handleFunctions(expression);
-      
+
       // 计算表达式
       return _evaluateExpression(expression);
     } catch (e) {
@@ -120,20 +120,20 @@ class ExpressionParser {
   static double? _evaluateExpression(String expr) {
     // 移除空格
     expr = expr.replaceAll(' ', '');
-    
+
     // 处理括号
     while (expr.contains('(')) {
       final start = expr.lastIndexOf('(');
       final end = expr.indexOf(')', start);
       if (end == -1) return null;
-      
+
       final innerExpr = expr.substring(start + 1, end);
       final innerResult = _evaluateExpression(innerExpr);
       if (innerResult == null) return null;
-      
+
       expr = expr.replaceRange(start, end + 1, innerResult.toString());
     }
-    
+
     // 处理运算符
     return _evaluateOperators(expr);
   }
@@ -145,20 +145,20 @@ class ExpressionParser {
     if (addParts.length > 1) {
       var result = _evaluateOperators(addParts[0]) ?? 0;
       var index = addParts[0].length;
-      
+
       for (var i = 1; i < addParts.length; i++) {
         final op = expr[index];
         final value = _evaluateOperators(addParts[i]) ?? 0;
-        
+
         if (op == '+') {
           result += value;
         } else {
           result -= value;
         }
-        
+
         index += addParts[i].length + 1;
       }
-      
+
       return result;
     }
 
@@ -167,11 +167,11 @@ class ExpressionParser {
     if (mulParts.length > 1) {
       var result = _evaluateOperators(mulParts[0]) ?? 0;
       var index = mulParts[0].length;
-      
+
       for (var i = 1; i < mulParts.length; i++) {
         final op = expr[index];
         final value = _evaluateOperators(mulParts[i]) ?? 0;
-        
+
         if (op == '*') {
           result *= value;
         } else if (value != 0) {
@@ -179,10 +179,10 @@ class ExpressionParser {
         } else {
           return null; // 除以零
         }
-        
+
         index += mulParts[i].length + 1;
       }
-      
+
       return result;
     }
 
@@ -190,12 +190,12 @@ class ExpressionParser {
     final powParts = expr.split('^');
     if (powParts.length > 1) {
       var result = _evaluateOperators(powParts[0]) ?? 0;
-      
+
       for (var i = 1; i < powParts.length; i++) {
         final exponent = _evaluateOperators(powParts[i]) ?? 0;
         result = math.pow(result, exponent).toDouble();
       }
-      
+
       return result;
     }
 
@@ -256,4 +256,4 @@ class ExpressionParser {
 
     return sign * y;
   }
-} 
+}

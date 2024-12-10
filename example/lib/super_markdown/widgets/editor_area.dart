@@ -46,9 +46,6 @@ class _EditorAreaState extends State<EditorArea> {
   final RxString _fromUnit = ''.obs;
   final RxString _toUnit = ''.obs;
 
-  // 添加当前选中的建议索引
-  final RxInt _selectedSuggestionIndex = 0.obs;
-
   @override
   void initState() {
     super.initState();
@@ -77,7 +74,6 @@ class _EditorAreaState extends State<EditorArea> {
 
         if (_suggestions.isNotEmpty) {
           _showSuggestions.value = true;
-          _selectedSuggestionIndex.value = 0; // 重置选中索引
           _updateSuggestionPosition(selection.baseOffset - prefix.length);
           return;
         }
@@ -112,10 +108,7 @@ class _EditorAreaState extends State<EditorArea> {
     final globalPosition = renderObject.localToGlobal(cursorOffset);
 
     // 设置建议框位置（在光标下方）
-    _suggestionPosition.value = Offset(
-      globalPosition.dx,
-      globalPosition.dy - 30, // 光标高度
-    );
+    _suggestionPosition.value = Offset(globalPosition.dx, globalPosition.dy - 25.h);
   }
 
   void _insertSuggestion(String suggestion) {
@@ -138,6 +131,7 @@ class _EditorAreaState extends State<EditorArea> {
         offset: start + suggestion.length,
       ),
     );
+
     // 如果是函数，添加括号
     if (_isFunction(suggestion)) {
       _insertText('()');
@@ -207,35 +201,6 @@ class _EditorAreaState extends State<EditorArea> {
     }
   }
 
-  // 处理键盘事件
-  void _handleKeyEvent(KeyEvent event) {
-    if (event is KeyDownEvent) {
-      if (_showSuggestions.value) {
-        switch (event.logicalKey) {
-          case LogicalKeyboardKey.arrowUp:
-            // 向上选择，到顶部时循环到底部
-            _selectedSuggestionIndex.value = (_selectedSuggestionIndex.value - 1) % _suggestions.length;
-            if (_selectedSuggestionIndex.value < 0) {
-              _selectedSuggestionIndex.value = _suggestions.length - 1;
-            }
-            return;
-          case LogicalKeyboardKey.arrowDown:
-            // 向下选择，到底部时循环到顶部
-            _selectedSuggestionIndex.value = (_selectedSuggestionIndex.value + 1) % _suggestions.length;
-            return;
-          case LogicalKeyboardKey.enter:
-            // 插入选中的建议
-            if (_suggestions.isNotEmpty) {
-              _insertSuggestion(_suggestions[_selectedSuggestionIndex.value]);
-            }
-            return;
-          default:
-            break;
-        }
-      }
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return container.white.p16.wFull.hFull.child(
@@ -247,7 +212,81 @@ class _EditorAreaState extends State<EditorArea> {
             Expanded(
               child: KeyboardListener(
                 focusNode: _focusNode,
-                onKeyEvent: _handleKeyEvent,
+                onKeyEvent: (event) {
+                  if (event is KeyDownEvent) {
+                    if (_showSuggestions.value) {
+                      // 已经有补全提示时，让 AutoCompleteOverlay 处理按键
+                      return;
+                    }
+                    // 检查是否按下 Control 键
+                    final isControlPressed = event.logicalKey == LogicalKeyboardKey.controlLeft ||
+                        event.logicalKey == LogicalKeyboardKey.controlRight ||
+                        HardwareKeyboard.instance.isControlPressed;
+
+                    // 检查是否按下 Alt 键
+                    final isAltPressed = event.logicalKey == LogicalKeyboardKey.altLeft ||
+                        event.logicalKey == LogicalKeyboardKey.altRight ||
+                        HardwareKeyboard.instance.isAltPressed;
+
+                    if (isControlPressed) {
+                      // Ctrl + 快捷键
+                      switch (event.logicalKey) {
+                        case LogicalKeyboardKey.keyZ:
+                          _editorService.undo();
+                        case LogicalKeyboardKey.keyY:
+                          _editorService.redo();
+                        case LogicalKeyboardKey.keyS:
+                          widget.onSave();
+                        case LogicalKeyboardKey.keyB:
+                          _insertFormat('**', '**');
+                        case LogicalKeyboardKey.keyI:
+                          _insertFormat('*', '*');
+                        case LogicalKeyboardKey.keyU:
+                          _insertFormat('__', '__');
+                        case LogicalKeyboardKey.keyK:
+                          _insertLink();
+                        case LogicalKeyboardKey.keyM:
+                          _insertMath();
+                        case LogicalKeyboardKey.space:
+                          _updateSuggestions();
+                      }
+                    } else if (isAltPressed) {
+                      // Alt + 快捷键
+                      switch (event.logicalKey) {
+                        case LogicalKeyboardKey.digit1:
+                          _insertHeader(1);
+                        case LogicalKeyboardKey.digit2:
+                          _insertHeader(2);
+                        case LogicalKeyboardKey.digit3:
+                          _insertHeader(3);
+                        case LogicalKeyboardKey.keyL:
+                          _insertList('- ');
+                        case LogicalKeyboardKey.keyO:
+                          _insertList('1. ');
+                        case LogicalKeyboardKey.keyT:
+                          _insertTable();
+                        case LogicalKeyboardKey.keyC:
+                          _insertCodeBlock();
+                      }
+                    } else {
+                      // 普通按键
+                      switch (event.logicalKey) {
+                        case LogicalKeyboardKey.enter:
+                          if (_controller.text.endsWith('=')) {
+                            _editorService.handleMathExpression(_controller.text);
+                          }
+                        case LogicalKeyboardKey.arrowUp:
+                          if (isAltPressed) {
+                            _navigateHistory(true);
+                          }
+                        case LogicalKeyboardKey.arrowDown:
+                          if (isAltPressed) {
+                            _navigateHistory(false);
+                          }
+                      }
+                    }
+                  }
+                },
                 child: TextField(
                   controller: _controller,
                   // focusNode: _focusNode,
@@ -296,7 +335,7 @@ class _EditorAreaState extends State<EditorArea> {
                   position: _suggestionPosition.value,
                   onSelected: _insertSuggestion,
                   onDismiss: () => _showSuggestions.value = false,
-                  selectedIndex: _selectedSuggestionIndex.value,
+                  selectedIndex: 0,
                 )
               : const SizedBox()),
 
@@ -452,7 +491,7 @@ class _EditorAreaState extends State<EditorArea> {
                   ),
                 ],
                 onChanged: (value) {
-                  if (value == true) {
+                  if (value ?? false) {
                     _insertText('\n\$\$\n$selectedText\n\$\$\n');
                   } else {
                     _insertText('\$$selectedText\$');

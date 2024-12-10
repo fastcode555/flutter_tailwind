@@ -45,7 +45,7 @@ class ShortcutSettingsController extends GetxController {
       if (key == LogicalKeyboardKey.meta) return 'Meta';
       return key.keyLabel.toUpperCase();
     }).toList();
-    
+
     return keys.join(' + ');
   }
 
@@ -80,15 +80,14 @@ class ShortcutSettingsController extends GetxController {
     } else if (event is KeyUpEvent) {
       // 移除按键
       recordingKeys.remove(event.logicalKey);
-      
+
       // 检查是否所有修饰键都已释放
-      final hasModifierKey = recordingKeys.any((key) => 
-        key == LogicalKeyboardKey.control ||
-        key == LogicalKeyboardKey.shift ||
-        key == LogicalKeyboardKey.alt ||
-        key == LogicalKeyboardKey.meta
-      );
-      
+      final hasModifierKey = recordingKeys.any((key) =>
+          key == LogicalKeyboardKey.control ||
+          key == LogicalKeyboardKey.shift ||
+          key == LogicalKeyboardKey.alt ||
+          key == LogicalKeyboardKey.meta);
+
       // 如果没有修饰键且有其他按键，则保存快捷键
       if (!hasModifierKey && recordingKeys.isNotEmpty) {
         saveShortcut();

@@ -11,7 +11,9 @@ class ColorDropper extends StatefulWidget {
   final VoidCallback onCancel;
 
   const ColorDropper({
-    required this.onColorPicked, required this.onCancel, super.key,
+    required this.onColorPicked,
+    required this.onCancel,
+    super.key,
   });
 
   @override

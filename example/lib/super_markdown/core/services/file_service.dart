@@ -12,10 +12,12 @@ class FileService extends GetxService {
 
   // 当前文件
   final Rx<File?> _currentFile = Rx<File?>(null);
+
   File? get currentFile => _currentFile.value;
 
   // 最近文件列表
   final RxList<String> _recentFiles = <String>[].obs;
+
   List<String> get recentFiles => _recentFiles;
 
   @override
@@ -90,7 +92,7 @@ class FileService extends GetxService {
 
       await _currentFile.value!.writeAsString(content);
       _addToRecentFiles(_currentFile.value!.path);
-      
+
       // 清除自动保存
       await _storage.remove(kAutoSaveContent);
     } catch (e) {
@@ -140,4 +142,4 @@ class FileService extends GetxService {
   Future<void> createNew() async {
     _currentFile.value = null;
   }
-} 
+}

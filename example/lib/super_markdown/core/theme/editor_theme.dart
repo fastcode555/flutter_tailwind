@@ -83,4 +83,4 @@ class ToolbarTheme {
     this.iconSize = 20,
     this.padding = const EdgeInsets.all(8),
   });
-} 
+}
