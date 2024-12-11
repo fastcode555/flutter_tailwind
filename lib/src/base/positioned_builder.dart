@@ -29,6 +29,14 @@ extension PositionedBuilderBuilderExt<T extends PositionedBuilder> on T {
 
   T t(double value) => this..top = value;
 
+  T left(double value) => this..left = value;
+
+  T right(double value) => this..right = value;
+
+  T bottom(double value) => this..bottom = value;
+
+  T top(double value) => this..top = value;
+
   T get l0 => this..left = 0.r;
 
   T get l1 => this..left = 1.r;
