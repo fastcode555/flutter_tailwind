@@ -53,7 +53,7 @@ extension TextAlignBuilderExt<T extends TextAlignBuilder> on T {
 }
 
 mixin FontWeightBuilder {
-  FontWeight? fontWeight;
+  FontWeight? innerFontWeight;
 }
 
 // Tailwind font-thin (100) 对应 Flutter FontWeight.w100
@@ -66,62 +66,63 @@ mixin FontWeightBuilder {
 // Tailwind font-extrabold (800) 对应 Flutter FontWeight.w800
 // Tailwind font-black (900) 对应 Flutter FontWeight.w900
 extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
-  ///FontWeight
+  ///FontWeight weight
+  T fontWeight(FontWeight weight) => this..innerFontWeight = weight;
 
   ///[FontWeight.w100]
-  T get w100 => this..fontWeight = FontWeight.w100;
+  T get w100 => this..innerFontWeight = FontWeight.w100;
 
   ///[FontWeight.w200]
-  T get w200 => this..fontWeight = FontWeight.w200;
+  T get w200 => this..innerFontWeight = FontWeight.w200;
 
   ///[FontWeight.w300]
-  T get w300 => this..fontWeight = FontWeight.w300;
+  T get w300 => this..innerFontWeight = FontWeight.w300;
 
   ///[FontWeight.w400]
-  T get w400 => this..fontWeight = FontWeight.w400;
+  T get w400 => this..innerFontWeight = FontWeight.w400;
 
   ///[FontWeight.w500]
-  T get w500 => this..fontWeight = FontWeight.w500;
+  T get w500 => this..innerFontWeight = FontWeight.w500;
 
   ///[FontWeight.w600]
-  T get w600 => this..fontWeight = FontWeight.w600;
+  T get w600 => this..innerFontWeight = FontWeight.w600;
 
   ///[FontWeight.w700]
-  T get w700 => this..fontWeight = FontWeight.w700;
+  T get w700 => this..innerFontWeight = FontWeight.w700;
 
   ///[FontWeight.w800]
-  T get w800 => this..fontWeight = FontWeight.w800;
+  T get w800 => this..innerFontWeight = FontWeight.w800;
 
   ///[FontWeight.w900]
-  T get w900 => this..fontWeight = FontWeight.w900;
+  T get w900 => this..innerFontWeight = FontWeight.w900;
 
   ///[FontWeight.w100]
-  T get thin => this..fontWeight = FontWeight.w100;
+  T get thin => this..innerFontWeight = FontWeight.w100;
 
   ///[FontWeight.w200]
-  T get extralight => this..fontWeight = FontWeight.w200;
+  T get extralight => this..innerFontWeight = FontWeight.w200;
 
   ///[FontWeight.w300]
-  T get light => this..fontWeight = FontWeight.w300;
+  T get light => this..innerFontWeight = FontWeight.w300;
 
   ///[FontWeight.normal]
-  T get normal => this..fontWeight = FontWeight.normal;
+  T get normal => this..innerFontWeight = FontWeight.normal;
 
   ///[FontWeight.w500]
-  T get medium => this..fontWeight = FontWeight.w500;
+  T get medium => this..innerFontWeight = FontWeight.w500;
 
   ///[FontWeight.w600]
-  T get semibold => this..fontWeight = FontWeight.w600;
+  T get semibold => this..innerFontWeight = FontWeight.w600;
 
   ///[FontWeight.bold]
-  T get bold => this..fontWeight = FontWeight.bold;
+  T get bold => this..innerFontWeight = FontWeight.bold;
 
   ///[FontWeight.bold]
-  T isBold(bool isBold) => this..fontWeight = isBold ? FontWeight.bold : FontWeight.normal;
+  T isBold(bool isBold) => this..innerFontWeight = isBold ? FontWeight.bold : FontWeight.normal;
 
   ///[FontWeight.w800]
-  T get extrabold => this..fontWeight = FontWeight.w800;
+  T get extrabold => this..innerFontWeight = FontWeight.w800;
 
   ///[FontWeight.w900]
-  T get fontBlack => this..fontWeight = FontWeight.w900;
+  T get fontBlack => this..innerFontWeight = FontWeight.w900;
 }

@@ -33,7 +33,7 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
               fontStyle: _fontStyle,
               fontFamily: innerFontFamily,
               decorationThickness: _decorationThickness,
-              fontWeight: fontWeight,
+              fontWeight: innerFontWeight,
               textBaseline: textBaseline,
               fontFamilyFallback: _fontFamilyFallback,
               letterSpacing: _letterSpacing,
