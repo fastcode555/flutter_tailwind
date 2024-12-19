@@ -260,13 +260,29 @@ class _Image extends StatelessWidget {
             _buildHeroWidget(
               heroTag,
               transitionOnUserGestures: transitionOnUserGestures,
-              child: Image.asset(
-                errorHolder ?? '',
-                width: width,
-                height: height,
-                fit: fit,
-                cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
-                cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+              child: _buildErrorImage(url, width, height),
+            ),
+            radius: radius,
+            shape: BoxShape.rectangle,
+            boxShadow: boxShadow,
+          );
+    }
+    if (url?.startsWith('http') ?? false) {
+      return (context, url, error) => _buildBorderCircleImage(
+            border,
+            borderColor,
+            _buildHeroWidget(
+              heroTag,
+              transitionOnUserGestures: transitionOnUserGestures,
+              child: Image.network(
+                url ?? '',
+                errorBuilder: (
+                  BuildContext context,
+                  Object error,
+                  StackTrace? stackTrace,
+                ) {
+                  return errorBuilder?.call(context, url, error) ?? gapEmpty;
+                },
               ),
             ),
             radius: radius,
@@ -274,6 +290,7 @@ class _Image extends StatelessWidget {
             boxShadow: boxShadow,
           );
     }
+
     //没有使用默认的
     return errorBuilder;
   }
@@ -292,6 +309,32 @@ class _Image extends StatelessWidget {
       errorHolder: errorHolder,
       radius: radius,
       boxShadow: boxShadow,
+    );
+  }
+
+  Widget _buildErrorImage(String? url, double? width, double? height) {
+    if (url?.startsWith('http') ?? false) {
+      return Image.network(
+        url ?? '',
+        errorBuilder: (_, __, ___) {
+          return Image.asset(
+            errorHolder ?? '',
+            width: width,
+            height: height,
+            fit: fit,
+            cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+            cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
+          );
+        },
+      );
+    }
+    return Image.asset(
+      errorHolder ?? '',
+      width: width,
+      height: height,
+      fit: fit,
+      cacheWidth: width != null ? (width * _devicePixelRatio!).toInt() : null,
+      cacheHeight: height != null ? (height * _devicePixelRatio!).toInt() : null,
     );
   }
 }

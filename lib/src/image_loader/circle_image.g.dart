@@ -121,11 +121,7 @@ class _CircleImage extends StatelessWidget {
                   _buildHeroWidget(
                     heroTag,
                     transitionOnUserGestures: transitionOnUserGestures,
-                    child: CircleAvatar(
-                      backgroundImage: AssetImage(errorHolder ?? ''),
-                      radius: radius,
-                      backgroundColor: Colors.transparent,
-                    ),
+                    child: _buildErrorCircleWidget(url, radius!),
                   ),
                   boxShadow: boxShadow,
                 )
@@ -186,6 +182,56 @@ class _CircleImage extends StatelessWidget {
             ),
             boxShadow: boxShadow,
           )
-        : finalErrorBuilder!(context, url ?? '', Object());
+        : _buildFinalErrorBuilderWidget(finalErrorBuilder, context, radius!);
+  }
+
+  Widget _buildErrorCircleWidget(String url, double radius) {
+    if (url.startsWith('http')) {
+      return SizedBox(
+        width: radius * 2,
+        height: radius * 2,
+        child: ClipRRect(
+          child: Image.network(
+            url,
+            width: radius * 2,
+            height: radius * 2,
+            errorBuilder: (_, __, ___) {
+              return CircleAvatar(
+                backgroundImage: AssetImage(errorHolder ?? ''),
+                radius: radius,
+                backgroundColor: Colors.transparent,
+              );
+            },
+          ),
+        ),
+      );
+    }
+
+    return CircleAvatar(
+      backgroundImage: AssetImage(errorHolder ?? ''),
+      radius: radius,
+      backgroundColor: Colors.transparent,
+    );
+  }
+
+  Widget _buildFinalErrorBuilderWidget(
+      LoadingErrorWidgetBuilder? finalErrorBuilder, BuildContext context, double radius) {
+    if (url?.startsWith('http') ?? false) {
+      return SizedBox(
+        width: radius * 2,
+        height: radius * 2,
+        child: ClipRRect(
+          child: Image.network(
+            url ?? '',
+            width: radius * 2,
+            height: radius * 2,
+            errorBuilder: (_, __, ___) {
+              return finalErrorBuilder!(context, url ?? '', Object());
+            },
+          ),
+        ),
+      );
+    }
+    return finalErrorBuilder!(context, url ?? '', Object());
   }
 }
