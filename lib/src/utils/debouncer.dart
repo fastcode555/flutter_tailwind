@@ -15,7 +15,7 @@ class Debouncer {
   int _lastTime = 0;
 
   ///to avoid people crazy click button
-  void doubleClickCheck(VoidCallback? onTap, [int interval = 1200]) {
+  void doubleClickCheck(VoidCallback? onTap, [int interval = 500]) {
     var now = DateTime.now().millisecondsSinceEpoch;
     if (_instance!._lastTime != 0 && now - _instance!._lastTime < interval) {
       debugPrint('You click so fast,been blocked $interval');
