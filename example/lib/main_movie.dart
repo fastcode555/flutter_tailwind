@@ -91,7 +91,7 @@ class Movie {
 final _mockMovies = [
   const Movie(
     title: 'Inception',
-    posterUrl: 'https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg',
+    posterUrl: 'https://image.tmdb.org/',
     rating: 8.8,
   ),
   const Movie(

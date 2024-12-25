@@ -115,7 +115,49 @@ class _Image extends StatelessWidget {
           );
         },
         placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
-        errorWidget: _buildErrorWidgetBuilder(context, url, finalW, finalH, finalErrorBuilder, radius),
+        errorWidget: (_, __, ___) {
+          //有设置了thumbUrl,优先加载小图
+          if (thumbUrl != null && thumbUrl!.isNotEmpty) {
+            return _buildThumbUrlWidget();
+          }
+          //有设置方法型,优先加载errorHolder,
+          if (errorHolder != null) {
+            return _buildBorderCircleImage(
+              border,
+              borderColor,
+              _buildHeroWidget(
+                heroTag,
+                transitionOnUserGestures: transitionOnUserGestures,
+                child: _buildErrorImage(url, width, height),
+              ),
+              radius: radius,
+              shape: BoxShape.rectangle,
+              boxShadow: boxShadow,
+            );
+          }
+          if (url?.startsWith('http') ?? false) {
+            return _buildBorderCircleImage(
+              border,
+              borderColor,
+              _buildHeroWidget(
+                heroTag,
+                transitionOnUserGestures: transitionOnUserGestures,
+                child: Image.network(
+                  url ?? '',
+                  errorBuilder: (context, error, StackTrace? stackTrace) {
+                    return errorBuilder?.call(context, url ?? '', error) ?? gapEmpty;
+                  },
+                ),
+              ),
+              radius: radius,
+              shape: BoxShape.rectangle,
+              boxShadow: boxShadow,
+            );
+          }
+
+          //没有使用默认的
+          return errorBuilder?.call(context, url ?? '', Object()) ?? gapEmpty;
+        },
       );
     }
 
@@ -238,61 +280,6 @@ class _Image extends StatelessWidget {
     }
     //没有使用默认的
     return placeBuilder;
-  }
-
-  LoadingErrorWidgetBuilder? _buildErrorWidgetBuilder(
-    BuildContext context,
-    String? url,
-    double? width,
-    double? height,
-    LoadingErrorWidgetBuilder? errorBuilder,
-    double? radius,
-  ) {
-    //有设置了thumbUrl,优先加载小图
-    if (thumbUrl != null && thumbUrl!.isNotEmpty) {
-      return (context, url, error) => _buildThumbUrlWidget();
-    }
-    //有设置方法型,优先加载errorHolder,
-    if (errorHolder != null) {
-      return (context, url, error) => _buildBorderCircleImage(
-            border,
-            borderColor,
-            _buildHeroWidget(
-              heroTag,
-              transitionOnUserGestures: transitionOnUserGestures,
-              child: _buildErrorImage(url, width, height),
-            ),
-            radius: radius,
-            shape: BoxShape.rectangle,
-            boxShadow: boxShadow,
-          );
-    }
-    if (url?.startsWith('http') ?? false) {
-      return (context, url, error) => _buildBorderCircleImage(
-            border,
-            borderColor,
-            _buildHeroWidget(
-              heroTag,
-              transitionOnUserGestures: transitionOnUserGestures,
-              child: Image.network(
-                url ?? '',
-                errorBuilder: (
-                  BuildContext context,
-                  Object error,
-                  StackTrace? stackTrace,
-                ) {
-                  return errorBuilder?.call(context, url, error) ?? gapEmpty;
-                },
-              ),
-            ),
-            radius: radius,
-            shape: BoxShape.rectangle,
-            boxShadow: boxShadow,
-          );
-    }
-
-    //没有使用默认的
-    return errorBuilder;
   }
 
   Widget _buildThumbUrlWidget() {
