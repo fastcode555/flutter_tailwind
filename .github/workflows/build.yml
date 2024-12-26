@@ -1,6 +1,13 @@
 name: build flutter app release
 
 on:
+  push:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - '.vscode/**'
+      - 'docs/**'
   workflow_dispatch:
 
 jobs:
@@ -10,12 +17,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            example/.dart_tool
+            example/build
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
           architecture: x64
 
-      #      - run: flutter pub get
       - name: Set up JDK 11
         uses: actions/setup-java@v3
         with:
@@ -31,29 +50,26 @@ jobs:
         run: |
           sed -i.bak 's/distributionUrl=https\:\/\/services.gradle.org\/distributions\/gradle-.*-all.zip/distributionUrl=https\:\/\/services.gradle.org\/distributions\/gradle-7.6.3-all.zip/' example/android/gradle/wrapper/gradle-wrapper.properties
 
-      - run: |
+      - name: Build Android APK
+        run: |
           cd example/
           flutter build apk --release
 
-      - run: |
+      - name: Build iOS IPA
+        run: |
           cd example/ios/
           pod repo update
-
-      - run: |
-          cd example/
+          cd ..
           flutter build ios --release --no-codesign
 
-      - run: mkdir Payload
+      - name: Package iOS IPA
         working-directory: example/build/ios/iphoneos
+        run: |
+          mkdir Payload
+          mv Runner.app Payload/
+          zip -r FlutterIpaExport.ipa Payload
 
-      - run: mv Runner.app/ Payload
-        working-directory: example/build/ios/iphoneos
-
-      - name: Zip output
-        run: zip -qq -r -9 FlutterIpaExport.ipa Payload
-        working-directory: example/build/ios/iphoneos
-
-      - name: Upload Android APK to Artifacts
+      - name: Upload Android APK
         uses: actions/upload-artifact@v3
         with:
           name: android-apk
@@ -77,9 +93,7 @@ jobs:
           git tag $TAG_NAME
           git push https://${{ secrets.PAT }}@github.com/${{ github.repository }}.git $TAG_NAME
 
-
       - name: Create GitHub Release
-        id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
