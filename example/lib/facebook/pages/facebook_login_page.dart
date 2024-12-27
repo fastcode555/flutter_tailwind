@@ -14,7 +14,7 @@ class FacebookLoginPage extends StatelessWidget {
           children: [
             // Logo
             h32,
-            'https://picsum.photos/100'.image.s100.center.mk,
+            'https://picsum.photos/100'.image.s100.rounded30.center.mk,
             h32,
             // 登录表单
             container.white.rounded12.p16.child(

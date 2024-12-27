@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/image_loader/base_image_factory.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
 
@@ -23,6 +24,8 @@ class Tailwind {
 
   Color? primaryColor;
 
+  BaseImageFactory? imageFactory;
+
   void init(BuildContext context, [Color? primary]) {
     this.context = context;
     this.primaryColor = primary;
@@ -30,5 +33,9 @@ class Tailwind {
 
   void addImageConfig(ImageLoaderConfigInterface imageConfig) {
     ImageLoader.init(imageConfig);
+  }
+
+  void configImageFactory(BaseImageFactory imageFactory) {
+    this.imageFactory = imageFactory;
   }
 }

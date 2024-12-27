@@ -73,7 +73,21 @@ class ImageBuilder extends MkBuilder<Widget>
       }
       return _buildAssetImage();
     }
+
+    final imageFactor = Tailwind.instance.imageFactory;
     if (isCircle) {
+      if (imageFactor != null) {
+        return imageFactor.loadCircleImage(
+          image,
+          fit: fit ?? BoxFit.cover,
+          radius: (size ?? 0) / 2,
+          borderColor: borderColor.opacity(innerOpacity),
+          border: innerBorderWidth,
+          heroTag: _heroTag,
+          boxShadow: boxShadow,
+        );
+      }
+
       return ImageLoader.circle(
         image,
         fit: fit ?? BoxFit.cover,
@@ -86,6 +100,21 @@ class ImageBuilder extends MkBuilder<Widget>
       );
     }
     if (hasRadius) {
+      if (imageFactor != null) {
+        return imageFactor.loadRound(
+          image,
+          fit: fit ?? BoxFit.cover,
+          radius: radius,
+          borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
+          width: size ?? width,
+          height: size ?? height,
+          heroTag: _heroTag,
+          borderColor: borderColor.opacity(innerOpacity),
+          border: innerBorderWidth,
+          boxShadow: boxShadow,
+        );
+      }
+
       return ImageLoader.round(
         image,
         fit: fit ?? BoxFit.cover,
@@ -98,6 +127,18 @@ class ImageBuilder extends MkBuilder<Widget>
         border: innerBorderWidth,
         boxShadow: boxShadow,
         useSingleCache: _singleCache,
+      );
+    }
+    if (imageFactor != null) {
+      return imageFactor.loadImage(
+        image,
+        fit: fit ?? BoxFit.cover,
+        width: size ?? width,
+        height: size ?? height,
+        heroTag: _heroTag,
+        borderColor: borderColor.opacity(innerOpacity),
+        border: innerBorderWidth,
+        boxShadow: boxShadow,
       );
     }
     return ImageLoader.image(

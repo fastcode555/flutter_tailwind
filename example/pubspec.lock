@@ -193,6 +193,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.7"
+  extended_image:
+    dependency: "direct main"
+    description:
+      name: extended_image
+      sha256: "93890a88d89ce017789f6c031c32ad8d2c685f1a5c25c169550746d973ca5e44"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.9"
+  extended_image_library:
+    dependency: transitive
+    description:
+      name: extended_image_library
+      sha256: "9a94ec9314aa206cfa35f16145c3cd6e2c924badcc670eaaca8a3a8063a68cd7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -425,7 +441,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.5.1"
+    version: "1.5.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -484,6 +500,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
+  http_client_helper:
+    dependency: transitive
+    description:
+      name: http_client_helper
+      sha256: "8a9127650734da86b5c73760de2b404494c968a3fd55602045ffec789dac3cb1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   http_parser:
     dependency: transitive
     description:
@@ -580,6 +604,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.0"
+  js:
+    dependency: transitive
+    description:
+      name: js
+      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.1"
   leak_tracker:
     dependency: transitive
     description:

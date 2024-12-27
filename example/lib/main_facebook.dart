@@ -1,3 +1,4 @@
+import 'package:example/config/extend_image_factory.dart';
 import 'package:example/facebook/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Tailwind.instance.configImageFactory(ExtendImageFactory());
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
