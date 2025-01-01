@@ -75,8 +75,9 @@ class ImageBuilder extends MkBuilder<Widget>
     }
 
     final imageFactor = Tailwind.instance.imageFactory;
+    final useImageFactory = imageFactor != null && (image?.startsWith('http') ?? false);
     if (isCircle) {
-      if (imageFactor != null) {
+      if (useImageFactory) {
         return imageFactor.loadCircleImage(
           image,
           fit: fit ?? BoxFit.cover,
@@ -100,7 +101,7 @@ class ImageBuilder extends MkBuilder<Widget>
       );
     }
     if (hasRadius) {
-      if (imageFactor != null) {
+      if (useImageFactory) {
         return imageFactor.loadRound(
           image,
           fit: fit ?? BoxFit.cover,
@@ -129,7 +130,7 @@ class ImageBuilder extends MkBuilder<Widget>
         useSingleCache: _singleCache,
       );
     }
-    if (imageFactor != null) {
+    if (useImageFactory) {
       return imageFactor.loadImage(
         image,
         fit: fit ?? BoxFit.cover,
