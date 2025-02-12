@@ -20,7 +20,7 @@ class _TextButtonBuilder extends ButtonBuilder {
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     );
-    return createMargin(createExpanded(child));
+    return createMargin(createExpanded(createSizedBox(child)));
   }
 }
 
@@ -36,7 +36,7 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     );
-    return createMargin(createExpanded(child));
+    return createMargin(createExpanded(createSizedBox(child)));
   }
 }
 
@@ -52,7 +52,7 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     );
-    return createMargin(createExpanded(child));
+    return createMargin(createExpanded(createSizedBox(child)));
   }
 }
 
