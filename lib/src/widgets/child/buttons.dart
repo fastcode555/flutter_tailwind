@@ -13,13 +13,14 @@ class _TextButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return createMargin(TextButton.icon(
+    Widget child = TextButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       icon: _finalIcon,
       style: _buttonStyle,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
-    ));
+    );
+    return createMargin(createExpanded(child));
   }
 }
 
@@ -28,13 +29,14 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return createMargin(OutlinedButton.icon(
+    Widget child = OutlinedButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
-    ));
+    );
+    return createMargin(createExpanded(child));
   }
 }
 
@@ -43,13 +45,14 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
 
   @override
   Widget click({GestureTapCallback? onTap}) {
-    return createMargin(ElevatedButton.icon(
+    Widget child = ElevatedButton.icon(
       onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
       label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
-    ));
+    );
+    return createMargin(createExpanded(child));
   }
 }
 

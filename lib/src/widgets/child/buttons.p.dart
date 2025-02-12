@@ -84,7 +84,8 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         SizeBuilder,
         OpacityBuilder,
         IconBuilder,
-        FontSizeBuilder {
+        FontSizeBuilder,
+        ExpandedBuilder {
   final String text;
 
   ButtonBuilder(this.text);

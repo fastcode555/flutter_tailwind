@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Barry
@@ -15,6 +16,13 @@ mixin SizeBuilder {
 
   bool get hasConstraint =>
       innerMaxWidth != null || innerMaxHeight != null || innerMinWidth != null || innerMinHeight != null;
+
+  Widget createSizedBox(Widget child) {
+    if (width != null || height != null) {
+      return SizedBox(width: width, height: height, child: child);
+    }
+    return child;
+  }
 }
 
 extension SizeBuilderExt<T extends SizeBuilder> on T {
