@@ -397,10 +397,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: WidgetStateProperty.all(Colors.blue), // 背景颜色
                 foregroundColor: WidgetStateProperty.all(Colors.white), // 文本颜色
                 side: WidgetStateProperty.all(const BorderSide(width: 2)),
+                textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 10)),
               ),
               child: const Text('Text Button'),
             ),
             sizedBox.wFull.child('Button'.text.red.f30.mk),
+            textButton('Text Button').textWhite.redAccent.f10.borderGreen.click(),
             textButton('Text Button').textWhite.redAccent.borderGreen.click(),
             textButton('Text Button').textWhite.redAccent.opacity50.borderGreen.click(),
             textButton('Text Button').yellow.rounded8.borderGreen.click(),

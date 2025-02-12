@@ -83,8 +83,11 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         MarginBuilder,
         SizeBuilder,
         OpacityBuilder,
-        IconBuilder {
+        IconBuilder,
+        FontSizeBuilder {
   final String text;
+
+  ButtonBuilder(this.text);
 
   Color? get _finalColor {
     if (_isIconButton) {
@@ -118,6 +121,7 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     WidgetStateProperty<Color?>? foregroundColor;
     WidgetStateProperty<Color?>? backgroundColor;
     WidgetStateProperty<EdgeInsetsGeometry?>? padding;
+    WidgetStateProperty<TextStyle?>? textStyle;
     ButtonStyle? buttonStyle;
     if (borderColor != null || innerBorderWidth != null) {
       side = WidgetStateProperty.all(
@@ -134,20 +138,24 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         innerColor.opacity(innerOpacity),
       );
     }
+
+    if (fontSize != null) {
+      textStyle = WidgetStateProperty.all(TextStyle(fontSize: fontSize));
+    }
+
     if (hasPadding) {
       padding = WidgetStateProperty.all(finalPadding);
     }
-    if (side != null || foregroundColor != null || backgroundColor != null || radius != null) {
+    if (side != null || foregroundColor != null || backgroundColor != null || radius != null || textStyle != null) {
       buttonStyle = ButtonStyle(
         side: side,
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
         shape: radius != null ? buttonShape : null,
         padding: padding,
+        textStyle: textStyle,
       );
     }
     return buttonStyle;
   }
-
-  ButtonBuilder(this.text);
 }

@@ -18,7 +18,7 @@ class _TextButtonBuilder extends ButtonBuilder {
       icon: _finalIcon,
       style: _buttonStyle,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     ));
   }
 }
@@ -33,7 +33,7 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     ));
   }
 }
@@ -48,7 +48,7 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
       style: _buttonStyle,
       icon: _finalIcon,
       iconAlignment: _iconAlignment ?? IconAlignment.start,
-      label: Text(super.text, style: style ?? TextStyle(fontSize: 14.sp)),
+      label: Text(super.text, style: style ?? TextStyle(fontSize: fontSize)),
     ));
   }
 }
