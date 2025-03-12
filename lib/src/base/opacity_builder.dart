@@ -77,6 +77,9 @@ mixin OpacityBuilder {
 extension OpacityBuilderExt<T extends OpacityBuilder> on T {
   T opacity(double opacity) => this..innerOpacity = opacity;
 
+  /// set the opacity value is 0.05
+  T get opacity5 => this..opacity(0.05);
+
   /// set the opacity value is 0.1
   T get opacity10 => this..opacity(0.1);
 
