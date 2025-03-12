@@ -12,6 +12,9 @@ extension ColorOptionalOpacityExt on Color? {
 }
 
 extension ColorOpacityExt<T extends Color> on T {
+  /// get the color [Color.withOpacity] 0.05
+  Color get opacity5 => this.withOpacity(0.05);
+
   /// get the color [Color.withOpacity] 0.1
   Color get opacity10 => this.withOpacity(0.1);
 
