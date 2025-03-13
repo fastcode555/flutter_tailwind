@@ -90,9 +90,10 @@ class _Shimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).primaryColor;
     return Shimmer.fromColors(
-      baseColor: error ? Colors.redAccent.opacity20 : Colors.grey.shade200,
-      highlightColor: error ? Colors.redAccent.opacity70 : Colors.grey.shade400,
+      baseColor: error ? color.opacity20 : Colors.grey.shade200,
+      highlightColor: error ? color.opacity70 : Colors.grey.shade400,
       child: child,
     );
   }
