@@ -11,6 +11,10 @@ const Spacer spacer2 = Spacer(flex: 2);
 const Spacer spacer3 = Spacer(flex: 3);
 const Spacer spacer4 = Spacer(flex: 4);
 const Spacer spacer5 = Spacer(flex: 5);
+const Spacer spacer6 = Spacer(flex: 6);
+const Spacer spacer7 = Spacer(flex: 7);
+const Spacer spacer8 = Spacer(flex: 8);
+const Spacer spacer9 = Spacer(flex: 9);
 
 const SizedBox gapEmpty = SizedBox();
 const HBox h2 = HBox(2);
