@@ -7,7 +7,7 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 _Padding get padding => _Padding();
 
-class _Padding extends ChildBuilder<Widget> with PaddingBuilder {
+class _Padding extends ChildBuilder<Widget> with PaddingBuilder, ExpandedBuilder {
   @override
-  Widget child(Widget child) => createPadding(child);
+  Widget child(Widget child) => createExpanded(createPadding(child));
 }
