@@ -4,32 +4,34 @@ import 'package:flutter/widgets.dart';
 /// @date 2024/10/15
 /// describe:
 mixin ExpandedBuilder {
-  int? flex;
+  int? innerFlex;
 
   Widget createExpanded(Widget child) {
-    if (flex != null) {
-      return Expanded(child: child, flex: flex ?? 1);
+    if (innerFlex != null) {
+      return Expanded(child: child, flex: innerFlex ?? 1);
     }
     return child;
   }
 }
 
 extension ExpandedBuilderExt<T extends ExpandedBuilder> on T {
-  T get expanded => this..flex = 1;
+  T flex(int flex) => this..innerFlex = flex;
 
-  T get expanded2 => this..flex = 2;
+  T get expanded => this..innerFlex = 1;
 
-  T get expanded3 => this..flex = 3;
+  T get expanded2 => this..innerFlex = 2;
 
-  T get expanded4 => this..flex = 4;
+  T get expanded3 => this..innerFlex = 3;
 
-  T get expanded5 => this..flex = 5;
+  T get expanded4 => this..innerFlex = 4;
 
-  T get expanded6 => this..flex = 6;
+  T get expanded5 => this..innerFlex = 5;
 
-  T get expanded7 => this..flex = 7;
+  T get expanded6 => this..innerFlex = 6;
 
-  T get expanded8 => this..flex = 8;
+  T get expanded7 => this..innerFlex = 7;
 
-  T get expanded9 => this..flex = 9;
+  T get expanded8 => this..innerFlex = 8;
+
+  T get expanded9 => this..innerFlex = 9;
 }
