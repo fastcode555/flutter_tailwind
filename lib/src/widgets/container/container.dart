@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/base/gradient_builder.dart';
 
 /// Barry
 /// @date 2024/8/22
@@ -177,7 +178,8 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         ImageProviderBuilderMixin,
         OpacityBuilder,
         ExpandedBuilder,
-        KeyBuilder {
+        KeyBuilder,
+        GradientBuilder {
   BorderRadiusGeometry? get _internalBorderRadius {
     if (isCircle) return null;
     if (hasRadius) {
@@ -219,6 +221,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
                 border: _internalBorder,
                 borderRadius: _internalBorderRadius,
                 boxShadow: boxShadow,
+                gradient: innerGradient,
               ),
         ),
       );

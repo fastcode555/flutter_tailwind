@@ -8,6 +8,11 @@ mixin ShadowBuilder {
 }
 
 extension ShadowBuilderExt<T extends ShadowBuilder> on T {
+  T shadow(List<BoxShadow> boxShadow) {
+    this.boxShadow = boxShadow;
+    return this;
+  }
+
   T get cardShadow => this
     ..boxShadow = const [
       BoxShadow(

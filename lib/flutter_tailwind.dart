@@ -12,6 +12,7 @@ export 'src/base/clip_builder.dart';
 export 'src/base/color_builder.dart';
 export 'src/base/expanded_builder.dart';
 export 'src/base/font_size_builder.dart';
+export 'src/base/gradient_builder.dart';
 export 'src/base/icon_builder.dart';
 export 'src/base/image_feature.dart';
 export 'src/base/key_builder.dart';

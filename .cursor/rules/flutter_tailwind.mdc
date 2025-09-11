@@ -1,0 +1,1736 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Flutter Tailwind 开发规则
+
+## 概述
+
+Flutter Tailwind 是一个受 TailwindCSS 启发的 Flutter UI 库，通过链式调用 API 简化样式描述，提高开发效率。该库采用 Mixin 可组合架构，支持屏幕适配，提供丰富的样式快捷方式。
+
+## 核心架构
+
+### 1. 链式调用设计模式
+
+#### 基本结构
+```dart
+// 基本链式调用模式
+'Hello World'.text.red.f16.bold.mk
+
+// 容器组件
+container.s100.red.rounded8.border2.child(widget)
+
+// 按钮组件
+'Button'.elevatedButton.blue.textWhite.click(onTap: () {})
+```
+
+#### MkBuilder 基类系统
+- `MkBuilder<T>`: 基础构建器，提供 `mk` 方法创建组件
+- `ChildMkBuilder<T>`: 支持子组件的构建器
+- `ChildBuilder<T>`: 单子组件构建器
+- `ChildrenBuilder<T>`: 多子组件构建器
+
+### 2. Mixin 可组合架构
+
+#### 核心 Mixin 类型
+```dart
+// 颜色系统
+ColorBuilder, BorderColorBuilder, TextColorBuilder
+
+// 尺寸系统
+SizeBuilder, FontSizeBuilder, BorderWidthBuilder
+
+// 布局系统
+PaddingBuilder, MarginBuilder, AlignmentBuilder, ExpandedBuilder
+
+// 样式系统
+BorderRadiusBuilder, ShadowBuilder, OpacityBuilder, BlendModeBuilder
+
+// 功能系统
+KeyBuilder, IconBuilder, ImageFeature, TextFeature
+```
+
+## 使用规则
+
+### 1. 初始化配置
+
+#### 必须的初始化步骤
+```dart
+// 在 main.dart 中使用 ScreenUtilInit 包装应用
+ScreenUtilInit(
+  designSize: const Size(375, 812), // 设计稿尺寸
+  minTextAdapt: true,
+  splitScreenMode: true,
+  builder: (context, child) {
+    return MaterialApp(/* 应用配置 */);
+  },
+)
+
+// 在首个页面初始化 Tailwind
+class _MyPageState extends State<MyPage> {
+  @override
+  void initState() {
+    super.initState();
+    // 可选：配置图片加载器
+    Tailwind.instance.addImageConfig(CustomImageConfig());
+    // 可选：配置图片工厂
+    Tailwind.instance.configImageFactory(CustomImageFactory());
+  }
+}
+```
+
+### 2. 组件使用规范
+
+#### 文本组件 (Text)
+```dart
+// 基本用法
+'Hello World'.text.mk
+
+// 链式样式
+'Hello World'.text.red.f16.bold.underline.mk
+
+// 使用预定义样式
+'Hello World'.text.styleMain.mk  // 需在扩展中定义
+
+// 渐变文本
+'Hello World'.text.white.mk
+```
+
+#### 容器组件 (Container)
+```dart
+// 空容器
+container.s100.red.rounded8.mk
+
+// 带子组件的容器
+container.w200.h100.blue.rounded12.center.child(
+  'Content'.text.white.mk
+)
+
+// 复杂样式容器
+container.s100.circle.orangeAccent.borderBrown.cardShadow.border5.mk
+```
+
+#### 按钮组件 (Button)
+```dart
+// ElevatedButton
+'Submit'.elevatedButton.blue.textWhite.click(onTap: () {})
+
+// TextButton
+'Cancel'.textButton.red.click(onTap: () {})
+
+// OutlinedButton
+'Outlined'.outlinedButton.borderBlue.border2.click(onTap: () {})
+
+// IconButton
+Icons.add.iconButton.green.click(onTap: () {})
+```
+
+#### 图标和图片
+```dart
+// 图标
+Icons.home.icon.red.s24.mk
+
+// SVG 图标
+R.icHome.svg.blue.s20.mk
+
+// 资源图片
+R.logoImage.asset.s100.rounded8.mk
+
+// 网络图片
+'https://example.com/image.jpg'.image.s100.circle.mk
+
+// 带边框的图片
+R.avatar.asset.s80.circle.border2.borderWhite.mk
+```
+
+### 3. 样式系统
+
+#### 颜色使用
+```dart
+// 预定义颜色
+.red, .green, .blue, .white, .black
+
+// 色阶颜色
+.red50, .red100, .red200, ..., .red900
+
+// 透明度
+.black87, .black54, .white70
+
+// 强调色
+.redAccent, .greenAccent, .blueAccent
+
+// 主题色
+.primary  // 使用 Tailwind.instance.primary
+```
+
+#### 尺寸系统
+```dart
+// 固定尺寸
+.s16, .s20, .s24, .s50, .s100
+
+// 响应式尺寸 (使用 .r 后缀)
+.w100, .h50, .p16, .m8
+
+// 字体大小
+.f12, .f14, .f16, .f18, .f20, .f24, .f30
+
+// 边框宽度
+.border1, .border2, .border5
+```
+
+#### 圆角系统
+```dart
+// 统一圆角
+.rounded4, .rounded8, .rounded12, .rounded16
+
+// 单边圆角
+.roundedT8, .roundedB8, .roundedL8, .roundedR8
+
+// 完全圆形
+.circle
+
+// 自定义圆角
+.rounded(8.0)
+```
+
+#### Expanded 布局系统
+```dart
+// 基础 expanded - 自动被 Expanded 包裹
+'Left Content'.text.expanded.mk
+
+// 指定 flex 值
+'Content'.text.expanded2.mk  // flex: 2
+'Content'.text.expanded3.mk  // flex: 3
+
+// 在 Row 中的实际应用
+row.children([
+  'Fixed Width'.text.mk,
+  'Flexible Content'.text.expanded.red.mk,  // 占据剩余空间
+  'Another Fixed'.text.mk,
+])
+
+// 在 Column 中的应用
+column.children([
+  'Header'.text.mk,
+  container.expanded.blue.child(  // 占据剩余垂直空间
+    'Main Content Area'.text.center.mk,
+  ),
+  'Footer'.text.mk,
+])
+
+// 多个 expanded 组件的比例分配
+row.children([
+  container.expanded.red.child('1/3'.text.white.mk),    // flex: 1
+  container.expanded2.green.child('2/3'.text.white.mk), // flex: 2
+])
+```
+
+### 4. 布局组件
+
+#### ListView 列表
+```dart
+// 基础 ListView
+listview.builder(10, (context, index) => 
+  Text('Item $index').mk
+)
+
+// 水平 ListView
+listview.horizontal.h50.builder(10, (context, index) =>
+  container.w100.red.mk
+)
+
+// 带分割线的 ListView
+listview.divider.builder(5, (context, index) =>
+  'Item $index'.text.mk
+)
+
+// 自定义分割线
+listview.separated(Divider(color: Colors.red)).builder(5, itemBuilder)
+
+// 固定间距分割
+listview.separated16.builder(5, itemBuilder)
+
+// 滚动控制
+listview.neverScroll.shrinkWrap.reverse.builder(5, itemBuilder)
+
+// 步进模式（每3个item插入一个广告）
+listview.step3.builder(
+  10,
+  (context, index) => 'Item $index'.text.mk,
+  stepBuilder: (context, index) => 'Ad $index'.text.red.mk,
+)
+
+// 数据绑定模式
+listview.dataBuilder<String>(
+  ['A', 'B', 'C'],
+  (context, index, item) => item.text.mk,
+)
+```
+
+#### GridView 网格
+```dart
+// 基础 GridView
+gridview.crossAxisCount2.builder(10, (context, index) =>
+  container.red.mk
+)
+
+// 自定义列数
+gridview.crossAxisCount3.spacing8.builder(9, itemBuilder)
+gridview.crossAxisCount4.spacing16.builder(12, itemBuilder)
+
+// 设置间距
+gridview.crossAxisCount2.spacing8.mainSpacing16.crossSpacing12.builder(8, itemBuilder)
+
+// 设置宽高比
+gridview.crossAxisCount2.ratio(0.8).builder(6, itemBuilder)
+
+// 瀑布流网格
+gridview.staggered.crossAxisCount2.spacing8.builder(10, itemBuilder)
+
+// 根据子项宽度自适应列数
+gridview.childWidth100.spacing8.builder(20, itemBuilder)
+
+// 滚动控制
+gridview.neverScroll.shrinkWrap.crossAxisCount3.builder(9, itemBuilder)
+
+// 步进模式（每4个item插入广告）
+gridview.step4.crossAxisCount2.builder(
+  16,
+  (context, index) => 'Item $index'.text.mk,
+  stepBuilder: (context, index) => container.red.center.child('Ad'.text.white.mk),
+)
+```
+
+#### Wrap 布局
+```dart
+// 基础 Wrap
+wrap.spacing8.runSpacing8.children([
+  widget1,
+  widget2,
+  widget3,
+])
+
+// 对齐方式
+wrap.center.runCenter.crossCenter.children([...])
+
+// 方向和间距
+wrap.vertical.spacing12.children([...])
+
+// 带颜色背景的 Wrap
+wrap.spacing8.red.p16.children([...])
+```
+
+#### Row 和 Column - 完整属性支持 ⭐
+```dart
+// Row 支持完整的容器属性 - 避免多包装Container
+row
+  .w(double.infinity)      // 宽度设置
+  .h100                    // 高度设置  
+  .p16                     // 内边距
+  .m8                      // 外边距
+  .red                     // 背景色
+  .rounded8                // 圆角
+  .border2                 // 边框
+  .shadow                  // 阴影
+  .spaceBetween            // 主轴对齐
+  .crossCenter             // 交叉轴对齐
+  .spacing16               // 子组件间距
+  .children([
+    'Left'.text.mk,
+    'Right'.text.mk,
+  ])
+
+// Column 支持完整的容器属性 - 避免多包装Container
+column
+  .wFull                   // 撑满宽度
+  .h200                    // 固定高度
+  .p20                     // 内边距
+  .m12                     // 外边距
+  .blue                    // 背景色
+  .rounded12               // 圆角
+  .border1                 // 边框
+  .borderGrey              // 边框色
+  .shadow                  // 阴影
+  .crossStart              // 交叉轴对齐
+  .spacing16               // 子组件间距
+  .children([
+    'Title'.text.f18.bold.mk,
+    'Subtitle'.text.f14.grey.mk,
+  ])
+
+// ❌ 避免：多包装Container（Row/Column已支持这些属性）
+container.w200.h100.p16.red.rounded8.child(
+  row.spaceBetween.children([
+    'Left'.text.mk,
+    'Right'.text.mk,
+  ])
+)
+
+// ✅ 优化：直接在Row上设置所有属性
+row.w200.h100.p16.red.rounded8.spaceBetween.children([
+  'Left'.text.mk,
+  'Right'.text.mk,
+])
+
+// ❌ 避免：多包装Container设置背景色和间距
+container.blue.p16.child(
+  column.children([
+    'Item 1'.text.mk,
+    'Item 2'.text.mk,
+  ])
+)
+
+// ✅ 优化：直接在Column上设置背景色和间距
+column.blue.p16.spacing8.children([
+  'Item 1'.text.mk,
+  'Item 2'.text.mk,
+])
+```
+
+#### Stack 层叠布局
+```dart
+// 基础 Stack
+stack.children([
+  baseWidget,
+  positioned.t16.r16.child(overlayWidget),
+])
+
+// 对齐方式
+stack.center.children([...])
+stack.topLeft.children([...])
+```
+
+#### Positioned 定位组件 ⭐
+```dart
+// 基础定位 - 单个方向
+positioned.l16.child(widget)        // 左边距16
+positioned.r16.child(widget)        // 右边距16  
+positioned.t16.child(widget)        // 上边距16
+positioned.b16.child(widget)        // 下边距16
+
+// 组合定位 - 多个方向
+positioned.t0.l0.child(widget)      // 左上角定位
+positioned.t0.r0.child(widget)      // 右上角定位
+positioned.b0.l0.child(widget)      // 左下角定位
+positioned.b0.r0.child(widget)      // 右下角定位
+
+// 边缘拉伸定位
+positioned.l0.r0.t0.child(widget)   // 顶部横向拉伸
+positioned.l0.r0.b0.child(widget)   // 底部横向拉伸
+positioned.t0.b0.l16.child(widget)  // 左侧纵向拉伸，距左16
+positioned.t0.b0.r16.child(widget)  // 右侧纵向拉伸，距右16
+
+// 全屏填充定位
+positioned.l0.r0.t0.b0.child(widget) // 完全填充Stack
+
+// 自定义数值定位（仅当预定义不存在时使用）
+positioned.l(20.5).t(15.2).child(widget)  // ✅ 可用：20.5和15.2没有预定义
+positioned.r30.b(25).child(widget)        // ✅ 混合：30用预定义，25无预定义用参数
+
+// 负值定位（超出边界）- 负值只能使用参数方法
+positioned.b(-40).l16.child(widget)       // ✅ 负值用参数，16用预定义
+positioned.r(-20).t10.child(widget)       // ✅ 负值用参数，10用预定义
+
+// 预定义数值范围（0-100，每2递增）
+positioned.l0.child(widget)    // 左边距0
+positioned.l2.child(widget)    // 左边距2
+positioned.l4.child(widget)    // 左边距4
+// ... 支持到 l100, r100, t100, b100
+
+// 常用定位模式
+positioned.r16.t16.child(closeButton)     // 右上角关闭按钮
+positioned.b16.r16.child(fabButton)       // 右下角浮动按钮
+positioned.b0.l0.r0.child(bottomBar)      // 底部工具栏
+positioned.t0.l0.r0.child(topBar)         // 顶部工具栏
+positioned.l16.r16.t50.child(centerCard)  // 水平居中卡片
+
+// 与Stack结合的完整示例
+stack.children([
+  // 背景层
+  'Background Content'.text.center.mk,
+  
+  // 浮动层
+  positioned.r16.t16.child(
+    Icons.close.iconButton.red.s24.click(onTap: onClose)
+  ),
+  
+  // 底部层
+  positioned.b0.l0.r0.child(
+    row.spaceBetween.p16.white.children([
+      'Cancel'.textButton.grey.click(onTap: onCancel),
+      'Confirm'.elevatedButton.blue.click(onTap: onConfirm),
+    ])
+  ),
+  
+  // 中心浮动卡片
+  positioned.l20.r20.t100.child(
+    container.white.rounded12.shadow.p20.child(
+      column.spacing16.children([
+        'Title'.text.f18.bold.mk,
+        'Content'.text.f14.grey.mk,
+      ])
+    )
+  ),
+])
+```
+
+##### Positioned 属性支持
+```dart
+// 基础定位属性
+.l(), .left()      // 左边距设置
+.r(), .right()     // 右边距设置  
+.t(), .top()       // 上边距设置
+.b(), .bottom()    // 下边距设置
+
+// 预定义数值（推荐优先使用）
+.l0, .l2, .l4, .l6, .l8, .l10, .l12, .l14, .l16, .l18, .l20
+.l22, .l24, .l26, .l28, .l30, .l32, .l34, .l36, .l38, .l40
+.l42, .l44, .l46, .l48, .l50, .l52, .l54, .l56, .l58, .l60
+.l62, .l64, .l66, .l68, .l70, .l72, .l74, .l76, .l78, .l80
+.l82, .l84, .l86, .l88, .l90, .l92, .l94, .l96, .l98, .l100
+
+// r0-r100, t0-t100, b0-b100 同样支持
+```
+
+##### Positioned 使用规则
+
+**1. API 优先级规则（强制执行）**
+```dart
+// ✅ 第一优先级：必须优先使用预定义简化方法
+positioned.l16.t20.child(widget)       // 优先使用：因为16和20都有预定义
+positioned.l8.r12.b24.child(widget)    // 优先使用：因为8、12、24都有预定义
+
+// ✅ 第二优先级：仅当预定义不存在时，才使用参数方法
+positioned.l(17.5).t(23.2).child(widget)  // 可接受：17.5和23.2没有预定义
+positioned.l16.t(25.6).child(widget)      // 混合使用：16用预定义，25.6用参数
+
+// ❌ 错误用法：明明有预定义却使用参数方法
+positioned.l(16).t(20).child(widget)      // 错误：16和20都有预定义，应该用.l16.t20
+positioned.r(24).b(32).child(widget)      // 错误：24和32都有预定义，应该用.r24.b32
+```
+
+**选择流程**
+```dart
+// 步骤1：检查是否有预定义值（0-100，每2递增）
+// 如果需要的值在 [0, 2, 4, 6, 8, 10, 12, ..., 96, 98, 100] 范围内
+// -> 必须使用预定义方法
+
+// 步骤2：如果需要的值不在预定义范围内
+// -> 才可以使用参数方法
+
+// 示例判断：
+positioned.l14.child(widget)    // ✅ 14有预定义，使用.l14
+positioned.l(15).child(widget)  // ✅ 15无预定义，使用.l(15)
+positioned.l(14).child(widget)  // ❌ 14有预定义，不应使用.l(14)
+```
+
+**2. 常见布局模式**
+```dart
+// 角落定位
+positioned.t8.l8.child(topLeftWidget)     // 左上角
+positioned.t8.r8.child(topRightWidget)    // 右上角
+positioned.b8.l8.child(bottomLeftWidget)  // 左下角  
+positioned.b8.r8.child(bottomRightWidget) // 右下角
+
+// 边缘拉伸
+positioned.l0.r0.t0.child(topBar)         // 顶部栏
+positioned.l0.r0.b0.child(bottomBar)      // 底部栏
+positioned.t0.b0.l0.child(leftSidebar)    // 左侧栏
+positioned.t0.b0.r0.child(rightSidebar)   // 右侧栏
+
+// 居中定位
+positioned.l20.r20.t100.child(centerCard) // 水平居中
+positioned.t20.b20.l100.child(verticalCard) // 垂直居中
+```
+
+**3. 避免常见问题**
+```dart
+// ❌ 避免：不必要的Container包装
+container.child(
+  stack.children([
+    positioned.t16.r16.child(widget)
+  ])
+)
+
+// ✅ 优化：直接使用Stack
+stack.children([
+  positioned.t16.r16.child(widget)
+])
+
+// ❌ 避免：过度复杂的嵌套定位
+positioned.l10.child(
+  positioned.t20.child(widget)  // 双重定位
+)
+
+// ✅ 优化：单次组合定位
+positioned.l10.t20.child(widget)
+
+// ❌ 避免：有预定义却使用参数方法
+positioned.l(16).r(20).child(widget)  // 错误：16和20都有预定义
+
+// ✅ 优化：使用预定义方法
+positioned.l16.r20.child(widget)      // 正确：使用预定义
+```
+
+**4. 预定义数值完整列表**
+```dart
+// L/R/T/B 都支持以下预定义数值（0-100，每2递增）：
+0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30,
+32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60,
+62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84, 86, 88, 90,
+92, 94, 96, 98, 100
+
+// 使用示例
+positioned.l0.child(widget)     // ✅ 使用预定义 0
+positioned.l2.child(widget)     // ✅ 使用预定义 2  
+positioned.l(1).child(widget)   // ✅ 1没有预定义，使用参数
+positioned.l(3).child(widget)   // ✅ 3没有预定义，使用参数
+positioned.l(2).child(widget)   // ❌ 错误：2有预定义，应该用.l2
+```
+
+#### SizedBox
+```dart
+// 预定义间距
+h16,  // 高度间距
+w8,   // 宽度间距
+h32,  // 32像素高度间距
+
+// 自定义 SizedBox
+sizedBox.w100.h50.mk
+sizedBox.wFull.h200.mk
+```
+
+### 5. 表单组件
+
+#### CheckBox
+```dart
+checkBox.blue.borderBlack.onChanged(false, (value) {
+  // 处理选中状态变化
+})
+
+// 圆形 CheckBox
+checkBox.circle.red.onChanged(true, (value) {})
+
+// 自定义图标 CheckBox
+checkBox.blue.icon(Icons.star).onChanged(false, (value) {})
+```
+
+#### Radio
+```dart
+radio.onChanged(0, groupValue, (value) {
+  // 处理选择变化
+})
+
+// 带样式的 Radio
+radio.circle.green.material.onChanged(1, groupValue, (value) {})
+```
+
+#### Input
+```dart
+// 基础输入框
+Input(
+  hintText: 'Enter text',
+  labelText: 'Label',
+)
+
+// 带图标的输入框
+Input(
+  prefixIcon: Icons.person.icon.s20.mk,
+  hintText: 'Username',
+)
+
+// 轮廓输入框
+Input.outline(
+  labelText: 'Email',
+  suffixIcon: Icons.email.icon.mk,
+)
+```
+
+### 6. 扩展开发
+
+#### 创建自定义扩展
+```dart
+// 文件: res/tailwind_ext.dart
+part 'tailwind_ext.g.dart';
+
+/// 自定义尺寸扩展
+extension CustomSizeExt<T extends SizeBuilder> on T {
+  T get s121 => this..size = 121.r;
+  T get customWidth => this..width = 300.w;
+}
+
+/// 自定义字体扩展
+extension CustomFontExt<T extends TextFeature> on T {
+  T get customFont => this..innerFontFamily = 'CustomFont';
+}
+
+/// 自定义图标扩展
+extension CustomIconExt<T extends IconBuilder> on T {
+  T get customIcon => this..icon(CustomIcons.myIcon);
+}
+
+/// 自定义样式扩展
+extension CustomStyleExt<T extends CompletedTextStyleBuilder> on T {
+  T get primaryStyle => this..style = ts.blue.f16.bold.mk;
+  T get secondaryStyle => this..style = ts.grey.f14.mk;
+}
+
+/// 自定义装饰扩展
+extension CustomDecorationExt<T extends CompleteDecoration> on T {
+  T get cardDecoration => this..decoration = bd.white.rounded12.cardShadow.mk;
+}
+```
+
+#### 生成扩展文件
+```bash
+# 运行代码生成命令
+flutter packages pub run build_runner build
+```
+
+### 7. 图片加载配置
+
+#### 自定义图片配置
+```dart
+class AppImageConfig implements ImageLoaderConfigInterface {
+  @override
+  ImageProvider<Object>? getImageProvider(String? url) {
+    if (url == null || url.isEmpty) return null;
+    
+    if (url.startsWith('http')) {
+      return CachedNetworkImageProvider(url);
+    }
+    
+    if (url.startsWith('assets/')) {
+      return AssetImage(url);
+    }
+    
+    return FileImage(File(url));
+  }
+}
+
+// 在应用启动时配置
+Tailwind.instance.addImageConfig(AppImageConfig());
+```
+
+## 最佳实践
+
+### 1. 代码组织
+
+#### 文件结构
+```
+lib/
+  res/
+    colours.dart          # 颜色定义
+    r.dart               # 资源引用
+    tailwind_ext.dart    # 扩展定义
+    tailwind_ext.g.dart  # 生成的扩展
+  widgets/
+    custom_widgets.dart  # 自定义组件
+  pages/
+    home_page.dart       # 页面文件
+```
+
+#### 颜色管理
+```dart
+// colours.dart
+class Colours {
+  static const Color primary = Color(0xFF2196F3);
+  static const Color secondary = Color(0xFF4CAF50);
+  static const Color accent = Color(0xFFFF9800);
+  static const Color background = Color(0xFFF5F5F5);
+}
+```
+
+### 2. 布局层级优化 🎯
+
+#### 层级冗余检查原则
+```dart
+/**
+ * 层级优化规则：
+ * 1. 如果父容器下只有一个子组件，检查父容器是否必要
+ * 2. 如果多个Container嵌套，考虑合并属性
+ * 3. 如果Row/Column下只有一个子组件，检查布局方向是否必要
+ * 4. 如果Stack下只有一个子组件，直接使用该组件
+ */
+
+// 冗余检查步骤：
+// Step 1: 识别单子组件容器
+// Step 2: 分析父容器的必要性
+// Step 3: 合并可组合的属性
+// Step 4: 保留语义必要的容器
+```
+
+#### 常见冗余场景及优化
+```dart
+// 场景1: 单子组件的线性布局
+// ❌ 冗余
+column.children([
+  'Single Text'.text.mk,  // Column不必要
+])
+// ✅ 优化
+'Single Text'.text.mk
+
+// 场景2: 嵌套相同类型容器
+// ❌ 冗余
+container.p16.child(
+  container.m8.child(
+    container.red.child('Text'.text.mk),
+  ),
+)
+// ✅ 优化：合并属性
+container.p16.m8.red.child('Text'.text.mk)
+
+// 场景3: 功能重复的包装
+// ❌ 冗余
+center.child(
+  container.center.child('Text'.text.mk),  // 重复居中
+)
+// ✅ 优化
+'Text'.text.center.mk
+
+// 场景4: 不必要的Padding嵌套
+// ❌ 冗余
+container.p16.child(
+  container.p8.child(widget),  // 可以合并
+)
+// ✅ 优化
+container.p24.child(widget)  // 16 + 8 = 24
+
+// 场景5: Row/Column外包装Container设置属性
+// ❌ 冗余：Row/Column已支持完整容器属性
+container.w200.h100.p16.red.rounded8.child(
+  row.spaceBetween.children([
+    'Left'.text.mk,
+    'Right'.text.mk,
+  ])
+)
+// ✅ 优化：直接在Row/Column上设置属性
+row.w200.h100.p16.red.rounded8.spaceBetween.children([
+  'Left'.text.mk,
+  'Right'.text.mk,
+])
+
+// 场景6: 为设置背景色而包装Container
+// ❌ 冗余
+container.blue.child(
+  column.spacing16.children([...])
+)
+// ✅ 优化：Column本身支持背景色
+column.blue.spacing16.children([...])
+
+// 场景7: 为设置尺寸而包装SizedBox
+// ❌ 冗余
+sizedBox.w200.h100.child(
+  row.center.children([...])
+)
+// ✅ 优化：Row本身支持尺寸设置
+row.w200.h100.center.children([...])
+
+// 场景8: 手动添加间距组件 ⭐⭐⭐
+// ❌ 冗余：手动插入间距组件
+column.children([
+  _buildHeaderSection(),
+  h20,  // 手动间距
+  _buildContentSection(),
+  h20,  // 手动间距
+  _buildFooterSection(),
+])
+
+row.children([
+  _buildLeftPanel(),
+  w16,  // 手动间距
+  _buildRightPanel(),
+])
+
+// ✅ 优化：使用spacing属性统一间距
+column.spacing20.children([  // 优先使用预定义方法
+  _buildHeaderSection(),
+  _buildContentSection(),
+  _buildFooterSection(),
+])
+
+row.spacing16.children([     // 优先使用预定义方法
+  _buildLeftPanel(),
+  _buildRightPanel(),
+])
+```
+
+#### 保留必要层级的情况
+```dart
+// ✅ 保留：语义化分组
+column.children([
+  // 头部区域
+  container.headerStyle.child(headerWidget),
+  // 内容区域  
+  container.contentStyle.child(contentWidget),
+  // 底部区域
+  container.footerStyle.child(footerWidget),
+])
+
+// ✅ 保留：不同的交互行为
+stack.children([
+  backgroundWidget,
+  gestureDetector.onTap(onBackgroundTap).child(overlayWidget),
+])
+
+// ✅ 保留：明确的布局意图
+row.spaceBetween.children([
+  'Left'.text.mk,
+  'Right'.text.mk,  // Row提供了明确的布局语义
+])
+```
+
+### 3. 间距优化 ⭐
+
+#### Spacing API 优先级规则 ⭐⭐⭐
+**重要**: spacing 属性有两种写法，必须按以下优先级使用：
+
+```dart
+// 🎯 优先级1: 使用预定义的简化方法 (首选)
+column.spacing20.children([...])    // ✅ 最佳实践
+row.spacing16.children([...])       // ✅ 最佳实践
+gridview.spacing12.builder(...)     // ✅ 最佳实践
+
+// 🎯 优先级2: 使用传统方法 (仅当预定义不存在时)
+column.spacing(25).children([...])  // ⚠️ 仅当spacing25不存在时使用
+row.spacing(13).children([...])     // ⚠️ 仅当spacing13不存在时使用
+
+// 常用预定义spacing值
+// spacing4, spacing8, spacing12, spacing16, spacing20, spacing24, spacing32
+```
+
+**选择规则**:
+1. 首先检查是否有对应的预定义spacing方法（如 `.spacing20`）
+2. 如果预定义的值存在，必须使用预定义方法，不允许使用传统写法
+3. 只有当需要的间距值没有预定义时，才使用传统的 `.spacing(value)` 方法
+4. 常见的8、12、16、20、24像素间距都有预定义方法，应优先使用
+
+#### 使用 spacing 属性替代手动间距组件
+
+**⚠️ 重要限制：只有当间距完全一致时才使用 spacing**
+
+Row 和 Column 的 `spacing` 属性是一个重要的优化特性，但必须在正确的场景下使用：
+
+**设计原则：页面美观 > 性能优化**
+
+1. **✅ 适合使用 spacing 的场景**：所有子组件间距完全一致
+2. **❌ 不适合使用 spacing 的场景**：需要不同间距来保持页面美观
+
+```dart
+// ✅ 适合用spacing：所有间距都是16
+column.spacing16.children([
+  _buildHeader(),      // 下方16px间距
+  _buildContent(),     // 下方16px间距  
+  _buildFooter(),      // 无间距（最后一个）
+])
+
+// ❌ 不适合用spacing：需要不同间距保持美观
+column.children([
+  _buildHeader(),
+  h8,   // 紧凑间距：标题与副标题
+  _buildSubHeader(), 
+  h24,  // 大间距：分组之间
+  _buildContent(),
+  h12,  // 中等间距：内容之间
+  _buildDetails(),
+])
+
+// ✅ 正确：保持不同间距来维护视觉层次
+column.children([
+  'Main Title'.text.f24.bold.mk,
+  h8,   // 小间距：标题和副标题关系紧密
+  'Subtitle'.text.f16.grey.mk,
+  h32,  // 大间距：明确的内容分组
+  'Section 1'.text.f18.mk,
+  h16,  // 标准间距：段落之间
+  'Content here...'.text.mk,
+])
+```
+
+Row 和 Column 的 `spacing` 属性可以显著简化代码并提升性能，但使用前要确保：
+
+```dart
+// ❌ 错误做法：手动添加间距组件
+column.children([
+  _buildNicknameField(),
+  h20,  // 手动间距组件
+  _buildBioField(),
+  h20,  // 手动间距组件
+  _buildGenderField(),
+  h20,  // 手动间距组件
+  _buildBirthdayField(),
+])
+
+// ✅ 正确做法：使用 spacing 属性（优先使用预定义方法）
+column.spacing20.children([  // 使用预定义的spacing20
+  _buildNicknameField(),
+  _buildBioField(),
+  _buildGenderField(),
+  _buildBirthdayField(),
+])
+
+// Row 的 spacing 使用示例
+row.spacing16.children([      // 使用预定义的spacing16
+  'First'.text.mk,
+  'Second'.text.mk,
+  'Third'.text.mk,
+])
+```
+
+#### spacing 属性的优势
+1. **代码简洁**：消除冗余的间距组件（h20, w16 等）
+2. **性能提升**：减少 Widget 数量，降低渲染开销
+3. **维护性好**：统一间距设置，易于修改
+4. **视觉清晰**：减少代码噪音，提高可读性
+
+#### 常用 spacing 值及优先级用法
+```dart
+// ✅ 优先使用：预定义的spacing方法
+column.spacing8.children([...])     // 小间距
+column.spacing16.children([...])    // 标准间距
+column.spacing24.children([...])    // 大间距
+column.spacing32.children([...])    // 特大间距
+
+// ⚠️ 仅当预定义不存在时使用：传统方法
+column.spacing(10).children([...])  // 当spacing10不存在时才用
+column.spacing(28).children([...])  // 当spacing28不存在时才用
+
+// 🎯 预定义spacing完整列表
+// spacing4, spacing8, spacing12, spacing16, spacing20, spacing24, spacing28, spacing32
+```
+
+### 4. 性能优化
+
+#### 避免频繁重建
+```dart
+// 好的做法：缓存复杂的样式
+class MyWidget extends StatelessWidget {
+  static final _titleStyle = ts.blue.f18.bold.mk;
+  static final _subtitleStyle = ts.grey.f14.mk;
+  
+  @override
+  Widget build(BuildContext context) {
+    return column.children([
+      'Title'.text.style = _titleStyle.mk,
+      'Subtitle'.text.style = _subtitleStyle.mk,
+    ]);
+  }
+}
+```
+
+#### 列表性能优化
+```dart
+// 长列表使用 shrinkWrap: false（默认）
+listview.builder(1000, itemBuilder)  // 性能更好
+
+// 短列表或嵌套列表使用 shrinkWrap: true
+listview.neverScroll.shrinkWrap.builder(5, itemBuilder)
+
+// 大型GridView使用懒加载
+gridview.crossAxisCount2.builder(
+  items.length,
+  (context, index) {
+    // 只在需要时构建item
+    return _buildExpensiveItem(items[index]);
+  },
+)
+
+// 避免在列表item中使用复杂的嵌套
+// 好的做法：
+Widget _buildSimpleItem(Data data) {
+  return container.p16.child(
+    row.children([
+      data.avatar.image.s40.circle.mk,
+      w16,
+      data.title.text.f16.expanded.mk,
+    ]),
+  );
+}
+
+// 避免的做法：过度嵌套
+Widget _buildComplexItem(Data data) {
+  return container.decorated(...).transform(...).animated(...).child(
+    // 过度复杂的嵌套结构
+  );
+}
+```
+
+#### 合理使用响应式尺寸
+```dart
+// 使用 .r 单位进行屏幕适配
+container.w300.h200.p16.m8.mk  // 自动适配不同屏幕
+
+// 列表间距使用响应式单位
+listview.separated16.p16.builder(10, itemBuilder)  // 16.r 自动适配
+```
+
+#### Expanded 布局最佳实践
+```dart
+// ✅ 好的做法：在需要填充剩余空间时使用 expanded
+row.children([
+  'Label'.text.mk,
+  textField.expanded.mk,  // 输入框占据剩余空间
+  'Submit'.elevatedButton.mk,
+])
+
+// ✅ 好的做法：合理分配空间比例
+row.children([
+  container.expanded.red.mk,     // 1份
+  container.expanded2.blue.mk,   // 2份  
+  container.expanded.green.mk,   // 1份
+])
+
+// ❌ 避免：不必要的 expanded 使用
+column.children([
+  'Title'.text.expanded.mk,  // 不需要，文本有固定高度
+  'Content'.text.mk,
+])
+
+// ✅ 正确：只在需要填充剩余空间时使用
+column.children([
+  'Title'.text.mk,
+  container.expanded.child(  // 内容区域占据剩余空间
+    scrollableContent,
+  ),
+])
+
+// ✅ 表单布局的常见模式
+column.spacing16.children([
+  row.children([
+    'Name:'.text.w80.mk,
+    textField.expanded.mk,  // 输入框自适应宽度
+  ]),
+  row.children([
+    'Email:'.text.w80.mk,
+    textField.expanded.mk,
+  ]),
+])
+```
+
+#### 布局层级优化规则 ⭐
+```dart
+// ❌ 冗余层级：Column下只有一个Row
+column.children([
+  row.children([
+    'Left'.text.mk,
+    'Right'.text.mk,
+  ]),
+])
+
+// ✅ 优化后：直接使用Row
+row.children([
+  'Left'.text.mk,
+  'Right'.text.mk,
+])
+
+// ❌ 冗余层级：Container下只有一个Text
+container.p16.child(
+  container.red.child(
+    'Hello'.text.mk,  // 内层container冗余
+  ),
+)
+
+// ✅ 优化后：合并Container属性
+container.p16.red.child(
+  'Hello'.text.mk,
+)
+
+// ❌ 冗余层级：Stack下只有一个组件
+stack.children([
+  'Single Widget'.text.mk,  // Stack不必要
+])
+
+// ✅ 优化后：直接使用组件
+'Single Widget'.text.mk
+
+// ❌ 冗余层级：Wrap下只有一个组件
+wrap.children([
+  'Single Item'.text.mk,  // Wrap不必要
+])
+
+// ✅ 优化后：直接使用组件
+'Single Item'.text.mk
+```
+
+### 3. 列表组件高级特性
+
+#### ListView 高级用法
+```dart
+// 带滚动控制器的 ListView
+final scrollController = ScrollController();
+listview
+  .scrollController(scrollController)
+  .builder(100, itemBuilder)
+
+// 自定义分割器构建器
+listview
+  .separatedBuilder((context, index) => 
+    index % 5 == 4 ? Divider(thickness: 2) : SizedBox(height: 8)
+  )
+  .builder(20, itemBuilder)
+
+// 组合使用多种特性
+listview
+  .horizontal
+  .separated16
+  .p16
+  .neverScroll
+  .shrinkWrap
+  .builder(5, itemBuilder)
+```
+
+#### GridView 响应式设计
+```dart
+// 响应式列数（根据屏幕宽度自动调整）
+gridview.childWidth150.spacing12.builder(20, (context, index) =>
+  container.rounded8.border1.borderGrey300.child(
+    'Item $index'.text.center.mk
+  )
+)
+
+// 不同屏幕尺寸使用不同列数
+Widget buildResponsiveGrid() {
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final crossAxisCount = constraints.maxWidth > 600 ? 4 : 2;
+      return gridview
+        .croAxisCount(crossAxisCount)
+        .spacing16
+        .builder(12, itemBuilder);
+    },
+  );
+}
+```
+
+#### 列表数据绑定实战
+```dart
+// 数据模型
+class Product {
+  final String name;
+  final String imageUrl;
+  final double price;
+  
+  Product({required this.name, required this.imageUrl, required this.price});
+}
+
+// ListView 数据绑定
+listview.separated16.p16.dataBuilder<Product>(
+  products,
+  (context, index, product) => container.white.rounded12.cardShadow.child(
+    row.children([
+      product.imageUrl.image.s80.rounded8.mk,
+      w16,
+      column.crossStart.expanded.children([
+        product.name.text.f16.bold.mk,
+        h8,
+        '¥${product.price}'.text.blue.f14.bold.mk,
+      ]),
+    ]),
+  ),
+)
+
+// GridView 产品展示
+gridview.crossAxisCount2.spacing16.p16.ratio(0.75).dataBuilder<Product>(
+  products,
+  (context, index, product) => container.white.rounded12.cardShadow.child(
+    column.children([
+      product.imageUrl.image.hFull.wFull.roundedT12.cover.mk,
+      container.p12.child(
+        column.crossStart.children([
+          product.name.text.f14.bold.maxLine2.mk,
+          h8,
+          '¥${product.price}'.text.blue.f14.bold.mk,
+        ]),
+      ),
+    ]),
+  ),
+)
+```
+
+### 4. 主题配置
+
+#### 初始化主题
+```dart
+// 在 MaterialApp 创建后初始化
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      builder: (context, child) {
+        // 初始化 Tailwind 主题
+        Tailwind.instance.init(context, Colors.blue);
+        
+        return MaterialApp(/* ... */);
+      },
+    );
+  }
+}
+```
+
+### 4. 调试技巧
+
+#### 组件检查
+```dart
+// 使用 Flutter Inspector 检查生成的组件树
+// 添加 Key 用于调试
+container.key('my-container').red.s100.mk
+```
+
+#### 样式验证
+```dart
+// 验证样式是否正确应用
+debugPrint('Container color: ${container.innerColor}');
+debugPrint('Text size: ${text.fontSize}');
+```
+
+## 常见问题
+
+### 1. 样式不生效
+- 检查是否调用了 `.mk` 方法
+- 确认样式链的顺序是否正确
+- 验证是否正确导入了扩展文件
+
+### 2. 屏幕适配问题
+- 确保使用 `ScreenUtilInit` 包装应用
+- 使用 `.r` 单位进行响应式设计
+- 检查设计稿尺寸配置是否正确
+
+### 3. 列表组件问题
+- **ListView嵌套滚动冲突**: 使用 `neverScroll` 和 `shrinkWrap` 解决
+  ```dart
+  // 嵌套在ScrollView中的ListView
+  listview.neverScroll.shrinkWrap.builder(5, itemBuilder)
+  ```
+
+- **GridView高度计算问题**: 使用 `shrinkWrap` 或设置固定高度
+  ```dart
+  // 方案1: 使用shrinkWrap
+  gridview.neverScroll.shrinkWrap.crossAxisCount2.builder(6, itemBuilder)
+  
+  // 方案2: 包装在固定高度容器中
+  container.h400.child(
+    gridview.crossAxisCount3.builder(12, itemBuilder)
+  )
+  ```
+
+- **列表项间距不一致**: 使用统一的间距设置
+  ```dart
+  // 统一使用separated或spacing
+  listview.separated16.builder(10, itemBuilder)  // 推荐
+  gridview.spacing16.builder(9, itemBuilder)     // 推荐
+  ```
+
+- **瀑布流不显示**: 确保使用 `staggered` 并导入相关包
+  ```dart
+  gridview.staggered.crossAxisCount2.spacing8.builder(10, itemBuilder)
+  ```
+
+### 4. 扩展不可用
+- 运行 `flutter packages pub run build_runner build`
+- 检查 `part` 和 `part of` 指令
+- 确认扩展文件的导入路径
+
+### 5. 图片加载失败
+- 配置正确的 `ImageLoaderConfig`
+- 检查网络图片的缓存策略
+- 验证资源文件路径
+
+### 6. 步进功能不工作
+- 确保同时设置了 `step` 和 `stepBuilder`
+  ```dart
+  listview.step3.builder(
+    10,
+    normalItemBuilder,
+    stepBuilder: adItemBuilder,  // 必须提供
+  )
+  ```
+
+### 7. spacing 间距使用问题 ⭐⭐⭐
+
+- **使用原则错误**: 在不适合的场景下强制使用spacing
+  ```dart
+  // ❌ 错误：强制使用spacing破坏页面美观
+  column.spacing16.children([
+    'Main Title'.text.f24.bold.mk,    // 需要与副标题紧凑间距(8px)
+    'Subtitle'.text.f16.grey.mk,      // 需要与内容大间距(32px)
+    'Content Section'.text.mk,        // 标准间距就够了(16px)
+  ])
+  
+  // ✅ 正确：保持美观优先，使用不同间距
+  column.children([
+    'Main Title'.text.f24.bold.mk,
+    h8,   // 标题与副标题：紧凑关系
+    'Subtitle'.text.f16.grey.mk,
+    h32,  // 分组之间：明确分隔
+    'Content Section'.text.mk,
+  ])
+  
+  // ✅ 或者在间距一致时使用spacing
+  column.spacing16.children([  // 所有间距都是16时
+    _buildCard1(),
+    _buildCard2(),
+    _buildCard3(),
+  ])
+  ```
+  
+  **设计原则**: 页面美观 > 性能优化 > 代码简洁
+
+- **spacing API优先级错误**: 使用了传统方法而不是预定义方法
+  ```dart
+  // ❌ 问题代码：使用传统方法
+  column.spacing(20).children([...])   // 错误：spacing20存在时不应使用
+  row.spacing(16).children([...])      // 错误：spacing16存在时不应使用
+  gridview.spacing(12).builder(...)    // 错误：spacing12存在时不应使用
+  
+  // ✅ 解决方案：使用预定义方法
+  column.spacing20.children([...])     // 正确：优先使用预定义方法
+  row.spacing16.children([...])        // 正确：优先使用预定义方法
+  gridview.spacing12.builder(...)      // 正确：优先使用预定义方法
+  
+  // ✅ 只有非预定义值才使用传统方法
+  column.spacing(25).children([...])   // 正确：spacing25不存在，使用传统方法
+  row.spacing(13).children([...])      // 正确：spacing13不存在，使用传统方法
+  ```
+
+- **手动间距组件冗余**: 发现代码中有大量 h20、w16 等手动间距
+  ```dart
+  // ❌ 问题代码：手动插入间距组件
+  column.children([
+    _buildHeaderSection(),
+    h20,  // 冗余间距组件
+    _buildContentSection(),
+    h20,  // 冗余间距组件
+    _buildFooterSection(),
+  ])
+  
+  // ✅ 解决方案：使用 spacing 属性（预定义优先）
+  column.spacing20.children([  // 使用预定义方法
+    _buildHeaderSection(),
+    _buildContentSection(),
+    _buildFooterSection(),
+  ])
+  ```
+
+- **间距不统一**: 不同地方使用不同的间距值
+  ```dart
+  // ❌ 问题：间距值不统一
+  column.children([
+    widget1,
+    h16,  // 16像素间距
+    widget2,
+    h20,  // 20像素间距，不一致
+    widget3,
+  ])
+  
+  // ✅ 解决方案：统一间距
+  column.spacing(16).children([  // 或 spacing(20)，保持一致
+    widget1,
+    widget2,
+    widget3,
+  ])
+  ```
+
+- **性能问题**: 列表中有过多的间距组件影响性能
+  ```dart
+  // ❌ 性能差：大量间距组件
+  column.children(List.generate(100, (index) => [
+    buildListItem(index),
+    if (index < 99) h12,  // 99个额外的Widget
+  ]).expand((x) => x).toList())
+  
+  // ✅ 性能好：使用 spacing（预定义优先）
+  column.spacing12.children(  // 使用预定义方法
+    List.generate(100, (index) => buildListItem(index))
+  )
+  ```
+
+### 8. Expanded 布局问题
+- **组件不显示或布局异常**: 确保 expanded 在正确的父容器中使用
+  ```dart
+  // ❌ 错误：在非线性布局中使用
+  container.child(
+    'Text'.text.expanded.mk,  // 无效果
+  )
+  
+  // ✅ 正确：在 Row/Column 中使用
+  row.children([
+    'Text'.text.expanded.mk,  // 有效
+  ])
+  ```
+
+- **空间分配不符合预期**: 检查 flex 值设置
+  ```dart
+  // 1:2:1 的比例分配
+  row.children([
+    container.expanded.red.mk,    // flex: 1
+    container.expanded2.blue.mk,  // flex: 2  
+    container.expanded.green.mk,  // flex: 1
+  ])
+  ```
+
+### 8. 布局层级冗余问题 🎯
+- **层级过深导致性能问题**: 定期检查并优化冗余层级
+  ```dart
+  // ❌ 问题：不必要的嵌套
+  column.children([
+    container.child(
+      row.children([
+        container.child('Text'.text.mk),  // 多余的container
+      ]),
+    ),
+  ])
+  
+  // ✅ 优化：简化层级
+  row.children(['Text'.text.mk])
+  ```
+
+- **如何快速识别冗余层级**:
+  ```dart
+  // 检查清单：
+  // 1. 父容器是否只有1个子组件？
+  // 2. 嵌套的容器能否合并属性？
+  // 3. 布局容器是否提供了必要的语义？
+  // 4. Stack/Wrap是否只包含1个组件？
+  
+  // 工具辅助检查：
+  // - 使用Flutter Inspector查看Widget树
+  // - 代码Review时重点检查嵌套深度
+  // - 自定义Lint规则检测单子组件容器
+  ```
+
+- **自动化检查建议**: 
+  ```dart
+  // 可以创建自定义lint规则检测：
+  // 1. Column/Row只有一个child的情况
+  // 2. Container嵌套深度超过2层
+  // 3. Stack只包含一个positioned组件
+  // 4. 相同属性的Container嵌套
+  // 5. Container包装Row/Column仅设置属性的情况
+  ```
+
+### 9. Positioned 定位API误用问题 🎯
+- **API优先级使用错误**: 有预定义值却使用参数方法
+  ```dart
+  // ❌ 错误：明明有预定义却使用参数方法
+  positioned.l(16).t(20).child(widget)      // 错误：16和20都有预定义
+  positioned.r(24).b(32).child(widget)      // 错误：24和32都有预定义
+  positioned.l(8).r(12).child(widget)       // 错误：8和12都有预定义
+  
+  // ✅ 正确：使用预定义方法
+  positioned.l16.t20.child(widget)          // 正确：使用预定义
+  positioned.r24.b32.child(widget)          // 正确：使用预定义
+  positioned.l8.r12.child(widget)           // 正确：使用预定义
+  
+  // ✅ 混合使用：预定义+参数
+  positioned.l16.t(25.5).child(widget)      // 正确：16用预定义，25.5用参数
+  positioned.r(15.2).b20.child(widget)      // 正确：15.2用参数，20用预定义
+  ```
+
+- **快速检查方法**: 判断数值是否在预定义范围内
+  ```dart
+  // 预定义范围：0, 2, 4, 6, 8, 10, 12, ..., 96, 98, 100（每2递增）
+  
+  // 检查规则：
+  if (value >= 0 && value <= 100 && value % 2 == 0) {
+    // 必须使用预定义方法：.l16, .t20, .r24, .b32
+  } else {
+    // 可以使用参数方法：.l(15.5), .t(25), .r(33)
+  }
+  ```
+
+- **不必要的Container包装**: positioned组件外层包装多余容器
+  ```dart
+  // ❌ 问题：多余的容器包装
+  container.child(
+    stack.children([
+      positioned.t16.r16.child(widget)
+    ])
+  )
+  
+  // ✅ 优化：直接使用Stack
+  stack.children([
+    positioned.t16.r16.child(widget)
+  ])
+  ```
+
+- **双重定位嵌套**: 避免positioned组件嵌套使用
+  ```dart
+  // ❌ 错误：双重定位嵌套
+  positioned.l10.child(
+    positioned.t20.child(widget)  // 无意义的嵌套
+  )
+  
+  // ✅ 正确：单次组合定位
+  positioned.l10.t20.child(widget)
+  ```
+
+### 10. Row/Column 属性误用问题 🎯
+- **不知道Row/Column支持完整属性**: 了解Row/Column的完整能力
+  ```dart
+  // ❌ 误用：不知道Row支持这些属性
+  container.w200.h100.p16.red.rounded8.child(
+    row.spaceBetween.children([...])
+  )
+  
+  // ✅ 正确：Row本身支持所有这些属性
+  row.w200.h100.p16.red.rounded8.spaceBetween.children([...])
+  
+  // Row/Column 支持的属性包括：
+  // - 尺寸: w, h, wFull, hFull
+  // - 间距: p, pt, pb, pl, pr, m, mt, mb, ml, mr
+  // - 颜色: red, blue, green 等所有预定义颜色
+  // - 圆角: rounded, roundedT, roundedB 等
+  // - 边框: border, borderColor 等
+  // - 阴影: shadow, cardShadow 等
+  // - 对齐: center, crossStart, spaceBetween 等
+  // - 子组件间距: spacing 系列
+  ```
+
+- **如何快速识别可优化的Container包装**:
+  ```dart
+  // 检查标准：
+  // 1. Container的唯一子组件是Row/Column吗？
+  // 2. Container设置的属性Row/Column是否都支持？
+  // 3. Container是否没有提供额外的语义价值？
+  
+  // 常见可优化模式：
+  // container.尺寸属性.child(row/column) → row/column.尺寸属性
+  // container.颜色属性.child(row/column) → row/column.颜色属性  
+  // container.间距属性.child(row/column) → row/column.间距属性
+  // sizedBox.尺寸属性.child(row/column) → row/column.尺寸属性
+  ```
+
+## 版本兼容性
+
+- Flutter SDK: >= 3.0.0
+- Dart: >= 2.17.0
+- 依赖库版本要求参考 `pubspec.yaml`
+
+## 快速参考
+
+### 列表组件API速查表
+
+| 组件 | 基础用法 | 常用修饰符 | 示例 |
+|------|----------|------------|------|
+| **ListView** | `listview.builder(count, itemBuilder)` | `horizontal`, `shrinkWrap`, `neverScroll`, `reverse`, `expanded` | `listview.horizontal.separated16.expanded.builder(10, itemBuilder)` |
+| **分割线ListView** | `listview.separated(widget).builder()` | `divider`, `separated16`, `separated(widget)`, `expanded` | `listview.divider.neverScroll.shrinkWrap.expanded.builder(5, itemBuilder)` |
+| **GridView** | `gridview.crossAxisCount2.builder(count, itemBuilder)` | `crossAxisCount3`, `spacing16`, `ratio(0.8)`, `expanded` | `gridview.crossAxisCount3.spacing12.ratio90.expanded.builder(9, itemBuilder)` |
+| **瀑布流GridView** | `gridview.staggered.builder()` | `staggered`, `childWidth100`, `spacing8`, `expanded` | `gridview.staggered.childWidth150.spacing16.expanded.builder(20, itemBuilder)` |
+| **Row** | `row.children([...])` | `w200`, `h100`, `p16`, `red`, `rounded8`, `spaceBetween`, `crossCenter`, `spacing16`, `expanded` | `row.w200.p16.red.spaceBetween.crossCenter.expanded.children([widget1, widget2])` |
+| **Column** | `column.children([...])` | `wFull`, `h200`, `p20`, `blue`, `rounded12`, `crossStart`, `spacing8`, `expanded` | `column.wFull.h200.p20.blue.crossStart.spacing12.expanded.children([...])` |
+| **Wrap** | `wrap.children([...])` | `spacing8`, `runSpacing8`, `center`, `expanded` | `wrap.spacing16.runSpacing12.center.expanded.children([...])` |
+| **Stack** | `stack.children([...])` | `center`, `topLeft`, `fit`, `expanded` | `stack.center.expanded.children([baseWidget, overlay])` |
+
+### Spacing API 优先级速查表 ⭐⭐⭐
+
+| API类型 | 优先级 | 使用场景 | 示例 |
+|---------|--------|----------|------|
+| **预定义方法** ⭐ | 🎯 第一优先级 | 常用间距值 | `column.spacing20.children([...])` |
+| **传统方法** | ⚠️ 第二优先级 | 非预定义值 | `column.spacing(25).children([...])` |
+
+**预定义值列表**: `spacing4`, `spacing8`, `spacing12`, `spacing16`, `spacing20`, `spacing24`, `spacing28`, `spacing32`
+
+**选择流程**:
+1. 检查间距值是否在预定义列表中
+2. 如果在，必须使用预定义方法（如 `.spacing20`）
+3. 如果不在，使用传统方法（如 `.spacing(25)`）
+
+### 间距系统速查表
+
+| 类型 | 可用值 | 示例 |
+|------|--------|------|
+| **ListView间距** | `separated2` ~ `separated50` | `listview.separated16.builder()` |
+| **GridView间距** | `spacing2` ~ `spacing32` | `gridview.spacing12.builder()` |
+| **主轴间距** | `mainSpacing2` ~ `mainSpacing32` | `gridview.mainSpacing16.builder()` |
+| **交叉轴间距** | `crossSpacing2` ~ `crossSpacing32` | `gridview.crossSpacing8.builder()` |
+| **Wrap间距** | `spacing2` ~ `spacing32`, `runSpacing2` ~ `runSpacing32` | `wrap.spacing16.runSpacing12.children()` |
+
+### 步进功能速查表
+
+| 步进间隔 | API | 说明 |
+|----------|-----|------|
+| 每1个插入 | `.step1` | 每1个普通item后插入1个步进item |
+| 每2个插入 | `.step2` | 每2个普通item后插入1个步进item |
+| 每3个插入 | `.step3` | 每3个普通item后插入1个步进item |
+| ... | `.step4` ~ `.step10` | 支持1-10的步进间隔 |
+| 自定义 | `.step(n)` | 自定义步进间隔 |
+
+### Expanded 布局速查表
+
+| 用法 | API | 说明 | 示例 |
+|------|-----|------|------|
+| **基础填充** | `.expanded` | 填充剩余空间 (flex: 1) | `'Text'.text.expanded.mk` |
+| **指定比例** | `.expanded2` ~ `.expanded9` | 指定flex值 | `container.expanded2.red.mk` |
+| **行布局** | `row.children([...])` | 子组件使用expanded分配空间 | `row.children([widget.expanded.mk, widget.expanded2.mk])` |
+| **列布局** | `column.children([...])` | 垂直方向填充剩余空间 | `column.children([header, content.expanded.mk, footer])` |
+| **表单布局** | 标签+输入框 | 输入框自适应宽度 | `row.children(['Label'.text.w80.mk, input.expanded.mk])` |
+
+### Row/Column 属性支持速查表 🎯
+
+| 属性类型 | 支持的API | 说明 | 示例 |
+|---------|----------|------|------|
+| **尺寸设置** | `w`, `h`, `wFull`, `hFull`, `w100`~`w500`, `h50`~`h300` | 设置宽高，避免SizedBox包装 | `row.w200.h100.children([...])` |
+| **内外边距** | `p`, `pt`, `pb`, `pl`, `pr`, `m`, `mt`, `mb`, `ml`, `mr` | 设置间距，避免Container包装 | `column.p16.m8.children([...])` |
+| **背景颜色** | `red`, `blue`, `green`, `white`, `black`, `red50`~`red900` | 设置背景色，避免Container包装 | `row.red.children([...])` |
+| **圆角边框** | `rounded`, `roundedT`, `border`, `borderColor`, `shadow` | 设置装饰，避免Container包装 | `column.rounded8.border2.borderGrey.children([...])` |
+| **布局对齐** | `center`, `spaceBetween`, `spaceAround`, `crossStart`, `crossCenter` | Row/Column原生对齐属性 | `row.spaceBetween.crossCenter.children([...])` |
+| **子组件间距** | `spacing8`, `spacing16`, `spacing24` | 自动添加子组件间距 | `column.spacing16.children([...])` |
+| **扩展属性** | `expanded`, `expanded2`~`expanded9` | 配合父容器使用 | `row.expanded.children([...])` |
+
+### 布局层级优化速查表 🎯
+
+| 冗余类型 | 检查标准 | 优化方案 | 示例 |
+|---------|----------|----------|------|
+| **单子组件容器** | 父容器下只有1个子组件 | 移除不必要的父容器 | `column.children([widget])` → `widget` |
+| **嵌套相同容器** | 多个Container/Padding嵌套 | 合并属性到外层容器 | `container.p16.child(container.m8.child(widget))` → `container.p16.m8.child(widget)` |
+| **功能重复包装** | 多层实现相同功能 | 移除内层重复功能 | `center.child(container.center.child(widget))` → `widget.center.mk` |
+| **不必要Stack** | Stack下只有1个组件 | 直接使用该组件 | `stack.children([widget])` → `widget` |
+| **空布局容器** | Row/Column为空或只有间距 | 使用SizedBox代替 | `column.children([h16])` → `h16` |
+| **Row/Column外包装** | Container包装Row/Column设置属性 | 直接在Row/Column上设置 | `container.p16.red.child(row.children([...]))` → `row.p16.red.children([...])` |
+| **尺寸外包装** | SizedBox包装Row/Column设置尺寸 | 直接在Row/Column上设置 | `sizedBox.w200.child(column.children([...]))` → `column.w200.children([...])` |
+| **手动间距组件** ⭐ | 子组件间手动插入h/w间距且间距完全一致 | 仅在间距一致时使用spacing | `column.children([a, h20, b, h20, c])` → `column.spacing20.children([a, b, c])` |
+
+## 贡献指南
+
+1. 遵循现有的代码风格和架构
+2. 新增功能需要添加相应的测试
+3. 更新文档说明新增的 API
+4. 保持向后兼容性
+5. 列表组件的新功能需要考虑性能影响
+6. 扩展新的间距或尺寸时要保持一致性
+7. **Expanded 使用规范**：
+   - 仅在 Row、Column 等线性布局中使用 expanded
+   - 避免在不需要填充空间的组件上使用 expanded
+   - 合理使用 flex 比例，确保布局符合设计预期
+   - 在表单布局中优先使用 expanded 让输入框自适应宽度
+8. **布局层级优化规范** ⭐：
+   - **强制检查**：完成布局后必须检查层级冗余
+   - **单子组件原则**：父容器下只有1个子组件时，检查父容器必要性
+   - **属性合并原则**：相同类型嵌套容器优先合并属性
+   - **语义保留原则**：有明确语义意图的容器必须保留
+   - **自动化检查**：推荐使用工具自动检测冗余层级
+   - **Code Review**：PR必须包含层级优化检查
+9. **Row/Column 属性优先使用规范** 🎯：
+   - **属性直接设置**：Row/Column 支持宽高、padding、margin、背景色、圆角、边框等完整属性
+   - **避免Container包装**：优先在Row/Column上直接设置属性，避免额外包装Container
+   - **检查Container必要性**：如果Container只是为了设置Row/Column支持的属性，则删除Container
+   - **SizedBox包装检查**：Row/Column本身支持尺寸设置，避免SizedBox包装
+   - **教育团队**：确保团队成员了解Row/Column的完整属性支持能力
+10. **spacing 属性优先使用规范** ⭐⭐⭐：
+    - **使用前提条件** ⚠️ **最重要**：
+      - **仅当间距完全一致时使用spacing**：所有子组件间距必须相同
+      - **设计原则**：页面美观 > 性能优化 > 代码简洁
+      - **保持灵活性**：需要不同间距来维护视觉层次时，继续使用手动间距组件
+    - **API优先级**: 
+      - 🎯 **第一优先级**: 使用预定义的简化方法（如 `.spacing20`）
+      - ⚠️ **第二优先级**: 仅当预定义不存在时使用传统方法（如 `.spacing(25)`）
+    - **使用spacing的场景**：Row/Column 所有子组件间距完全一致时
+    - **保持手动间距的场景**：需要不同间距来保持页面美观时
+    - **API选择规则**：
+      - 首先检查是否有对应的预定义spacing方法
+      - 常用值(4,8,12,16,20,24,28,32)都有预定义，必须使用预定义
+      - 非常用值才允许使用传统 `.spacing(value)` 方法
+    - **性能考量**：spacing 属性减少 Widget 数量，提升渲染性能
+    - **代码评审重点**：Code Review 必须检查spacing API优先级使用是否正确
+    - **重构建议**：发现手动间距组件或错误spacing用法时，立即重构

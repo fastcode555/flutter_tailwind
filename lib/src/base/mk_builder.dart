@@ -30,6 +30,10 @@ abstract class ClickBuilder<T> {
   Widget click({GestureTapCallback? onTap});
 }
 
+abstract class ChildClickBuilder<T> extends ChildBuilder<T> {
+  Widget click({GestureTapCallback? onTap});
+}
+
 abstract class CallBackBuilder<T> {
   Widget onChanged(T initialValue, Function(T value) onChanged);
 }
