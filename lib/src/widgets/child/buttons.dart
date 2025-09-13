@@ -20,7 +20,6 @@ class _TextButtonBuilder extends ButtonBuilder {
         onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
         child: innerChild!,
         style: _buttonStyle,
-        iconAlignment: _iconAlignment ?? IconAlignment.start,
       );
     } else {
       child = TextButton.icon(
@@ -48,7 +47,6 @@ class _OutlinedButtonBuilder extends ButtonBuilder {
         onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
         child: innerChild,
         style: _buttonStyle,
-        iconAlignment: _iconAlignment ?? IconAlignment.start,
       );
     } else {
       child = OutlinedButton.icon(
@@ -74,7 +72,6 @@ class _ElevatedButtonBuilder extends ButtonBuilder {
         onPressed: () => Debouncer.instance.doubleClickCheck(onTap),
         child: innerChild,
         style: _buttonStyle,
-        iconAlignment: _iconAlignment ?? IconAlignment.start,
       );
     } else {
       child = ElevatedButton.icon(

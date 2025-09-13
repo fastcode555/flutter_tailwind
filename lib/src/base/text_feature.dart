@@ -67,7 +67,7 @@ mixin FontWeightBuilder {
 // Tailwind font-black (900) 对应 Flutter FontWeight.w900
 extension FontWeightBuilderExt<T extends FontWeightBuilder> on T {
   ///FontWeight weight
-  T fontWeight(FontWeight weight) => this..innerFontWeight = weight;
+  T fontWeight(FontWeight? weight) => this..innerFontWeight = weight;
 
   ///[FontWeight.w100]
   T get w100 => this..innerFontWeight = FontWeight.w100;
