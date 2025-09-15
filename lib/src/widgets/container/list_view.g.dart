@@ -172,7 +172,7 @@ extension ScrollFeatureExt<T extends ScrollFeature> on T {
 
   T get neverScroll => this.._physics = const NeverScrollableScrollPhysics();
 
-  T scrollController(ScrollController controller) => this.._controller = controller;
+  T controller(ScrollController controller) => this.._controller = controller;
 
   T separatedBuilder(IndexedWidgetBuilder builder) => this.._separatorBuilder = builder;
 }
