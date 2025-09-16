@@ -134,11 +134,65 @@ extension GridViewFeatureExt<T extends GridViewFeature> on T {
 
   T maxCrossAxisExtent(double childWidth) => this.._childWidth = childWidth;
 
+  T get childWidth10 => this.._childWidth = 10;
+
+  T get childWidth20 => this.._childWidth = 20;
+
+  T get childWidth30 => this.._childWidth = 30;
+
+  T get childWidth40 => this.._childWidth = 40;
+
   T get childWidth50 => this.._childWidth = 50;
+
+  T get childWidth60 => this.._childWidth = 60;
+
+  T get childWidth70 => this.._childWidth = 70;
+
+  T get childWidth80 => this.._childWidth = 80;
+
+  T get childWidth90 => this.._childWidth = 90;
 
   T get childWidth100 => this.._childWidth = 100;
 
+  T get childWidth110 => this.._childWidth = 110;
+
+  T get childWidth120 => this.._childWidth = 120;
+
+  T get childWidth130 => this.._childWidth = 130;
+
+  T get childWidth140 => this.._childWidth = 140;
+
+  T get childWidth150 => this.._childWidth = 150;
+
+  T get childWidth160 => this.._childWidth = 160;
+
+  T get childWidth170 => this.._childWidth = 170;
+
+  T get childWidth180 => this.._childWidth = 180;
+
+  T get childWidth190 => this.._childWidth = 190;
+
   T get childWidth200 => this.._childWidth = 200;
+
+  T get childWidth210 => this.._childWidth = 210;
+
+  T get childWidth220 => this.._childWidth = 220;
+
+  T get childWidth230 => this.._childWidth = 230;
+
+  T get childWidth240 => this.._childWidth = 240;
+
+  T get childWidth250 => this.._childWidth = 250;
+
+  T get childWidth260 => this.._childWidth = 260;
+
+  T get childWidth270 => this.._childWidth = 270;
+
+  T get childWidth280 => this.._childWidth = 280;
+
+  T get childWidth290 => this.._childWidth = 290;
+
+  T get childWidth300 => this.._childWidth = 300;
 
   T get crossAxisCount2 => this.._crossAxisCount = 2;
 
