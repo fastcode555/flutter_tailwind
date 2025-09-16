@@ -51,7 +51,7 @@ class _RadioBuilder extends _BaseRadioBuilder {
         borderColor: borderColor,
         value: initialValue,
         onChanged: onChanged,
-        borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4.r)),
+        borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.circular(4)),
         shape: shape ?? BoxShape.rectangle,
         enableBorder: _enableBorder,
         icon: _finalIcon,

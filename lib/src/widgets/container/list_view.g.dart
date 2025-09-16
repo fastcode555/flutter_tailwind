@@ -65,55 +65,55 @@ extension SeparatorBuilderExt<T extends SeparatorBuilder> on T {
 
   T get divider => this.._isDivider = true;
 
-  T get separated2 => this.._separatedValue = 2.r;
+  T get separated2 => this.._separatedValue = 2;
 
-  T get separated4 => this.._separatedValue = 4.r;
+  T get separated4 => this.._separatedValue = 4;
 
-  T get separated6 => this.._separatedValue = 6.r;
+  T get separated6 => this.._separatedValue = 6;
 
-  T get separated8 => this.._separatedValue = 8.r;
+  T get separated8 => this.._separatedValue = 8;
 
-  T get separated10 => this.._separatedValue = 10.r;
+  T get separated10 => this.._separatedValue = 10;
 
-  T get separated12 => this.._separatedValue = 12.r;
+  T get separated12 => this.._separatedValue = 12;
 
-  T get separated14 => this.._separatedValue = 14.r;
+  T get separated14 => this.._separatedValue = 14;
 
-  T get separated16 => this.._separatedValue = 16.r;
+  T get separated16 => this.._separatedValue = 16;
 
-  T get separated18 => this.._separatedValue = 18.r;
+  T get separated18 => this.._separatedValue = 18;
 
-  T get separated20 => this.._separatedValue = 20.r;
+  T get separated20 => this.._separatedValue = 20;
 
-  T get separated22 => this.._separatedValue = 22.r;
+  T get separated22 => this.._separatedValue = 22;
 
-  T get separated24 => this.._separatedValue = 24.r;
+  T get separated24 => this.._separatedValue = 24;
 
-  T get separated26 => this.._separatedValue = 26.r;
+  T get separated26 => this.._separatedValue = 26;
 
-  T get separated28 => this.._separatedValue = 28.r;
+  T get separated28 => this.._separatedValue = 28;
 
-  T get separated30 => this.._separatedValue = 30.r;
+  T get separated30 => this.._separatedValue = 30;
 
-  T get separated32 => this.._separatedValue = 32.r;
+  T get separated32 => this.._separatedValue = 32;
 
-  T get separated34 => this.._separatedValue = 34.r;
+  T get separated34 => this.._separatedValue = 34;
 
-  T get separated36 => this.._separatedValue = 36.r;
+  T get separated36 => this.._separatedValue = 36;
 
-  T get separated38 => this.._separatedValue = 38.r;
+  T get separated38 => this.._separatedValue = 38;
 
-  T get separated40 => this.._separatedValue = 40.r;
+  T get separated40 => this.._separatedValue = 40;
 
-  T get separated42 => this.._separatedValue = 42.r;
+  T get separated42 => this.._separatedValue = 42;
 
-  T get separated44 => this.._separatedValue = 44.r;
+  T get separated44 => this.._separatedValue = 44;
 
-  T get separated46 => this.._separatedValue = 46.r;
+  T get separated46 => this.._separatedValue = 46;
 
-  T get separated48 => this.._separatedValue = 48.r;
+  T get separated48 => this.._separatedValue = 48;
 
-  T get separated50 => this.._separatedValue = 50.r;
+  T get separated50 => this.._separatedValue = 50;
 }
 
 mixin GridViewFeature {
@@ -132,11 +132,13 @@ extension GridViewFeatureExt<T extends GridViewFeature> on T {
 
   T childWidth(double childWidth) => this.._childWidth = childWidth;
 
-  T get childWidth50 => this.._childWidth = 50.r;
+  T maxCrossAxisExtent(double childWidth) => this.._childWidth = childWidth;
 
-  T get childWidth100 => this.._childWidth = 100.r;
+  T get childWidth50 => this.._childWidth = 50;
 
-  T get childWidth200 => this.._childWidth = 200.r;
+  T get childWidth100 => this.._childWidth = 100;
+
+  T get childWidth200 => this.._childWidth = 200;
 
   T get crossAxisCount2 => this.._crossAxisCount = 2;
 

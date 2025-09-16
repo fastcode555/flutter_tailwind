@@ -16,11 +16,11 @@ abstract class _BaseRadioBuilder extends RadioCallBackBuilder
         AspectRatioBuilder,
         ShadowBuilder,
         PaddingBuilder {
-  double get _width => width ?? size ?? 28.r;
+  double get _width => width ?? size ?? 28;
 
-  double get _height => height ?? size ?? 28.r;
+  double get _height => height ?? size ?? 28;
 
-  double get _size => size ?? width ?? height ?? 28.r;
+  double get _size => size ?? width ?? height ?? 28;
 
   double get _ratio => innerRatio ?? (_material ? 0.7 : 0.75);
 
@@ -156,7 +156,7 @@ class _AnimatedRadioState<T> extends State<AnimatedRadio<T>> {
           color: (!_isChecked || widget.justIcon || widget.systemStyle) ? Colors.transparent : color,
           border: Border.all(
             color: (!_isChecked || widget.enableBorder) ? widget.borderColor ?? Colors.grey : color,
-            width: widget.borderWidth ?? 2.0.r,
+            width: widget.borderWidth ?? 2.0,
           ),
           borderRadius: _isCircle ? null : widget.borderRadius,
           boxShadow: _isChecked ? widget.boxShadow : null,
@@ -180,20 +180,20 @@ class _AnimatedRadioState<T> extends State<AnimatedRadio<T>> {
                 Icons.check_rounded,
                 key: ValueKey<bool>(_isChecked),
                 color: widget.justIcon ? color : Colors.white,
-                size: (widget.size ?? 28.r) * _ratio,
+                size: (widget.size ?? 28) * _ratio,
               )
           : SizedBox(
               key: ValueKey<bool>(_isChecked),
-              width: widget.width ?? 28.r,
-              height: widget.height ?? 28.r,
+              width: widget.width ?? 28,
+              height: widget.height ?? 28,
             ),
     );
   }
 
   Widget _buildSystemStyle(Color color) {
     final ratio = _isChecked ? _ratio : 0.0;
-    final paddingHorizontal = (widget.width ?? 28.r) * (1 - ratio) / 2;
-    final paddingVertical = (widget.height ?? 28.r) * (1 - ratio) / 2;
+    final paddingHorizontal = (widget.width ?? 28) * (1 - ratio) / 2;
+    final paddingVertical = (widget.height ?? 28) * (1 - ratio) / 2;
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
