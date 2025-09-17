@@ -48,7 +48,7 @@ class StrokeTextBuilder extends MkBuilder<Widget>
                     ..style = PaintingStyle.stroke
                     ..strokeWidth = 5
                     ..color = innerColors.get(1).opacity(innerOpacity) ?? Colors.orange,
-                  shadows: shadows,
+                  shadows: innerShadows,
                   fontFeatures: _fontFeatures,
                   fontVariations: _fontVariations,
                 ),
@@ -80,7 +80,7 @@ class StrokeTextBuilder extends MkBuilder<Widget>
                   locale: _locale,
                   background: _background,
                   foreground: _foreground,
-                  shadows: shadows,
+                  shadows: innerShadows,
                   fontFeatures: _fontFeatures,
                   fontVariations: _fontVariations,
                 ),

@@ -40,7 +40,7 @@ class _SvgBuilder extends MkBuilder<Widget>
         width: size ?? width,
         bundle: bundle,
         height: size ?? height,
-        fit: fit ?? BoxFit.contain,
+        fit: innerFit ?? BoxFit.contain,
         excludeFromSemantics: excludeFromSemantics ?? false,
         allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,
         matchTextDirection: matchTextDirection ?? false,

@@ -60,7 +60,7 @@ class TextStyleBuilder extends MkBuilder<TextStyle>
       locale: _locale,
       background: _background,
       foreground: _foreground,
-      shadows: shadows,
+      shadows: innerShadows,
       fontFeatures: _fontFeatures,
       fontVariations: _fontVariations,
     );

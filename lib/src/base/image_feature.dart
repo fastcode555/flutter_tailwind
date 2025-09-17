@@ -4,42 +4,45 @@ import 'package:flutter/material.dart';
 /// @date 2024/8/19
 /// describe:
 mixin BoxFitBuilder {
-  BoxFit? fit;
+  BoxFit? innerFit;
 }
 
 extension BoxFitBuilderExt<T extends BoxFitBuilder> on T {
   ///[BoxFit.fill]
-  T get fill => this..fit = BoxFit.fill;
+  T fit(BoxFit? fit) => this..innerFit = fit;
+
+  ///[BoxFit.fill]
+  T get fill => this..innerFit = BoxFit.fill;
 
   ///[BoxFit.contain]
-  T get contain => this..fit = BoxFit.contain;
+  T get contain => this..innerFit = BoxFit.contain;
 
   ///[BoxFit.cover]
-  T get cover => this..fit = BoxFit.cover;
+  T get cover => this..innerFit = BoxFit.cover;
 
   ///[BoxFit.fitWidth]
-  T get fitWidth => this..fit = BoxFit.fitWidth;
+  T get fitWidth => this..innerFit = BoxFit.fitWidth;
 
   ///[BoxFit.fitHeight]
-  T get fitHeight => this..fit = BoxFit.fitHeight;
+  T get fitHeight => this..innerFit = BoxFit.fitHeight;
 
   ///[BoxFit.none]
-  T get none => this..fit = BoxFit.none;
+  T get none => this..innerFit = BoxFit.none;
 
   ///[BoxFit.scaleDown]
-  T get scaleDown => this..fit = BoxFit.scaleDown;
+  T get scaleDown => this..innerFit = BoxFit.scaleDown;
 }
 
 mixin BoxShapeBuilder {
-  BoxShape? shape;
+  BoxShape? innerShape;
 
-  bool get isCircle => shape == BoxShape.circle;
+  bool get isCircle => innerShape == BoxShape.circle;
 }
 
 extension BoxShapeBuilderExt<T extends BoxShapeBuilder> on T {
   ///[BoxShape.rectangle]
-  T get rectangle => this..shape = BoxShape.rectangle;
+  T get rectangle => this..innerShape = BoxShape.rectangle;
 
   ///[BoxShape.circle]
-  T get circle => this..shape = BoxShape.circle;
+  T get circle => this..innerShape = BoxShape.circle;
 }

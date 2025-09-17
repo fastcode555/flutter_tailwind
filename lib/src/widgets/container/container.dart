@@ -44,7 +44,7 @@ class _BoxDecorationBuilder
   Gradient? _gradient;
 
   BorderRadiusGeometry? get _internalBorderRadius {
-    if (shape == BoxShape.circle) return null;
+    if (innerShape == BoxShape.circle) return null;
     if (hasRadius) {
       return borderRadius;
     }
@@ -80,7 +80,7 @@ class _BoxDecorationBuilder
         borderRadius: _internalBorderRadius,
         gradient: _gradient,
         backgroundBlendMode: innerBlendMode,
-        shape: shape ?? BoxShape.rectangle,
+        shape: innerShape ?? BoxShape.rectangle,
         boxShadow: boxShadow,
       );
 }
@@ -217,7 +217,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
           decoration: decoration ??
               BoxDecoration(
                 color: innerColor.opacity(innerOpacity),
-                shape: shape ?? BoxShape.rectangle,
+                shape: innerShape ?? BoxShape.rectangle,
                 border: _internalBorder,
                 borderRadius: _internalBorderRadius,
                 boxShadow: boxShadow,
@@ -232,7 +232,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
-            shape: shape ?? BoxShape.rectangle,
+            shape: innerShape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
             boxShadow: boxShadow,
@@ -254,7 +254,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         decoration: decoration ??
             BoxDecoration(
               color: innerColor.opacity(innerOpacity),
-              shape: shape ?? BoxShape.rectangle,
+              shape: innerShape ?? BoxShape.rectangle,
               border: _internalBorder,
               borderRadius: _internalBorderRadius,
               boxShadow: boxShadow,
@@ -269,7 +269,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
       decoration: decoration ??
           BoxDecoration(
             color: innerColor.opacity(innerOpacity),
-            shape: shape ?? BoxShape.rectangle,
+            shape: innerShape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
             boxShadow: boxShadow,

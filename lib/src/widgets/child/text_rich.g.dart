@@ -43,7 +43,7 @@ class RichTextBuilder extends ChildrenSpanBuilder<Widget>
               locale: _locale,
               background: _background,
               foreground: _foreground,
-              shadows: shadows,
+              shadows: innerShadows,
               fontFeatures: _fontFeatures,
               fontVariations: _fontVariations,
             ),

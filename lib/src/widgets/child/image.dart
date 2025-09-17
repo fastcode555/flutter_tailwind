@@ -80,7 +80,7 @@ class ImageBuilder extends MkBuilder<Widget>
       if (useImageFactory) {
         return imageFactor.loadCircleImage(
           image,
-          fit: fit ?? BoxFit.cover,
+          fit: innerFit ?? BoxFit.cover,
           radius: (size ?? 0) / 2,
           borderColor: borderColor.opacity(innerOpacity),
           border: innerBorderWidth,
@@ -91,7 +91,7 @@ class ImageBuilder extends MkBuilder<Widget>
 
       return ImageLoader.circle(
         image,
-        fit: fit ?? BoxFit.cover,
+        fit: innerFit ?? BoxFit.cover,
         radius: (size ?? 0) / 2,
         borderColor: borderColor.opacity(innerOpacity),
         border: innerBorderWidth,
@@ -104,7 +104,7 @@ class ImageBuilder extends MkBuilder<Widget>
       if (useImageFactory) {
         return imageFactor.loadRound(
           image,
-          fit: fit ?? BoxFit.cover,
+          fit: innerFit ?? BoxFit.cover,
           radius: radius,
           borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
           width: size ?? width,
@@ -118,7 +118,7 @@ class ImageBuilder extends MkBuilder<Widget>
 
       return ImageLoader.round(
         image,
-        fit: fit ?? BoxFit.cover,
+        fit: innerFit ?? BoxFit.cover,
         radius: radius,
         borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
         width: size ?? width,
@@ -133,7 +133,7 @@ class ImageBuilder extends MkBuilder<Widget>
     if (useImageFactory) {
       return imageFactor.loadImage(
         image,
-        fit: fit ?? BoxFit.cover,
+        fit: innerFit ?? BoxFit.cover,
         width: size ?? width,
         height: size ?? height,
         heroTag: _heroTag,
@@ -144,7 +144,7 @@ class ImageBuilder extends MkBuilder<Widget>
     }
     return ImageLoader.image(
       image,
-      fit: fit ?? BoxFit.cover,
+      fit: innerFit ?? BoxFit.cover,
       width: size ?? width,
       height: size ?? height,
       heroTag: _heroTag,
@@ -163,12 +163,12 @@ class ImageBuilder extends MkBuilder<Widget>
         decoration: BoxDecoration(
           borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
           border: Border.all(color: borderColor.opacity(innerOpacity)!, width: innerBorderWidth ?? 1.0),
-          shape: shape ?? BoxShape.rectangle,
+          shape: innerShape ?? BoxShape.rectangle,
           boxShadow: boxShadow,
           image: image != null
               ? DecorationImage(
                   image: AssetImage(image!),
-                  fit: fit ?? BoxFit.cover,
+                  fit: innerFit ?? BoxFit.cover,
                   colorFilter: innerColor != null ? ColorFilter.mode(innerColor!, BlendMode.srcIn) : null,
                   alignment: alignment ?? Alignment.center,
                 )

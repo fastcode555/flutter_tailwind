@@ -12,7 +12,7 @@ mixin TextFeature {
   Locale? _locale;
   Paint? _background;
   Paint? _foreground;
-  List<Shadow>? shadows;
+  List<Shadow>? innerShadows;
   List<FontFeature>? _fontFeatures;
   List<FontVariation>? _fontVariations;
   TextLeadingDistribution? _leadingDistribution;
@@ -44,7 +44,7 @@ extension TextCommonFeatureExt<T extends TextFeature> on T {
 
   T fg(Paint? fg) => this.._foreground = fg;
 
-  T shadows(List<Shadow>? shadows) => this..shadows = shadows;
+  T shadows(List<Shadow>? shadows) => this..innerShadows = shadows;
 
   T locale(Locale? locale) => this.._locale = locale;
 
