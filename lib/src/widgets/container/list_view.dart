@@ -120,16 +120,6 @@ class _GridViewBuilder extends ItemBuilder
     NullableIndexedWidgetBuilder builder, {
     NullableIndexedWidgetBuilder? stepBuilder,
   }) {
-    if (_childWidth != null) {
-      return LayoutBuilder(builder: (context, constraints) {
-        var count = constraints.maxWidth ~/ (_childWidth! + (innerCrossAxisSpacing ?? innerSpacing ?? 0.0));
-        count = count < 2 ? 2 : count;
-        if (_staggered) {
-          return _buildStaggeredGridView(itemCount, builder, stepBuilder, count);
-        }
-        return _buildGridView(itemCount, builder, stepBuilder, count);
-      });
-    }
     Widget gridView;
     if (_staggered) {
       gridView = _buildStaggeredGridView(itemCount, builder, stepBuilder, _crossAxisCount);
@@ -146,14 +136,27 @@ class _GridViewBuilder extends ItemBuilder
     NullableIndexedWidgetBuilder? stepBuilder,
     int? crossAxisCount,
   ) {
-    return GridView.builder(
-      key: innerKey,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    late SliverGridDelegate gridDelegate;
+
+    if (_childWidth != null) {
+      gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: _childWidth!,
+        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
+        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        childAspectRatio: innerRatio ?? 1.0,
+      );
+    } else {
+      gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount ?? 2,
         mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
         crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
         childAspectRatio: innerRatio ?? 1.0,
-      ),
+      );
+    }
+
+    return GridView.builder(
+      key: innerKey,
+      gridDelegate: gridDelegate,
       itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder),
       itemCount: _itemCount(itemCount, stepBuilder),
       padding: finalPadding,
@@ -171,20 +174,37 @@ class _GridViewBuilder extends ItemBuilder
     NullableIndexedWidgetBuilder? stepBuilder,
     int? crossAxisCount,
   ) {
-    return MasonryGridView.count(
-      key: innerKey,
-      crossAxisCount: crossAxisCount ?? 2,
-      mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
-      crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
-      itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
-      itemCount: _itemCount(itemCount, stepBuilder),
-      padding: finalPadding,
-      scrollDirection: direction ?? Axis.vertical,
-      controller: _controller,
-      reverse: _reverse,
-      shrinkWrap: _shrinkWrap,
-      physics: _physics,
-    );
+    if (_childWidth != null) {
+      return MasonryGridView.extent(
+        key: innerKey,
+        maxCrossAxisExtent: _childWidth!,
+        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
+        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
+        itemCount: _itemCount(itemCount, stepBuilder),
+        padding: finalPadding,
+        scrollDirection: direction ?? Axis.vertical,
+        controller: _controller,
+        reverse: _reverse,
+        shrinkWrap: _shrinkWrap,
+        physics: _physics,
+      );
+    } else {
+      return MasonryGridView.count(
+        key: innerKey,
+        crossAxisCount: crossAxisCount ?? 2,
+        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
+        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
+        itemCount: _itemCount(itemCount, stepBuilder),
+        padding: finalPadding,
+        scrollDirection: direction ?? Axis.vertical,
+        controller: _controller,
+        reverse: _reverse,
+        shrinkWrap: _shrinkWrap,
+        physics: _physics,
+      );
+    }
   }
 
   @override
