@@ -239,31 +239,7 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 - `.cursor/rules/flutter_tailwind.mdc` 自动从 `docs/` 生成（写一个 `tool/build_cursor_rules.dart`，把 `docs/` 里的 .md 串成 mdc 格式）
 - `guide.md` 直接重定向到 `docs/`
 
-### 3.5 巨型文件 + 手工 codegen（⭐）
-
-**现状：**
-- `color_builder.dart` 2,479 行（其中绝大多数是 `Colors.red50` ~ `Colors.red900` × 多种语义重复展开）
-- `size_builder.dart` 1,395 行（`w0..w500`、`h0..h500`、`s0..s500` 一组组展开）
-- `border_radius_builder.dart` 1,338 行（`rounded0..rounded100` × 上下左右单边变体）
-- 维护方式：`test/main.dart` 这种用 `print` 输出 Dart 源码、再手动粘贴回 `.g.dart` 的脚本
-
-**问题：**
-- IDE 在打开这种文件时明显卡顿
-- 编辑器折叠/搜索体验差
-- 加新的颜色族（比如自定义品牌色）要先去脚本里加，再 print，再粘贴——多步骤、易出错
-- `.g.dart` 文件名违反 Dart 社区约定（在 Dart 生态里 `.g.dart` 特指 build_runner 输出，新人会困惑）
-
-**v1 内可做：**
-- 建立 `tool/generate_*.dart` 标准化生成脚本（不依赖 build_runner，是独立 Dart 脚本）：
-  - `tool/generate_colors.dart` 读 `tool/data/colors.yaml`，输出 `lib/src/base/color_builder.g.dart`
-  - `tool/generate_sizes.dart` 读 `tool/data/sizes.yaml`（min/max/step 配置），输出对应 .g.dart
-  - 同理 padding、margin、border_radius
-- 在 CI 加 `tool/check_generated.dart`：对比仓库里的 .g.dart 与"现在重新生成的"是否一致；不一致 → CI 红
-- 这一步**完成后**，再讨论要不要改名（如 `_generated.dart`）——保持 `.g.dart` 也行，反正它本来就是用户不该编辑的
-
-**v1 内不可根治：** 文件名约定问题（`.g.dart` 撞 build_runner），改名是用户感知不到的内部调整，可以做，但优先级低。
-
-### 3.6 全局单例持有 BuildContext（⭐）
+### 3.5 全局单例持有 BuildContext（⭐）
 
 **现状：**
 
@@ -286,10 +262,10 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
 - 1.x 后续小版本里把内部所有 `.primary` 实现切到 `.of(context)` 路径
 - 用户感知：旧代码会出现一条 deprecation 警告，但仍能工作
 
-### 3.7 零单元测试 + CI 不跑测试（⭐）
+### 3.6 零单元测试 + CI 不跑测试（⭐）
 
 **现状：**
-- `test/main.dart` 是个 `print` 脚本，**不是测试**
+- `test/` 目录历史上只有 `test/main.dart`（已随本轮清理删除——曾经是个 `print` 脚本，不是测试）
 - 没有任何 widget test、unit test、golden test
 - `.github/workflows/build.yml` 只跑 `flutter build apk` + `flutter build ios`，不跑 `flutter test`、`flutter analyze`
 
@@ -308,7 +284,7 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
   ```
 - 第一波目标：50% 公共 API 覆盖率，跑通就行，不追求精致
 
-### 3.8 autocomplete 污染 + tree-shaking 未验证（⭐）
+### 3.7 autocomplete 污染 + tree-shaking 未验证（⭐）
 
 **现状：**
 - 单个 mixin 上的 getter 数量量级在百级
@@ -384,11 +360,16 @@ mixin CompletedTextStyleBuilder {
 
 **v1 内可做：** 不能改 mixin 字段名（外部扩展会引用），但可以**约定新增字段统一用 `inner` 前缀 + 公开访问性**，并在文档/CONTRIBUTING 里明确。
 
-### 4.3 `.g.dart` 文件名冲突 Dart 社区约定
+### 4.3 `.g.dart` 文件名是约定俗成的手写 part 文件
 
-Dart 生态里 `.g.dart` **特指 build_runner 生成**。新人 onboard 时看到 `text.g.dart` 第一反应是去查 build config 然后跑 build_runner，结果发现两边对不上。
+Dart 生态里 `.g.dart` 通常特指 build_runner 输出。本库的 `.g.dart` 是**手写的 part 文件**，与 build_runner 无关——这是历史遗留的命名选择。
 
-**v1 内可做：** 改名（`text_predefined.dart` / `text_gen.dart` / `_text.g.dart`）。但这是用户感知不到的内部调整，纯属洁癖，优先级低。
+**决策：** 不改名。理由：
+- 预设值已稳定，未来不会大批量追加；之前依赖 `test/main.dart` 的 print + 粘贴维护方式将被弃用（脚本本身也删除）
+- 文件结构上是 `part of '<sibling>.dart';`，外部 import 的是 sibling，`.g.dart` 是纯内部文件名
+- 改名是用户零感知的工作，但需要改多处 `part` 指令、CHANGELOG 也得交代，性价比不高
+
+**v1 内可做：** 在 README 顶部加一行明示——"本库的 `.g.dart` 是手写 part 文件，不是 build_runner 输出"。新贡献者一次看到、永远不再困惑。
 
 ### 4.4 依赖图偏重
 
@@ -489,7 +470,7 @@ Text('hello')
 
 ## 第 6 章：保守路线下的升级路线图
 
-按方向 B（用户面优先）排出 6 个里程碑，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 4 个）或 **维护团队能直接感知收益**（后 2 个）。
+按方向 B（用户面优先）排出 5 个里程碑，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 4 个）或 **维护团队能直接感知收益**（最后 1 个）。
 
 ### v1.8 —— `.mk` 漏调静态检测
 
@@ -568,7 +549,7 @@ Text('hello')
 - 同步更新 `.cursor/rules` 里的反例（把 `static final _style = ts.f16.bold.mk` 改成 `static final _style = TextStyle(fontSize: 16, fontWeight: FontWeight.bold)`）
 - 文档加专章："为什么 builder 是一次性的"
 
-**任务（Tailwind.of(context) 部分，对应 3.6）：**
+**任务（Tailwind.of(context) 部分，对应 3.5）：**
 - 新增 `Tailwind.of(BuildContext context)` 静态方法，运行时获取主题
 - 保留 `Tailwind.instance.context` 字段，但标 `@Deprecated('use Tailwind.of(context) instead — global BuildContext holders are unsafe')`
 - 内部所有 `.primary` getter 实现切换到走 `Tailwind.of(context).primary` 路径
@@ -577,37 +558,7 @@ Text('hello')
 
 **用户感知：** 偶发 UI 错乱在 debug 时立即 crash 提示，不再隐藏到生产；同时收到 deprecation 提示引导迁移到 `Tailwind.of(context)`。
 
-### v1.12 —— 标准化 codegen 工具链
-
-**目标：** 替换 `test/main.dart` 这种 print 脚本，建立正式的生成流程。
-
-**任务：**
-- 新建 `tool/` 目录：
-  ```
-  tool/
-    data/
-      colors.yaml
-      sizes.yaml
-      paddings.yaml
-      margins.yaml
-      border_radii.yaml
-      border_widths.yaml
-      positioned.yaml
-    generate_all.dart
-    generate_colors.dart
-    generate_sizes.dart
-    ...
-    check_generated.dart
-  ```
-- 每个 generate_*.dart 读对应 YAML、输出对应 `lib/src/base/*.g.dart`
-- CI 加 `dart run tool/check_generated.dart`：对比当前 .g.dart 与重新生成的内容，不一致 → 红
-- 文档加 `CONTRIBUTING.md`：说明加新颜色/尺寸的标准流程
-- 把 `test/main.dart` 删除（或保留备份在 git history）
-
-**用户感知：** 无（纯内部）。
-**团队感知：** 加 10 种新颜色从"手抄 5 分钟 + 出错"变成"改 YAML 1 分钟"。
-
-### v1.13 —— 测试基线 + CI 加 analyze/test
+### v1.12 —— 测试基线 + CI 加 analyze/test
 
 **目标：** 让 v1.x 后续版本能放心改。
 
@@ -640,14 +591,15 @@ Text('hello')
 
 ### 里程碑顺序的论证
 
-为什么是 1.8 → 1.13 这个顺序而不是反过来？
+为什么是 1.8 → 1.12 这个顺序而不是反过来？
 
 - **1.8 优先**：`.mk` 漏调是新手第一周的痛点，最高 ROI。lint 包是可选的，不接也不影响现有用户
 - **1.9 次之**：screenutil 解耦让本库能进入更多项目，是市场扩张
-- **1.10 第三**：文档好了之后，1.11/1.12 这些"内部清理"才好讲清楚收益
+- **1.10 第三**：文档好了之后，后续"内部清理"才好讲清楚收益
 - **1.11 第四**：consumed 断言要在文档说清楚了"为啥 builder 一次性"之后再上线，否则用户被 crash 一头雾水
-- **1.12 第五**：codegen 工具链是给团队的，优先级在用户面之后
-- **1.13 最后**：测试基线是兜底，但前 5 个里程碑铺好之后再补测试，覆盖率更高效
+- **1.12 最后**：测试基线是兜底，前 4 个里程碑铺好之后再补测试，覆盖率更高效
+
+**注：** 原设计有第 6 个里程碑"标准化 codegen 工具链"，被取消。理由：项目预设值已稳定，预设值的追加频率低（年级 vs 月级），维护一套生成工具的成本高于偶尔手编辑的成本。`test/main.dart` 作为废弃脚本一并删除。
 
 ---
 
@@ -751,7 +703,7 @@ lib/                                                  13,407 行
     └── utils/                                            ~80 行
 ```
 
-⭐ 标记的 5 个文件占 55% 行数，是 v1.12 codegen 工具链的主要目标。
+⭐ 标记的 5 个文件占 55% 行数，是项目的稳定核心——采用聚合大文件 + append-only 维护策略，工程上已经稳定，不在本路线图的改动范围内（见 4.3 节决策记录）。
 
 ---
 
@@ -761,9 +713,8 @@ lib/                                                  13,407 行
 
 - v1.8 发布后：在 3.1 节加"实测拦截率"
 - v1.9 发布后：在 3.3 节加"迁移用户调研结果"
-- v1.10 发布后：在 3.4 节标记"已解决"；在 3.8 节填入 size benchmark 实测数据（见 7.3）
-- v1.11 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.6 节标记"已 deprecated，待 v2 移除"
-- v1.12 发布后：在 3.5 节标记"已解决"
-- v1.13 发布后：在 3.7 节标记"已解决"
+- v1.10 发布后：在 3.4 节标记"已解决"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
+- v1.11 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated，待 v2 移除"
+- v1.12 发布后：在 3.6 节标记"已解决"
 
-文档完整生命周期是"v1.7 → v2.0 决策点"，预计 6–12 个月。
+文档完整生命周期是"v1.7 → v2.0 决策点"，5 个里程碑预计 5–10 个月。

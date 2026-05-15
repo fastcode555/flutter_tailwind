@@ -25,9 +25,9 @@ flutter pub publish --dry-run
 fvm flutter packages pub publish --server=https://pub.dartlang.org
 ```
 
-**Note on `test/`:** `test/main.dart` is *not* a unit test — it is a one-off codegen script that `print`s Dart source for border-width mixins. The package has no real test suite. Don't rely on `flutter test` for verification; rely on `flutter analyze` and on building/running `example/`.
+**Note on `test/`:** The package has no real test suite. Don't rely on `flutter test` for verification; rely on `flutter analyze` and on building/running `example/`. A future v1.12 milestone is planned to add a baseline of widget tests (see `docs/superpowers/specs/2026-05-15-flutter-tailwind-analysis.md`).
 
-**Note on `.g.dart` files:** Files like `text.g.dart`, `check_box.g.dart`, `list_view.g.dart` are *not* `build_runner` outputs. They are hand-written `part` files of their sibling (`text.dart`, etc.) and contain the mixins for the chained API. Edit them directly. There is no `build_runner` step for this package despite what the `.cursor/rules` file says.
+**Note on `.g.dart` files:** Files like `text.g.dart`, `check_box.g.dart`, `list_view.g.dart` are *not* `build_runner` outputs. They are **hand-written `part` files** of their sibling (`text.dart`, etc.) containing the mixins for the chained API. Edit them directly. The preset values they hold are considered stable — large batches of new presets are not expected. There is no `build_runner` step for this package, and no code-generation pipeline. The `.cursor/rules` file's instructions to run `build_runner build` are stale and should be ignored.
 
 ## Architecture
 
@@ -81,9 +81,9 @@ These come from `.cursor/rules/flutter_tailwind.mdc` and `analysis_options.yaml`
 - **Avoid manual spacers (`h16`, `w8`) between children when all gaps are equal.** Use `.spacing16` on the parent Row/Column instead. *But* keep manual spacers when gaps are intentionally non-uniform (visual hierarchy beats uniformity).
 - **Strip redundant single-child wrappers.** A Column with one child, a Stack with one child, nested Containers that could merge — collapse them.
 
-## Code-gen helpers
+## Adding preset values
 
-`test/main.dart` and similar ad-hoc scripts exist to print boilerplate (e.g. 40 variants of `borderT1..borderT40`). When you need to add a new numeric-suffix series, write a small `print` script in the same style, run it with `dart run test/main.dart`, and paste the output into the relevant `*.g.dart` file. There is no automated codegen pipeline.
+Preset values (sizes, paddings, colors, etc.) are considered stable. If you do need to add new ones (rare), edit the relevant `.g.dart` file directly by hand. There is no codegen pipeline and none is planned.
 
 ## CI
 
