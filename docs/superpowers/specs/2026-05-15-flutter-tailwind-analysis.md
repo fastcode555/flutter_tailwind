@@ -210,7 +210,7 @@ class Factory {
 }
 ```
 
-**v1 内可做（对应 v1.10 里程碑）：**
+**v1 内可做（对应 v1.9 里程碑）：**
 - 在所有终止符（`.mk` / `.child` / `.children` / `.click` / `.builder` / `.dataBuilder` / `.onChanged` 等）调用后，立即把 builder 标"已消费"
 - 第二次再调任何终止符 → debug 模式抛 `StateError('Builder has been consumed, builders are one-shot')`
 - 这样能精准抓到"持有 builder 跨多次终止符"的反模式，给用户明确报错指向真凶
@@ -220,39 +220,41 @@ class Factory {
 
 **实测脚本：** 本节修订后的论断已通过 `flutter test` 验证过——实测代码见 git commit `[本次提交]` 的说明，验证文件本身已删除。
 
-### 3.3 与 `flutter_screenutil` 强耦合（⭐⭐）
+### 3.3 与 `flutter_screenutil` 的耦合是依赖洁癖，**不是功能阻塞**（⭐）
 
-**现状：**
+> **修订记录（2026-05-15 实测后）：** 本节原列 ⭐⭐ 并断言"非 screenutil 项目无法使用——必须接入 `ScreenUtilInit` 才能用本库的尺寸功能"——**实测后撤回**。降级为 ⭐。
+
+**实测结果：** 在不 wrap `ScreenUtilInit` 的 widget tree 里直接使用本库：
+
+```
+container.s100.red.mk WITHOUT ScreenUtilInit:
+  width = 100.0 ✓
+"hello".text.f16.bold.mk WITHOUT ScreenUtilInit:
+  fontSize = 16.0 ✓
+container.p16.s100.red.mk WITHOUT ScreenUtilInit:
+  padding = EdgeInsets.all(16.0) ✓
+```
+
+`flutter_screenutil` 的 `.r/.w/.h/.sp` 在没调 `ScreenUtilInit` 时**直接返回原值**（这是 screenutil 自己的设计）。所以本库的尺寸功能**在纯 Flutter 项目里照样能用**，只是不做屏幕缩放。
+
+**那真问题在哪里？**
 
 ```dart
 // lib/flutter_tailwind.dart:2
 export 'package:flutter_screenutil/flutter_screenutil.dart';
 ```
 
-加上多个 builder 内部隐式调用 `.r/.w/.h`（最近 commit `2ed8c91` 才开始把默认适配剥离成显式的 `adaptH`/`adaptS`/`adaptR`/`adaptSp`，但只是减轻、未消除）。
+加上 `pubspec.yaml` 把 `flutter_screenutil` 列为依赖——意味着用户即使不调 ScreenUtilInit，也会**装上 `flutter_screenutil` 这个 transitive 依赖**。这是**包大小 + 依赖图洁癖**问题，不是"功能阻塞"。
 
-**影响：**
-- 非 screenutil 项目无法使用——必须接入 `ScreenUtilInit` 才能用本库的尺寸功能
-- 想用 `responsive_framework`、`sizer` 等其他屏幕适配方案的用户被排除
-- 而且 `flutter_screenutil` 自己也带 transitive 依赖，本库的整个依赖图被它带得更重
+**严重性：** 现实 Flutter 项目里 screenutil 几乎是事实标准，绝大多数项目本来就装它。所以"被强制装一个依赖"对 95% 用户没痛感。
 
-**v1 内可做：**
-- 抽出 `SizeAdapter` 接口：
+**v1 内可做（如果做的话——优先级很低）：**
+- 抽 `SizeAdapter` 接口、提供 `IdentitySizeAdapter` 给纯 Flutter 项目用——**仅为依赖洁癖**
+- 这条已经从 v1.8 里程碑降级到 backlog（见第 6 章）
 
-  ```dart
-  abstract class SizeAdapter {
-    double r(double v);  // 通用单位
-    double w(double v);  // 宽度
-    double h(double v);  // 高度
-    double sp(double v); // 字号
-  }
-  ```
-- 默认实现 `ScreenUtilSizeAdapter`（保持向后兼容，不破坏现有用户）
-- 提供 `IdentitySizeAdapter`（什么都不做，返回原值）给纯 Flutter 项目用
-- 允许用户在 `Tailwind.instance.configSizeAdapter(...)` 注入自己的
-- **不动**当前的 `export`（保持向后兼容），但在文档说明"未来 v2 会移除 export"
+### 3.4 文档三处不同步（**新头号痛点** ⭐⭐⭐）
 
-### 3.4 文档三处不同步（⭐⭐）
+> **修订记录（2026-05-15 实测后）：** 本节原列 ⭐⭐。实测发现问题比描述还要严重——升为 ⭐⭐⭐ 新头号痛点。
 
 **现状：**
 
@@ -262,18 +264,37 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 | `guide.md` | 20.4 KB | 详细使用指南 | 老用户查阅 |
 | `.cursor/rules/flutter_tailwind.mdc` | 50.8 KB | AI 编程辅助指引 | Cursor / Claude Code 用户 |
 
-**问题：**
-- **重复**：三处都列了 Container 用法、Row/Column 用法、ListView 用法，每处稍有不同
-- **不同步**：`.cursor/rules` 多处提及 `flutter packages pub run build_runner build`，但项目**根本没用 build_runner**——`.g.dart` 都是手写的
-- **难维护**：新加一个特性，要在三处都加，实际上没人会都加
+**实测发现的具体问题（不仅仅"不同步"）：**
 
-**v1 内可做：**
+| 问题 | 实测证据 |
+|---|---|
+| **cursor rules 教用户跑不存在的 `build_runner`** | line 688 + line 1330 提到 `flutter packages pub run build_runner build`——本库根本没用 build_runner |
+| **cursor rules 教错初始化位置（让 `.primary` 拿到错误主题色）** | line 1262 教用户在 `ScreenUtilInit.builder` 里调 `Tailwind.instance.init(ctx, ...)`，但那个 ctx 在 MaterialApp **之上**，Theme.of 拿到 fallback 主题（深紫色，不是用户配置的）。详见 3.5 节实测 |
+| **新 API 三处文档都没有** | `spacing16` 在 cursor rules 提了 28 次、README/guide.md **完全没提**；`adaptH`/`adaptS`/`adaptR`/`adaptSp`（commit `2ed8c91` 引入）三处文档**全部 0 提及**——用户无处可学 |
+
+**严重性升级原因：**
+- "教错初始化位置"是用户**主题色全废**的直接 bug，不是抽象的"不同步"
+- "新 API 没文档"意味着用户**根本不知道新 API 存在**——库的实际能力打折
+- "教 build_runner"会让认真的新人花时间去配 build_runner 然后困惑
+
+**v1 内可做（v1.8 新头号里程碑）：**
+- **立即修 cursor rules 的两处具体错误**：
+  - 删除 line 688、1330 的 `build_runner` 引用
+  - 重写 line 1262 的初始化示例（init 必须在 MaterialApp 内部）
 - 建立 `docs/` 单一来源，按章节拆分（`docs/api/`、`docs/patterns/`、`docs/migration/`）
 - README 瘦身到 < 5 KB，只保留 30 秒上手 + 链接到 `docs/`
-- `.cursor/rules/flutter_tailwind.mdc` 自动从 `docs/` 生成（写一个 `tool/build_cursor_rules.dart`，把 `docs/` 里的 .md 串成 mdc 格式）
+- 把 `adaptH`/`adaptS`/`adaptR`/`adaptSp` 写进 `docs/patterns/screen-adaptation.md`
+- `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（脚本化但不上 CI gate）
 - `guide.md` 直接重定向到 `docs/`
 
-### 3.5 全局单例持有 BuildContext（⭐）
+### 3.5 全局单例持有 BuildContext（⭐⭐）
+
+> **修订记录（2026-05-15 实测后）：** 本节原列 ⭐，断言里有"内存泄漏"和"多窗口问题"。实测后：
+> - **撤回**"内存泄漏"——没证据，是凭印象的推断
+> - **撤回**"多窗口/多路由"——没测过，也是推断
+> - **确认**"deactivated context 访问 .primary 会抛异常"——实测会抛 `Looking up a deactivated widget's ancestor is unsafe`
+> - **新发现**：cursor rules 教用户在 `ScreenUtilInit.builder` 里调 `init(ctx, ...)`，但那个 ctx 在 MaterialApp **之上**，拿到的是 `ThemeData.fallback()` 的深紫色而不是用户配置的主题——**这才是 .primary 失灵的真原因**
+> - 升级为 ⭐⭐——因为如果用户照 cursor rules 写，他的 `.primary` / `.textPrimary` / `.borderPrimary` 全是错色
 
 **现状：**
 
@@ -283,18 +304,30 @@ BuildContext? context;
 Color get primary => context != null ? Theme.of(context!).primaryColor : primaryColor ?? Colors.amber;
 ```
 
-`Tailwind.instance.context` 持有 `BuildContext`。
+`Tailwind.instance.context` 是个公开字段。但 example/ 里**没有任何代码调用 `init(context, ...)`**——所以 `.primary` 在所有 demo 里都走 `Colors.amber` fallback。
 
-**问题：**
-- 多窗口/多路由场景下 context 是哪个？
-- 页面销毁后 context 仍然被引用 → 内存泄漏
-- 热重载时 context 可能过期 → 静默拿到旧主题
+**实测确认的真问题：**
 
-**v1 内可做：**
+| 场景 | 实测结果 |
+|---|---|
+| 不调 `init()`（example 默认状态）| `.primary` = `Colors.amber`（fallback，符合设计）|
+| 按 cursor rules 在 `ScreenUtilInit.builder` 里 init | **`.primary` 拿到 `Color(0.40, 0.31, 0.64)` 深紫色**——既不是 MaterialApp 的主题、也不是 init 传入的 fallback。`Theme.of(ctx)` 在 MaterialApp 之上找不到 Theme 祖先，fallback 到 `ThemeData.fallback().primaryColor` |
+| 在 MaterialApp 内部 Builder 里 init | `.primary` 正确返回 MaterialApp 的 `primaryColor` |
+| widget tree 重建后再访问 `.primary` | **抛异常**：`Looking up a deactivated widget's ancestor is unsafe` |
+
+**严重性：** 最痛的是"教错初始化位置"——这不是抽象的"全局状态不好"，而是**照文档写代码主题色就全废**。
+
+**v1 内可做（分两层）：**
+
+**层 1 — 立即修（属于 v1.8 文档统一里程碑）：**
+- 修 `.cursor/rules/flutter_tailwind.mdc:1262` 的初始化示例，从 `ScreenUtilInit.builder` 改成 `MaterialApp.home: Builder(builder: (ctx) { Tailwind.instance.init(ctx); ... })`
+- 在 `.primary` getter 加 try-catch，`Theme.of` 抛异常时 fallback 到 `primaryColor ?? Colors.amber`，避免页面销毁后崩溃
+
+**层 2 — 根治（属于 v1.9 里程碑——consumed assert + Tailwind.of(context)）：**
 - 新增 `Tailwind.of(BuildContext context)` 静态方法，运行时拿主题
-- 保留 `Tailwind.instance.context`，但标 `@Deprecated('use Tailwind.of(context) instead')`
-- 1.x 后续小版本里把内部所有 `.primary` 实现切到 `.of(context)` 路径
-- 用户感知：旧代码会出现一条 deprecation 警告，但仍能工作
+- 保留 `Tailwind.instance.context`，但标 `@Deprecated('use Tailwind.of(context) instead — global BuildContext is unsafe')`
+- 1.x 后续小版本里把内部所有 `.primary` 实现切到 `Tailwind.of(context)` 路径
+- 用户感知：旧代码继续工作但会看到 deprecation 警告
 
 ### 3.6 零单元测试 + CI 不跑测试（⭐）
 
@@ -318,31 +351,41 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
   ```
 - 第一波目标：50% 公共 API 覆盖率，跑通就行，不追求精致
 
-### 3.7 autocomplete 污染 + tree-shaking 未验证（⭐）
+### 3.7 autocomplete 污染（已实证）+ tree-shaking 未验证（⭐⭐）
 
-**现状：**
-- 单个 mixin 上的 getter 数量量级在百级
-  - `ColorBuilder` 上的颜色 getter 约 200 个（每种颜色 × 10 色阶 × accent 变体）
-  - `SizeBuilder` 上的尺寸 getter 约 250 个（w/h/s × 0..100 步进 2）
-  - `PaddingBuilder` 上接近 400 个（p/pt/pb/pl/pr/ph/pv × 0..100）
-- 任何用了这些 mixin 的 builder（几乎所有 builder）在 IDE 补全里都看起来一样——一打字弹出几百个候选
+> **修订记录（2026-05-15 实测后）：** 本节原列 ⭐ 且 getter 数量是估算。实测后 getter 数量比原估翻了 3 倍——升级为 ⭐⭐。
+
+**实测的 getter 数量（grep 全库 mixin 文件 `T get xxx =>` 模式）：**
+
+| Mixin 文件 | Getter 数 | 原估 |
+|---|---|---|
+| `ColorBuilder` (color_builder.dart) | **810** | 200 |
+| `SizeBuilder` (size_builder.dart) | 443 | 250 |
+| `BorderRadiusBuilder` | 431 | — |
+| `PaddingBuilder` | 357 | 400 |
+| `MarginBuilder` | 350 | — |
+| `PositionedBuilder` | 208 | — |
+| `BorderWidthBuilder` | 199 | — |
+| `FontSizeBuilder` | 54 | — |
+| **全库 base/ mixin 总计** | **3,064** | 估 2,000+ |
+
+**已实证的 autocomplete 污染：** 任何 `with ColorBuilder` 的 builder（几乎所有 builder）在 IDE 上按 `.` 触发补全时，会弹出 800+ 项颜色 getter。混上 SizeBuilder/PaddingBuilder/MarginBuilder 等其它常用 mixin 后，补全列表轻松超过 2,000 项。
 
 **问题：**
-- 新人学习曲线陡：不知道这几百个 getter 哪些常用、哪些罕见
+- 新人学习曲线陡：不知道这几千个 getter 哪些常用、哪些罕见
 - 代码阅读时无法快速判断"这个 getter 是颜色还是尺寸"——光看 `s50` 不知道是 size 50 还是别的
-- **tree-shaking 行为未经验证**——一个用户只用 5 种颜色，dart2js / aot-compile 能不能把另外 195 种颜色干掉？目前没有 benchmark 数据
-- Web/小程序场景下，包体可能因这堆 getter 而膨胀（即使最终被 tree-shake，编译时间也受影响）
+- **tree-shaking 行为未经验证**——一个用户只用 5 种颜色，dart2js / aot-compile 能不能把另外 805 种颜色干掉？目前没有 benchmark 数据。如果 tree-shaking 失效，3,000+ getter 全部进 bundle
+- Web/小程序场景下，包体可能因这堆 getter 而膨胀；即使最终被 tree-shake，编译时间也受影响
 
 **v1 内可做：**
 - 补一个 `example/` 子项目作为 **size benchmark**：
   - 测量"只用本库的 5 个 getter"vs"完全不用本库"的最终 bundle size
   - 测量 dart2js（web）和 aot-compile（mobile release）两种场景
   - 把结果写入文档，让用户对包体有预期
-- 调研按"颜色族"拆 extension：
-  - 当前：`ColorBuilder` 里所有颜色都在
-  - 提议：拆成 `RedColorExt`、`BlueColorExt`、`GreenColorExt`...，用户在自己项目里 `import 'package:flutter_tailwind/colors/red.dart'` 选用
-  - 这是**增量 API**，不破坏现有：现有 `import 'package:flutter_tailwind/flutter_tailwind.dart'` 仍然带全部颜色
-- 如果 benchmark 显示 tree-shaking 真的失效，再考虑这个拆分；如果 tree-shaking 工作良好，则只做文档化即可
+  - **这部分仍是 tree-shaking 实测的待补工作**
+- autocomplete 污染本身无法在不破坏 API 的前提下解决——预设值就是按这种密度设计的，是本库价值的一部分。但可以做：
+  - 在 README 显眼处加常用 getter cheat sheet（30-50 个高频）
+  - 调研按"颜色族"拆 extension 作为**可选**导入（非破坏性增量 API）：`import 'package:flutter_tailwind/colors/red.dart'`
 
 ---
 
@@ -504,57 +547,63 @@ Text('hello')
 
 ## 第 6 章：保守路线下的升级路线图
 
-按方向 B（用户面优先）排出 4 个里程碑，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 3 个）或 **维护团队能直接感知收益**（最后 1 个）。
+按方向 B（用户面优先）排出 **3 个里程碑**，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 2 个）或 **维护团队能直接感知收益**（最后 1 个）。
 
-> **路线图修订记录（2026-05-15）：** 原 v1.8（`.mk` 漏调 lint）已**取消**。实测证明 Dart 类型系统已覆盖该问题（见 3.1 节）。原 v1.9/v1.10/v1.11/v1.12 整体前移一档变成 v1.8/v1.9/v1.10/v1.11。
+> **路线图修订记录：**
+> - **2026-05-15 第 1 轮**：原 v1.8（`.mk` 漏调 lint）取消（见 3.1）；原 v1.9-v1.12 前移一档变 v1.8-v1.11
+> - **2026-05-15 第 2 轮（本次）**：基于 3.3/3.4/3.5/3.7 节实测：
+>   - **原 v1.8（SizeAdapter）→ 降级到 backlog**——实测证明非 screenutil 项目已经能用本库（见 3.3）。SizeAdapter 仅有依赖洁癖价值，不阻塞功能，优先级降到最低
+>   - **新头号 v1.8 = 文档统一 + 修 cursor rules**——3.4 升为 ⭐⭐⭐，包含修 cursor rules 教用户跑不存在的 build_runner + 教错 init 位置（这是用户主题色失灵的根因，见 3.5）
+>   - **v1.9 = consumed assert + Tailwind.of(context) + .primary try-catch**——原 v1.10 内容
+>   - **v1.10 = 测试基线 + CI**——原 v1.11 内容
+>   - 路线图从 4 个里程碑缩到 **3 个**，预计 3–6 个月
 
-### v1.8 —— `SizeAdapter` 接口（screenutil 解耦）
+### v1.8 —— 文档统一到 `docs/` + 修 cursor rules 错误
 
-**目标：** 让非 screenutil 项目也能用本库。
+**目标：** 把 cursor rules 里教错用户的几处具体 bug 立刻堵住，同时建立单一文档源。
 
-**任务：**
-- 新建 `lib/src/adapters/size_adapter.dart`：定义 `SizeAdapter` 接口
-- 默认实现 `ScreenUtilSizeAdapter`：包装 `.r/.w/.h/.sp`
-- 备选实现 `IdentitySizeAdapter`：直接返回原值
-- `Tailwind.instance.configSizeAdapter(adapter)` 注入
-- 内部所有调用 `.r/.w/.h` 的位置改成走 `Tailwind.instance.sizeAdapter.r(...)`
-- 保留 `export 'package:flutter_screenutil/...'`（不破坏向后兼容），但文档明确写"v2 会移除"
+**任务（立即必做——cursor rules 实测发现的具体错误）：**
+- 删除 `.cursor/rules/flutter_tailwind.mdc` line 688、line 1330 的 `flutter packages pub run build_runner build` 引用（本库无 build_runner）
+- 重写 line 1262 的初始化示例——`Tailwind.instance.init(context, ...)` 必须在 **MaterialApp 内部**调用，不能在 `ScreenUtilInit.builder` 里（那个 context 在 MaterialApp 之上，`Theme.of` 拿不到主题）。改成：
+  ```dart
+  return ScreenUtilInit(
+    builder: (context, child) {
+      return MaterialApp(
+        theme: ThemeData(primaryColor: Colors.blue),
+        builder: (ctx, child) {
+          Tailwind.instance.init(ctx, Colors.blue);  // ✅ ctx 在 MaterialApp 内
+          return child!;
+        },
+        home: ...,
+      );
+    },
+  );
+  ```
+- 给 `lib/src/tailwind.dart` 的 `.primary` getter 加 try-catch，`Theme.of` 抛 `Looking up a deactivated widget's ancestor is unsafe` 时 fallback 到 `primaryColor ?? Colors.amber`（避免页面销毁后访问崩溃）
 
-**用户感知：** 现有用户零改动；新用户可以选择不接 screenutil。
-
-### v1.9 —— 文档统一到 `docs/`
-
-**目标：** 三处文档一处维护。
-
-**任务：**
+**任务（文档统一）：**
 - 建立 `docs/` 目录结构：
   ```
   docs/
     getting-started.md
     api/
-      container.md
-      text.md
-      row-column.md
-      list-grid.md
-      buttons.md
-      images.md
-      forms.md
-      positioned.md
+      container.md / text.md / row-column.md / list-grid.md / buttons.md / images.md / forms.md / positioned.md
     patterns/
-      spacing.md
-      layout-hierarchy.md
-      predefined-over-parameterized.md
+      spacing.md / layout-hierarchy.md / predefined-over-parameterized.md / screen-adaptation.md
     migration/
       v1.6-to-v1.7.md
   ```
-- README 瘦身到 < 5 KB：只保留特性概览、安装、30 秒上手 demo、`docs/` 链接
-- `guide.md` 删除（或保留为一个重定向到 `docs/` 的占位文件）
-- `tool/build_cursor_rules.dart`：把 `docs/` 串成 `.cursor/rules/flutter_tailwind.mdc`
-- CI 加 `tool/check_cursor_rules.dart`：检测 `docs/` 改了但 mdc 没重新生成
+- 把现有 `spacing16`/`spacing20`/`spacing24` 等只在 cursor rules 里有的 API 补到 `docs/patterns/spacing.md`
+- 把 commit `2ed8c91` 引入的 `adaptH`/`adaptS`/`adaptR`/`adaptSp`（三处文档目前都没提）写进 `docs/patterns/screen-adaptation.md`
+- README 瘦身到 < 5 KB：特性概览 + 30 秒上手 + `docs/` 链接
+- `guide.md` 删除（或保留为占位重定向到 `docs/`）
+- `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（写个 `tool/build_cursor_rules.dart`，但**不上 CI gate**——半自动够用）
 
-**用户感知：** pub.dev 页面更清爽；查文档不用在三处之间跳。
+**用户感知：**
+- 按 cursor rules 写代码的用户立刻拿到正确主题色（之前是深紫色 fallback）
+- 新文档发布后，`docs/` 有所有 API 包括新加的（之前只在 cursor rules 里有）
 
-### v1.10 —— builder consumed 断言 + Tailwind.of(context)
+### v1.9 —— builder consumed 断言 + Tailwind.of(context)
 
 **目标：** debug 模式下检测 builder 复用；同时把全局 BuildContext 持有改造成 deprecated。
 
@@ -595,7 +644,7 @@ Text('hello')
 
 **用户感知：** 偶发 UI 错乱在 debug 时立即 crash 提示，不再隐藏到生产；同时收到 deprecation 提示引导迁移到 `Tailwind.of(context)`。
 
-### v1.11 —— 测试基线 + CI 加 analyze/test
+### v1.10 —— 测试基线 + CI 加 analyze/test
 
 **目标：** 让 v1.x 后续版本能放心改。
 
@@ -628,16 +677,19 @@ Text('hello')
 
 ### 里程碑顺序的论证
 
-为什么是 1.8 → 1.11 这个顺序？
+为什么是 1.8 → 1.10 这个顺序？
 
-- **1.8 优先**：screenutil 解耦让本库能进入更多项目，是市场扩张
-- **1.9 次之**：文档统一之后，后续"内部清理"才好讲清楚收益
-- **1.10 第三**：consumed 断言（解 3.2 的"持有 builder 跨调用"陷阱）+ BuildContext deprecation（解 3.5）都是 deprecation/assert 引导路径，合一档；放在文档统一之后，是因为 consumed 断言需要文档先把"为啥 builder 是一次性的"讲清楚
-- **1.11 最后**：测试基线是兜底，前 3 个里程碑铺好之后再补测试，覆盖率更高效
+- **1.8 优先（最便宜也最痛）**：3.4 文档不同步是新头号 ⭐⭐⭐——cursor rules 教用户跑不存在的 `build_runner`、教错初始化位置（用户主题色全废）、新 API 三处文档全没。这些都是改 markdown 就能修的事，但每多一天 cursor rules 没改，就多有用户照着写出错代码
+- **1.9 次之**：consumed assert 解 3.2，Tailwind.of(context) 解 3.5 根治部分。这两件都需要文档先把"为啥 builder 一次性"和"不要在 MaterialApp 之上 init"讲清楚——所以放在 v1.8 之后
+- **1.10 最后**：测试基线是兜底，前 2 个里程碑铺好之后再补测试，覆盖率更高效
 
-**注 1：** 原设计有 v1.8 "`.mk` 漏调 lint"，被取消。理由：实测 Dart 类型系统已自动堵住该问题（见 3.1 节修订记录）。
+**已取消的里程碑（按时间顺序）：**
 
-**注 2：** 原设计有第 6 个里程碑"标准化 codegen 工具链"，被取消。理由：项目预设值已稳定，预设值的追加频率低（年级 vs 月级），维护一套生成工具的成本高于偶尔手编辑的成本。`test/main.dart` 作为废弃脚本一并删除。
+**注 1：** 原 v1.8 "`.mk` 漏调 lint"，第 1 轮修订时取消。理由：实测 Dart 类型系统已自动堵住该问题（见 3.1 节修订记录）。
+
+**注 2：** 原"标准化 codegen 工具链"里程碑，被取消。理由：项目预设值已稳定，维护生成工具的成本高于偶尔手编辑的成本。`test/main.dart` 作为废弃脚本一并删除。
+
+**注 3：** 原 v1.8 "SizeAdapter（screenutil 解耦）"，第 2 轮修订时**降级到 backlog**。理由：实测发现非 screenutil 项目已经能用本库——screenutil 没初始化时 `.r/.w/.h/.sp` 直接返回原值，本库尺寸功能仍可用（见 3.3 节）。SizeAdapter 只剩"消除 transitive 依赖洁癖"价值，优先级低。如未来真要做，作为可选项接入 v1.x 后续小版本。
 
 ---
 
@@ -645,41 +697,40 @@ Text('hello')
 
 ### 7.1 v2 究竟需不需要？
 
-**判定标准：** 跑完 v1.10（consumed 断言）之后观察 3–6 个月：
+**判定标准：** 跑完 v1.9（consumed 断言 + Tailwind.of）之后观察 3–6 个月：
 - 如果 debug 模式下 `Builder has been consumed` 这条断言**很少**触发 → 说明 mutable builder 复用不是真问题，可能不需要 v2
 - 如果断言**频繁**触发，团队反复因为 builder 复用浪费时间 → 才考虑 v2 的 immutable + copyWith 改造
 
 不要现在就规划 v2。先把 v1 做扎实。
 
-> **修订记录（2026-05-15，二次修订）：**
-> - 原判定标准基于"v1.8 `.mk` 漏调 lint 拦截率"。v1.8 已取消（见 3.1 节），判定标准切换到 v1.10 consumed 断言。
-> - 3.2 节实测后降级为 ⭐⭐（触发条件比原描述窄得多——只在"持有 builder 跨多次终止符复用"时出现）。这意味着 v1.10 consumed 断言的触发率本身预期就**不会高**。判定 v2 必要性时不能只看绝对触发数，要看"假设 consumed assert 不存在，这些触发对应的 bug 会有多大代价"——这个评估靠团队主观判断，不靠纯指标。
+> **修订记录（2026-05-15，三次修订）：**
+> - 第 1 次：原判定基于"v1.8 `.mk` 漏调 lint 拦截率"。v1.8 lint 已取消（见 3.1）
+> - 第 2 次：判定切换到 consumed assert 触发频率
+> - 第 3 次（本次）：里程碑重排后 consumed assert 现在归属 **v1.9**，不是原 v1.10
+> - 3.2 节实测降级为 ⭐⭐（只在"持有 builder 跨多次终止符复用"时出现）——意味着 consumed assert 触发率本身预期就不会高。判定 v2 必要性不能只看绝对触发数，要看"假设 consumed assert 不存在，这些触发对应的 bug 代价"，靠团队主观判断
 
-### 7.2 screenutil 解耦后的兼容风险
+### 7.2 ~~screenutil 解耦后的兼容风险~~ —— **风险解除**
 
-**问题：** 当前 `lib/flutter_tailwind.dart:2` 直接 `export 'package:flutter_screenutil/...';`。可能有用户在自己项目里依赖这个间接导出（不显式 depend on screenutil，只 import flutter_tailwind 就拿到 `ScreenUtil`、`.r`、`ScreenUtilInit` 等符号）。
-
-**缓解：**
-- v1.8 **不移除**这个 export，只是新增 `SizeAdapter` 接口
-- v2 才考虑移除，并提供迁移工具
-- 在 v1.8 的 CHANGELOG 明确说明"export 在 v2 移除"
+> **修订记录（2026-05-15，第 2 轮）：** 本节原讨论 v1.8 SizeAdapter 的兼容风险。SizeAdapter 已降级到 backlog（见 3.3 实测+ 第 6 章里程碑注 3），所以本节风险**自动解除**。
+> 
+> 如果未来真要做 SizeAdapter，再回来填这节——届时核心兼容风险是 `lib/flutter_tailwind.dart:2` 的 `export 'package:flutter_screenutil/...'` 不能在 v1.x 移除，必须 v2 才能动。
 
 ### 7.3 tree-shaking 表现未知
 
 **问题：** 上千个 getter 是否真的能被 dart2js / aot-compile 干净 tree-shake，目前**无数据支撑**。
 
 **缓解：**
-- v1.9 之前补一个 size benchmark example（不算阻塞性任务，可以提前做）
+- v1.8 之前或之中补一个 size benchmark example（不算阻塞性任务，可以提前做）
 - 文档里在"FAQ"段写明"如果你的项目对 bundle size 敏感，先跑 benchmark"
 - 真出问题再做"按颜色族拆 extension"的工作
 
 ### 7.4 文档迁移期的混乱
 
-**问题：** 在 v1.9 完成前，三处文档并存的状态会持续几个月，用户可能在不同地方看到不同信息。
+**问题：** 在 v1.8 完成前，三处文档并存的状态会持续几个月，用户可能在不同地方看到不同信息。
 
 **缓解：**
 - 在 README 顶部加 banner：`📖 Documentation is being consolidated to docs/. If you find conflicts, docs/ is the source of truth.`
-- v1.9 完成后，`guide.md` 和 cursor rules 都从 docs/ 自动生成，永久解决
+- v1.8 完成后，`guide.md` 和 cursor rules 都从 docs/ 自动生成，永久解决
 
 ---
 
@@ -741,9 +792,9 @@ lib/                                                  13,407 行
 
 文档不打算定稿就锁死。建议每完成一个里程碑后回来更新：
 
-- v1.8 发布后：在 3.3 节加"迁移用户调研结果"
-- v1.9 发布后：在 3.4 节标记"已解决"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
-- v1.10 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated，待 v2 移除"
-- v1.11 发布后：在 3.6 节标记"已解决"
+- v1.8 发布后：在 3.4 节标记"已解决"；在 3.5 节标记"cursor rules 教错已修正、.primary throw 已加 try-catch"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
+- v1.9 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated context，待 v2 移除"
+- v1.10 发布后：在 3.6 节标记"已解决"
+- SizeAdapter（backlog）：如未来真做，标记 3.3 节相关方案为"已落地"
 
-文档完整生命周期是"v1.7 → v2.0 决策点"，4 个里程碑预计 4–8 个月。
+文档完整生命周期是"v1.7 → v2.0 决策点"，3 个里程碑预计 3–6 个月。
