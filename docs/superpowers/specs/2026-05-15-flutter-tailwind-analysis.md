@@ -128,31 +128,28 @@ return 'text'.text.center.rounded8.p16.mk;
 
 ## 第 3 章：弊端（按"用户感知优先级"排序）
 
-### 3.1 `.mk` 漏调静态零提示（最痛 ⭐⭐⭐）
+### 3.1 ~~`.mk` 漏调静态零提示~~ —— **撤回，非问题**
 
-**现状：**
+**修订记录（2026-05-15 实测后）：** 本节原断言"`.mk` 漏调是最痛点 ⭐⭐⭐"是错的。在真实 widget 树语境里，Dart 类型系统已经把所有典型漏调场景全部堵住。下面是实测证据：
 
-```dart
-Widget build(BuildContext context) {
-  return 'hello'.text.f16.bold;  // 类型是 TextBuilder，不是 Widget
-}
-```
+| 漏调场景 | 类型系统反应 |
+|---|---|
+| `Widget build() => 'hello'.text.f16.bold;` | ❌ **编译错误** `return_of_invalid_type` |
+| `Center(child: 'hello'.text.f16.bold)` | ❌ **编译错误** `argument_type_not_assignable` |
+| `Column(children: ['hello'.text.f16.bold])` | ❌ **编译错误** `list_element_type_not_assignable` |
+| `column.children(['hello'.text.f16.bold])` | ❌ **编译错误**（同上）|
+| `'hello'.text.f16.bold;`（独立语句）| ⚠️ 无警告，但现实代码里几乎不存在 |
+| `var x = 'hello'.text.f16.bold;`（弃用变量）| ⚠️ 现有 `unused_local_variable` lint 已抓 |
 
-这段代码：
-- 编译通过（因为 Widget 树某些位置接受 `Object?`，例如 children 列表里塞 builder 会被忽略）
-- 运行不报错
-- 但什么都不渲染
+**结论：** `.mk` 漏调在 typed Dart 中**几乎不可能静默不报错**。原断言"编译通过 + 运行时什么都不渲染"是错误的——`Widget.children` 是 `List<Widget>`，塞 `TextBuilder` 会编译错误，不会"被忽略"。仅剩的边角场景（独立语句、`dynamic` 上下文）要么无意义、要么是用户主动 opt-out 类型安全。
 
-新手第一周必踩一次。老手在重构时偶尔也会踩——比如把一个 `.click(onTap: ...)` 终止的链改回普通显示，忘了补 `.mk`。
+**原计划的 v1.8 里程碑（`@useResult` + `custom_lint` 包）整体取消。** 理由：解决的是几乎不存在的问题，投入不匹配收益。
 
-**v1 内可做：**
-- 给所有 builder 类加 `@useResult` 注解（Dart 内置，IDE 会警告"返回值未使用"）
-- 推一个配套 `custom_lint` 包：`flutter_tailwind_lints`，专门检测 "builder 出现在 Widget 期望的位置但没 `.mk` 终止"
-- 在 IDE 安装提示中强烈推荐配套 lint 包
+**何时该重新考虑：** 如果团队在实际项目中遇到 `.mk` 漏调案例，记录下来。如果半年内案例数 ≥ 5 且类型系统确实抓不住，再回来评估 custom_lint 路径。
 
-**v1 内不可根治：** 真正堵住这条要么改 API 命名（不可能，破坏 v1），要么靠 lint。Lint 只能拦 80%，剩下 20% 隐藏在自定义 builder 扩展中。
+### 3.2 mutable builder 复用陷阱（**新头号痛点** ⭐⭐⭐）
 
-### 3.2 mutable builder 复用陷阱（⭐⭐⭐）
+> **优先级说明：** 3.1 撤回后，本节升为头号——这是少数 Dart 类型系统**抓不到**、却会导致**运行时静默 UI 错乱**的真问题。
 
 **现状：** 链式调用通过 cascade 修改 builder 字段：
 
@@ -422,13 +419,13 @@ Text('hello')
 | 维度 | styled_widget | flutter_tailwind |
 |---|---|---|
 | 是否有中间 builder | ❌ 直接装饰 Widget | ✅ 有 builder |
-| `.mk` 漏调风险 | ❌ 不存在（每步返回 Widget） | ⭐⭐⭐ 最痛点 |
 | API 简短度 | 中（要写 `.padding(all: 8)`） | 高（写 `.p8`） |
 | 预设值密度 | 低（要传参） | 高（getter 直接给值） |
 | 性能 | 每步产生新 Widget 包装 | 一次性 build 最终 widget |
+| mutable builder 复用风险 | ❌ 不存在（每步返回新 Widget，无可变状态） | ⚠️ 存在（见 3.2 节）|
 
-**胜出场景：** styled_widget 在"API 安全性"上完胜——无 `.mk` 漏调风险。
-**落后场景：** API 不如 tailwind 简短，写起来还是要 `.padding(all: 8)` 不能是 `.p8`。
+**胜出场景：** styled_widget 没有 mutable builder 复用风险（因为它的"链"就是 Widget 包装链，每步产生新 Widget）。
+**落后场景：** API 不如 tailwind 简短；每步产生新 Widget 包装在性能上不如一次性 build。
 
 ### 5.2 velocity_x
 
@@ -447,7 +444,7 @@ Text('hello')
 | 文档语言 | 英文为主 | 中英混合（团队中文为主） |
 | 预设值密度 | 中 | 高 |
 | 预设值组织 | 散落（颜色和尺寸混在一起） | 按 mixin 切片，更系统 |
-| `.make()` 漏调风险 | 同样存在 | 同样存在 |
+| `.make()` / `.mk` 漏调 | 类型系统已堵住 | 类型系统已堵住（见 3.1） |
 
 **胜出场景：** velocity_x 生态稳定，社区贡献多，文档（英文）更完整。
 **落后场景：** API 设计杂糅（不是按 mixin 切的，新加一种颜色要动好几个地方），没有 tailwind 那种"语义化预设"的集中度。
@@ -460,7 +457,7 @@ Text('hello')
 - 中文用户社群最舒服（文档中文为主，作者中文）
 
 **落后：**
-- `.mk` 漏调 + mutable builder 两个运行时风险
+- mutable builder 复用风险（3.2，**当前头号真痛点**）
 - 包体未验证、依赖图偏重
 - 测试为零、CI 不跑测试
 
@@ -470,22 +467,11 @@ Text('hello')
 
 ## 第 6 章：保守路线下的升级路线图
 
-按方向 B（用户面优先）排出 5 个里程碑，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 4 个）或 **维护团队能直接感知收益**（最后 1 个）。
+按方向 B（用户面优先）排出 4 个里程碑，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 3 个）或 **维护团队能直接感知收益**（最后 1 个）。
 
-### v1.8 —— `.mk` 漏调静态检测
+> **路线图修订记录（2026-05-15）：** 原 v1.8（`.mk` 漏调 lint）已**取消**。实测证明 Dart 类型系统已覆盖该问题（见 3.1 节）。原 v1.9/v1.10/v1.11/v1.12 整体前移一档变成 v1.8/v1.9/v1.10/v1.11。
 
-**目标：** 让"忘记写 `.mk`"在 IDE 里立即变红或黄。
-
-**任务：**
-- 给所有 `MkBuilder<T>` 子类的 `mk` getter 标 `@useResult`
-- 新建 sibling pub 包 `flutter_tailwind_lints`（在本仓库 `lints/` 目录）：
-  - 一条 lint：`missing_mk_call`——检测"`'foo'.text.f16.bold;` 这种链以 builder 类型结尾且没赋值/没被消费"的语句
-  - 一条 lint：`builder_reused`——检测"同一 builder 实例 .mk 多次或在多个 widget 中被引用"
-- 文档：把 lints 包加入 README 的"Setup"段
-
-**用户感知：** 接入 lints 后，新写代码立刻拿到提示。
-
-### v1.9 —— `SizeAdapter` 接口（screenutil 解耦）
+### v1.8 —— `SizeAdapter` 接口（screenutil 解耦）
 
 **目标：** 让非 screenutil 项目也能用本库。
 
@@ -499,7 +485,7 @@ Text('hello')
 
 **用户感知：** 现有用户零改动；新用户可以选择不接 screenutil。
 
-### v1.10 —— 文档统一到 `docs/`
+### v1.9 —— 文档统一到 `docs/`
 
 **目标：** 三处文档一处维护。
 
@@ -531,7 +517,7 @@ Text('hello')
 
 **用户感知：** pub.dev 页面更清爽；查文档不用在三处之间跳。
 
-### v1.11 —— builder consumed 断言 + Tailwind.of(context)
+### v1.10 —— builder consumed 断言 + Tailwind.of(context)
 
 **目标：** debug 模式下检测 builder 复用；同时把全局 BuildContext 持有改造成 deprecated。
 
@@ -558,7 +544,7 @@ Text('hello')
 
 **用户感知：** 偶发 UI 错乱在 debug 时立即 crash 提示，不再隐藏到生产；同时收到 deprecation 提示引导迁移到 `Tailwind.of(context)`。
 
-### v1.12 —— 测试基线 + CI 加 analyze/test
+### v1.11 —— 测试基线 + CI 加 analyze/test
 
 **目标：** 让 v1.x 后续版本能放心改。
 
@@ -591,15 +577,16 @@ Text('hello')
 
 ### 里程碑顺序的论证
 
-为什么是 1.8 → 1.12 这个顺序而不是反过来？
+为什么是 1.8 → 1.11 这个顺序？
 
-- **1.8 优先**：`.mk` 漏调是新手第一周的痛点，最高 ROI。lint 包是可选的，不接也不影响现有用户
-- **1.9 次之**：screenutil 解耦让本库能进入更多项目，是市场扩张
-- **1.10 第三**：文档好了之后，后续"内部清理"才好讲清楚收益
-- **1.11 第四**：consumed 断言要在文档说清楚了"为啥 builder 一次性"之后再上线，否则用户被 crash 一头雾水
-- **1.12 最后**：测试基线是兜底，前 4 个里程碑铺好之后再补测试，覆盖率更高效
+- **1.8 优先**：screenutil 解耦让本库能进入更多项目，是市场扩张
+- **1.9 次之**：文档统一之后，后续"内部清理"才好讲清楚收益
+- **1.10 第三**：consumed 断言（解 3.2 真痛点）+ BuildContext deprecation（解 3.4）都是 deprecation 引导路径，合一档；放在文档统一之后，是因为 consumed 断言需要文档先把"为啥 builder 是一次性的"讲清楚
+- **1.11 最后**：测试基线是兜底，前 3 个里程碑铺好之后再补测试，覆盖率更高效
 
-**注：** 原设计有第 6 个里程碑"标准化 codegen 工具链"，被取消。理由：项目预设值已稳定，预设值的追加频率低（年级 vs 月级），维护一套生成工具的成本高于偶尔手编辑的成本。`test/main.dart` 作为废弃脚本一并删除。
+**注 1：** 原设计有 v1.8 "`.mk` 漏调 lint"，被取消。理由：实测 Dart 类型系统已自动堵住该问题（见 3.1 节修订记录）。
+
+**注 2：** 原设计有第 6 个里程碑"标准化 codegen 工具链"，被取消。理由：项目预设值已稳定，预设值的追加频率低（年级 vs 月级），维护一套生成工具的成本高于偶尔手编辑的成本。`test/main.dart` 作为废弃脚本一并删除。
 
 ---
 
@@ -607,49 +594,39 @@ Text('hello')
 
 ### 7.1 v2 究竟需不需要？
 
-**判定标准：** 跑完 v1.8（`.mk` 漏调 lint）之后观察 3–6 个月：
-- 如果 issue 跟踪里"忘了 `.mk` 导致的 bug"基本被堵住 → 可能不需要 v2
-- 如果仍然频繁出现（lint 拦不住的边缘情况） → 才考虑 v2 的 immutable + copyWith 改造
+**判定标准：** 跑完 v1.10（consumed 断言）之后观察 3–6 个月：
+- 如果 debug 模式下 `Builder has been consumed` 这条断言**很少**触发 → 说明 mutable builder 复用不是真问题，可能不需要 v2
+- 如果断言**频繁**触发，团队反复因为 builder 复用浪费时间 → 才考虑 v2 的 immutable + copyWith 改造
 
 不要现在就规划 v2。先把 v1 做扎实。
+
+> **修订记录（2026-05-15）：** 原判定标准基于"v1.8 lint 拦截率"。v1.8 已取消（见 3.1 节），判定标准切换到"v1.10 consumed 断言的触发频率"——这正好是 3.2 节升为新头号痛点之后该关注的指标。
 
 ### 7.2 screenutil 解耦后的兼容风险
 
 **问题：** 当前 `lib/flutter_tailwind.dart:2` 直接 `export 'package:flutter_screenutil/...';`。可能有用户在自己项目里依赖这个间接导出（不显式 depend on screenutil，只 import flutter_tailwind 就拿到 `ScreenUtil`、`.r`、`ScreenUtilInit` 等符号）。
 
 **缓解：**
-- v1.9 **不移除**这个 export，只是新增 `SizeAdapter` 接口
+- v1.8 **不移除**这个 export，只是新增 `SizeAdapter` 接口
 - v2 才考虑移除，并提供迁移工具
-- 在 v1.9 的 CHANGELOG 明确说明"export 在 v2 移除"
+- 在 v1.8 的 CHANGELOG 明确说明"export 在 v2 移除"
 
 ### 7.3 tree-shaking 表现未知
 
 **问题：** 上千个 getter 是否真的能被 dart2js / aot-compile 干净 tree-shake，目前**无数据支撑**。
 
 **缓解：**
-- v1.10 之前补一个 size benchmark example（不算阻塞性任务，可以提前做）
+- v1.9 之前补一个 size benchmark example（不算阻塞性任务，可以提前做）
 - 文档里在"FAQ"段写明"如果你的项目对 bundle size 敏感，先跑 benchmark"
 - 真出问题再做"按颜色族拆 extension"的工作
 
-### 7.4 配套 lints 包的工作量被低估
+### 7.4 文档迁移期的混乱
 
-**问题：** 写一个 `custom_lint` 包看起来简单，实际上：
-- 要熟悉 analyzer API
-- 要写充分的测试（lints 自己跑错了比没 lint 更糟）
-- 要维护一个独立 pub 包
-
-**缓解：**
-- v1.8 第一版只做 `missing_mk_call` 一条规则，其他规则后续小版本加
-- 不追求一次到位，"有总比没有强"
-- 如果工作量超预期，可以降级为"在 README 里贴一段 dart_code_metrics 配置"，让用户用现成工具检测——损失一些精度，但成本低很多
-
-### 7.5 文档迁移期的混乱
-
-**问题：** 在 v1.10 完成前，三处文档并存的状态会持续几个月，用户可能在不同地方看到不同信息。
+**问题：** 在 v1.9 完成前，三处文档并存的状态会持续几个月，用户可能在不同地方看到不同信息。
 
 **缓解：**
 - 在 README 顶部加 banner：`📖 Documentation is being consolidated to docs/. If you find conflicts, docs/ is the source of truth.`
-- v1.10 完成后，`guide.md` 和 cursor rules 都从 docs/ 自动生成，永久解决
+- v1.9 完成后，`guide.md` 和 cursor rules 都从 docs/ 自动生成，永久解决
 
 ---
 
@@ -663,7 +640,7 @@ Text('hello')
 | **预设 getter** | 形如 `.p8`、`.rounded16`、`.s100` 的零参 getter，对应固定数值 |
 | **参数方法** | 形如 `.p(8)`、`.rounded(16)`、`.s(100)` 的带参方法。本库约定"有预设就用预设" |
 | **cascade（`..`）** | Dart 语法，对同一对象连续调用方法/赋值。本库的链式调用通过 cascade 修改 builder 字段实现 |
-| **`.mk` 漏调** | 用户忘记在链尾加 `.mk`，结果代码编译运行都不报错但什么都不渲染 |
+| **`.mk` 漏调** | 用户忘记在链尾加 `.mk`。在 typed Dart 中通常立即编译错误，仅 `dynamic` / 独立语句这种极少数边角场景才会静默——见 3.1 节的修订记录 |
 
 ## 附录 B：当前版本（1.7.3）的代码体量明细
 
@@ -711,10 +688,9 @@ lib/                                                  13,407 行
 
 文档不打算定稿就锁死。建议每完成一个里程碑后回来更新：
 
-- v1.8 发布后：在 3.1 节加"实测拦截率"
-- v1.9 发布后：在 3.3 节加"迁移用户调研结果"
-- v1.10 发布后：在 3.4 节标记"已解决"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
-- v1.11 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated，待 v2 移除"
-- v1.12 发布后：在 3.6 节标记"已解决"
+- v1.8 发布后：在 3.3 节加"迁移用户调研结果"
+- v1.9 发布后：在 3.4 节标记"已解决"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
+- v1.10 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated，待 v2 移除"
+- v1.11 发布后：在 3.6 节标记"已解决"
 
-文档完整生命周期是"v1.7 → v2.0 决策点"，5 个里程碑预计 5–10 个月。
+文档完整生命周期是"v1.7 → v2.0 决策点"，4 个里程碑预计 4–8 个月。
