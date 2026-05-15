@@ -270,7 +270,7 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 |---|---|
 | **cursor rules 教用户跑不存在的 `build_runner`** | line 688 + line 1330 提到 `flutter packages pub run build_runner build`——本库根本没用 build_runner |
 | **cursor rules 教错初始化位置（让 `.primary` 拿到错误主题色）** | line 1262 教用户在 `ScreenUtilInit.builder` 里调 `Tailwind.instance.init(ctx, ...)`，但那个 ctx 在 MaterialApp **之上**，Theme.of 拿到 fallback 主题（深紫色，不是用户配置的）。详见 3.5 节实测 |
-| **新 API 三处文档都没有** | `spacing16` 在 cursor rules 提了 28 次、README/guide.md **完全没提**；`adaptH`/`adaptS`/`adaptR`/`adaptSp`（commit `2ed8c91` 引入）三处文档**全部 0 提及**——用户无处可学 |
+| **新 API 三处文档都没有** | `spacing16` 在 cursor rules 提了 28 次、README/guide.md **完全没提**；`adaptW`/`adaptH`/`adaptR`/`adaptSp`（commit `2ed8c91` 引入）三处文档**全部 0 提及**——用户无处可学 |
 
 **严重性升级原因：**
 - "教错初始化位置"是用户**主题色全废**的直接 bug，不是抽象的"不同步"
@@ -283,7 +283,7 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
   - 重写 line 1262 的初始化示例（init 必须在 MaterialApp 内部）
 - 建立 `docs/` 单一来源，按章节拆分（`docs/api/`、`docs/patterns/`、`docs/migration/`）
 - README 瘦身到 < 5 KB，只保留 30 秒上手 + 链接到 `docs/`
-- 把 `adaptH`/`adaptS`/`adaptR`/`adaptSp` 写进 `docs/patterns/screen-adaptation.md`
+- 把 `adaptW`/`adaptH`/`adaptR`/`adaptSp` 写进 `docs/patterns/screen-adaptation.md`
 - `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（脚本化但不上 CI gate）
 - `guide.md` 直接重定向到 `docs/`
 
@@ -608,7 +608,7 @@ Text('hello')
       v1.6-to-v1.7.md
   ```
 - 把现有 `spacing16`/`spacing20`/`spacing24` 等只在 cursor rules 里有的 API 补到 `docs/patterns/spacing.md`
-- 把 commit `2ed8c91` 引入的 `adaptH`/`adaptS`/`adaptR`/`adaptSp`（三处文档目前都没提）写进 `docs/patterns/screen-adaptation.md`
+- 把 commit `2ed8c91` 引入的 `adaptW`/`adaptH`/`adaptR`/`adaptSp`（三处文档目前都没提）写进 `docs/patterns/screen-adaptation.md`
 - README 瘦身到 < 5 KB：特性概览 + 30 秒上手 + `docs/` 链接
 - `guide.md` 删除（或保留为占位重定向到 `docs/`）
 - `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（写个 `tool/build_cursor_rules.dart`，但**不上 CI gate**——半自动够用）

@@ -1,6 +1,12 @@
 # Flutter Tailwind 使用指南
 
-[Guide Document](guide.md)
+> **📖 文档迁移中（2026-05-15）：** 推荐先阅读 [`docs/`](docs/) 下的新文档：
+> - [入门指南 `docs/getting-started.md`](docs/getting-started.md)
+> - [屏幕适配 `docs/patterns/screen-adaptation.md`](docs/patterns/screen-adaptation.md) ⭐ 新 API，本文件未涵盖
+> - [间距控制 `docs/patterns/spacing.md`](docs/patterns/spacing.md) ⭐ 新 API，本文件未涵盖
+>
+> 本指南的内容也将逐步迁入 `docs/`。如发现本指南与 `docs/` 不一致，以 `docs/` 为准。
+
 ## 1. 基础组件
 
 ### 1.1 Container
