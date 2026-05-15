@@ -652,7 +652,8 @@ Input.outline(
 #### 创建自定义扩展
 ```dart
 // 文件: res/tailwind_ext.dart
-part 'tailwind_ext.g.dart';
+// 注意：本库不使用 build_runner。自定义扩展直接定义即可生效，
+//      不需要 part / part of 指令，也不需要跑任何代码生成命令。
 
 /// 自定义尺寸扩展
 extension CustomSizeExt<T extends SizeBuilder> on T {
@@ -682,11 +683,7 @@ extension CustomDecorationExt<T extends CompleteDecoration> on T {
 }
 ```
 
-#### 生成扩展文件
-```bash
-# 运行代码生成命令
-flutter packages pub run build_runner build
-```
+定义好之后，在需要使用的文件 `import 'res/tailwind_ext.dart';` 即可。无需任何额外步骤。
 
 ### 7. 图片加载配置
 
@@ -1251,22 +1248,54 @@ gridview.crossAxisCount2.spacing16.p16.ratio(0.75).dataBuilder<Product>(
 ### 4. 主题配置
 
 #### 初始化主题
+
+**重要：** `Tailwind.instance.init(context, ...)` **必须**在 MaterialApp **内部**的 context 上调用，不能在 `ScreenUtilInit.builder` 或 MaterialApp 之上的 context 上调用。否则 `Theme.of(context)` 找不到 MaterialApp 祖先，会 fallback 到 `ThemeData.fallback()` 的默认主题（深紫色），导致 `.primary`、`.textPrimary`、`.borderPrimary` 等返回错误颜色。
+
 ```dart
-// 在 MaterialApp 创建后初始化
+// ✅ 正确：在 MaterialApp.builder 里 init（context 在 MaterialApp 内部）
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) {
-        // 初始化 Tailwind 主题
-        Tailwind.instance.init(context, Colors.blue);
-        
+        return MaterialApp(
+          theme: ThemeData(primaryColor: Colors.blue),
+          builder: (ctx, child) {
+            Tailwind.instance.init(ctx, Colors.blue);  // ctx 在 MaterialApp 内
+            return child!;
+          },
+          home: const HomePage(),
+        );
+      },
+    );
+  }
+}
+
+// 也正确：在 home: 页面的 build 里 init
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Tailwind.instance.init(context);  // context 已经在 MaterialApp 内
+    return Scaffold(/* ... */);
+  }
+}
+
+// ❌ 错误：在 ScreenUtilInit.builder 里直接 init
+// 此时 context 在 MaterialApp 之上，Theme.of 会拿到深紫色 fallback
+class WrongApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      builder: (context, child) {
+        Tailwind.instance.init(context, Colors.blue);  // ← BUG: 拿不到 MaterialApp 主题
         return MaterialApp(/* ... */);
       },
     );
   }
 }
 ```
+
+**也可以不调 init**——这是常见做法。不调用时 `.primary` fallback 到 `Colors.amber`（如果想换 fallback，传 `primaryColor` 参数：`Tailwind.instance.primaryColor = Colors.blue`）。
 
 ### 4. 调试技巧
 
@@ -1327,9 +1356,9 @@ debugPrint('Text size: ${text.fontSize}');
   ```
 
 ### 4. 扩展不可用
-- 运行 `flutter packages pub run build_runner build`
-- 检查 `part` 和 `part of` 指令
-- 确认扩展文件的导入路径
+- 检查 import 路径——extension 在被使用的文件里要 import 进来
+- 检查 extension 的泛型约束（如 `<T extends ColorBuilder>` on T）——目标 builder 类必须 mixin 了对应约束
+- 注意：本库**不使用 build_runner**，无需任何 codegen 步骤
 
 ### 5. 图片加载失败
 - 配置正确的 `ImageLoaderConfig`

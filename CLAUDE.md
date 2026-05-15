@@ -57,7 +57,9 @@ Row/Column/Wrap mix in the full container axis set (size, padding, margin, color
 
 ### Singleton config
 
-`Tailwind` (lib/src/tailwind.dart) is a singleton holding optional `BuildContext`, primary color, and a pluggable `BaseImageFactory` / `ImageLoaderConfigInterface`. Callers init it once (typically inside `ScreenUtilInit.builder`) — e.g. `Tailwind.instance.init(context, Colors.blue)` and `Tailwind.instance.addImageConfig(MyConfig())`. The `.primary` color getter falls back through context → user-provided → `Colors.amber`.
+`Tailwind` (lib/src/tailwind.dart) is a singleton holding optional `BuildContext`, primary color, and a pluggable `BaseImageFactory` / `ImageLoaderConfigInterface`. The `.primary` color getter resolves through `Theme.of(context).primaryColor` → user-provided `primaryColor` → `Colors.amber`, with a try-catch so a deactivated context falls back gracefully instead of throwing.
+
+**Init must happen inside `MaterialApp`.** `Tailwind.instance.init(context, ...)` requires a `BuildContext` whose ancestor chain includes a `MaterialApp` — otherwise `Theme.of(context)` returns `ThemeData.fallback()` and `.primary` ends up the wrong color. Call it in `MaterialApp.builder` or in the home page's `build`, not in `ScreenUtilInit.builder` (which is above the `MaterialApp`). Most existing example code never calls `init` at all — `.primary` then falls back to amber.
 
 ### Responsive sizing
 
