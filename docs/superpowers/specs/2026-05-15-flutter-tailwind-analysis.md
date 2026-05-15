@@ -147,9 +147,14 @@ return 'text'.text.center.rounded8.p16.mk;
 
 **何时该重新考虑：** 如果团队在实际项目中遇到 `.mk` 漏调案例，记录下来。如果半年内案例数 ≥ 5 且类型系统确实抓不住，再回来评估 custom_lint 路径。
 
-### 3.2 mutable builder 复用陷阱（**新头号痛点** ⭐⭐⭐）
+### 3.2 mutable builder 复用陷阱（⭐⭐）
 
-> **优先级说明：** 3.1 撤回后，本节升为头号——这是少数 Dart 类型系统**抓不到**、却会导致**运行时静默 UI 错乱**的真问题。
+> **修订记录（2026-05-15 实测后）：** 本节原列为 ⭐⭐⭐ 新头号痛点。实测后降级为 ⭐⭐。两件事被修正：
+>
+> 1. 原示例 B 注释"`card1 也跟着变了`"是错的——Container/BoxDecoration 在 `child(Widget)` 方法里就被立即构造、freeze，base 后续怎么改不影响已构造出的 Widget
+> 2. 原批评 cursor rules 推荐 `static final _titleStyle = ts.f16.bold.mk` 是反例——撤回。`.mk` 已经调用，缓存的是 immutable TextStyle，**完全安全**
+>
+> 真问题仍在，但触发条件比原描述窄得多。
 
 **现状：** 链式调用通过 cascade 修改 builder 字段：
 
@@ -159,29 +164,61 @@ extension ColorExt<T extends ColorBuilder> on T {
 }
 ```
 
-这意味着 builder 是 **stateful + mutable** 的对象。如果用户缓存了 builder：
+builder 是 **stateful + mutable** 的对象。这本身在典型链式用法里无害——`container.p16.red.rounded8.child(text)` 这种"用完即弃"的表达式里，中间 builder 状态修改完即被 `.child(...)` 固化进 immutable Widget，链结束后 builder 实例没人引用、被 GC。
+
+**真问题：** 当用户**主动持有 builder 跨多次终止符调用**时，cascade 写入的字段会**残留**：
 
 ```dart
-// .cursor/rules 里居然推荐的写法
-static final _titleStyle = ts.f16.bold.mk;
+// 实测可复现的真 bug
+final factory = container.p16.red;
+final shaped = factory.rounded8.child(text1);  // shaped 内嵌 borderRadius:8 — OK
+final plain = factory.child(text2);            // 用户期望"无圆角"，
+                                               // 实际拿到 borderRadius:8（残留）
 ```
 
-`.mk` 返回的最终 widget 没问题，但**中间 builder 链路上的任何引用**都是危险的。例如自定义扩展：
+`.rounded8` 这一步把 8 写入了 `factory.innerBorderRadius`。下一次直接 `factory.child(...)` 时，构造 Widget 读的是当前 factory 状态——8 还在。
+
+**触发条件（窄）：**
+- 用户必须**违反"用完即弃"习惯**，把 builder 赋给变量并跨多次终止符调用复用
+- 现实代码里常见的是 `return container.p16.red.child(...)` 这种用完即弃的链式表达式——这种**绝对安全**
+- 出现这个 bug 的典型场景是用户把 builder 当成"配置工厂"：
+  ```dart
+  class CardFactory {
+    static final _base = container.p16.red;
+    Widget shaped() => _base.rounded8.child(...);
+    Widget plain()  => _base.child(...);  // 期望初始状态，实际拿到上次残留
+  }
+  ```
+
+**严重性评估：** 现实代码出现频率应该不高，但**一旦出现就是难复现的 UI 错乱**（取决于函数调用顺序）。给团队带来的痛主要是"偶发但难定位"，而不是"频繁"。
+
+**安全的写法 vs. 危险的写法：**
 
 ```dart
-final base = container.p16.red;
-final card1 = base.rounded8.child(...);      // base 已被改成 rounded8
-final card2 = base.rounded16.child(...);     // base 又被改成 rounded16，card1 也跟着变了！
+// ✅ 安全：缓存 .mk 返回的 immutable 值
+static final _titleStyle = ts.blue.f16.bold.mk;  // TextStyle，免疫
+static final _padding = p16.mk;                  // EdgeInsetsGeometry，免疫
+
+// ✅ 安全：每次重新构造 builder
+Widget build() => container.p16.red.child(...);  // 用完即弃
+
+// ⚠️ 危险：缓存中间 builder 跨多次终止符使用
+class Factory {
+  static final _base = container.p16.red;  // <-- 这是 builder，不是 Widget
+  Widget makeShaped() => _base.rounded8.child(...);
+  Widget makePlain() => _base.child(...);  // 拿到上次残留
+}
 ```
 
-这是**典型的 mutable builder 反模式**，会偶发性 UI 错乱，难复现、难定位。
-
-**v1 内可做：**
-- `mk` getter 调用后立即把 builder 标"已消费"，第二次调用 `.mk` 抛 `StateError`（仅在 debug 模式下）
-- 在文档里点明 "**builder 是一次性的**，不要缓存、不要复用"
-- 把 cursor rules 里那条 `static final _style = ts.f16.bold.mk` 的示例**改成**先缓存 `TextStyle`、不缓存 builder
+**v1 内可做（对应 v1.10 里程碑）：**
+- 在所有终止符（`.mk` / `.child` / `.children` / `.click` / `.builder` / `.dataBuilder` / `.onChanged` 等）调用后，立即把 builder 标"已消费"
+- 第二次再调任何终止符 → debug 模式抛 `StateError('Builder has been consumed, builders are one-shot')`
+- 这样能精准抓到"持有 builder 跨多次终止符"的反模式，给用户明确报错指向真凶
+- 配套文档专章："为什么 builder 是一次性的——别把它当配置工厂"
 
 **v1 内不可根治：** 真正不可变需要 `copyWith` 风格——每个 getter 返回新对象。这是破坏性变更（破坏现有依赖 cascade 的扩展代码），留给未来 v2。
+
+**实测脚本：** 本节修订后的论断已通过 `flutter test` 验证过——实测代码见 git commit `[本次提交]` 的说明，验证文件本身已删除。
 
 ### 3.3 与 `flutter_screenutil` 强耦合（⭐⭐）
 
@@ -523,17 +560,31 @@ Text('hello')
 
 **任务（builder consumed 部分）：**
 - 修改 `MkBuilder` 基类，加 `bool _consumed = false` 字段
-- `.mk` getter 内：
+- **所有终止符都要检查**——不只是 `.mk`。这一点跟最初设想不同：3.2 节实测发现 `ContainerBuilder.child(Widget)` 等具体终止符直接构造 Widget、不走 `.mk` 路径，所以单靠 `.mk` 上的 assert 抓不到 `factory.rounded8.child(...)` + `factory.child(...)` 这种复用模式。需要在每个终止符（`.mk` getter、`.child(Widget)` 方法、`.children(...)` 方法、`.click(...)` 方法、`.builder(...)`、`.dataBuilder(...)`、`.onChanged(...)` 等）的实现里都加 consumed 检查：
   ```dart
-  T get mk {
+  // 抽出共享辅助方法
+  void _markConsumed() {
     assert(!_consumed, 'Builder $runtimeType has been consumed. Builders are one-shot.');
     _consumed = true;
-    return _buildInternal();
+  }
+
+  // 在 mk getter / child(Widget) / 等终止符的实现开头调用
+  @override
+  Widget get mk {
+    _markConsumed();
+    // ...原构造逻辑
+  }
+
+  @override
+  Widget child(Widget child) {
+    _markConsumed();
+    // ...原构造逻辑
   }
   ```
+- 工作量评估：约 30 处终止符具体实现要改（分布在 `mk_builder.dart` + `container.dart` + `text.dart` + `widgets/container/list_view.dart` + `child/buttons.dart` + `child/check_box.dart` + `child/radio.dart` + `child/wrap.dart` 等）
 - 注意：assert 只在 debug 模式生效，release 模式无开销
-- 同步更新 `.cursor/rules` 里的反例（把 `static final _style = ts.f16.bold.mk` 改成 `static final _style = TextStyle(fontSize: 16, fontWeight: FontWeight.bold)`）
-- 文档加专章："为什么 builder 是一次性的"
+- ~~同步更新 `.cursor/rules` 里的反例（把 `static final _style = ts.f16.bold.mk` 改成 ...）~~ **撤回**——`ts.f16.bold.mk` 缓存的是 TextStyle，安全，不是反例。但需要在 cursor rules 加一段新约定：**不要缓存中间 builder 跨多次终止符使用**（见 3.2 节的"安全的写法 vs. 危险的写法"）
+- 文档加专章："为什么 builder 是一次性的——别把它当配置工厂"
 
 **任务（Tailwind.of(context) 部分，对应 3.5）：**
 - 新增 `Tailwind.of(BuildContext context)` 静态方法，运行时获取主题
@@ -581,7 +632,7 @@ Text('hello')
 
 - **1.8 优先**：screenutil 解耦让本库能进入更多项目，是市场扩张
 - **1.9 次之**：文档统一之后，后续"内部清理"才好讲清楚收益
-- **1.10 第三**：consumed 断言（解 3.2 真痛点）+ BuildContext deprecation（解 3.4）都是 deprecation 引导路径，合一档；放在文档统一之后，是因为 consumed 断言需要文档先把"为啥 builder 是一次性的"讲清楚
+- **1.10 第三**：consumed 断言（解 3.2 的"持有 builder 跨调用"陷阱）+ BuildContext deprecation（解 3.5）都是 deprecation/assert 引导路径，合一档；放在文档统一之后，是因为 consumed 断言需要文档先把"为啥 builder 是一次性的"讲清楚
 - **1.11 最后**：测试基线是兜底，前 3 个里程碑铺好之后再补测试，覆盖率更高效
 
 **注 1：** 原设计有 v1.8 "`.mk` 漏调 lint"，被取消。理由：实测 Dart 类型系统已自动堵住该问题（见 3.1 节修订记录）。
@@ -600,7 +651,9 @@ Text('hello')
 
 不要现在就规划 v2。先把 v1 做扎实。
 
-> **修订记录（2026-05-15）：** 原判定标准基于"v1.8 lint 拦截率"。v1.8 已取消（见 3.1 节），判定标准切换到"v1.10 consumed 断言的触发频率"——这正好是 3.2 节升为新头号痛点之后该关注的指标。
+> **修订记录（2026-05-15，二次修订）：**
+> - 原判定标准基于"v1.8 `.mk` 漏调 lint 拦截率"。v1.8 已取消（见 3.1 节），判定标准切换到 v1.10 consumed 断言。
+> - 3.2 节实测后降级为 ⭐⭐（触发条件比原描述窄得多——只在"持有 builder 跨多次终止符复用"时出现）。这意味着 v1.10 consumed 断言的触发率本身预期就**不会高**。判定 v2 必要性时不能只看绝对触发数，要看"假设 consumed assert 不存在，这些触发对应的 bug 会有多大代价"——这个评估靠团队主观判断，不靠纯指标。
 
 ### 7.2 screenutil 解耦后的兼容风险
 
