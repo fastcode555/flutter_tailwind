@@ -351,41 +351,55 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
   ```
 - 第一波目标：50% 公共 API 覆盖率，跑通就行，不追求精致
 
-### 3.7 autocomplete 污染（已实证）+ tree-shaking 未验证（⭐⭐）
+### 3.7 ~~autocomplete 污染~~ + tree-shaking 未验证（⭐）
 
-> **修订记录（2026-05-15 实测后）：** 本节原列 ⭐ 且 getter 数量是估算。实测后 getter 数量比原估翻了 3 倍——升级为 ⭐⭐。
+> **修订记录（2026-05-15，二次修订）：**
+> - 原一次修订把本节升为 ⭐⭐，理由是"实测 getter 数比原估翻 3 倍"
+> - 二次修订**降回 ⭐**——getter 数量是事实，但"autocomplete 污染"这个论断在用户实测下站不住。**理论数量大 ≠ 用户体验差**，IDE 的前缀过滤已经把"密集度"压缩到可消化范围
+> - tree-shaking 一半保留 ⭐，仍待实测
 
 **实测的 getter 数量（grep 全库 mixin 文件 `T get xxx =>` 模式）：**
 
-| Mixin 文件 | Getter 数 | 原估 |
-|---|---|---|
-| `ColorBuilder` (color_builder.dart) | **810** | 200 |
-| `SizeBuilder` (size_builder.dart) | 443 | 250 |
-| `BorderRadiusBuilder` | 431 | — |
-| `PaddingBuilder` | 357 | 400 |
-| `MarginBuilder` | 350 | — |
-| `PositionedBuilder` | 208 | — |
-| `BorderWidthBuilder` | 199 | — |
-| `FontSizeBuilder` | 54 | — |
-| **全库 base/ mixin 总计** | **3,064** | 估 2,000+ |
+| Mixin 文件 | Getter 数 |
+|---|---|
+| `ColorBuilder` (color_builder.dart) | 810 |
+| `SizeBuilder` (size_builder.dart) | 443 |
+| `BorderRadiusBuilder` | 431 |
+| `PaddingBuilder` | 357 |
+| `MarginBuilder` | 350 |
+| `PositionedBuilder` | 208 |
+| `BorderWidthBuilder` | 199 |
+| `FontSizeBuilder` | 54 |
+| **全库 base/ mixin 总计** | **3,064** |
 
-**已实证的 autocomplete 污染：** 任何 `with ColorBuilder` 的 builder（几乎所有 builder）在 IDE 上按 `.` 触发补全时，会弹出 800+ 项颜色 getter。混上 SizeBuilder/PaddingBuilder/MarginBuilder 等其它常用 mixin 后，补全列表轻松超过 2,000 项。
+**为什么 autocomplete 污染不是真问题（实测）：**
 
-**问题：**
-- 新人学习曲线陡：不知道这几千个 getter 哪些常用、哪些罕见
-- 代码阅读时无法快速判断"这个 getter 是颜色还是尺寸"——光看 `s50` 不知道是 size 50 还是别的
-- **tree-shaking 行为未经验证**——一个用户只用 5 种颜色，dart2js / aot-compile 能不能把另外 805 种颜色干掉？目前没有 benchmark 数据。如果 tree-shaking 失效，3,000+ getter 全部进 bundle
-- Web/小程序场景下，包体可能因这堆 getter 而膨胀；即使最终被 tree-shake，编译时间也受影响
+| 用户输入 | IDE 候选数 |
+|---|---|
+| `.r` | ~447 |
+| `.re` | **16** ←─── 一个字母直接缩 28× |
+| `.red` | 15 |
+| `.redA` | 5 |
+| `.redAc` | 5 |
+
+实际用法里用户极少只输入 `.r` 就期望补全——通常 3+ 字母候选就缩到 ≤ 30 个，**完全可消化**。所谓"800+ 项弹出"是把 mixin 库存数当成 IDE 弹窗规模，混淆了"理论密度"和"实际 UX"。
+
+唯一前缀过滤后仍密集的是 `.rounded` → 431 候选（因为有 `rounded0/2/.../100` × 上下左右 × 四个角的组合），但触发条件是用户已经知道要圆角；下一步输个数字（`.rounded8`）立刻缩到 ~5。
+
+**真正还成立的小问题：**
+- 代码阅读时 `s50` 这种命名是 size 50 还是别的？这是 API **命名歧义**，跟 autocomplete 无关
+- 新人不知道库里有哪些 getter 存在——这是 **API 发现成本**，靠 README 的 cheat sheet 解决（v1.8 文档统一里程碑会处理）
+
+**tree-shaking 未验证 ⭐（保留）：**
+
+3,064 个 getter 是否真的能被 dart2js / aot-compile 干净 tree-shake，目前**无数据支撑**。如果 tree-shaking 失效，整个 mixin 库存可能进 bundle。
 
 **v1 内可做：**
-- 补一个 `example/` 子项目作为 **size benchmark**：
-  - 测量"只用本库的 5 个 getter"vs"完全不用本库"的最终 bundle size
-  - 测量 dart2js（web）和 aot-compile（mobile release）两种场景
-  - 把结果写入文档，让用户对包体有预期
-  - **这部分仍是 tree-shaking 实测的待补工作**
-- autocomplete 污染本身无法在不破坏 API 的前提下解决——预设值就是按这种密度设计的，是本库价值的一部分。但可以做：
-  - 在 README 显眼处加常用 getter cheat sheet（30-50 个高频）
-  - 调研按"颜色族"拆 extension 作为**可选**导入（非破坏性增量 API）：`import 'package:flutter_tailwind/colors/red.dart'`
+- 补一个 `example/` 子项目作为 **size benchmark**（v1.8 之前或之中补，作为 backlog 性质的探索）：
+  - 测"只用本库 5 个 getter" vs "完全不用本库"的最终 bundle size
+  - 测 dart2js（web）和 aot-compile（mobile release）两种场景
+  - 结果写进 `docs/faq/bundle-size.md`，让用户对包体有预期
+- 真出问题再做"按颜色族拆 extension"作为**可选**导入（非破坏性增量 API）：`import 'package:flutter_tailwind/colors/red.dart'`
 
 ---
 
