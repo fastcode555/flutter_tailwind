@@ -215,6 +215,6 @@ class WBox extends SingleChildRenderObjectWidget {
     } else {
       level = DiagnosticLevel.info;
     }
-    properties.add(DoubleProperty('width', width.w, defaultValue: null, level: level));
+    properties.add(DoubleProperty('width', width, defaultValue: null, level: level));
   }
 }
