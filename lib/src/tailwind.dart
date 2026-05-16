@@ -4,10 +4,21 @@ import 'package:flutter_tailwind/src/image_loader/base_image_factory.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
 
-/// Barry
-/// @date 2024/8/21
-/// describe:
-
+/// Singleton holding library-wide configuration.
+///
+/// Configurable:
+///   - [sizeAdapter] — install via [configSizeAdapter] to enable
+///     screen-scaling. Defaults to [IdentitySizeAdapter] (no scaling).
+///   - [primaryColor] — read from [init]'s context or set directly.
+///   - [imageFactory] / image loader — see [configImageFactory].
+///
+/// Cached by [init]:
+///   - [screenW], [screenH] — populated from MediaQuery at init time.
+///     Used by the hFull/wFull/sScreen/sFull-family getters.
+///
+/// Important: [init] requires a BuildContext that is inside the
+/// MaterialApp widget tree. The context is NOT retained — values are
+/// extracted immediately and cached to fields.
 class Tailwind {
   static Tailwind? _instance;
 
@@ -19,47 +30,47 @@ class Tailwind {
 
   static Tailwind _getInstance() => _instance ??= Tailwind._internal();
 
-  BuildContext? context;
+  /// The active size adapter. Defaults to identity (no scaling).
+  /// Replace via [configSizeAdapter].
+  SizeAdapter sizeAdapter = const IdentitySizeAdapter();
 
-  /// Returns the active primary color.
-  ///
-  /// Resolution order:
-  ///   1. If [context] was set via [init], try `Theme.of(context).primaryColor`
-  ///   2. If that fails (e.g. the context's widget was deactivated after a
-  ///      route change, raising "Looking up a deactivated widget's ancestor
-  ///      is unsafe"), fall back to [primaryColor] ?? [Colors.amber]
-  ///   3. If [context] is null, fall back to [primaryColor] ?? [Colors.amber]
-  ///
-  /// **Important:** the [context] passed to [init] must be inside the
-  /// `MaterialApp` widget tree. If you call `init` in `ScreenUtilInit.builder`
-  /// (above `MaterialApp`), `Theme.of` will silently return
-  /// `ThemeData.fallback()` — the user's `MaterialApp.theme` won't apply.
-  /// See the analysis doc 3.5 for details.
-  Color get primary {
-    final ctx = context;
-    if (ctx == null) {
-      return primaryColor ?? Colors.amber;
-    }
-    try {
-      return Theme.of(ctx).primaryColor;
-    } catch (_) {
-      // ctx has been deactivated (e.g. the holding widget was disposed).
-      // Fall back rather than crashing user code.
-      return primaryColor ?? Colors.amber;
-    }
-  }
+  /// Cached screen width in logical pixels. Populated by [init].
+  /// Returns 0.0 if [init] hasn't been called yet.
+  double screenW = 0.0;
+
+  /// Cached screen height in logical pixels. Populated by [init].
+  /// Returns 0.0 if [init] hasn't been called yet.
+  double screenH = 0.0;
 
   Color? primaryColor;
 
   BaseImageFactory? imageFactory;
 
-  SizeAdapter _sizeAdapter = const IdentitySizeAdapter();
+  /// Returns the active primary color.
+  /// Resolution: [primaryColor] (populated by [init] or set directly) ??
+  /// [Colors.amber].
+  Color get primary => primaryColor ?? Colors.amber;
 
-  SizeAdapter get sizeAdapter => _sizeAdapter;
+  /// One-shot setup. Pulls needed values out of [context] *immediately*
+  /// and caches them; does NOT retain the context reference.
+  ///
+  /// Must be called with a context inside the MaterialApp widget tree
+  /// (typically `MaterialApp.builder` or the home page's `build`).
+  /// If called from above MaterialApp (e.g. `ScreenUtilInit.builder`),
+  /// MediaQuery lookup returns null and screenW/screenH stay 0.
+  void init(BuildContext context, [Color? fallbackPrimary]) {
+    final mq = MediaQuery.maybeOf(context);
+    if (mq != null) {
+      screenW = mq.size.width;
+      screenH = mq.size.height;
+    }
+    primaryColor = fallbackPrimary ?? Theme.of(context).primaryColor;
+    // context intentionally NOT stored
+  }
 
-  void init(BuildContext context, [Color? primary]) {
-    this.context = context;
-    this.primaryColor = primary;
+  /// Install a custom size adapter. Typical call site: app startup.
+  void configSizeAdapter(SizeAdapter adapter) {
+    sizeAdapter = adapter;
   }
 
   void addImageConfig(ImageLoaderConfigInterface imageConfig) {
@@ -68,9 +79,5 @@ class Tailwind {
 
   void configImageFactory(BaseImageFactory imageFactory) {
     this.imageFactory = imageFactory;
-  }
-
-  void configSizeAdapter(SizeAdapter adapter) {
-    _sizeAdapter = adapter;
   }
 }
