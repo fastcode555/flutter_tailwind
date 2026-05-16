@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -77,29 +78,32 @@ class ImageBuilder extends MkBuilder<Widget>
     final imageFactor = Tailwind.instance.imageFactory;
     final useImageFactory = imageFactor != null && (image?.startsWith('http') ?? false);
     if (isCircle) {
+      final circleRadius = sr(size ?? 0) / 2;
       if (useImageFactory) {
         return imageFactor.loadCircleImage(
           image,
           fit: innerFit ?? BoxFit.cover,
-          radius: (size ?? 0) / 2,
+          radius: circleRadius,
           borderColor: borderColor.opacity(innerOpacity),
           border: innerBorderWidth,
           heroTag: _heroTag,
-          boxShadow: boxShadow,
+          boxShadow: adaptedBoxShadow,
         );
       }
 
       return ImageLoader.circle(
         image,
         fit: innerFit ?? BoxFit.cover,
-        radius: (size ?? 0) / 2,
+        radius: circleRadius,
         borderColor: borderColor.opacity(innerOpacity),
         border: innerBorderWidth,
         heroTag: _heroTag,
-        boxShadow: boxShadow,
+        boxShadow: adaptedBoxShadow,
         useSingleCache: _singleCache,
       );
     }
+    final adaptedWidth = size != null ? sr(size!) : (width != null ? sw(width!) : null);
+    final adaptedHeight = size != null ? sr(size!) : (height != null ? sh(height!) : null);
     if (hasRadius) {
       if (useImageFactory) {
         return imageFactor.loadRound(
@@ -107,12 +111,12 @@ class ImageBuilder extends MkBuilder<Widget>
           fit: innerFit ?? BoxFit.cover,
           radius: radius,
           borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
-          width: size ?? width,
-          height: size ?? height,
+          width: adaptedWidth,
+          height: adaptedHeight,
           heroTag: _heroTag,
           borderColor: borderColor.opacity(innerOpacity),
           border: innerBorderWidth,
-          boxShadow: boxShadow,
+          boxShadow: adaptedBoxShadow,
         );
       }
 
@@ -121,12 +125,12 @@ class ImageBuilder extends MkBuilder<Widget>
         fit: innerFit ?? BoxFit.cover,
         radius: radius,
         borderRadius: radius != null ? null : (hasRadius ? borderRadius : null),
-        width: size ?? width,
-        height: size ?? height,
+        width: adaptedWidth,
+        height: adaptedHeight,
         heroTag: _heroTag,
         borderColor: borderColor.opacity(innerOpacity),
         border: innerBorderWidth,
-        boxShadow: boxShadow,
+        boxShadow: adaptedBoxShadow,
         useSingleCache: _singleCache,
       );
     }
@@ -134,37 +138,39 @@ class ImageBuilder extends MkBuilder<Widget>
       return imageFactor.loadImage(
         image,
         fit: innerFit ?? BoxFit.cover,
-        width: size ?? width,
-        height: size ?? height,
+        width: adaptedWidth,
+        height: adaptedHeight,
         heroTag: _heroTag,
         borderColor: borderColor.opacity(innerOpacity),
         border: innerBorderWidth,
-        boxShadow: boxShadow,
+        boxShadow: adaptedBoxShadow,
       );
     }
     return ImageLoader.image(
       image,
       fit: innerFit ?? BoxFit.cover,
-      width: size ?? width,
-      height: size ?? height,
+      width: adaptedWidth,
+      height: adaptedHeight,
       heroTag: _heroTag,
       borderColor: borderColor.opacity(innerOpacity),
       border: innerBorderWidth,
-      boxShadow: boxShadow,
+      boxShadow: adaptedBoxShadow,
       useSingleCache: _singleCache,
     );
   }
 
   Widget _buildAssetImage() {
     if (borderColor != null || boxShadow != null) {
+      final adaptedWidth = size != null ? sr(size!) : (width != null ? sw(width!) : null);
+      final adaptedHeight = size != null ? sr(size!) : (height != null ? sh(height!) : null);
       return Container(
-        width: size ?? width,
-        height: size ?? height,
+        width: adaptedWidth,
+        height: adaptedHeight,
         decoration: BoxDecoration(
           borderRadius: isCircle ? null : (hasRadius ? borderRadius : BorderRadius.zero),
           border: Border.all(color: borderColor.opacity(innerOpacity)!, width: innerBorderWidth ?? 1.0),
           shape: innerShape ?? BoxShape.rectangle,
-          boxShadow: boxShadow,
+          boxShadow: adaptedBoxShadow,
           image: image != null
               ? DecorationImage(
                   image: AssetImage(image!),
@@ -179,13 +185,13 @@ class ImageBuilder extends MkBuilder<Widget>
     if (isCircle) {
       return CircleAvatar(
         backgroundImage: image != null ? AssetImage(image!) : null,
-        radius: (size ?? width ?? height ?? 0.0) / 2,
+        radius: sr(size ?? width ?? height ?? 0.0) / 2,
       );
     }
     return Image.asset(
       image ?? '',
-      width: size ?? width,
-      height: size ?? height,
+      width: size != null ? sr(size!) : (width != null ? sw(width!) : null),
+      height: size != null ? sr(size!) : (height != null ? sh(height!) : null),
       alignment: alignment ?? Alignment.center,
       color: innerColor,
     );

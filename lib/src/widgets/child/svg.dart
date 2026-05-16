@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -37,9 +38,9 @@ class _SvgBuilder extends MkBuilder<Widget>
     return createPadding(
       SvgPicture.asset(
         file,
-        width: size ?? width,
+        width: size != null ? sr(size!) : (width != null ? sw(width!) : null),
         bundle: bundle,
-        height: size ?? height,
+        height: size != null ? sr(size!) : (height != null ? sh(height!) : null),
         fit: innerFit ?? BoxFit.contain,
         excludeFromSemantics: excludeFromSemantics ?? false,
         allowDrawingOutsideViewBox: allowDrawingOutsideViewBox ?? false,

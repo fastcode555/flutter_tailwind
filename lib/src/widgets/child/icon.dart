@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/19
@@ -23,7 +24,7 @@ class _IconBuilder extends MkBuilder<Widget>
     return createPadding(
       Icon(
         icon,
-        size: size ?? height ?? width,
+        size: size != null ? sr(size!) : (height != null ? sh(height!) : (width != null ? sw(width!) : null)),
         color: innerColor.opacity(innerOpacity),
         shadows: shadows,
         textDirection: textDirection,
