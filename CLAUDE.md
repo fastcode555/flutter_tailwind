@@ -57,13 +57,18 @@ Row/Column/Wrap mix in the full container axis set (size, padding, margin, color
 
 ### Singleton config
 
-`Tailwind` (lib/src/tailwind.dart) is a singleton holding optional `BuildContext`, primary color, and a pluggable `BaseImageFactory` / `ImageLoaderConfigInterface`. The `.primary` color getter resolves through `Theme.of(context).primaryColor` → user-provided `primaryColor` → `Colors.amber`, with a try-catch so a deactivated context falls back gracefully instead of throwing.
+`Tailwind` (lib/src/tailwind.dart) is a singleton with these fields:
 
-**Init must happen inside `MaterialApp`.** `Tailwind.instance.init(context, ...)` requires a `BuildContext` whose ancestor chain includes a `MaterialApp` — otherwise `Theme.of(context)` returns `ThemeData.fallback()` and `.primary` ends up the wrong color. Call it in `MaterialApp.builder` or in the home page's `build`, not in `ScreenUtilInit.builder` (which is above the `MaterialApp`). Most existing example code never calls `init` at all — `.primary` then falls back to amber.
+- `sizeAdapter: SizeAdapter` — default `IdentitySizeAdapter`. Replace via `configSizeAdapter`.
+- `screenW: double` / `screenH: double` — populated at `init(context)`. Used by `hFull/wFull/sScreen/sFull` family getters.
+- `primaryColor: Color?` — populated at `init(context)` from `Theme.of(context).primaryColor`, or set directly.
+- `imageFactory: BaseImageFactory?` — pluggable image loader.
+
+`init(BuildContext context, [Color? fallbackPrimary])` extracts values from context **immediately** and does NOT retain the context. Must be called with a context inside the `MaterialApp` widget tree (typically `MaterialApp.builder` or the home page's `build`).
 
 ### Responsive sizing
 
-The package re-exports `flutter_screenutil` and uses its `.r` / `.w` / `.h` / `.sp` extensions internally for most size-related mixins. Consumers must wrap their app in `ScreenUtilInit(designSize: Size(375, 812), ...)`. Recent commits intentionally removed default screen adaptation from many properties — consumers now opt in explicitly with `adaptH` / `adaptS` / `adaptR` / `adaptSp` (see commit `2ed8c91`).
+`flutter_tailwind` v2.0 has zero dependency on `flutter_screenutil` or any other screen-adaptation library. Sizing is opt-in via `SizeAdapter` — a 4-method interface (`w/h/r/sp`) that users implement to plug in their own scaling. Default `IdentitySizeAdapter` does no scaling. The library calls `sw/sh/sr/ssp` helpers (top-level in `lib/src/adapters/size_adapter.dart`) inside builder `mk` methods to route every geometry/font value through the active adapter. See `doc/patterns/screen-adaptation.md`.
 
 ### Image loading
 

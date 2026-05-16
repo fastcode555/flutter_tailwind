@@ -5,9 +5,11 @@ I hope to make something like tailwind that can simplify the description of styl
 ## Documentation
 
 - **[Getting Started](doc/getting-started.md)** — install, bare-minimum usage, screen-adaptation setup, theme primary color
-- **[Patterns › Screen Adaptation](doc/patterns/screen-adaptation.md)** — `.adaptW` / `.adaptH` / `.adaptR` / `.adaptSp` (opt-in scaling, new in 1.7.x)
+- **[Patterns › Screen Adaptation](doc/patterns/screen-adaptation.md)** — SizeAdapter opt-in configuration for screen scaling
 - **[Patterns › Spacing](doc/patterns/spacing.md)** — `spacing*` shortcuts vs manual spacers
 - The rest of this README is a visual feature gallery — scroll for examples
+
+> **Screen scaling is opt-in via `SizeAdapter`.** No scaling by default. See `doc/patterns/screen-adaptation.md` for the setup template.
 
 > **Note:** This library does **not** use `build_runner`. The `.g.dart` files in `lib/src/` are hand-written `part` files containing chained-API mixins. Any older docs (including older `.cursor/rules`) saying to run `build_runner build` are stale — ignore them.
 

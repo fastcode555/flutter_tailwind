@@ -106,5 +106,5 @@ void main() {
 ## What to read next
 
 - [`patterns/spacing.md`](patterns/spacing.md) — controlling gap between children
-- [`patterns/screen-adaptation.md`](patterns/screen-adaptation.md) — `.adaptW` / `.adaptH` / `.adaptR` / `.adaptSp`
+- [`patterns/screen-adaptation.md`](patterns/screen-adaptation.md) — SizeAdapter configuration & migration from v1.x
 - `README.md` of the repo for the visual feature gallery
