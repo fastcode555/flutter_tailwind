@@ -33,27 +33,35 @@ class HomePage extends StatelessWidget {
 
 That's it. Sizes are passed through as literal logical pixels (no screen scaling).
 
-## Adding screen adaptation (optional)
+## Adding screen adaptation (optional, opt-in via SizeAdapter)
 
-If you want sizes/fonts to scale with the device, wrap your app in `ScreenUtilInit` (from `flutter_screenutil`, which `flutter_tailwind` re-exports):
+By default the library does no scaling — `container.w200.mk` produces `Container(width: 200)` literal pixels on every device.
+
+To enable scaling, write a 4-line `SizeAdapter` and install it once at app startup. Example wrapping `flutter_screenutil`:
 
 ```dart
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      builder: (context, child) {
-        return const MaterialApp(home: HomePage());
-      },
-    );
-  }
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
+
+class ScreenUtilSizeAdapter implements SizeAdapter {
+  const ScreenUtilSizeAdapter();
+  @override double w(double v) => v.w;
+  @override double h(double v) => v.h;
+  @override double r(double v) => v.r;
+  @override double sp(double v) => v.sp;
+}
+
+void main() {
+  Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
+  runApp(const MyApp());
 }
 ```
 
-Once `ScreenUtilInit` is in place, you opt sizes/fonts into adaptation by appending `.adaptW` / `.adaptH` / `.adaptR` / `.adaptSp` — see [`patterns/screen-adaptation.md`](patterns/screen-adaptation.md).
+Same pattern works for `responsive_framework`, `sizer`, or any custom solution — implement the 4 methods to call your scaling library, install via `configSizeAdapter`.
 
-> **Why opt-in?** Earlier versions adapted sizes silently. This caused surprises (a `s100` rendered at 134 pixels on a wider device). Since commit `2ed8c91` adaptation is explicit — the library does not silently scale anymore.
+The 4 channels (`w/h/r/sp`) correspond to width / height / responsive (radius / padding / shadow) / font-size. Your adapter decides how each maps to your library's scaling functions.
+
+> **Migrating from v1.x?** The per-call `.adaptW/.adaptH/.adaptR/.adaptSp` getters are gone in v2.0 — they're replaced by this single global config. See `CHANGELOG.md` for the migration steps.
 
 ## Setting up a primary color (optional)
 
