@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/19

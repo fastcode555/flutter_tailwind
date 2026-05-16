@@ -35,7 +35,7 @@ mixin BorderRadiusBuilder {
       );
 
   WidgetStateProperty<OutlinedBorder?>? get buttonShape {
-    return WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius ?? 0)));
+    return WidgetStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(sr(radius ?? 0))));
   }
 }
 

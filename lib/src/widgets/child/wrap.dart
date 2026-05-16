@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/base/vertical_direction_builder.dart';
 
 /// Barry

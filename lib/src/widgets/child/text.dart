@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'text.g.dart';

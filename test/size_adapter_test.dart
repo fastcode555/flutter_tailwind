@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/tailwind.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Reusable test double: every value is doubled.

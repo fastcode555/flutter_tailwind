@@ -200,7 +200,7 @@ class _InputState extends State<Input> {
     if (widget.contentPadding != null) return widget.contentPadding;
 
     if (_isUnderLine) {
-      return EdgeInsets.symmetric(vertical: _vertical ?? 15);
+      return EdgeInsets.symmetric(vertical: sr(_vertical ?? 15));
     }
 
     return null;

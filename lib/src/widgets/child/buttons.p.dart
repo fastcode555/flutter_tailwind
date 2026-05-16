@@ -148,7 +148,7 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     }
 
     if (fontSize != null) {
-      textStyle = WidgetStateProperty.all(TextStyle(fontSize: fontSize));
+      textStyle = WidgetStateProperty.all(TextStyle(fontSize: ssp(fontSize!)));
     }
 
     if (hasPadding) {

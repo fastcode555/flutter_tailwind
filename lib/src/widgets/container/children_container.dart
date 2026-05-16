@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'children_container.g.dart';
@@ -24,7 +23,11 @@ class _StackBuilder extends ChildrenBuilder<Widget>
       children: children,
     );
     if (size != null || width != null || height != null) {
-      child = SizedBox(width: size ?? width, height: size ?? height, child: child);
+      child = SizedBox(
+        width: size != null ? sr(size!) : (width != null ? sw(width!) : null),
+        height: size != null ? sr(size!) : (height != null ? sh(height!) : null),
+        child: child,
+      );
     }
     if (hasPadding) {
       child = Padding(padding: finalPadding!, child: child);
@@ -50,7 +53,11 @@ abstract class _LinearBuilder extends ChildrenBuilder<Widget>
         SpacingBuilder {
   Widget _buildWrapWidget(Widget child) {
     if (size != null || width != null || height != null) {
-      child = SizedBox(width: size ?? width, height: size ?? height, child: child);
+      child = SizedBox(
+        width: size != null ? sr(size!) : (width != null ? sw(width!) : null),
+        height: size != null ? sr(size!) : (height != null ? sh(height!) : null),
+        child: child,
+      );
     }
     if (hasPadding) {
       child = Padding(padding: finalPadding!, child: child);

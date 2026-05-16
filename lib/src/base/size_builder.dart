@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/tailwind.dart';
 
 /// Barry
@@ -19,7 +20,11 @@ mixin SizeBuilder {
 
   Widget createSizedBox(Widget child) {
     if (width != null || height != null) {
-      return SizedBox(width: width, height: height, child: child);
+      return SizedBox(
+        width: width != null ? sw(width!) : null,
+        height: height != null ? sh(height!) : null,
+        child: child,
+      );
     }
     return child;
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
-import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 part 'list_view.g.dart';
 
@@ -37,9 +36,9 @@ class _ListViewBuilder extends ItemBuilder
       return const Divider();
     }
 
-    if (_isHorizontal) return SizedBox(width: _separatedValue);
+    if (_isHorizontal) return SizedBox(width: _separatedValue != null ? sr(_separatedValue!) : null);
 
-    return SizedBox(height: _separatedValue);
+    return SizedBox(height: _separatedValue != null ? sr(_separatedValue!) : null);
   }
 
   _ListViewBuilder._();
@@ -78,7 +77,11 @@ class _ListViewBuilder extends ItemBuilder
       );
     }
     if (_hasSize) {
-      return SizedBox(width: size ?? width, height: size ?? height, child: listview);
+      return SizedBox(
+        width: size != null ? sr(size!) : (width != null ? sw(width!) : null),
+        height: size != null ? sr(size!) : (height != null ? sh(height!) : null),
+        child: listview,
+      );
     }
 
     return createExpanded(listview);
