@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/tailwind.dart';
 
 /// Barry
 /// @date 2024/8/20
@@ -67,9 +68,23 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   /// set the size
   T size(double? size) => this..size = size;
 
-  double get _screenH => ScreenUtil().screenHeight;
+  double get _screenH {
+    final h = Tailwind.instance.screenH;
+    assert(h > 0,
+        'Tailwind.instance.init(context) must be called before using '
+        'hFull/wFull/sScreen/sFull-family getters. '
+        'See doc/getting-started.md for the correct init location.');
+    return h;
+  }
 
-  double get _screenW => ScreenUtil().screenWidth;
+  double get _screenW {
+    final w = Tailwind.instance.screenW;
+    assert(w > 0,
+        'Tailwind.instance.init(context) must be called before using '
+        'hFull/wFull/sScreen/sFull-family getters. '
+        'See doc/getting-started.md for the correct init location.');
+    return w;
+  }
 
   double get _sFull => _screenW < _screenH ? _screenW : _screenH;
 
