@@ -1320,10 +1320,37 @@ debugPrint('Text size: ${text.fontSize}');
 - 确认样式链的顺序是否正确
 - 验证是否正确导入了扩展文件
 
-### 2. 屏幕适配问题
-- 确保使用 `ScreenUtilInit` 包装应用
-- 使用 `.r` 单位进行响应式设计
-- 检查设计稿尺寸配置是否正确
+### 2. 屏幕适配问题（v2.0+）
+
+v2.0 通过 `SizeAdapter` 全局配置实现屏幕适配，不再使用 `.adaptW/.adaptH/.adaptR/.adaptSp`（v1.7-v1.8 已删）。
+
+**配置 SizeAdapter 示例（flutter_screenutil）：**
+
+```dart
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
+
+class ScreenUtilSizeAdapter implements SizeAdapter {
+  const ScreenUtilSizeAdapter();
+  @override double w(double v) => v.w;
+  @override double h(double v) => v.h;
+  @override double r(double v) => v.r;
+  @override double sp(double v) => v.sp;
+}
+
+void main() {
+  Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
+  runApp(const MyApp());
+}
+```
+
+**4 个适配通道：**
+- `w(v)` — 宽度缩放
+- `h(v)` — 高度缩放
+- `r(v)` — 响应式（圆角、padding、margin、shadow）
+- `sp(v)` — 字体大小缩放
+
+默认使用 `IdentitySizeAdapter`（无缩放）。详见 `doc/patterns/screen-adaptation.md`。
 
 ### 3. 列表组件问题
 - **ListView嵌套滚动冲突**: 使用 `neverScroll` 和 `shrinkWrap` 解决
