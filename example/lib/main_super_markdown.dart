@@ -30,7 +30,13 @@ class SuperMarkdownApp extends StatelessWidget {
           designSize: const Size(960, 540),
           minTextAdapt: true,
           splitScreenMode: true,
-          builder: (_, child) => child!,
+          builder: (ctx, child) {
+            // v2.0: init Tailwind from inside MaterialApp so MediaQuery
+            // populates Tailwind.instance.screenW/screenH (used by
+            // .hFull/.wFull/.sScreen/.sFull family getters).
+            Tailwind.instance.init(ctx);
+            return child!;
+          },
           child: child,
         );
       },

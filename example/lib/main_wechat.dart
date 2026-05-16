@@ -23,6 +23,13 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF07C160)),
             useMaterial3: true,
           ),
+          builder: (ctx, child) {
+            // v2.0: init Tailwind from inside MaterialApp so MediaQuery
+            // populates Tailwind.instance.screenW/screenH (used by
+            // .hFull/.wFull/.sScreen/.sFull family getters).
+            Tailwind.instance.init(ctx);
+            return child!;
+          },
           home: const WeChatHomePage(),
         );
       },

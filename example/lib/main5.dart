@@ -25,6 +25,13 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
+          builder: (ctx, child) {
+            // v2.0: init Tailwind from inside MaterialApp so MediaQuery
+            // populates Tailwind.instance.screenW/screenH (used by
+            // .hFull/.wFull/.sScreen/.sFull family getters).
+            Tailwind.instance.init(ctx);
+            return child!;
+          },
           home: const MyHomePage(title: 'Flutter Demo Home Page'),
         );
       },
