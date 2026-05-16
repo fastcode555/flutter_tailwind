@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'text.g.dart';
@@ -91,7 +92,7 @@ class TextBuilder extends MkBuilder<Widget>
             ) */
       ??
       TextStyle(
-        fontSize: _useAutoSize ? maxFontSize : fontSize,
+        fontSize: _useAutoSize ? ssp(maxFontSize) : (fontSize != null ? ssp(fontSize!) : null),
         color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
         decoration: _decoration,
         overflow: _overflow,
@@ -123,7 +124,7 @@ class TextBuilder extends MkBuilder<Widget>
   Widget get mk {
     late Widget child;
     if (_useAutoSize) {
-      final minFontSize = min(fontSizes![0], fontSizes![1]).round().toDouble();
+      final minFontSize = ssp(min(fontSizes![0], fontSizes![1]).round().toDouble());
       child = AutoSizeText(
         value ?? '',
         minFontSize: minFontSize,
