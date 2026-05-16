@@ -147,14 +147,13 @@ return 'text'.text.center.rounded8.p16.mk;
 
 **何时该重新考虑：** 如果团队在实际项目中遇到 `.mk` 漏调案例，记录下来。如果半年内案例数 ≥ 5 且类型系统确实抓不住，再回来评估 custom_lint 路径。
 
-### 3.2 mutable builder 复用陷阱（⭐⭐）
+### 3.2 mutable builder 复用陷阱（⭐ — 取消 consumed assert 方案）
 
-> **修订记录（2026-05-15 实测后）：** 本节原列为 ⭐⭐⭐ 新头号痛点。实测后降级为 ⭐⭐。两件事被修正：
->
-> 1. 原示例 B 注释"`card1 也跟着变了`"是错的——Container/BoxDecoration 在 `child(Widget)` 方法里就被立即构造、freeze，base 后续怎么改不影响已构造出的 Widget
-> 2. 原批评 cursor rules 推荐 `static final _titleStyle = ts.f16.bold.mk` 是反例——撤回。`.mk` 已经调用，缓存的是 immutable TextStyle，**完全安全**
->
-> 真问题仍在，但触发条件比原描述窄得多。
+> **修订记录：**
+> - **第 1 次（2026-05-15）：** 原列 ⭐⭐⭐ 头号。实测后降级 ⭐⭐——两件事被修正：
+>   1. 原示例 B 注释"`card1 也跟着变了`"是错的——Container/BoxDecoration 在 `child(Widget)` 方法里就被立即构造、freeze，base 后续怎么改不影响已构造出的 Widget
+>   2. 原批评 cursor rules 推荐 `static final _titleStyle = ts.f16.bold.mk` 是反例——撤回。`.mk` 已经调用，缓存的是 immutable TextStyle，**完全安全**
+> - **第 2 次（2026-05-16）：** 再降级 ⭐——`grep example/lib/ 758 处 final 赋值，0 处缓存未终止 builder`。即"持有 builder 跨多次终止符调用"在现实代码里**没人这么写**。原计划的 v1.9 consumed assert 方案取消（详见第 6 章里程碑修订）。仍保留本节作为"理论存在但实际罕见"的记录。
 
 **现状：** 链式调用通过 cascade 修改 builder 字段：
 
@@ -210,13 +209,15 @@ class Factory {
 }
 ```
 
-**v1 内可做（对应 v1.9 里程碑）：**
-- 在所有终止符（`.mk` / `.child` / `.children` / `.click` / `.builder` / `.dataBuilder` / `.onChanged` 等）调用后，立即把 builder 标"已消费"
-- 第二次再调任何终止符 → debug 模式抛 `StateError('Builder has been consumed, builders are one-shot')`
-- 这样能精准抓到"持有 builder 跨多次终止符"的反模式，给用户明确报错指向真凶
-- 配套文档专章："为什么 builder 是一次性的——别把它当配置工厂"
+**v1 内的方案（取消）：**
 
-**v1 内不可根治：** 真正不可变需要 `copyWith` 风格——每个 getter 返回新对象。这是破坏性变更（破坏现有依赖 cascade 的扩展代码），留给未来 v2。
+~~consumed assert——在所有终止符调用后标 builder 已消费，第二次调用 debug 模式抛 `StateError`。~~
+
+**取消理由（2026-05-16 实测）：** `grep example/lib/` 发现 758 处 `final` 赋值里，**0 处**缓存未终止 builder。即触发 consumed assert 的反模式在现实代码里没人写。投入 30+ 处终止符改动 + 文档教育成本来解决一个 0 实例问题，性价比不成立——与已取消的 v1.8 `.mk` 漏调 lint 同性质。
+
+**v1 内不可根治（仍然成立）：** 真正不可变需要 `copyWith` 风格，破坏性变更，留给未来 v2。
+
+**何时该重新考虑：** 如果团队或用户在实际项目里遇到"缓存未终止 builder 导致状态残留"的 bug 案例（记录 issue），再回来评估。当前判定：**不投入**。
 
 **实测脚本：** 本节修订后的论断已通过 `flutter test` 验证过——实测代码见 git commit `[本次提交]` 的说明，验证文件本身已删除。
 
@@ -317,17 +318,17 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
 
 **严重性：** 最痛的是"教错初始化位置"——这不是抽象的"全局状态不好"，而是**照文档写代码主题色就全废**。
 
-**v1 内可做（分两层）：**
+**已解决（v1.8）：**
+- ✅ 修 `.cursor/rules/flutter_tailwind.mdc:1262` 的初始化示例——commit `33a2447`：从 `ScreenUtilInit.builder` 改成 MaterialApp 内部 init，并加显式 ❌ 反例
+- ✅ `.primary` getter 加 try-catch——commit `33a2447`：`Theme.of` 抛 deactivated 异常时 fallback 到 `primaryColor ?? Colors.amber`，加了 5 个回归测试
 
-**层 1 — 立即修（属于 v1.8 文档统一里程碑）：**
-- 修 `.cursor/rules/flutter_tailwind.mdc:1262` 的初始化示例，从 `ScreenUtilInit.builder` 改成 `MaterialApp.home: Builder(builder: (ctx) { Tailwind.instance.init(ctx); ... })`
-- 在 `.primary` getter 加 try-catch，`Theme.of` 抛异常时 fallback 到 `primaryColor ?? Colors.amber`，避免页面销毁后崩溃
+**原计划的 v1.9 根治方案（取消）：**
 
-**层 2 — 根治（属于 v1.9 里程碑——consumed assert + Tailwind.of(context)）：**
-- 新增 `Tailwind.of(BuildContext context)` 静态方法，运行时拿主题
-- 保留 `Tailwind.instance.context`，但标 `@Deprecated('use Tailwind.of(context) instead — global BuildContext is unsafe')`
-- 1.x 后续小版本里把内部所有 `.primary` 实现切到 `Tailwind.of(context)` 路径
-- 用户感知：旧代码继续工作但会看到 deprecation 警告
+~~新增 `Tailwind.of(BuildContext context)` 静态方法替代全局 `Tailwind.instance.context`，标 `@Deprecated` 引导用户迁移。~~
+
+**取消理由（2026-05-16）：** 3.5 的两个具体痛点都已经在 v1.8 文档/代码层面解决——cursor rules 不再教错位置、deactivated context 不再 throw。剩下"全局单例持有 BuildContext 不优雅"是设计洁癖问题，不是用户面 bug。引入 `Tailwind.of(context)` 会要求消费 `.primary` 的 builder 都能拿到 context（当前 builder 是无 context 的，需要在 `.mk` 实现里通过 `Builder(builder: (ctx) => ...)` 拿）——为了"洁癖"做大量内部改动，性价比不成立。
+
+**何时该重新考虑：** 如果未来有用户反馈"我需要 widget tree 不同位置看到不同主题"或者 v2 重构启动，再回来评估。当前判定：**不投入**。
 
 ### 3.6 零单元测试 + CI 不跑测试（⭐）
 
@@ -561,16 +562,18 @@ Text('hello')
 
 ## 第 6 章：保守路线下的升级路线图
 
-按方向 B（用户面优先）排出 **3 个里程碑**，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（前 2 个）或 **维护团队能直接感知收益**（最后 1 个）。
+按方向 B（用户面优先）排出 **2 个里程碑**，每个对应一个 1.x.y 版本。每个里程碑的判定标准：**1) 不破坏现有 API；2) 用户能直接感知收益**（v1.8）或 **维护团队能直接感知收益**（v1.9）。
 
 > **路线图修订记录：**
 > - **2026-05-15 第 1 轮**：原 v1.8（`.mk` 漏调 lint）取消（见 3.1）；原 v1.9-v1.12 前移一档变 v1.8-v1.11
-> - **2026-05-15 第 2 轮（本次）**：基于 3.3/3.4/3.5/3.7 节实测：
->   - **原 v1.8（SizeAdapter）→ 降级到 backlog**——实测证明非 screenutil 项目已经能用本库（见 3.3）。SizeAdapter 仅有依赖洁癖价值，不阻塞功能，优先级降到最低
->   - **新头号 v1.8 = 文档统一 + 修 cursor rules**——3.4 升为 ⭐⭐⭐，包含修 cursor rules 教用户跑不存在的 build_runner + 教错 init 位置（这是用户主题色失灵的根因，见 3.5）
->   - **v1.9 = consumed assert + Tailwind.of(context) + .primary try-catch**——原 v1.10 内容
->   - **v1.10 = 测试基线 + CI**——原 v1.11 内容
->   - 路线图从 4 个里程碑缩到 **3 个**，预计 3–6 个月
+> - **2026-05-15 第 2 轮**：基于 3.3/3.4/3.5/3.7 节实测：
+>   - 原 v1.8（SizeAdapter）→ 降级到 backlog（见 3.3）
+>   - 新头号 v1.8 = 文档统一 + 修 cursor rules
+>   - 路线图从 4 个里程碑缩到 3 个
+> - **2026-05-16 第 3 轮（本次）**：基于"现实代码无 consumed 反模式"的实测：
+>   - **原 v1.9（consumed assert + Tailwind.of(context)）整体取消**——grep example/lib/ 758 处 final 赋值，0 处缓存未终止 builder。consumed assert 解决一个 0 实例问题（见 3.2 第 2 次修订）。Tailwind.of(context) 在 3.5 真痛点已被 v1.8 解决后只剩"洁癖"价值（见 3.5 第 2 次修订），同步取消
+>   - **原 v1.10（测试基线）→ 新 v1.9**
+>   - 路线图从 3 个里程碑缩到 **2 个**，预计 2–4 个月。v1.8 已完成。
 
 ### v1.8 —— 文档统一到 `docs/` + 修 cursor rules 错误
 
@@ -617,48 +620,7 @@ Text('hello')
 - 按 cursor rules 写代码的用户立刻拿到正确主题色（之前是深紫色 fallback）
 - 新文档发布后，`docs/` 有所有 API 包括新加的（之前只在 cursor rules 里有）
 
-### v1.9 —— builder consumed 断言 + Tailwind.of(context)
-
-**目标：** debug 模式下检测 builder 复用；同时把全局 BuildContext 持有改造成 deprecated。
-
-**任务（builder consumed 部分）：**
-- 修改 `MkBuilder` 基类，加 `bool _consumed = false` 字段
-- **所有终止符都要检查**——不只是 `.mk`。这一点跟最初设想不同：3.2 节实测发现 `ContainerBuilder.child(Widget)` 等具体终止符直接构造 Widget、不走 `.mk` 路径，所以单靠 `.mk` 上的 assert 抓不到 `factory.rounded8.child(...)` + `factory.child(...)` 这种复用模式。需要在每个终止符（`.mk` getter、`.child(Widget)` 方法、`.children(...)` 方法、`.click(...)` 方法、`.builder(...)`、`.dataBuilder(...)`、`.onChanged(...)` 等）的实现里都加 consumed 检查：
-  ```dart
-  // 抽出共享辅助方法
-  void _markConsumed() {
-    assert(!_consumed, 'Builder $runtimeType has been consumed. Builders are one-shot.');
-    _consumed = true;
-  }
-
-  // 在 mk getter / child(Widget) / 等终止符的实现开头调用
-  @override
-  Widget get mk {
-    _markConsumed();
-    // ...原构造逻辑
-  }
-
-  @override
-  Widget child(Widget child) {
-    _markConsumed();
-    // ...原构造逻辑
-  }
-  ```
-- 工作量评估：约 30 处终止符具体实现要改（分布在 `mk_builder.dart` + `container.dart` + `text.dart` + `widgets/container/list_view.dart` + `child/buttons.dart` + `child/check_box.dart` + `child/radio.dart` + `child/wrap.dart` 等）
-- 注意：assert 只在 debug 模式生效，release 模式无开销
-- ~~同步更新 `.cursor/rules` 里的反例（把 `static final _style = ts.f16.bold.mk` 改成 ...）~~ **撤回**——`ts.f16.bold.mk` 缓存的是 TextStyle，安全，不是反例。但需要在 cursor rules 加一段新约定：**不要缓存中间 builder 跨多次终止符使用**（见 3.2 节的"安全的写法 vs. 危险的写法"）
-- 文档加专章："为什么 builder 是一次性的——别把它当配置工厂"
-
-**任务（Tailwind.of(context) 部分，对应 3.5）：**
-- 新增 `Tailwind.of(BuildContext context)` 静态方法，运行时获取主题
-- 保留 `Tailwind.instance.context` 字段，但标 `@Deprecated('use Tailwind.of(context) instead — global BuildContext holders are unsafe')`
-- 内部所有 `.primary` getter 实现切换到走 `Tailwind.of(context).primary` 路径
-- 注意：这要求消费 `.primary` 的 builder 都能拿到 context；当前 builder 是无 context 的，需要在 `.mk` 实现里通过 `Builder(builder: (ctx) => ...)` 拿
-- 老用户代码继续工作，但会在 IDE 看到一条 deprecation 警告
-
-**用户感知：** 偶发 UI 错乱在 debug 时立即 crash 提示，不再隐藏到生产；同时收到 deprecation 提示引导迁移到 `Tailwind.of(context)`。
-
-### v1.10 —— 测试基线 + CI 加 analyze/test
+### v1.9 —— 测试基线 + CI 加 analyze/test
 
 **目标：** 让 v1.x 后续版本能放心改。
 
@@ -691,11 +653,10 @@ Text('hello')
 
 ### 里程碑顺序的论证
 
-为什么是 1.8 → 1.10 这个顺序？
+为什么是 1.8 → 1.9 这个顺序？
 
-- **1.8 优先（最便宜也最痛）**：3.4 文档不同步是新头号 ⭐⭐⭐——cursor rules 教用户跑不存在的 `build_runner`、教错初始化位置（用户主题色全废）、新 API 三处文档全没。这些都是改 markdown 就能修的事，但每多一天 cursor rules 没改，就多有用户照着写出错代码
-- **1.9 次之**：consumed assert 解 3.2，Tailwind.of(context) 解 3.5 根治部分。这两件都需要文档先把"为啥 builder 一次性"和"不要在 MaterialApp 之上 init"讲清楚——所以放在 v1.8 之后
-- **1.10 最后**：测试基线是兜底，前 2 个里程碑铺好之后再补测试，覆盖率更高效
+- **1.8 优先（最便宜也最痛）**：3.4 文档不同步是头号 ⭐⭐⭐——cursor rules 教用户跑不存在的 `build_runner`、教错初始化位置（用户主题色全废）、新 API 三处文档全没。这些都是改 markdown 就能修的事，每多一天 cursor rules 没改，就多有用户照着写出错代码。**已完成（commits `33a2447` + `d5fa356`）**
+- **1.9 最后**：测试基线是兜底，1.8 铺好之后再补测试，覆盖率更高效
 
 **已取消的里程碑（按时间顺序）：**
 
@@ -705,23 +666,27 @@ Text('hello')
 
 **注 3：** 原 v1.8 "SizeAdapter（screenutil 解耦）"，第 2 轮修订时**降级到 backlog**。理由：实测发现非 screenutil 项目已经能用本库——screenutil 没初始化时 `.r/.w/.h/.sp` 直接返回原值，本库尺寸功能仍可用（见 3.3 节）。SizeAdapter 只剩"消除 transitive 依赖洁癖"价值，优先级低。如未来真要做，作为可选项接入 v1.x 后续小版本。
 
+**注 4：** 原 v1.9 "consumed assert + Tailwind.of(context)"，第 3 轮修订时**整体取消**。理由：
+- **consumed assert**：`grep example/lib/` 758 处 final 赋值，**0 处缓存未终止 builder**——触发反模式在现实代码里没人写。跟取消的 `.mk` 漏调 lint 性质相同：预防性过度工程
+- **Tailwind.of(context)**：3.5 真痛点（cursor rules 教错 init 位置 + deactivated context throw）已被 v1.8 文档/代码层面解决，剩下只是"全局单例不优雅"的设计洁癖，不是用户面 bug，性价比不成立
+
 ---
 
 ## 第 7 章：风险与不确定性
 
 ### 7.1 v2 究竟需不需要？
 
-**判定标准：** 跑完 v1.9（consumed 断言 + Tailwind.of）之后观察 3–6 个月：
-- 如果 debug 模式下 `Builder has been consumed` 这条断言**很少**触发 → 说明 mutable builder 复用不是真问题，可能不需要 v2
-- 如果断言**频繁**触发，团队反复因为 builder 复用浪费时间 → 才考虑 v2 的 immutable + copyWith 改造
+**判定标准（2026-05-16 修订后）：** 收集**真实 issue/反馈**，不靠任何内部 metric。具体看：
 
-不要现在就规划 v2。先把 v1 做扎实。
+- **issue 是否反复出现 "缓存 builder 状态残留" 类 bug？** 当前实测：自家 example/lib/ 758 处 final 赋值里 0 例。如果未来 pub.dev 上的外部用户反复反馈这类 bug 案例 → 才考虑 v2 的 immutable + copyWith 改造
+- **issue 是否反复出现 "需要 widget tree 不同位置看到不同主题" 类需求？** 当前没人提。如果反复出现 → 才考虑全局 Tailwind.instance 改成基于 InheritedWidget 的 Tailwind.of(context)
 
-> **修订记录（2026-05-15，三次修订）：**
-> - 第 1 次：原判定基于"v1.8 `.mk` 漏调 lint 拦截率"。v1.8 lint 已取消（见 3.1）
+**当前判定：不规划 v2。** v1.x 已经堵了所有有证据的痛点（cursor rules 教错、deactivated context throw），其它都是无证据的预防性工程，跟取消的 .mk lint / consumed assert / SizeAdapter 同性质。
+
+> **修订记录：**
+> - 第 1 次：原判定基于"v1.8 `.mk` 漏调 lint 拦截率"。v1.8 lint 已取消
 > - 第 2 次：判定切换到 consumed assert 触发频率
-> - 第 3 次（本次）：里程碑重排后 consumed assert 现在归属 **v1.9**，不是原 v1.10
-> - 3.2 节实测降级为 ⭐⭐（只在"持有 builder 跨多次终止符复用"时出现）——意味着 consumed assert 触发率本身预期就不会高。判定 v2 必要性不能只看绝对触发数，要看"假设 consumed assert 不存在，这些触发对应的 bug 代价"，靠团队主观判断
+> - 第 3 次（本次 2026-05-16）：consumed assert 整个取消（见 3.2 第 2 次修订）。判定标准从"内部 metric"切换到"外部 issue 频率"——以现实证据为准，不再靠假设性指标
 
 ### 7.2 ~~screenutil 解耦后的兼容风险~~ —— **风险解除**
 
@@ -806,9 +771,8 @@ lib/                                                  13,407 行
 
 文档不打算定稿就锁死。建议每完成一个里程碑后回来更新：
 
-- v1.8 发布后：在 3.4 节标记"已解决"；在 3.5 节标记"cursor rules 教错已修正、.primary throw 已加 try-catch"；在 3.7 节填入 size benchmark 实测数据（见 7.3）
-- v1.9 发布后：在 3.2 节加"实测帮助用户发现的 bug 数"；在 3.5 节标记"已 deprecated context，待 v2 移除"
-- v1.10 发布后：在 3.6 节标记"已解决"
-- SizeAdapter（backlog）：如未来真做，标记 3.3 节相关方案为"已落地"
+- ✅ v1.8 已完成（commits `33a2447` + `d5fa356`）：3.4 已解决；3.5 cursor rules 教错已修正、.primary throw 已加 try-catch；docs/ 骨架建立。3.7 size benchmark 仍待补（backlog）
+- v1.9 发布后：在 3.6 节标记"已解决"（测试基线 + CI analyze/test）
+- 已取消的工作（不再修订）：v1.8 .mk lint（见 3.1）、SizeAdapter（见 3.3）、consumed assert + Tailwind.of（见 3.2/3.5）、codegen 工具链（见第 6 章里程碑注 2）
 
-文档完整生命周期是"v1.7 → v2.0 决策点"，3 个里程碑预计 3–6 个月。
+文档完整生命周期是"v1.7 → v2.0 决策点"，2 个里程碑预计 2–4 个月。v1.8 已完成。
