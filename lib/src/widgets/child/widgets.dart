@@ -1,10 +1,17 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tailwind/src/tailwind.dart';
 
-EdgeInsetsGeometry p16 = REdgeInsets.all(16);
-EdgeInsetsGeometry p20 = REdgeInsets.all(20);
+EdgeInsetsGeometry get p16 {
+  final r = Tailwind.instance.sizeAdapter.r(16);
+  return EdgeInsets.all(r);
+}
+
+EdgeInsetsGeometry get p20 {
+  final r = Tailwind.instance.sizeAdapter.r(20);
+  return EdgeInsets.all(r);
+}
 
 const Spacer spacer = Spacer();
 const Spacer spacer2 = Spacer(flex: 2);
