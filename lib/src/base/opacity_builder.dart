@@ -7,67 +7,67 @@ import 'dart:ui';
 extension ColorOptionalOpacityExt on Color? {
   Color? opacity(double? opacity) {
     if (this == null || opacity == null || opacity == 1.0 || opacity < 0) return this;
-    return this?.withOpacity(opacity);
+    return this?.withValues(alpha: opacity);
   }
 }
 
 extension ColorOpacityExt<T extends Color> on T {
-  /// get the color [Color.withOpacity] 0.05
-  Color get opacity5 => this.withOpacity(0.05);
+  /// get the color [Color.withValues] 0.05
+  Color get opacity5 => this.withValues(alpha: 0.05);
 
-  /// get the color [Color.withOpacity] 0.1
-  Color get opacity10 => this.withOpacity(0.1);
+  /// get the color [Color.withValues] 0.1
+  Color get opacity10 => this.withValues(alpha: 0.1);
 
-  /// get the color [Color.withOpacity] 0.15
-  Color get opacity15 => this.withOpacity(0.15);
+  /// get the color [Color.withValues] 0.15
+  Color get opacity15 => this.withValues(alpha: 0.15);
 
-  /// get the color [Color.withOpacity] 0.2
-  Color get opacity20 => this.withOpacity(0.2);
+  /// get the color [Color.withValues] 0.2
+  Color get opacity20 => this.withValues(alpha: 0.2);
 
-  /// get the color [Color.withOpacity] 0.25
-  Color get opacity25 => this.withOpacity(0.25);
+  /// get the color [Color.withValues] 0.25
+  Color get opacity25 => this.withValues(alpha: 0.25);
 
-  /// get the color [Color.withOpacity] 0.3
-  Color get opacity30 => this.withOpacity(0.3);
+  /// get the color [Color.withValues] 0.3
+  Color get opacity30 => this.withValues(alpha: 0.3);
 
-  /// get the color [Color.withOpacity] 0.35
-  Color get opacity35 => this.withOpacity(0.35);
+  /// get the color [Color.withValues] 0.35
+  Color get opacity35 => this.withValues(alpha: 0.35);
 
-  /// get the color [Color.withOpacity] 0.4
-  Color get opacity40 => this.withOpacity(0.4);
+  /// get the color [Color.withValues] 0.4
+  Color get opacity40 => this.withValues(alpha: 0.4);
 
-  /// get the color [Color.withOpacity] 0.45
-  Color get opacity45 => this.withOpacity(0.45);
+  /// get the color [Color.withValues] 0.45
+  Color get opacity45 => this.withValues(alpha: 0.45);
 
-  /// get the color [Color.withOpacity] 0.5
-  Color get opacity50 => this.withOpacity(0.5);
+  /// get the color [Color.withValues] 0.5
+  Color get opacity50 => this.withValues(alpha: 0.5);
 
-  /// get the color [Color.withOpacity] 0.55
-  Color get opacity55 => this.withOpacity(0.55);
+  /// get the color [Color.withValues] 0.55
+  Color get opacity55 => this.withValues(alpha: 0.55);
 
-  /// get the color [Color.withOpacity] 0.6
-  Color get opacity60 => this.withOpacity(0.6);
+  /// get the color [Color.withValues] 0.6
+  Color get opacity60 => this.withValues(alpha: 0.6);
 
-  /// get the color [Color.withOpacity] 0.65
-  Color get opacity65 => this.withOpacity(0.65);
+  /// get the color [Color.withValues] 0.65
+  Color get opacity65 => this.withValues(alpha: 0.65);
 
-  /// get the color [Color.withOpacity] 0.7
-  Color get opacity70 => this.withOpacity(0.7);
+  /// get the color [Color.withValues] 0.7
+  Color get opacity70 => this.withValues(alpha: 0.7);
 
-  /// get the color [Color.withOpacity] 0.75
-  Color get opacity75 => this.withOpacity(0.75);
+  /// get the color [Color.withValues] 0.75
+  Color get opacity75 => this.withValues(alpha: 0.75);
 
-  /// get the color [Color.withOpacity] 0.8
-  Color get opacity80 => this.withOpacity(0.8);
+  /// get the color [Color.withValues] 0.8
+  Color get opacity80 => this.withValues(alpha: 0.8);
 
-  /// get the color [Color.withOpacity] 0.85
-  Color get opacity85 => this.withOpacity(0.85);
+  /// get the color [Color.withValues] 0.85
+  Color get opacity85 => this.withValues(alpha: 0.85);
 
-  /// get the color [Color.withOpacity] 0.9
-  Color get opacity90 => this.withOpacity(0.9);
+  /// get the color [Color.withValues] 0.9
+  Color get opacity90 => this.withValues(alpha: 0.9);
 
-  /// get the color [Color.withOpacity] 0.95
-  Color get opacity95 => this.withOpacity(0.95);
+  /// get the color [Color.withValues] 0.95
+  Color get opacity95 => this.withValues(alpha: 0.95);
 }
 
 mixin OpacityBuilder {
