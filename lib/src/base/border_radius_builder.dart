@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 7/11/23
@@ -27,10 +28,10 @@ mixin BorderRadiusBuilder {
       right != null;
 
   BorderRadiusGeometry get borderRadius => BorderRadius.only(
-        topLeft: Radius.circular(topLeft ?? top ?? left ?? radius ?? 0.0),
-        topRight: Radius.circular(topRight ?? top ?? right ?? radius ?? 0.0),
-        bottomLeft: Radius.circular(bottomLeft ?? bottom ?? left ?? radius ?? 0.0),
-        bottomRight: Radius.circular(bottomRight ?? bottom ?? right ?? radius ?? 0.0),
+        topLeft: Radius.circular(sr(topLeft ?? top ?? left ?? radius ?? 0.0)),
+        topRight: Radius.circular(sr(topRight ?? top ?? right ?? radius ?? 0.0)),
+        bottomLeft: Radius.circular(sr(bottomLeft ?? bottom ?? left ?? radius ?? 0.0)),
+        bottomRight: Radius.circular(sr(bottomRight ?? bottom ?? right ?? radius ?? 0.0)),
       );
 
   WidgetStateProperty<OutlinedBorder?>? get buttonShape {

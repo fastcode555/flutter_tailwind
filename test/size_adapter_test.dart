@@ -105,8 +105,8 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: container.red.rounded8.child(const SizedBox()),
       ));
-      final c = tester.widget<Container>(find.byType(Container).first);
-      final deco = c.decoration as BoxDecoration;
+      final db = tester.widget<DecoratedBox>(find.byType(DecoratedBox).first);
+      final deco = db.decoration as BoxDecoration;
       final br = deco.borderRadius as BorderRadius;
       expect(br.topLeft.x, 16.0);
     });
