@@ -25,7 +25,11 @@ flutter pub publish --dry-run
 fvm flutter packages pub publish --server=https://pub.dartlang.org
 ```
 
-**Note on `test/`:** As of v1.8.0, `test/tailwind_primary_test.dart` covers the `Tailwind.instance.primary` getter (5 widget tests). No other tests yet — the rest of the library has no widget/unit/golden coverage. A full test baseline + CI integration is planned for v1.9 (see `doc/superpowers/specs/2026-05-15-flutter-tailwind-analysis.md`).
+**Note on `test/`:** As of v2.0.0, two test files cover the v2.0 functionality:
+- `test/size_adapter_test.dart` (17 tests) — `IdentitySizeAdapter` correctness, `Mock2xAdapter` end-to-end verification that every geometry/font value routes through the adapter, adapter-swap mid-test behavior
+- `test/tailwind_init_test.dart` (8 tests) — primary color fallback, `init(context)` populating `screenW`/`screenH`/`primaryColor`, hFull/wFull assert when uninitialized
+
+Broader builder/widget/golden coverage is still pending — planned for a follow-up after v2.0.
 
 **Note on `.g.dart` files:** Files like `text.g.dart`, `check_box.g.dart`, `list_view.g.dart` are *not* `build_runner` outputs. They are **hand-written `part` files** of their sibling (`text.dart`, etc.) containing the mixins for the chained API. Edit them directly. The preset values they hold are considered stable — large batches of new presets are not expected. There is no `build_runner` step for this package, and no code-generation pipeline. The `.cursor/rules` file's instructions to run `build_runner build` are stale and should be ignored.
 
@@ -76,7 +80,7 @@ Row/Column/Wrap mix in the full container axis set (size, padding, margin, color
 
 ### Public surface
 
-Everything intended for consumers is re-exported from `lib/flutter_tailwind.dart`. When adding a new builder file, add its export there. The package also re-exports `cached_network_image`, `flutter_screenutil`, and `flutter_staggered_grid_view` so consumers do not need to depend on them separately.
+Everything intended for consumers is re-exported from `lib/flutter_tailwind.dart`. When adding a new builder file, add its export there. The package also re-exports `cached_network_image` and `flutter_staggered_grid_view` so consumers do not need to depend on them separately. **As of v2.0 the package no longer re-exports `flutter_screenutil`** — screen scaling is opt-in via `SizeAdapter` (see Responsive sizing section above).
 
 ## Project conventions
 
