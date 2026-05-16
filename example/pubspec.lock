@@ -411,14 +411,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.2"
-  flutter_screenutil:
-    dependency: transitive
-    description:
-      name: flutter_screenutil
-      sha256: "8239210dd68bee6b0577aa4a090890342d04a136ce1c81f98ee513fc0ce891de"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.9.3"
   flutter_staggered_grid_view:
     dependency: transitive
     description:
@@ -441,7 +433,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.7.2"
+    version: "1.8.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

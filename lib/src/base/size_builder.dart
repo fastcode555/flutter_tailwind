@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Barry
 /// @date 2024/8/20
@@ -263,10 +262,6 @@ extension SizeBuilderExt<T extends SizeBuilder> on T {
   T get sScreenH => this..size = _screenH;
 
   T get sScreenW => this..size = _screenW;
-
-  T get adaptH => this..height = this.height?.h;
-  T get adaptW => this..width = this.width?.w;
-  T get adaptR => this..size = this.size?.r;
 
   /// set the height 1
   T get h1 => this..height = 1;

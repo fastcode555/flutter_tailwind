@@ -1,15 +1,9 @@
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 /// Barry
 /// @date 7/11/23
 /// describe:
 mixin FontSizeBuilder {
   double? fontSize;
   List<double>? fontSizes;
-}
-
-extension CustomSp on num {
-  double get csp => ScreenUtil().screenWidth < 400 ? sp : toDouble();
 }
 
 extension FontSizeBuilderExt<T extends FontSizeBuilder> on T {
@@ -37,17 +31,6 @@ extension FontSizeBuilderExt<T extends FontSizeBuilder> on T {
       fontSizes?.add(fontSize);
     }
     return this..fontSize = fontSize;
-  }
-
-  T get adaptSp {
-    if (fontSizes != null) {
-      for (int i = 0; i < (fontSizes?.length ?? 0); i++) {
-        fontSizes![i] = fontSizes![i].sp;
-      }
-    } else {
-      this.fontSize = this.fontSize?.sp;
-    }
-    return this;
   }
 
   /// set the fontSize is 5.sp

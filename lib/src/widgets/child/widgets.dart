@@ -133,7 +133,7 @@ class HBox extends SingleChildRenderObjectWidget {
   }
 
   BoxConstraints get _additionalConstraints {
-    return BoxConstraints.tightFor(width: 0, height: height.h);
+    return BoxConstraints.tightFor(width: 0, height: height);
   }
 
   @override
@@ -163,7 +163,7 @@ class HBox extends SingleChildRenderObjectWidget {
     } else {
       level = DiagnosticLevel.info;
     }
-    properties.add(DoubleProperty('height', height.h, defaultValue: null, level: level));
+    properties.add(DoubleProperty('height', height, defaultValue: null, level: level));
   }
 }
 
@@ -178,7 +178,7 @@ class WBox extends SingleChildRenderObjectWidget {
   }
 
   BoxConstraints get _additionalConstraints {
-    return BoxConstraints.tightFor(width: width.w, height: 0);
+    return BoxConstraints.tightFor(width: width, height: 0);
   }
 
   @override
