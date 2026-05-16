@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/26
@@ -14,7 +15,13 @@ mixin PositionedBuilder {
   bool get hasValue => _innerMargin != null || left != null || right != null || top != null || bottom != null;
 
   Widget createPositioned(Widget child) {
-    return Positioned(left: left, right: right, top: top, bottom: bottom, child: child);
+    return Positioned(
+      left: left != null ? sr(left!) : null,
+      right: right != null ? sr(right!) : null,
+      top: top != null ? sr(top!) : null,
+      bottom: bottom != null ? sr(bottom!) : null,
+      child: child,
+    );
   }
 }
 
