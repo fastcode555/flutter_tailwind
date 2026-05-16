@@ -319,7 +319,7 @@ class ImageLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _devicePixelRatio = _devicePixelRatio ?? ScreenUtil().pixelRatio;
+    _devicePixelRatio = _devicePixelRatio ?? MediaQuery.of(context).devicePixelRatio;
     if (_radius == null && decoration != null && decoration is BoxDecoration) {
       var boxDecoration = decoration as BoxDecoration;
       if (boxDecoration.shape == BoxShape.circle) {
