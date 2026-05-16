@@ -2,6 +2,7 @@ import 'package:example/super_markdown/core/di/dependency_injection.dart';
 import 'package:example/super_markdown/core/theme/app_theme.dart';
 import 'package:example/super_markdown/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:get/get.dart';
 

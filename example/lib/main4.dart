@@ -1,6 +1,7 @@
 import 'package:example/consts.dart';
 import 'package:example/res/app_image_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 /// Barry

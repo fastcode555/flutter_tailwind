@@ -1,6 +1,7 @@
 import 'package:example/super_markdown/modules/settings/controllers/theme_editor_controller.dart';
 import 'package:example/super_markdown/widgets/color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 import 'package:get/get.dart';
 

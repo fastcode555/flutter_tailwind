@@ -1,6 +1,7 @@
 import 'package:example/config/extend_image_factory.dart';
 import 'package:example/facebook/routes/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 void main() {
