@@ -191,4 +191,27 @@ void main() {
       expect(i.size, 48.0);
     });
   });
+
+  group('adapter swap behavior', () {
+    setUp(resetAdapter);
+
+    testWidgets('switching adapter mid-test affects subsequent mk calls', (tester) async {
+      // First adapter — identity (default)
+      await tester.pumpWidget(MaterialApp(home: container.w100.red.child(const SizedBox())));
+      final c1 = tester.widget<Container>(find.byType(Container).first);
+      expect(c1.constraints?.maxWidth, 100.0);
+
+      // Swap to 2x
+      Tailwind.instance.configSizeAdapter(const Mock2xAdapter());
+      await tester.pumpWidget(MaterialApp(home: container.w100.red.child(const SizedBox())));
+      final c2 = tester.widget<Container>(find.byType(Container).first);
+      expect(c2.constraints?.maxWidth, 200.0);
+
+      // Swap back
+      Tailwind.instance.configSizeAdapter(const IdentitySizeAdapter());
+      await tester.pumpWidget(MaterialApp(home: container.w100.red.child(const SizedBox())));
+      final c3 = tester.widget<Container>(find.byType(Container).first);
+      expect(c3.constraints?.maxWidth, 100.0);
+    });
+  });
 }
