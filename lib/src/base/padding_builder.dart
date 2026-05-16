@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/26
@@ -42,10 +43,10 @@ mixin PaddingBuilder {
     if (_innerPadding != null) return _innerPadding;
     if (hasPadding) {
       return EdgeInsets.only(
-        left: paddingLeft ?? paddingHorizontal ?? paddingValue ?? 0.0,
-        right: paddingRight ?? paddingHorizontal ?? paddingValue ?? 0.0,
-        top: paddingTop ?? paddingVertical ?? paddingValue ?? 0.0,
-        bottom: paddingBottom ?? paddingVertical ?? paddingValue ?? 0.0,
+        left: sr(paddingLeft ?? paddingHorizontal ?? paddingValue ?? 0.0),
+        right: sr(paddingRight ?? paddingHorizontal ?? paddingValue ?? 0.0),
+        top: sr(paddingTop ?? paddingVertical ?? paddingValue ?? 0.0),
+        bottom: sr(paddingBottom ?? paddingVertical ?? paddingValue ?? 0.0),
       );
     }
     return null;
