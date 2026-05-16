@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/26
@@ -29,10 +30,10 @@ mixin MarginBuilder {
     if (_innerMargin != null) return _innerMargin;
     if (hasMargin) {
       return EdgeInsets.only(
-        left: marginLeft ?? marginHorizontal ?? marginValue ?? 0.0,
-        right: marginRight ?? marginHorizontal ?? marginValue ?? 0.0,
-        top: marginTop ?? marginVertical ?? marginValue ?? 0.0,
-        bottom: marginBottom ?? marginVertical ?? marginValue ?? 0.0,
+        left: sr(marginLeft ?? marginHorizontal ?? marginValue ?? 0.0),
+        right: sr(marginRight ?? marginHorizontal ?? marginValue ?? 0.0),
+        top: sr(marginTop ?? marginVertical ?? marginValue ?? 0.0),
+        bottom: sr(marginBottom ?? marginVertical ?? marginValue ?? 0.0),
       );
     }
     return null;
