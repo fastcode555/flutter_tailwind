@@ -282,11 +282,11 @@ export 'package:flutter_screenutil/flutter_screenutil.dart';
 - **立即修 cursor rules 的两处具体错误**：
   - 删除 line 688、1330 的 `build_runner` 引用
   - 重写 line 1262 的初始化示例（init 必须在 MaterialApp 内部）
-- 建立 `docs/` 单一来源，按章节拆分（`docs/api/`、`docs/patterns/`、`docs/migration/`）
-- README 瘦身到 < 5 KB，只保留 30 秒上手 + 链接到 `docs/`
-- 把 `adaptW`/`adaptH`/`adaptR`/`adaptSp` 写进 `docs/patterns/screen-adaptation.md`
-- `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（脚本化但不上 CI gate）
-- `guide.md` 直接重定向到 `docs/`
+- 建立 `doc/` 单一来源，按章节拆分（`doc/api/`、`doc/patterns/`、`doc/migration/`）
+- README 瘦身到 < 5 KB，只保留 30 秒上手 + 链接到 `doc/`
+- 把 `adaptW`/`adaptH`/`adaptR`/`adaptSp` 写进 `doc/patterns/screen-adaptation.md`
+- `.cursor/rules/flutter_tailwind.mdc` 后续从 `doc/` 半自动生成（脚本化但不上 CI gate）
+- `guide.md` 直接重定向到 `doc/`
 
 ### 3.5 全局单例持有 BuildContext（⭐⭐）
 
@@ -399,7 +399,7 @@ Color get primary => context != null ? Theme.of(context!).primaryColor : primary
 - 补一个 `example/` 子项目作为 **size benchmark**（v1.8 之前或之中补，作为 backlog 性质的探索）：
   - 测"只用本库 5 个 getter" vs "完全不用本库"的最终 bundle size
   - 测 dart2js（web）和 aot-compile（mobile release）两种场景
-  - 结果写进 `docs/faq/bundle-size.md`，让用户对包体有预期
+  - 结果写进 `doc/faq/bundle-size.md`，让用户对包体有预期
 - 真出问题再做"按颜色族拆 extension"作为**可选**导入（非破坏性增量 API）：`import 'package:flutter_tailwind/colors/red.dart'`
 
 ---
@@ -575,7 +575,7 @@ Text('hello')
 >   - **原 v1.10（测试基线）→ 新 v1.9**
 >   - 路线图从 3 个里程碑缩到 **2 个**，预计 2–4 个月。v1.8 已完成。
 
-### v1.8 —— 文档统一到 `docs/` + 修 cursor rules 错误
+### v1.8 —— 文档统一到 `doc/` + 修 cursor rules 错误
 
 **目标：** 把 cursor rules 里教错用户的几处具体 bug 立刻堵住，同时建立单一文档源。
 
@@ -599,9 +599,9 @@ Text('hello')
 - 给 `lib/src/tailwind.dart` 的 `.primary` getter 加 try-catch，`Theme.of` 抛 `Looking up a deactivated widget's ancestor is unsafe` 时 fallback 到 `primaryColor ?? Colors.amber`（避免页面销毁后访问崩溃）
 
 **任务（文档统一）：**
-- 建立 `docs/` 目录结构：
+- 建立 `doc/` 目录结构：
   ```
-  docs/
+  doc/
     getting-started.md
     api/
       container.md / text.md / row-column.md / list-grid.md / buttons.md / images.md / forms.md / positioned.md
@@ -610,15 +610,15 @@ Text('hello')
     migration/
       v1.6-to-v1.7.md
   ```
-- 把现有 `spacing16`/`spacing20`/`spacing24` 等只在 cursor rules 里有的 API 补到 `docs/patterns/spacing.md`
-- 把 commit `2ed8c91` 引入的 `adaptW`/`adaptH`/`adaptR`/`adaptSp`（三处文档目前都没提）写进 `docs/patterns/screen-adaptation.md`
-- README 瘦身到 < 5 KB：特性概览 + 30 秒上手 + `docs/` 链接
-- `guide.md` 删除（或保留为占位重定向到 `docs/`）
-- `.cursor/rules/flutter_tailwind.mdc` 后续从 `docs/` 半自动生成（写个 `tool/build_cursor_rules.dart`，但**不上 CI gate**——半自动够用）
+- 把现有 `spacing16`/`spacing20`/`spacing24` 等只在 cursor rules 里有的 API 补到 `doc/patterns/spacing.md`
+- 把 commit `2ed8c91` 引入的 `adaptW`/`adaptH`/`adaptR`/`adaptSp`（三处文档目前都没提）写进 `doc/patterns/screen-adaptation.md`
+- README 瘦身到 < 5 KB：特性概览 + 30 秒上手 + `doc/` 链接
+- `guide.md` 删除（或保留为占位重定向到 `doc/`）
+- `.cursor/rules/flutter_tailwind.mdc` 后续从 `doc/` 半自动生成（写个 `tool/build_cursor_rules.dart`，但**不上 CI gate**——半自动够用）
 
 **用户感知：**
 - 按 cursor rules 写代码的用户立刻拿到正确主题色（之前是深紫色 fallback）
-- 新文档发布后，`docs/` 有所有 API 包括新加的（之前只在 cursor rules 里有）
+- 新文档发布后，`doc/` 有所有 API 包括新加的（之前只在 cursor rules 里有）
 
 ### v1.9 —— 测试基线 + CI 加 analyze/test
 
@@ -708,8 +708,8 @@ Text('hello')
 **问题：** 在 v1.8 完成前，三处文档并存的状态会持续几个月，用户可能在不同地方看到不同信息。
 
 **缓解：**
-- 在 README 顶部加 banner：`📖 Documentation is being consolidated to docs/. If you find conflicts, docs/ is the source of truth.`
-- v1.8 完成后，`guide.md` 和 cursor rules 都从 docs/ 自动生成，永久解决
+- 在 README 顶部加 banner：`📖 Documentation is being consolidated to doc/. If you find conflicts, doc/ is the source of truth.`
+- v1.8 完成后，`guide.md` 和 cursor rules 都从 doc/ 自动生成，永久解决
 
 ---
 
@@ -771,7 +771,7 @@ lib/                                                  13,407 行
 
 文档不打算定稿就锁死。建议每完成一个里程碑后回来更新：
 
-- ✅ v1.8 已完成（commits `33a2447` + `d5fa356`）：3.4 已解决；3.5 cursor rules 教错已修正、.primary throw 已加 try-catch；docs/ 骨架建立。3.7 size benchmark 仍待补（backlog）
+- ✅ v1.8 已完成（commits `33a2447` + `d5fa356`）：3.4 已解决；3.5 cursor rules 教错已修正、.primary throw 已加 try-catch；doc/ 骨架建立。3.7 size benchmark 仍待补（backlog）
 - v1.9 发布后：在 3.6 节标记"已解决"（测试基线 + CI analyze/test）
 - 已取消的工作（不再修订）：v1.8 .mk lint（见 3.1）、SizeAdapter（见 3.3）、consumed assert + Tailwind.of（见 3.2/3.5）、codegen 工具链（见第 6 章里程碑注 2）
 

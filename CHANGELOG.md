@@ -1,3 +1,17 @@
+## 1.8.0
+
+- `Tailwind.instance.primary` no longer throws `Looking up a deactivated widget's ancestor is unsafe` when accessed after the holding widget has been disposed; it now falls back to `primaryColor ?? Colors.amber`. Added 5 widget tests covering init/no-init/disposal scenarios — the first real unit tests in this repo.
+- Replaced deprecated `Color.withOpacity` with `Color.withValues(alpha:)` internally (no behavior change for users — same alpha-modified color, better precision in the new color pipeline).
+- New `doc/` directory as the documentation single-source-of-truth:
+  - `doc/getting-started.md` — install, bare-minimum usage, theme primary color setup with the **correct** init position
+  - `doc/patterns/screen-adaptation.md` — `.adaptW` / `.adaptH` / `.adaptR` / `.adaptSp` (the opt-in screen-scaling API introduced in 1.7.x but undocumented until now)
+  - `doc/patterns/spacing.md` — `spacing2..spacing32` shortcuts vs manual spacers
+- `.cursor/rules/flutter_tailwind.mdc` fixed several stale teachings:
+  - Removed the recommendation to run `flutter packages pub run build_runner build` (this library does not use `build_runner`)
+  - Rewrote the `Tailwind.instance.init(context)` example — init must be called from inside `MaterialApp`, not from `ScreenUtilInit.builder` (the context there is above MaterialApp, so `Theme.of` returns `ThemeData.fallback()` instead of your theme — `.primary` ends up the wrong color)
+- README adds a documentation-navigation section at the top and an explicit note that this library does not use `build_runner`.
+- `guide.md` adds a migration banner pointing at `doc/`.
+
 ## 1.4.8
 
 - Add the wrap widget

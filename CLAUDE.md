@@ -25,7 +25,7 @@ flutter pub publish --dry-run
 fvm flutter packages pub publish --server=https://pub.dartlang.org
 ```
 
-**Note on `test/`:** The package has no real test suite. Don't rely on `flutter test` for verification; rely on `flutter analyze` and on building/running `example/`. A future v1.12 milestone is planned to add a baseline of widget tests (see `docs/superpowers/specs/2026-05-15-flutter-tailwind-analysis.md`).
+**Note on `test/`:** As of v1.8.0, `test/tailwind_primary_test.dart` covers the `Tailwind.instance.primary` getter (5 widget tests). No other tests yet — the rest of the library has no widget/unit/golden coverage. A full test baseline + CI integration is planned for v1.9 (see `doc/superpowers/specs/2026-05-15-flutter-tailwind-analysis.md`).
 
 **Note on `.g.dart` files:** Files like `text.g.dart`, `check_box.g.dart`, `list_view.g.dart` are *not* `build_runner` outputs. They are **hand-written `part` files** of their sibling (`text.dart`, etc.) containing the mixins for the chained API. Edit them directly. The preset values they hold are considered stable — large batches of new presets are not expected. There is no `build_runner` step for this package, and no code-generation pipeline. The `.cursor/rules` file's instructions to run `build_runner build` are stale and should be ignored.
 

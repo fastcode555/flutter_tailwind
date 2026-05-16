@@ -27,7 +27,7 @@ class _ShaderMaskBuilder extends ChildBuilder<Widget>
           tileMode: tileMode ?? TileMode.clamp,
           // transform:,
           colors: innerOpacity != null
-              ? (innerColors ?? []).map((color) => color.withOpacity(innerOpacity!)).toList()
+              ? (innerColors ?? []).map((color) => color.withValues(alpha: innerOpacity)).toList()
               : innerColors ?? [],
         ).createShader(bounds);
       },
@@ -45,7 +45,7 @@ class _LinearGradientBuilder extends MkBuilder<LinearGradient>
         tileMode: tileMode ?? TileMode.clamp,
         // transform:,
         colors: innerOpacity != null
-            ? (innerColors ?? []).map((color) => color.withOpacity(innerOpacity!)).toList()
+            ? (innerColors ?? []).map((color) => color.withValues(alpha: innerOpacity)).toList()
             : innerColors ?? [],
       );
 }
