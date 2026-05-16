@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/image_loader/base_image_factory.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
@@ -52,6 +53,10 @@ class Tailwind {
 
   BaseImageFactory? imageFactory;
 
+  SizeAdapter _sizeAdapter = const IdentitySizeAdapter();
+
+  SizeAdapter get sizeAdapter => _sizeAdapter;
+
   void init(BuildContext context, [Color? primary]) {
     this.context = context;
     this.primaryColor = primary;
@@ -63,5 +68,9 @@ class Tailwind {
 
   void configImageFactory(BaseImageFactory imageFactory) {
     this.imageFactory = imageFactory;
+  }
+
+  void configSizeAdapter(SizeAdapter adapter) {
+    _sizeAdapter = adapter;
   }
 }
