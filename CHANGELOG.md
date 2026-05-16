@@ -1,3 +1,37 @@
+## 2.0.0
+
+### Breaking changes
+
+- Removed `adaptW` / `adaptH` / `adaptR` / `adaptSp` getters. Replaced by global configuration via `Tailwind.instance.configSizeAdapter(...)`. To preserve the old behavior, write a 4-line SizeAdapter that wraps screenutil — see `doc/patterns/screen-adaptation.md`.
+- Removed `flutter_screenutil` dependency. The library no longer transitively pulls screenutil. If your project relied on the indirect export (e.g. `ScreenUtilInit` imported via `package:flutter_tailwind`), add `flutter_screenutil` to your own `pubspec.yaml`.
+- Removed `Tailwind.instance.context` field. `init()` now extracts needed values from the context immediately and does not retain it. `.primary` no longer needs a try-catch (the deactivated-context throw scenario cannot happen anymore).
+- `p16` / `p20` are now top-level getters (were `final` variables). Calling syntax (`padding: p16`) unchanged but each access now routes through `SizeAdapter`.
+
+### New
+
+- `SizeAdapter` abstract class — 4-method interface (`w/h/r/sp`) that decouples the library from any specific screen-adaptation package. Default `IdentitySizeAdapter` (no scaling).
+- `Tailwind.instance.screenW` / `screenH` — cached screen dimensions populated by `init(context)`. Used internally by the `hFull/wFull` family; also exposed for user code.
+- `Tailwind.instance.configSizeAdapter(adapter)` — install your scaling implementation, typically once at app startup.
+
+### Migration (1.x → 2.0)
+
+1. Remove every `.adaptW/.adaptH/.adaptR/.adaptSp` call from your code.
+2. If you used screen scaling, write a SizeAdapter subclass:
+   ```dart
+   class ScreenUtilSizeAdapter implements SizeAdapter {
+     const ScreenUtilSizeAdapter();
+     @override double w(double v) => v.w;
+     @override double h(double v) => v.h;
+     @override double r(double v) => v.r;
+     @override double sp(double v) => v.sp;
+   }
+   void main() {
+     Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
+     runApp(...);
+   }
+   ```
+3. If you used `hFull/wFull`-family getters, call `Tailwind.instance.init(context)` from inside `MaterialApp.builder` (or any context inside MaterialApp).
+
 ## 1.8.0
 
 - `Tailwind.instance.primary` no longer throws `Looking up a deactivated widget's ancestor is unsafe` when accessed after the holding widget has been disposed; it now falls back to `primaryColor ?? Colors.amber`. Added 5 widget tests covering init/no-init/disposal scenarios — the first real unit tests in this repo.
