@@ -82,7 +82,7 @@ class _BoxDecorationBuilder
         gradient: _gradient,
         backgroundBlendMode: innerBlendMode,
         shape: innerShape ?? BoxShape.rectangle,
-        boxShadow: boxShadow,
+        boxShadow: adaptedBoxShadow,
       );
 }
 
@@ -221,7 +221,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
                 shape: innerShape ?? BoxShape.rectangle,
                 border: _internalBorder,
                 borderRadius: _internalBorderRadius,
-                boxShadow: boxShadow,
+                boxShadow: adaptedBoxShadow,
                 gradient: innerGradient,
               ),
         ),
@@ -236,7 +236,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             shape: innerShape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
-            boxShadow: boxShadow,
+            boxShadow: adaptedBoxShadow,
           ),
     ));
   }
@@ -258,7 +258,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
               shape: innerShape ?? BoxShape.rectangle,
               border: _internalBorder,
               borderRadius: _internalBorderRadius,
-              boxShadow: boxShadow,
+              boxShadow: adaptedBoxShadow,
               image: _decorImage,
             ),
         child: child,
@@ -273,7 +273,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             shape: innerShape ?? BoxShape.rectangle,
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
-            boxShadow: boxShadow,
+            boxShadow: adaptedBoxShadow,
             image: _decorImage,
           ),
       child: child,

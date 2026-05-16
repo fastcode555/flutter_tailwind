@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 /// Barry
 /// @date 2024/8/24
 /// describe:
 mixin ShadowBuilder {
   List<BoxShadow>? boxShadow;
+
+  /// Returns [boxShadow] with each shadow's blur/spread/offset routed through [sr].
+  List<BoxShadow>? get adaptedBoxShadow {
+    if (boxShadow == null) return null;
+    return boxShadow!
+        .map((s) => BoxShadow(
+              color: s.color,
+              offset: Offset(sr(s.offset.dx), sr(s.offset.dy)),
+              blurRadius: sr(s.blurRadius),
+              spreadRadius: sr(s.spreadRadius),
+              blurStyle: s.blurStyle,
+            ))
+        .toList();
+  }
 }
 
 extension ShadowBuilderExt<T extends ShadowBuilder> on T {

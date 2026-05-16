@@ -134,8 +134,8 @@ void main() {
       await tester.pumpWidget(MaterialApp(
         home: container.red.shadowSm.child(const SizedBox()),
       ));
-      final c = tester.widget<Container>(find.byType(Container).first);
-      final deco = c.decoration as BoxDecoration;
+      final db = tester.widget<DecoratedBox>(find.byType(DecoratedBox).first);
+      final deco = db.decoration as BoxDecoration;
       final shadow = deco.boxShadow!.first;
       expect(shadow.blurRadius, 4.0); // shadowSm base blurRadius=2.0, doubled=4.0
     });
