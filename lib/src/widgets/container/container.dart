@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/base/gradient_builder.dart';
 
 /// Barry
@@ -208,8 +209,8 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
       return createExpanded(
         Container(
           key: innerKey,
-          width: width ?? size,
-          height: height ?? size,
+          width: width != null ? sw(width!) : (size != null ? sr(size!) : null),
+          height: height != null ? sh(height!) : (size != null ? sr(size!) : null),
           padding: finalPadding,
           margin: finalMargin,
           alignment: alignment,
@@ -245,8 +246,8 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     if (_useContainer) {
       return createExpanded(Container(
         key: innerKey,
-        width: width ?? size,
-        height: height ?? size,
+        width: width != null ? sw(width!) : (size != null ? sr(size!) : null),
+        height: height != null ? sh(height!) : (size != null ? sr(size!) : null),
         padding: finalPadding,
         margin: finalMargin,
         alignment: alignment,
