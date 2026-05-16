@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/base/vertical_direction_builder.dart';
 
 /// Barry
@@ -60,8 +61,8 @@ class _WrapBuilder extends ChildrenBuilder<Widget>
   @override
   Widget children(List<Widget> children) {
     Widget child = Wrap(
-      spacing: innerSpacing ?? 0.0,
-      runSpacing: innerRunSpacing ?? 0.0,
+      spacing: sr(innerSpacing ?? 0.0),
+      runSpacing: sr(innerRunSpacing ?? 0.0),
       runAlignment: runAlignment ?? WrapAlignment.start,
       alignment: alignment ?? WrapAlignment.start,
       crossAxisAlignment: crossAxisAlignment ?? WrapCrossAlignment.start,

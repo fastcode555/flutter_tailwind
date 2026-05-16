@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 
 part 'list_view.g.dart';
 
@@ -141,15 +142,15 @@ class _GridViewBuilder extends ItemBuilder
     if (_childWidth != null) {
       gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
         maxCrossAxisExtent: _childWidth!,
-        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
-        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
         childAspectRatio: innerRatio ?? 1.0,
       );
     } else {
       gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount ?? 2,
-        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
-        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
         childAspectRatio: innerRatio ?? 1.0,
       );
     }
@@ -178,8 +179,8 @@ class _GridViewBuilder extends ItemBuilder
       return MasonryGridView.extent(
         key: innerKey,
         maxCrossAxisExtent: _childWidth!,
-        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
-        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,
@@ -193,8 +194,8 @@ class _GridViewBuilder extends ItemBuilder
       return MasonryGridView.count(
         key: innerKey,
         crossAxisCount: crossAxisCount ?? 2,
-        mainAxisSpacing: innerMainAxisSpacing ?? innerSpacing ?? 0.0,
-        crossAxisSpacing: innerCrossAxisSpacing ?? innerSpacing ?? 0.0,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
         itemBuilder: (context, index) => _itemBuilder(context, index, builder, stepBuilder) ?? gapEmpty,
         itemCount: _itemCount(itemCount, stepBuilder),
         padding: finalPadding,

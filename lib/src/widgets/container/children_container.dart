@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
+import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/utils/list_ext.dart';
 
 part 'children_container.g.dart';
@@ -76,7 +77,7 @@ class _RowBuilder extends _LinearBuilder {
       textDirection: textDirection,
       textBaseline: textBaseline,
       verticalDirection: _verticalDirection ?? VerticalDirection.down,
-      children: spacing != null ? children.joinWidget(SizedBox(width: spacing)) : children,
+      children: spacing != null ? children.joinWidget(SizedBox(width: sr(spacing))) : children,
     ));
   }
 }
@@ -95,7 +96,7 @@ class _ColumnBuilder extends _LinearBuilder {
       textDirection: textDirection,
       textBaseline: textBaseline,
       verticalDirection: _verticalDirection ?? VerticalDirection.down,
-      children: spacing != null ? children.joinWidget(SizedBox(height: spacing)) : children,
+      children: spacing != null ? children.joinWidget(SizedBox(height: sr(spacing))) : children,
     ));
   }
 }
