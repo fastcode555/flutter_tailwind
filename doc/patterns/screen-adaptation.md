@@ -1,86 +1,111 @@
-# Screen Adaptation: `.adaptW` / `.adaptH` / `.adaptR` / `.adaptSp`
+# Screen Adaptation: SizeAdapter
 
-> **Status:** introduced in commit `2ed8c91` (1.7.x). Previously the library applied screen-adaptation silently inside builders; this often produced surprising scaling. Adaptation is now **opt-in per call**.
+> **Status:** v2.0 introduces `SizeAdapter` as the single point of screen-scaling configuration. The per-call `.adaptW/.adaptH/.adaptR/.adaptSp` getters from v1.7.x/v1.8.x are removed.
 
-## The 4 adapters
+## Default: no scaling
 
-Each is a getter on the builder. Each takes whatever raw value you already set on the chain and runs it through one of `flutter_screenutil`'s scaling functions.
-
-| Getter | What it scales | Underlying call | Use for |
-|---|---|---|---|
-| `.adaptW` | the `width` field | `width.w` (proportional to screen width) | widths |
-| `.adaptH` | the `height` field | `height.h` (proportional to screen height) | heights |
-| `.adaptR` | the `size` field (square) | `size.r` (responsive radius/diameter) | square boxes, icons |
-| `.adaptSp` | the `fontSize` (or `fontSizes` list) | `fontSize.sp` (scaled font) | text sizes |
-
-## Example
+Out of the box, `flutter_tailwind` does not scale any values:
 
 ```dart
-// Without any adapter — literal pixels, no scaling
-container.w200.h100.red.mk
-// width=200px, height=100px on every device
-
-// With adapters — values scale per the device
-container.w200.adaptW.h100.adaptH.red.mk
-// width≈200 on a 375pt-wide design, scaled up/down on other devices
-
-// Text
-'hello'.text.f24.adaptSp.bold.mk
-// font scales with the screen
+container.w200.h100.p16.red.mk
+// Container(width: 200, height: 100, padding: EdgeInsets.all(16), ...)
+// Literal logical pixels on every device.
 ```
 
-## Order matters
+If you don't need responsive sizing, you're done. Stop reading.
 
-The adapter consumes whatever value is currently on the builder. **Call the adapter after the value-setting getter:**
+## Enabling scaling: implement SizeAdapter
+
+`SizeAdapter` has 4 methods, one per scaling channel:
+
+| Method | Used for | Typical screenutil mapping |
+|---|---|---|
+| `w(v)` | Widths | `v.w` |
+| `h(v)` | Heights | `v.h` |
+| `r(v)` | Responsive — radii, padding, margin, position, shadow | `v.r` |
+| `sp(v)` | Font sizes | `v.sp` |
+
+Write a class implementing it and inject via `Tailwind.instance.configSizeAdapter(...)`.
+
+### Example: flutter_screenutil
 
 ```dart
-// ✅ Correct
-container.w200.adaptW.mk
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_tailwind/flutter_tailwind.dart';
 
-// ❌ Wrong — adaptW runs against null width, then .w200 sets a literal value
-container.adaptW.w200.mk
+class ScreenUtilSizeAdapter implements SizeAdapter {
+  const ScreenUtilSizeAdapter();
+  @override double w(double v) => v.w;
+  @override double h(double v) => v.h;
+  @override double r(double v) => v.r;
+  @override double sp(double v) => v.sp;
+}
+
+void main() {
+  Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
+  runApp(const MyApp());
+}
 ```
 
-## Without `ScreenUtilInit`
+You still need to wrap your app in `ScreenUtilInit` (screenutil's own setup); the adapter just teaches `flutter_tailwind` to call screenutil's scaling functions.
 
-If you never wrap your app in `ScreenUtilInit`, the underlying screenutil `.w` / `.h` / `.r` / `.sp` extensions return the original number unchanged. So calling `.adaptW` etc. is a **no-op** — safe but pointless.
-
-In other words: the adapters never make things worse, they just don't help if there's no `ScreenUtilInit` providing the device scaling info.
-
-## Mixing literal and adapted sizes in one chain
-
-This is the common case — some values should scale, some shouldn't:
+### Example: responsive_framework (sketch)
 
 ```dart
-container
-  .w200.adaptW       // width scales with device
-  .h(1).             // hairline divider — must stay 1px, do NOT adapt
-  .grey
-  .mk
+class ResponsiveSizeAdapter implements SizeAdapter {
+  ResponsiveSizeAdapter(this.scalingFactor);
+  final double scalingFactor;
+  @override double w(double v) => v * scalingFactor;
+  @override double h(double v) => v * scalingFactor;
+  @override double r(double v) => v * scalingFactor;
+  @override double sp(double v) => v * scalingFactor;
+}
 ```
 
-## Comparison to previous behavior
+Whatever your scaling story is, you implement those 4 methods however you want.
 
-Before commit `2ed8c91`:
+## When to use each channel
+
+- `r(v)` is the catch-all "responsive value" channel for things that don't fit cleanly into width or height (radii, paddings, shadows). Most builder values route through here.
+- `w(v)` and `h(v)` are direction-specific scaling for Container width/height fields.
+- `sp(v)` handles fonts specifically — kept separate because font scaling often considers system `textScaleFactor`, which geometric scaling does not.
+
+## What if I don't configure an adapter?
+
+The library defaults to `IdentitySizeAdapter`:
 
 ```dart
-// 1.6.x and earlier — implicit scaling
-container.w200.mk
-// internally: width = 200.w  (always scaled)
+class IdentitySizeAdapter implements SizeAdapter {
+  const IdentitySizeAdapter();
+  @override double w(double v) => v;
+  @override double h(double v) => v;
+  @override double r(double v) => v;
+  @override double sp(double v) => v;
+}
 ```
 
-After 1.7.x:
+Every value passes through unchanged. Safe default for projects that prefer literal pixel sizing.
+
+## Migration from v1.x
+
+If your v1.x/v1.8 code looks like:
 
 ```dart
-container.w200.mk          // width = 200 literal pixels
-container.w200.adaptW.mk   // width = 200.w (scaled)
+container.w200.adaptW.h100.adaptH.p16.adaptR.child(text.f16.adaptSp.mk)
 ```
 
-This is a **breaking semantic change**, but the new behavior is more predictable: what you write is what you get unless you explicitly ask for adaptation.
+In v2.0:
 
-## When to use each
+1. Remove every `.adaptW/.adaptH/.adaptR/.adaptSp` call from your code.
+2. Add an adapter (see flutter_screenutil example above) once in `main()`.
 
-- **`.adaptR`** — for square icons / avatars / placeholders where the size is conceptually one number. `R.icDefPlaylist.asset.s100.adaptR.mk`
-- **`.adaptW`** / **`.adaptH`** — for layouts that should fill a percentage of screen width/height. `container.w200.adaptW.mk` is a card that feels the right size on phones and tablets
-- **`.adaptSp`** — almost always for fonts. `.text.f16.adaptSp.mk` keeps body text legible across device sizes. Without it, `.f16` is literally 16 logical pixels everywhere
-- **No adapter** — for fixed-pixel UI: hairlines, dividers, exact-match designs from a fixed spec
+After this, the library calls the adapter automatically — no per-call opt-in needed.
+
+## Not under SizeAdapter's control
+
+The library deliberately does NOT scale:
+
+- **Border width** — hairline borders should stay 1 logical pixel on every device.
+- **`expanded` flex values** — they're ints, not pixel measurements.
+- **`opacity`** — a 0-to-1 ratio, not a size.
+- **`hFull/wFull/sScreen/sFull` family** — these read absolute screen dimensions from `Tailwind.instance.screenW/screenH` (cached at `init(context)`). They are screen-percentages and don't need adapter scaling.
