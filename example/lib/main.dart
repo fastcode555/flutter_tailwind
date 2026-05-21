@@ -507,7 +507,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            listview.separated16.pl16.pr16.horizontal.h365.builder(
+            // h(700) instead of h365 — PostItem's natural content (~530px on
+            // desktop scaling) overflows the v1.x default of 365px. 700 gives
+            // enough room on both phone (~700px tall card) and macOS desktop
+            // (~520px effective after .h scaling).
+            listview.separated16.pl16.pr16.horizontal.h(700).builder(
               10,
               (_, __) => const SizedBox(width: 250, child: PostItem()),
             ),
