@@ -91,7 +91,12 @@ class TextBuilder extends MkBuilder<Widget>
             ) */
       ??
       TextStyle(
-        fontSize: _useAutoSize ? ssp(maxFontSize) : (fontSize != null ? ssp(fontSize!) : null),
+        // _useAutoSize path: round so AutoSizeText's stepGranularity=1 assertion
+        // passes. Without rounding, ssp(30) on screenutil-style adapters returns
+        // a fractional value (e.g. 32.13) and AutoSizeText asserts.
+        fontSize: _useAutoSize
+            ? ssp(maxFontSize).roundToDouble()
+            : (fontSize != null ? ssp(fontSize!) : null),
         color: innerTextColor.opacity(innerOpacity) ?? innerColor.opacity(innerOpacity),
         decoration: _decoration,
         overflow: _overflow,
@@ -123,7 +128,10 @@ class TextBuilder extends MkBuilder<Widget>
   Widget get mk {
     late Widget child;
     if (_useAutoSize) {
-      final minFontSize = ssp(min(fontSizes![0], fontSizes![1]).round().toDouble());
+      // Round after ssp so AutoSizeText's stepGranularity=1 assertion passes.
+      // ssp() on screenutil-style adapters returns fractional values; without
+      // rounding, the assertion fires at runtime in any auto-size text demo.
+      final minFontSize = ssp(min(fontSizes![0], fontSizes![1]).round().toDouble()).roundToDouble();
       child = AutoSizeText(
         value ?? '',
         minFontSize: minFontSize,

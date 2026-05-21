@@ -214,4 +214,48 @@ void main() {
       expect(c3.constraints?.maxWidth, 100.0);
     });
   });
+
+  group('AutoSizeText regression (v2.0 fix)', () {
+    // Reproduces a v2.0 bug: TextBuilder with two .fN values uses AutoSizeText,
+    // which asserts that minFontSize/maxFontSize must be integer multiples of
+    // stepGranularity (default 1). With non-Identity SizeAdapter.sp returning
+    // fractional values (e.g. screenutil's .sp factor is rarely an integer),
+    // the assertion fired. Fixed by .roundToDouble() after ssp().
+    setUp(resetAdapter);
+
+    testWidgets(
+      "'foo'.text.f30.f10.mk under fractional adapter renders without assertion",
+      (tester) async {
+        Tailwind.instance.configSizeAdapter(const _MockFractionalSpAdapter());
+
+        // No assertion should fire during build.
+        await tester.pumpWidget(MaterialApp(
+          home: Scaffold(body: 'helloworld'.text.f30.f10.maxLine1.ellipsis.mk),
+        ));
+
+        // The text renders.
+        expect(find.text('helloworld'), findsOneWidget);
+
+        // AutoSizeText was chosen (two distinct fontSizes), and its
+        // minFontSize is an integer multiple of stepGranularity=1.
+        // We verify by checking that the build completed without throwing —
+        // any assertion failure would have caused tester.pumpWidget to throw.
+      },
+    );
+  });
+}
+
+/// Adapter whose sp() returns a non-integer (mimics screenutil-on-desktop where
+/// the .sp factor is something like 1.0667). Used to reproduce the AutoSizeText
+/// assertion that was the v2.0 text-builder regression.
+class _MockFractionalSpAdapter implements SizeAdapter {
+  const _MockFractionalSpAdapter();
+  @override
+  double w(double v) => v;
+  @override
+  double h(double v) => v;
+  @override
+  double r(double v) => v;
+  @override
+  double sp(double v) => v * 1.0667;
 }
