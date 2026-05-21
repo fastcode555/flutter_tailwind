@@ -8,13 +8,16 @@ part 'tailwind_ext.g.dart';
 
 /// define the custom size here
 extension SizeExt<T extends SizeBuilder> on T {
-  T get s121 => this..size = 121.r;
+  // v2.0: pass raw design values. The library's sw/sh/sr helpers apply the
+  // active SizeAdapter in each builder's mk method — explicit .r/.w/.h here
+  // would double-scale.
+  T get s121 => this..size = 121;
 
-  T get w500 => this..width = 500.w;
+  T get w500 => this..width = 500;
 
-  T get h600 => this..height = 600.h;
+  T get h600 => this..height = 600;
 
-  T get w600 => this..width = 600.w;
+  T get w600 => this..width = 600;
 }
 
 /// define the custom text feature here
