@@ -1,0 +1,3 @@
+tags:
+  golden:
+    skip: "Golden tests are local-only; run with `flutter test --tags golden`"
