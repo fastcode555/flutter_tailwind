@@ -7,13 +7,46 @@ on:
       - '**.md'
       - '.gitignore'
       - '.vscode/**'
-      - 'docs/**'
+      - 'doc/**'
+  pull_request:
+    branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - '.vscode/**'
+      - 'doc/**'
   workflow_dispatch:
 
 jobs:
+  # Lint + unit-test the LIBRARY (lib/ + test/). Quick (~1 min on ubuntu).
+  # Blocks the build job below — if tests fail, we don't waste time building APK/IPA.
+  test:
+    name: Analyze + Test (library)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Library pub get
+        run: flutter pub get
+
+      - name: Analyze
+        # --no-fatal-warnings and --no-fatal-infos are TEMPORARY: there are 4
+        # pre-existing lints (must_be_immutable on ImageLoader, a few
+        # unnecessary_import / prefer_single_quotes). Tighten these flags once
+        # the pre-existing lints are cleaned up.
+        run: flutter analyze lib/ test/ --no-fatal-warnings --no-fatal-infos
+
+      - name: Test
+        run: flutter test test/
+
   build-ios:
     name: Build Release
     runs-on: macos-latest
+    needs: test
     steps:
       - uses: actions/checkout@v4
 
