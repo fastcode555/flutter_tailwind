@@ -24,7 +24,9 @@ extension TextFeatureExt<T extends TextFeature> on T {
 
 /// define the custom text size here
 extension FontSizeExt<T extends FontSizeBuilder> on T {
-  T get f100 => this..font(100.sp);
+  // v2.0: pass the raw design value (100). The library's ssp helper applies
+  // the active SizeAdapter to it — no need for explicit .sp here.
+  T get f100 => this..font(100);
 }
 
 /// define the custom icon here

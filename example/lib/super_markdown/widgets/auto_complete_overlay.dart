@@ -27,7 +27,11 @@ class AutoCompleteOverlay extends StatelessWidget {
       child: Material(
         elevation: 8,
         borderRadius: BorderRadius.circular(8),
-        child: container.white.rounded8.w200.maxH(26.0.h * maxCount).child(
+        // v2.0: .maxH() scales via SizeAdapter; pass the raw design value (26.0)
+        // rather than the pre-scaled 26.0.h to avoid double-scaling. The
+        // ListView's itemExtent below is a native Flutter param, so it still
+        // needs explicit .h.
+        child: container.white.rounded8.w200.maxH(26.0 * maxCount).child(
               ListView.builder(
                 itemCount: suggestions.length,
                 itemExtent: 26.0.h,
