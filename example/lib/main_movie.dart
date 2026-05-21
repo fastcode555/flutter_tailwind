@@ -1,8 +1,11 @@
+import 'package:example/res/screen_util_size_adapter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_tailwind/flutter_tailwind.dart';
 
 void main() {
+  // v2.0: route flutter_tailwind geometry/font values through screenutil.
+  Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
   runApp(const MyApp());
 }
 

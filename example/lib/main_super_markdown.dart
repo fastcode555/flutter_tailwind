@@ -1,3 +1,4 @@
+import 'package:example/res/screen_util_size_adapter.dart';
 import 'package:example/super_markdown/core/di/dependency_injection.dart';
 import 'package:example/super_markdown/core/theme/app_theme.dart';
 import 'package:example/super_markdown/routes/app_pages.dart';
@@ -9,6 +10,8 @@ import 'package:get/get.dart';
 void main() {
   // 初始化依赖注入
   DependencyInjection.init();
+  // v2.0: route flutter_tailwind geometry/font values through screenutil.
+  Tailwind.instance.configSizeAdapter(const ScreenUtilSizeAdapter());
 
   runApp(const SuperMarkdownApp());
 }
