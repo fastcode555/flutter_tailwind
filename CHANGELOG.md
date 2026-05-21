@@ -1,3 +1,9 @@
+## 2.0.1
+
+### Fixes
+
+- Fix `AutoSizeText` assertion crash when using `.text.fN.fM.mk` (auto-shrink-to-fit text) together with a non-Identity `SizeAdapter`. v2.0.0's `ssp()` threading produced fractional values that violated `AutoSizeText`'s `stepGranularity=1` requirement. Both `minFontSize` and the style's `fontSize` are now rounded to integers after `ssp()`. Regression test added covering a `_MockFractionalSpAdapter` (mimics screenutil-on-desktop `.sp` factors).
+
 ## 2.0.0
 
 ### Breaking changes
