@@ -34,11 +34,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyze
-        # --no-fatal-warnings and --no-fatal-infos are TEMPORARY: there are 4
-        # pre-existing lints (must_be_immutable on ImageLoader, a few
-        # unnecessary_import / prefer_single_quotes). Tighten these flags once
-        # the pre-existing lints are cleaned up.
-        run: flutter analyze lib/ test/ --no-fatal-warnings --no-fatal-infos
+        run: flutter analyze lib/ test/
 
       - name: Test
         run: flutter test test/

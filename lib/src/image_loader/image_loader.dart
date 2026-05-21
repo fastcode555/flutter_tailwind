@@ -149,17 +149,17 @@ class ImageLoader extends StatelessWidget {
 
   //手指滑动关闭页面时,是否也启用共享元素动画
   final bool transitionOnUserGestures;
-  Color? _blurColor;
+  final Color? _blurColor;
 
-  double? _width;
-  double? _height;
-  double? _radius;
-  double? _sigmaX;
-  double? _sigmaY;
-  double? border;
-  Color? borderColor;
-  BorderRadiusGeometry? _borderRadius;
-  String? _thumbUrl;
+  final double? _width;
+  final double? _height;
+  final double? _radius;
+  final double? _sigmaX;
+  final double? _sigmaY;
+  final double? border;
+  final Color? borderColor;
+  final BorderRadiusGeometry? _borderRadius;
+  final String? _thumbUrl;
   final Decoration? decoration;
 
   static ImageLoaderConfigInterface? config = ShimmerLoaderConfig();
@@ -179,7 +179,7 @@ class ImageLoader extends StatelessWidget {
   //高斯模糊图片
   static const int typeBlur = 3;
 
-  int _type = typeNormal;
+  final int _type;
 
   //使用滚动组件NotificationListener包裹住滚动的view，如果滚动停止，就进行加载
   final Type? notification;
@@ -213,12 +213,15 @@ class ImageLoader extends StatelessWidget {
     this.fadeOutDuration,
     this.fadeInDuration,
     this.boxShadow,
-  }) {
-    _width = width;
-    _height = height;
-    _type = typeNormal;
-    _thumbUrl = thumbUrl;
-  }
+  })  : _width = width,
+        _height = height,
+        _type = typeNormal,
+        _thumbUrl = thumbUrl,
+        _radius = null,
+        _sigmaX = null,
+        _sigmaY = null,
+        _blurColor = null,
+        _borderRadius = null;
 
   //圆形图片
   ImageLoader.circle(
@@ -240,10 +243,15 @@ class ImageLoader extends StatelessWidget {
     this.fadeOutDuration,
     this.fadeInDuration,
     this.boxShadow,
-  }) {
-    _radius = radius;
-    _type = typeCircle;
-  }
+  })  : _radius = radius,
+        _type = typeCircle,
+        _width = null,
+        _height = null,
+        _sigmaX = null,
+        _sigmaY = null,
+        _blurColor = null,
+        _borderRadius = null,
+        _thumbUrl = null;
 
   //圆角图片
   ImageLoader.round(
@@ -269,14 +277,15 @@ class ImageLoader extends StatelessWidget {
     this.fadeOutDuration,
     this.fadeInDuration,
     this.boxShadow,
-  }) {
-    _radius = radius;
-    _type = typeRoundCorner;
-    _borderRadius = borderRadius;
-    _width = width;
-    _height = height;
-    _thumbUrl = thumbUrl;
-  }
+  })  : _radius = radius,
+        _type = typeRoundCorner,
+        _borderRadius = borderRadius,
+        _width = width,
+        _height = height,
+        _thumbUrl = thumbUrl,
+        _sigmaX = null,
+        _sigmaY = null,
+        _blurColor = null;
 
   //高斯模糊图片
   ImageLoader.blur(
@@ -302,16 +311,17 @@ class ImageLoader extends StatelessWidget {
     this.fadeOutDuration,
     this.fadeInDuration,
     this.boxShadow,
-  }) {
-    _radius = radius;
-    _type = typeBlur;
-    _borderRadius = borderRadius ?? const BorderRadius.all(Radius.circular(0));
-    _width = width;
-    _height = height;
-    _sigmaX = sigmaX;
-    _sigmaY = sigmaY;
-    _blurColor = blurColor;
-  }
+  })  : _radius = radius,
+        _type = typeBlur,
+        _borderRadius = borderRadius ?? const BorderRadius.all(Radius.circular(0)),
+        _width = width,
+        _height = height,
+        _sigmaX = sigmaX,
+        _sigmaY = sigmaY,
+        _blurColor = blurColor,
+        _thumbUrl = null,
+        border = null,
+        borderColor = null;
 
   static init(ImageLoaderConfigInterface config) {
     ImageLoader.config = config;
@@ -320,26 +330,34 @@ class ImageLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _devicePixelRatio = _devicePixelRatio ?? MediaQuery.of(context).devicePixelRatio;
+    var effectiveType = _type;
+    var effectiveRadius = _radius;
+    var effectiveBorderRadius = _borderRadius;
     if (_radius == null && decoration != null && decoration is BoxDecoration) {
       var boxDecoration = decoration as BoxDecoration;
       if (boxDecoration.shape == BoxShape.circle) {
-        _type = typeCircle;
-        _radius = _radius ?? ((_width ?? _height ?? 0.0) / 2.0);
+        effectiveType = typeCircle;
+        effectiveRadius = (_width ?? _height ?? 0.0) / 2.0;
       } else if (boxDecoration.borderRadius is BorderRadius) {
-        _borderRadius = boxDecoration.borderRadius as BorderRadius;
-        _type = typeRoundCorner;
+        effectiveBorderRadius = boxDecoration.borderRadius as BorderRadius;
+        effectiveType = typeRoundCorner;
       }
     }
-    var widget = _buildImage(context);
+    var widget = _buildImage(context, effectiveType, effectiveRadius, effectiveBorderRadius);
     if (decoration != null) {
       return Container(decoration: decoration, child: widget);
     }
     return widget;
   }
 
-  Widget _buildImage(BuildContext context) {
+  Widget _buildImage(
+    BuildContext context,
+    int type,
+    double? radius,
+    BorderRadiusGeometry? borderRadius,
+  ) {
     //debugPrint("进行图片重新加载${notification},显示图片：${_canLoadImage ? url : null}");
-    if (_type == typeNormal) {
+    if (type == typeNormal) {
       return _Image(
         _canLoadImage ? url : null,
         thumbUrl: _canLoadImage ? _thumbUrl : null,
@@ -355,22 +373,23 @@ class ImageLoader extends StatelessWidget {
         heroTag: heroTag,
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
-        radius: _radius,
+        radius: radius,
         boxShadow: boxShadow,
         transitionOnUserGestures: transitionOnUserGestures,
       );
-    } else if (_type == typeCircle) {
-      if (_radius == null || _radius == 0) {
+    } else if (type == typeCircle) {
+      if (radius == null || radius == 0) {
         return LayoutBuilder(
           builder: (ctx, constraint) {
-            _width = (constraint.maxWidth > constraint.maxHeight ? constraint.maxHeight : constraint.maxWidth);
+            final effectiveWidth =
+                constraint.maxWidth > constraint.maxHeight ? constraint.maxHeight : constraint.maxWidth;
             return ClipOval(
               child: _Image(
                 _canLoadImage ? url : null,
                 placeBuilder: placeBuilder,
                 errorBuilder: errorBuilder,
                 fit: fit,
-                width: _width,
+                width: effectiveWidth,
                 height: _height,
                 placeHolder: placeHolder,
                 errorHolder: errorHolder,
@@ -380,7 +399,7 @@ class ImageLoader extends StatelessWidget {
                 heroTag: heroTag,
                 fadeInDuration: fadeInDuration,
                 fadeOutDuration: fadeOutDuration,
-                radius: _radius,
+                radius: radius,
                 boxShadow: boxShadow,
                 transitionOnUserGestures: transitionOnUserGestures,
               ),
@@ -396,7 +415,7 @@ class ImageLoader extends StatelessWidget {
         fit: fit,
         heroTag: heroTag,
         placeBuilder: placeBuilder,
-        radius: _radius,
+        radius: radius,
         border: border,
         useSingleCache: useSingleCache,
         borderColor: borderColor,
@@ -405,7 +424,7 @@ class ImageLoader extends StatelessWidget {
         boxShadow: boxShadow,
         transitionOnUserGestures: transitionOnUserGestures,
       );
-    } else if (_type == typeRoundCorner) {
+    } else if (type == typeRoundCorner) {
       Widget image = _Image(
         _canLoadImage ? url : null,
         fit: fit,
@@ -421,7 +440,7 @@ class ImageLoader extends StatelessWidget {
         useSingleCache: useSingleCache,
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
-        radius: _radius,
+        radius: radius,
         heroTag: heroTag,
         boxShadow: boxShadow,
         transitionOnUserGestures: transitionOnUserGestures,
@@ -431,17 +450,17 @@ class ImageLoader extends StatelessWidget {
       }
       return ClipRRect(
         clipBehavior: Clip.hardEdge,
-        borderRadius: _borderRadius ?? BorderRadius.all(Radius.circular(_radius!)),
+        borderRadius: borderRadius ?? BorderRadius.all(Radius.circular(radius!)),
         child: image,
       );
-    } else if (_type == typeBlur) {
+    } else if (type == typeBlur) {
       return SizedBox(
         width: _width,
         height: _height,
         child: Stack(
           children: <Widget>[
             ClipRRect(
-              borderRadius: _borderRadius ?? BorderRadius.zero,
+              borderRadius: borderRadius ?? BorderRadius.zero,
               child: _Image(
                 _canLoadImage ? url : null,
                 fit: fit,
@@ -456,13 +475,13 @@ class ImageLoader extends StatelessWidget {
                 fadeOutDuration: fadeOutDuration,
                 fadeInDuration: fadeInDuration,
                 height: _height,
-                radius: _radius,
+                radius: radius,
                 boxShadow: boxShadow,
                 transitionOnUserGestures: transitionOnUserGestures,
               ),
             ),
             ClipRRect(
-              borderRadius: _borderRadius ?? BorderRadius.zero,
+              borderRadius: borderRadius ?? BorderRadius.zero,
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: _sigmaX!, sigmaY: _sigmaY!),
                 child: Container(color: _blurColor ?? Colors.white10),

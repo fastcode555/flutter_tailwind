@@ -53,7 +53,7 @@ abstract class _BaseCheckBoxBuilder<T> extends CallBackBuilder<T>
         child: svg,
       );
     }
-    if (innerIcon is String && (innerIcon as String).startsWith("http")) {
+    if (innerIcon is String && (innerIcon as String).startsWith('http')) {
       return ImageLoader.image(innerIcon, width: _width * _ratio, height: _height * _ratio);
     }
 
