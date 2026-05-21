@@ -24,4 +24,8 @@ class Debouncer {
     onTap?.call();
     _instance!._lastTime = DateTime.now().millisecondsSinceEpoch;
   }
+
+  /// Resets the debounce timer. Use in tests only.
+  @visibleForTesting
+  void resetForTest() => _lastTime = 0;
 }
