@@ -24,6 +24,8 @@ class Input extends StatefulWidget {
   final String? lableText;
   final String? hintText;
   final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? disabledBorder;
   final bool obscureText;
   final EdgeInsetsGeometry? contentPadding;
 
@@ -84,6 +86,8 @@ class Input extends StatefulWidget {
     this.hintText,
     this.focusNode,
     this.border,
+    this.enabledBorder,
+    this.disabledBorder,
     this.obscureText = false,
     this.contentPadding,
     this.error,
@@ -139,6 +143,8 @@ class Input extends StatefulWidget {
     this.obscureText = false,
     this.contentPadding,
     this.error,
+    this.enabledBorder,
+    this.disabledBorder,
     this.errorBorder,
     this.errorText,
     this.errorStyle,
@@ -174,7 +180,8 @@ class Input extends StatefulWidget {
     this.clearWidget,
     this.visibleWidget,
     this.invisibleWidget,
-  }) : this.border = const OutlineInputBorder();
+    final InputBorder? border,
+  }) : this.border = border ?? const OutlineInputBorder();
 
   @override
   _InputState createState() => _InputState();
@@ -353,12 +360,14 @@ class _InputState extends State<Input> {
         prefixIcon: widget.prefixIcon ?? widget.prefixIconBuilder?.call(_focusNode.hasFocus),
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
-        fillColor: _focusNode.hasFocus ? widget.fillColor : widget.unFocusColor,
+        fillColor: _focusNode.hasFocus ? widget.fillColor : widget.unFocusColor ?? widget.fillColor,
         filled: (widget.fillColor != null || widget.unFocusColor != null),
         suffixIconColor: primary,
         labelText: widget.lableText,
         hintText: widget.hintText,
         border: widget.border,
+        enabledBorder: widget.enabledBorder ?? widget.border,
+        disabledBorder: widget.disabledBorder,
         contentPadding: _contentPadding,
         error: widget.error,
         errorBorder: widget.errorBorder,
