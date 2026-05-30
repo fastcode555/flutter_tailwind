@@ -9,6 +9,16 @@ import 'package:flutter_tailwind/flutter_tailwind.dart';
 /// describe:
 
 class Input extends StatefulWidget {
+  /// Global default builder for the clear-button widget shown when the input
+  /// has text. Per-instance `clearWidget` takes precedence; if both are null,
+  /// falls back to `Icon(Icons.close)`.
+  ///
+  /// Set once at app startup, e.g.:
+  /// ```dart
+  /// Input.defaultClearWidget = () => const Icon(Icons.cancel, size: 18, color: Colors.grey);
+  /// ```
+  static Widget Function()? defaultClearWidget;
+
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -70,8 +80,12 @@ class Input extends StatefulWidget {
   final Color? cursorColor;
 
   final TextStyle? style;
+  final TextStyle? hintStyle;
+  final TextStyle? suffixStyle;
 
   final Widget? clearWidget;
+
+  final BoxConstraints? prefixIconConstraints;
 
   const Input({
     super.key,
@@ -126,6 +140,9 @@ class Input extends StatefulWidget {
     this.clearWidget,
     this.visibleWidget,
     this.invisibleWidget,
+    this.prefixIconConstraints,
+    this.hintStyle,
+    this.suffixStyle,
   });
 
   const Input.outline({
@@ -180,6 +197,9 @@ class Input extends StatefulWidget {
     this.clearWidget,
     this.visibleWidget,
     this.invisibleWidget,
+    this.prefixIconConstraints,
+    this.hintStyle,
+    this.suffixStyle,
     final InputBorder? border,
   }) : this.border = border ?? const OutlineInputBorder();
 
@@ -201,7 +221,8 @@ class _InputState extends State<Input> {
 
   double? _vertical;
 
-  bool get _isUnderLine => widget.border == null || widget.border is UnderlineInputBorder;
+  bool get _isUnderLine =>
+      widget.border == null || widget.border is UnderlineInputBorder;
 
   EdgeInsetsGeometry? get _contentPadding {
     if (widget.contentPadding != null) return widget.contentPadding;
@@ -214,7 +235,10 @@ class _InputState extends State<Input> {
   }
 
   ///Clear的图标
-  Widget get _clearWidget => widget.clearWidget ?? const Icon(Icons.close);
+  Widget get _clearWidget =>
+      widget.clearWidget ??
+      Input.defaultClearWidget?.call() ??
+      const Icon(Icons.close);
 
   bool get _hasObSecureWidget =>
       widget.visibleWidget != null ||
@@ -242,13 +266,17 @@ class _InputState extends State<Input> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // show the clear widget
-        if (_showClear) _clearWidget,
-        if (!_showClear) w18,
+        // show the clear widget; no placeholder gap when it's hidden so the
+        // suffix icon hugs the text edge.
+        if (_showClear) ...[_clearWidget],
+        // if (!_showClear) w18,
 
         //show the suffixIcon
-        if (widget.suffixIcon != null) ...[w2, widget.suffixIcon!],
-        if (widget.suffixIconBuilder != null) ...[w2, widget.suffixIconBuilder!.call(_focusNode.hasFocus)],
+        if (widget.suffixIcon != null) ...[widget.suffixIcon!],
+        if (widget.suffixIconBuilder != null) ...[
+          w2,
+          widget.suffixIconBuilder!.call(_focusNode.hasFocus)
+        ],
 
         // show the visibleWidget
         if (widget.visibleWidget != null && _obscureText) ...[
@@ -357,15 +385,31 @@ class _InputState extends State<Input> {
       onTapOutside: widget.onTapOutside,
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
-        prefixIcon: widget.prefixIcon ?? widget.prefixIconBuilder?.call(_focusNode.hasFocus),
+        prefixIconConstraints: widget.prefixIconConstraints ??
+            ((widget.prefixIcon != null || widget.prefixIconBuilder != null)
+                ? const BoxConstraints()
+                : null),
+        prefixIcon: widget.prefixIcon != null
+            ? container.pl12.child(widget.prefixIcon!)
+            : widget.prefixIconBuilder?.call(_focusNode.hasFocus),
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
-        fillColor: _focusNode.hasFocus ? widget.fillColor : widget.unFocusColor ?? widget.fillColor,
+        suffixIconConstraints: const BoxConstraints(minWidth: 30),
+        fillColor: _focusNode.hasFocus
+            ? widget.fillColor
+            : widget.unFocusColor ?? widget.fillColor,
         filled: (widget.fillColor != null || widget.unFocusColor != null),
         suffixIconColor: primary,
         labelText: widget.lableText,
         hintText: widget.hintText,
         border: widget.border,
+        suffixStyle: widget.suffixStyle ??
+            widget.hintStyle ??
+            widget.style
+                ?.copyWith(color: widget.style?.color?.withValues(alpha: 0.5)),
+        hintStyle: widget.hintStyle ??
+            widget.style
+                ?.copyWith(color: widget.style?.color?.withValues(alpha: 0.5)),
         enabledBorder: widget.enabledBorder ?? widget.border,
         disabledBorder: widget.disabledBorder,
         contentPadding: _contentPadding,
