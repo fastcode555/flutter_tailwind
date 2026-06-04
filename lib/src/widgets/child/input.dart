@@ -45,6 +45,11 @@ class Input extends StatefulWidget {
   final TextStyle? errorStyle;
   final int? errorMaxLines;
 
+  /// Form validation. When set, [Input] works inside a Form; returning a
+  /// non-null string shows it as the error below the field on validate().
+  final FormFieldValidator<String>? validator;
+  final AutovalidateMode? autovalidateMode;
+
   final TextStyle? floatingLabelStyle;
   final FloatingLabelAlignment? floatingLabelAlignment;
   final FloatingLabelBehavior? floatingLabelBehavior;
@@ -109,6 +114,8 @@ class Input extends StatefulWidget {
     this.errorText,
     this.errorStyle,
     this.errorMaxLines,
+    this.validator,
+    this.autovalidateMode,
     this.floatingLabelStyle,
     this.floatingLabelAlignment,
     this.floatingLabelBehavior,
@@ -166,6 +173,8 @@ class Input extends StatefulWidget {
     this.errorText,
     this.errorStyle,
     this.errorMaxLines,
+    this.validator,
+    this.autovalidateMode,
     this.floatingLabelStyle,
     this.floatingLabelAlignment,
     this.floatingLabelBehavior,
@@ -359,8 +368,10 @@ class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     var primary = Theme.of(context).primaryColor;
-    return TextField(
+    return TextFormField(
       controller: _controller,
+      validator: widget.validator,
+      autovalidateMode: widget.autovalidateMode,
       cursorColor: widget.cursorColor ?? primary,
       focusNode: _focusNode,
       style: widget.style,
@@ -381,7 +392,7 @@ class _InputState extends State<Input> {
       undoController: widget.undoController,
       onChanged: _onChanged,
       onEditingComplete: _onEditingComplete,
-      onSubmitted: widget.onSubmitted,
+      onFieldSubmitted: widget.onSubmitted,
       onTapOutside: widget.onTapOutside,
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
