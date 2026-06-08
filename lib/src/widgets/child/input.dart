@@ -328,6 +328,10 @@ class _InputState extends State<Input> {
   void _handleClear() {
     _controller.text = '';
     _showClear = false;
+    // Cancel any pending debounced onChanged so it doesn't fire after the
+    // clear, then notify the consumer immediately with the empty value.
+    _timer?.cancel();
+    widget.onChanged?.call('');
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
