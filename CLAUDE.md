@@ -8,6 +8,8 @@ When you need to *write* `flutter_tailwind` UI code (chained API: `'x'.text.red.
 
 `README.md`, `guide.md`, and `.cursor/rules/flutter_tailwind.mdc` are **human-oriented and may be stale** (`guide.md` is mid-migration; the cursor rules contain a stale `build_runner` instruction). When any of them conflicts with `doc/AI_REFERENCE.md` or the code, **the code wins, then `doc/AI_REFERENCE.md`** — do not trust the others for exact token names.
 
+`doc/AI_REFERENCE.md` is kept honest by **`tool/verify_ai_reference.sh`** — it analyzes doc-coverage fixtures (`example/lib/ai_reference_smoke_test.dart`, `ai_blind_test.dart`) that use only documented tokens. Run it after changing presets in `lib/` or editing the reference; if a documented token was renamed/removed, it fails.
+
 ## Project type
 
 This is a **Flutter package** (UI library), not an application. The library lives in `lib/`; runnable demos live in `example/`. There is no top-level Flutter app to `flutter run`.

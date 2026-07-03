@@ -55,7 +55,7 @@ wrap.spacing16.runSpacing16.children([chipA, chipB])
 | `ts` | top-level getter | a `TextStyle` value (via `TextStyleBuilder`) |
 | `bd` | top-level getter | a `BoxDecoration` value |
 | `'str'.text` | String getter | Text |
-| `'str'.textRich` | String getter | RichText |
+| `textRich` | **top-level getter** (NOT `'str'.textRich`) | RichText — text comes from the spans |
 | `'str'.strokeText` | String getter | stroked Text |
 | `'url'.image` | String getter | network/file Image |
 | `'assetPath'.asset` | String getter | asset Image |
@@ -82,7 +82,7 @@ wrap.spacing16.runSpacing16.children([chipA, chipB])
 | `'s'.elevatedButton` / `textButton` / `outlinedButton`, `iconButton` | `.click(onTap: ...)` | terminator IS the tap handler |
 | `checkBox` | `.onChanged(initial, (v) {})` | |
 | `radio` | `.onChanged(initial, group, (v) {})` | 3 args |
-| `listview`, `gridview` | `.builder(count, (ctx,i)=>w)` **or** `.dataBuilder<T>(list, (ctx,item,i)=>w)` | |
+| `listview`, `gridview` | `.builder(count, (ctx,i)=>w)` **or** `.dataBuilder<T>(list, (ctx,i,item)=>w)` | ⚠️ `dataBuilder` callback is `(context, index, item)` — **index before item** |
 
 **Wrapping helpers** (available on any `.mk`-producing chain, applied *after* `.mk`, or instead of `.mk` on a `MkBuilder`):
 `.click(onTap:)` → wraps in `GestureDetector` (debounced) · `.iconClick(onTap:)` → `IconButton` · `.inkWellClick(onTap:)` → `InkWell`.
@@ -175,8 +175,9 @@ Naming rule = Flutter Material colors:
 - Style / decoration: `italic` · `underline` `lineThrough` `overline`
 - **Max lines:** preset getters `maxLine1` `maxLine2` … `maxLine9` (**no-arg getters**), or the method `.maxLines(n)`. ⚠️ There is **no `.maxLine(n)`** method — that name does not exist. Use `.maxLine2` or `.maxLines(2)`.
 
-### 5.10 Alignment (Container/Image/Stack-positioned)
-`topLeft topCenter topRight centerLeft center centerRight bottomLeft bottomCenter bottomRight`
+### 5.10 Alignment (Container/Image)
+Getters: `topLeft topCenter topRight centerLeft center centerRight bottomLeft bottomCenter bottomRight`.
+⚠️ **Known type quirk:** every corner getter *except* `center` returns a nullable-typed builder, so **you cannot chain anything after it** (`container.topLeft.mk` does NOT compile). Use the **method form** `.align(Alignment.topLeft)` instead — it chains cleanly. `center` is safe as a getter.
 
 ### 5.11 Opacity
 `opacity5 opacity10 … opacity95` (step 5). Fallback: `.opacity(0.42)`.
@@ -219,4 +220,14 @@ Without `init`, the `wFull/hFull/sScreen*` family asserts. Plain sizes (`w100`, 
 
 ---
 
-*This file is hand-maintainable. When presets change, re-extract with the grep patterns documented in the repo's doc-generation notes and update §5. If you find this file disagrees with the code, the code wins — fix this file.*
+## 8. Keeping this file honest (for maintainers)
+
+This file is verified, not vibes. Two fixtures under `example/lib/` use **only** the tokens/terminators promised here, each traceable to a section above:
+- `ai_reference_smoke_test.dart` — broad coverage: every terminator type + one token per axis.
+- `ai_blind_test.dart` — a realistic screen written from this doc alone.
+
+Run **`tool/verify_ai_reference.sh`** after changing presets in `lib/` or editing this file. It runs `flutter analyze` on both fixtures; if a documented token is renamed/removed, it fails. This is the automated form of the blind test — it is what would have caught the `.maxLine(n)`, `dataBuilder` arg-order, and `topLeft`-nullable bugs before they shipped.
+
+When you add/rename a preset: update the relevant §5 rule here **and** add a line exercising it to the smoke test.
+
+*Precedence: if this file disagrees with the code, the code wins — fix this file (and the fixture).*
