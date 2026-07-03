@@ -2,6 +2,12 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ⭐ Writing code with this library? Read `doc/AI_REFERENCE.md` first.
+
+When you need to *write* `flutter_tailwind` UI code (chained API: `'x'.text.red.f16.mk`, `container…child(…)`, `row…children([…])`), the **single authoritative API cheat-sheet is [`doc/AI_REFERENCE.md`](doc/AI_REFERENCE.md)**. It has the exact token vocabulary (with numeric rules so you don't invent non-existent tokens like `.w73`), the entry-point → terminator map, and the builder → supported-axis matrix.
+
+`README.md`, `guide.md`, and `.cursor/rules/flutter_tailwind.mdc` are **human-oriented and may be stale** (`guide.md` is mid-migration; the cursor rules contain a stale `build_runner` instruction). When any of them conflicts with `doc/AI_REFERENCE.md` or the code, **the code wins, then `doc/AI_REFERENCE.md`** — do not trust the others for exact token names.
+
 ## Project type
 
 This is a **Flutter package** (UI library), not an application. The library lives in `lib/`; runnable demos live in `example/`. There is no top-level Flutter app to `flutter run`.

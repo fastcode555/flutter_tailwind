@@ -4,6 +4,7 @@ I hope to make something like tailwind that can simplify the description of styl
 
 ## Documentation
 
+- **[AI / API Reference `doc/AI_REFERENCE.md`](doc/AI_REFERENCE.md)** ⭐ — the authoritative API cheat-sheet: exact token vocabulary (with numeric rules), entry→terminator map, builder→axis matrix, anti-patterns. **Writing code (human or AI)? Start here.** It's the source of truth when other docs disagree.
 - **[Getting Started](doc/getting-started.md)** — install, bare-minimum usage, screen-adaptation setup, theme primary color
 - **[Patterns › Screen Adaptation](doc/patterns/screen-adaptation.md)** — SizeAdapter opt-in configuration for screen scaling
 - **[Patterns › Spacing](doc/patterns/spacing.md)** — `spacing*` shortcuts vs manual spacers

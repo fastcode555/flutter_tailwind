@@ -5,6 +5,12 @@ alwaysApply: false
 ---
 # Flutter Tailwind 开发规则
 
+> ## ⭐ 写代码前先看 `doc/AI_REFERENCE.md`
+>
+> 需要**写** `flutter_tailwind` 代码时(链式 API:`'x'.text.red.f16.mk`、`container…child(…)`、`row…children([…])`),**唯一权威 API 速查是 [`doc/AI_REFERENCE.md`](../../doc/AI_REFERENCE.md)** —— 它有精确 token 词表(带数字规则,避免臆造 `.w73` 这类不存在的 token)、入口→终结符对照表、builder→支持轴矩阵。
+>
+> **本文件(cursor rules)偏人类阅读、可能过时**(例如下文关于 `build_runner` 的说明已作废——本库无 codegen)。与 `doc/AI_REFERENCE.md` 或源码冲突时,**以源码、再以 `doc/AI_REFERENCE.md` 为准**,不要照本文件里的 token 名硬写。
+
 ## 概述
 
 Flutter Tailwind 是一个受 TailwindCSS 启发的 Flutter UI 库，通过链式调用 API 简化样式描述，提高开发效率。该库采用 Mixin 可组合架构，支持屏幕适配，提供丰富的样式快捷方式。

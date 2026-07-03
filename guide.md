@@ -1,11 +1,12 @@
 # Flutter Tailwind 使用指南
 
 > **📖 文档迁移中（2026-05-15）：** 推荐先阅读 [`doc/`](doc/) 下的新文档：
+> - **[AI / API 速查 `doc/AI_REFERENCE.md`](doc/AI_REFERENCE.md) ⭐ 精确 token 词表 + 终结符表 + 反模式，写代码以此为准（人 / AI 通用）**
 > - [入门指南 `doc/getting-started.md`](doc/getting-started.md)
 > - [屏幕适配 `doc/patterns/screen-adaptation.md`](doc/patterns/screen-adaptation.md) ⭐ 新 API，本文件未涵盖
 > - [间距控制 `doc/patterns/spacing.md`](doc/patterns/spacing.md) ⭐ 新 API，本文件未涵盖
 >
-> 本指南的内容也将逐步迁入 `doc/`。如发现本指南与 `doc/` 不一致，以 `doc/` 为准。
+> 本指南的内容也将逐步迁入 `doc/`。如发现本指南与 `doc/AI_REFERENCE.md` 或源码不一致，**以源码 / `doc/AI_REFERENCE.md` 为准**。
 
 ## 1. 基础组件
 
