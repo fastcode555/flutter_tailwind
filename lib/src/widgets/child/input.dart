@@ -67,6 +67,7 @@ class Input extends StatefulWidget {
   final TextAlign textAlign;
   final bool? enabled;
   final bool enableSuggestions;
+  final bool autocorrect;
   final Color? cursorErrorColor;
   final double? cursorHeight;
   final TextCapitalization textCapitalization;
@@ -131,6 +132,7 @@ class Input extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.enabled,
     this.enableSuggestions = true,
+    this.autocorrect = true,
     this.cursorErrorColor,
     this.cursorHeight,
     this.textCapitalization = TextCapitalization.none,
@@ -190,6 +192,7 @@ class Input extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.enabled,
     this.enableSuggestions = true,
+    this.autocorrect = true,
     this.cursorErrorColor,
     this.cursorHeight,
     this.textCapitalization = TextCapitalization.none,
@@ -390,6 +393,7 @@ class _InputState extends State<Input> {
       textAlign: widget.textAlign,
       enabled: widget.enabled,
       enableSuggestions: widget.enableSuggestions,
+      autocorrect: widget.autocorrect,
       cursorErrorColor: widget.cursorErrorColor,
       cursorHeight: widget.cursorHeight,
       textCapitalization: widget.textCapitalization,

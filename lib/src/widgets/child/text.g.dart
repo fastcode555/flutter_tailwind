@@ -26,6 +26,9 @@ mixin TextFeature {
 extension TextCommonFeatureExt<T extends TextFeature> on T {
   T get softWrap => this.._softWrap = true;
 
+  ///[softWrap] = false（关闭自动换行；默认为 true）
+  T get noWrap => this.._softWrap = false;
+
   T fontFamilyFallback(List<String>? fontFamilyFallback) => this.._fontFamilyFallback = fontFamilyFallback;
 
   T fontFamily(String fontFamily) => this..innerFontFamily = fontFamily;

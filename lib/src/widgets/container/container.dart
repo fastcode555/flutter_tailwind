@@ -221,6 +221,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
                 borderRadius: _internalBorderRadius,
                 boxShadow: adaptedBoxShadow,
                 gradient: innerGradient,
+                image: _decorImage,
               ),
         ),
       );
@@ -235,6 +236,8 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
             boxShadow: adaptedBoxShadow,
+            gradient: innerGradient,
+            image: _decorImage,
           ),
     ));
   }
@@ -257,6 +260,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
               border: _internalBorder,
               borderRadius: _internalBorderRadius,
               boxShadow: adaptedBoxShadow,
+              gradient: innerGradient,
               image: _decorImage,
             ),
         child: child,
@@ -272,6 +276,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             border: _internalBorder,
             borderRadius: _internalBorderRadius,
             boxShadow: adaptedBoxShadow,
+            gradient: innerGradient,
             image: _decorImage,
           ),
       child: child,

@@ -9,7 +9,7 @@ part 'children_container.g.dart';
 /// describe:
 
 class _StackBuilder extends ChildrenBuilder<Widget>
-    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder, KeyBuilder, ColorBuilder {
+    with TextDirectionBuilder, ClipBuilder, StackFeature, SizeBuilder, PaddingBuilder, KeyBuilder, ColorBuilder, ExpandedBuilder {
   _StackBuilder._();
 
   @override
@@ -36,7 +36,7 @@ class _StackBuilder extends ChildrenBuilder<Widget>
       child = DecoratedBox(decoration: BoxDecoration(color: innerColor), child: child);
     }
 
-    return child;
+    return createExpanded(child);
   }
 }
 

@@ -13,7 +13,8 @@ _IconBuilder icon(IconData icon) => _IconBuilder._(icon);
 
 class _IconBuilder extends MkBuilder<Widget>
     with ColorBuilder, TextDirectionBuilder, SizeBuilder, PaddingBuilder, OpacityBuilder {
-  final IconData icon;
+  // 可空：Flutter 的 Icon(IconData?) 本就接受 null，允许对可空 IconData? 字段直接 .icon
+  final IconData? icon;
   List<Shadow>? shadows;
 
   _IconBuilder._(this.icon);
@@ -37,6 +38,12 @@ extension IconStringBuilder on IconData {
   ///# eg:
   ///- Icons.connected_tv_sharp.icon.redAccent.s100.mk
   ///- icon(Icons.connected_tv_sharp).redAccent.s100.mk
+  _IconBuilder get icon => _IconBuilder._(this);
+}
+
+/// 可空 IconData? 的 .icon（非空 IconData 会优先命中上面更具体的扩展，无歧义）。
+/// 用于 `IconData? field` 在 `if (field != null)` 下无法类型提升时仍可 `field.icon`。
+extension IconNullableStringBuilder on IconData? {
   _IconBuilder get icon => _IconBuilder._(this);
 }
 

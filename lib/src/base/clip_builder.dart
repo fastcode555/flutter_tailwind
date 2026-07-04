@@ -8,6 +8,9 @@ mixin ClipBuilder {
 }
 
 extension ClipBuilderExt<T extends ClipBuilder> on T {
+  ///[Clip.none]
+  T get none => this..clipBehavior = Clip.none;
+
   ///[Clip.hardEdge]
   T get hardEdge => this..clipBehavior = Clip.hardEdge;
 

@@ -134,6 +134,37 @@ class _GridViewBuilder extends ItemBuilder
     return createExpanded(gridView);
   }
 
+  /// 固定 children 列表（对应 GridView.count / GridView(children: [...])）
+  Widget children(List<Widget> children) {
+    late SliverGridDelegate gridDelegate;
+    if (_childWidth != null) {
+      gridDelegate = SliverGridDelegateWithMaxCrossAxisExtent(
+        maxCrossAxisExtent: _childWidth!,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
+        childAspectRatio: innerRatio ?? 1.0,
+      );
+    } else {
+      gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: _crossAxisCount ?? 2,
+        mainAxisSpacing: sr(innerMainAxisSpacing ?? innerSpacing ?? 0.0),
+        crossAxisSpacing: sr(innerCrossAxisSpacing ?? innerSpacing ?? 0.0),
+        childAspectRatio: innerRatio ?? 1.0,
+      );
+    }
+    return createExpanded(GridView(
+      key: innerKey,
+      gridDelegate: gridDelegate,
+      padding: finalPadding,
+      scrollDirection: direction ?? Axis.vertical,
+      controller: _controller,
+      reverse: _reverse,
+      shrinkWrap: _shrinkWrap,
+      physics: _physics,
+      children: children,
+    ));
+  }
+
   Widget _buildGridView(
     int? itemCount,
     NullableIndexedWidgetBuilder builder,

@@ -63,6 +63,9 @@ mixin SeparatorBuilder {
 extension SeparatorBuilderExt<T extends SeparatorBuilder> on T {
   T separated(Widget widget) => this.._separated = widget;
 
+  ///任意尺寸的间隔（偶数可用 separatedN getter，奇数/任意值用此方法）
+  T separatedSize(double value) => this.._separatedValue = value;
+
   T get divider => this.._isDivider = true;
 
   T get separated2 => this.._separatedValue = 2;

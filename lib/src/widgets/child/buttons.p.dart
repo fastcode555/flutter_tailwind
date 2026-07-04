@@ -92,6 +92,8 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
 
   Widget? innerChild;
 
+  double? innerElevation;
+
   ButtonBuilder child(Widget child) {
     this.innerChild = child;
     return this;
@@ -154,7 +156,12 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
     if (hasPadding) {
       padding = WidgetStateProperty.all(finalPadding);
     }
-    if (side != null || foregroundColor != null || backgroundColor != null || radius != null || textStyle != null) {
+    if (side != null ||
+        foregroundColor != null ||
+        backgroundColor != null ||
+        radius != null ||
+        textStyle != null ||
+        innerElevation != null) {
       buttonStyle = ButtonStyle(
         side: side,
         backgroundColor: backgroundColor,
@@ -162,8 +169,14 @@ abstract class ButtonBuilder extends ClickBuilder<Widget>
         shape: radius != null ? buttonShape : null,
         padding: padding,
         textStyle: textStyle,
+        elevation: innerElevation != null ? WidgetStateProperty.all(innerElevation) : null,
       );
     }
     return buttonStyle;
   }
+}
+
+extension ButtonElevationExt<T extends ButtonBuilder> on T {
+  ///按钮阴影高度 [ButtonStyle.elevation]
+  T elevation(double elevation) => this..innerElevation = elevation;
 }
