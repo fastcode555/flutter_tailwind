@@ -3,6 +3,7 @@ import 'package:flutter_tailwind/src/adapters/size_adapter.dart';
 import 'package:flutter_tailwind/src/image_loader/base_image_factory.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader.dart';
 import 'package:flutter_tailwind/src/image_loader/image_loader_config.dart';
+import 'package:flutter_tailwind/src/widgets/child/input_config.dart';
 
 /// Singleton holding library-wide configuration.
 ///
@@ -46,6 +47,11 @@ class Tailwind {
 
   BaseImageFactory? imageFactory;
 
+  /// App-wide default appearance for `Input`. Defaults to an empty config
+  /// (no defaults, current behavior). Install via [configInput].
+  /// Per-instance `Input` props always win over these.
+  InputConfig inputConfig = const InputConfig();
+
   /// Returns the active primary color.
   /// Resolution: [primaryColor] (populated by [init] or set directly) ??
   /// [Colors.amber].
@@ -79,5 +85,11 @@ class Tailwind {
 
   void configImageFactory(BaseImageFactory imageFactory) {
     this.imageFactory = imageFactory;
+  }
+
+  /// Install app-wide default appearance for `Input`. Typical call site:
+  /// app startup. Per-instance `Input` props override these defaults.
+  void configInput(InputConfig config) {
+    inputConfig = config;
   }
 }

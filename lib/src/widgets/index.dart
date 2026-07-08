@@ -3,6 +3,7 @@ export 'child/check_box.dart';
 export 'child/icon.dart';
 export 'child/image.dart';
 export 'child/input.dart';
+export 'child/input_config.dart';
 export 'child/padding.dart';
 export 'child/positioned.dart';
 export 'child/radio.dart';

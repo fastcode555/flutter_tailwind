@@ -34,6 +34,12 @@ class Input extends StatefulWidget {
   final String? lableText;
   final String? hintText;
   final InputBorder? border;
+
+  /// True when built via [Input.outline]. Lets the state fall back to a
+  /// default outline only when no border is supplied AND none is configured
+  /// globally via [InputConfig.border].
+  final bool outlined;
+
   final InputBorder? enabledBorder;
   final InputBorder? disabledBorder;
   final bool obscureText;
@@ -66,6 +72,7 @@ class Input extends StatefulWidget {
   final TextInputAction? textInputAction;
   final TextAlign textAlign;
   final bool? enabled;
+  final bool readOnly;
   final bool enableSuggestions;
   final bool autocorrect;
   final Color? cursorErrorColor;
@@ -92,6 +99,7 @@ class Input extends StatefulWidget {
   final Widget? clearWidget;
 
   final BoxConstraints? prefixIconConstraints;
+  final BoxConstraints? suffixIconConstraints;
 
   const Input({
     super.key,
@@ -131,6 +139,7 @@ class Input extends StatefulWidget {
     this.textInputAction,
     this.textAlign = TextAlign.start,
     this.enabled,
+    this.readOnly = false,
     this.enableSuggestions = true,
     this.autocorrect = true,
     this.cursorErrorColor,
@@ -150,8 +159,10 @@ class Input extends StatefulWidget {
     this.visibleWidget,
     this.invisibleWidget,
     this.prefixIconConstraints,
+    this.suffixIconConstraints,
     this.hintStyle,
     this.suffixStyle,
+    this.outlined = false,
   });
 
   const Input.outline({
@@ -191,6 +202,7 @@ class Input extends StatefulWidget {
     this.textInputAction,
     this.textAlign = TextAlign.start,
     this.enabled,
+    this.readOnly = false,
     this.enableSuggestions = true,
     this.autocorrect = true,
     this.cursorErrorColor,
@@ -210,10 +222,12 @@ class Input extends StatefulWidget {
     this.visibleWidget,
     this.invisibleWidget,
     this.prefixIconConstraints,
+    this.suffixIconConstraints,
     this.hintStyle,
     this.suffixStyle,
     final InputBorder? border,
-  }) : this.border = border ?? const OutlineInputBorder();
+  })  : border = border,
+        outlined = true;
 
   @override
   _InputState createState() => _InputState();
@@ -233,11 +247,21 @@ class _InputState extends State<Input> {
 
   double? _vertical;
 
-  bool get _isUnderLine =>
-      widget.border == null || widget.border is UnderlineInputBorder;
+  /// App-wide `Input` defaults; per-instance props override these.
+  InputConfig get _cfg => Tailwind.instance.inputConfig;
+
+  /// Effective border after folding in the global config default.
+  InputBorder? get _border =>
+      widget.border ??
+      _cfg.border ??
+      (widget.outlined ? const OutlineInputBorder() : null);
+
+  bool get _isUnderLine => _border == null || _border is UnderlineInputBorder;
 
   EdgeInsetsGeometry? get _contentPadding {
+    // per-instance ?? global config ?? underline-computed fallback
     if (widget.contentPadding != null) return widget.contentPadding;
+    if (_cfg.contentPadding != null) return _cfg.contentPadding;
 
     if (_isUnderLine) {
       return EdgeInsets.symmetric(vertical: sr(_vertical ?? 15));
@@ -251,6 +275,10 @@ class _InputState extends State<Input> {
       widget.clearWidget ??
       Input.defaultClearWidget?.call() ??
       const Icon(Icons.close);
+
+  /// The clear button is hidden on read-only fields — a read-only value
+  /// shouldn't be user-clearable.
+  bool get _clearVisible => _showClear && !widget.readOnly;
 
   bool get _hasObSecureWidget =>
       widget.visibleWidget != null ||
@@ -269,7 +297,7 @@ class _InputState extends State<Input> {
   ///尾部图标
   Widget get _suffixIcon {
     if (!_hasSuffix) {
-      if (_showClear) {
+      if (_clearVisible) {
         return _clearWidget.click(onTap: _handleClear);
       }
       return gapEmpty;
@@ -280,7 +308,7 @@ class _InputState extends State<Input> {
       children: [
         // show the clear widget; no placeholder gap when it's hidden so the
         // suffix icon hugs the text edge.
-        if (_showClear) ...[_clearWidget],
+        if (_clearVisible) ...[_clearWidget],
         // if (!_showClear) w18,
 
         //show the suffixIcon
@@ -329,6 +357,7 @@ class _InputState extends State<Input> {
 
   ///清空操作
   void _handleClear() {
+    if (widget.readOnly) return;
     _controller.text = '';
     _showClear = false;
     // Cancel any pending debounced onChanged so it doesn't fire after the
@@ -375,13 +404,18 @@ class _InputState extends State<Input> {
   @override
   Widget build(BuildContext context) {
     var primary = Theme.of(context).primaryColor;
+    // Resolve appearance: per-instance ?? global InputConfig ?? hardcoded.
+    final cfg = _cfg;
+    final effStyle = widget.style ?? cfg.style;
+    final effFill = widget.fillColor ?? cfg.fillColor;
+    final effUnFocus = widget.unFocusColor ?? cfg.unFocusColor;
     return TextFormField(
       controller: _controller,
       validator: widget.validator,
       autovalidateMode: widget.autovalidateMode,
-      cursorColor: widget.cursorColor ?? primary,
+      cursorColor: widget.cursorColor ?? cfg.cursorColor ?? primary,
       focusNode: _focusNode,
-      style: widget.style,
+      style: effStyle,
       obscureText: _obscureText,
       keyboardType: widget.keyboardType,
       maxLines: _maxLine,
@@ -392,10 +426,11 @@ class _InputState extends State<Input> {
       textInputAction: widget.textInputAction,
       textAlign: widget.textAlign,
       enabled: widget.enabled,
+      readOnly: widget.readOnly,
       enableSuggestions: widget.enableSuggestions,
       autocorrect: widget.autocorrect,
-      cursorErrorColor: widget.cursorErrorColor,
-      cursorHeight: widget.cursorHeight,
+      cursorErrorColor: widget.cursorErrorColor ?? cfg.cursorErrorColor,
+      cursorHeight: widget.cursorHeight ?? cfg.cursorHeight,
       textCapitalization: widget.textCapitalization,
       undoController: widget.undoController,
       onChanged: _onChanged,
@@ -405,6 +440,7 @@ class _InputState extends State<Input> {
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         prefixIconConstraints: widget.prefixIconConstraints ??
+            cfg.prefixIconConstraints ??
             ((widget.prefixIcon != null || widget.prefixIconBuilder != null)
                 ? const BoxConstraints()
                 : null),
@@ -413,33 +449,37 @@ class _InputState extends State<Input> {
             : widget.prefixIconBuilder?.call(_focusNode.hasFocus),
         prefixIconColor: primary,
         suffixIcon: _suffixIcon,
-        suffixIconConstraints: const BoxConstraints(minWidth: 30),
-        fillColor: _focusNode.hasFocus
-            ? widget.fillColor
-            : widget.unFocusColor ?? widget.fillColor,
-        filled: (widget.fillColor != null || widget.unFocusColor != null),
+        suffixIconConstraints: widget.suffixIconConstraints ??
+            cfg.suffixIconConstraints ??
+            const BoxConstraints(minWidth: 30),
+        fillColor: _focusNode.hasFocus ? effFill : (effUnFocus ?? effFill),
+        filled: (effFill != null || effUnFocus != null),
         suffixIconColor: primary,
         labelText: widget.lableText,
         hintText: widget.hintText,
-        border: widget.border,
+        border: _border,
         suffixStyle: widget.suffixStyle ??
+            cfg.suffixStyle ??
             widget.hintStyle ??
-            widget.style
-                ?.copyWith(color: widget.style?.color?.withValues(alpha: 0.5)),
+            cfg.hintStyle ??
+            effStyle?.copyWith(color: effStyle.color?.withValues(alpha: 0.5)),
         hintStyle: widget.hintStyle ??
-            widget.style
-                ?.copyWith(color: widget.style?.color?.withValues(alpha: 0.5)),
-        enabledBorder: widget.enabledBorder ?? widget.border,
-        disabledBorder: widget.disabledBorder,
+            cfg.hintStyle ??
+            effStyle?.copyWith(color: effStyle.color?.withValues(alpha: 0.5)),
+        enabledBorder: widget.enabledBorder ?? cfg.enabledBorder ?? _border,
+        disabledBorder: widget.disabledBorder ?? cfg.disabledBorder,
         contentPadding: _contentPadding,
         error: widget.error,
-        errorBorder: widget.errorBorder,
+        errorBorder: widget.errorBorder ?? cfg.errorBorder,
         errorText: widget.errorText,
-        errorStyle: widget.errorStyle,
-        errorMaxLines: widget.errorMaxLines,
-        floatingLabelStyle: widget.floatingLabelStyle,
-        floatingLabelAlignment: widget.floatingLabelAlignment,
-        floatingLabelBehavior: widget.floatingLabelBehavior,
+        errorStyle: widget.errorStyle ?? cfg.errorStyle,
+        errorMaxLines: widget.errorMaxLines ?? cfg.errorMaxLines,
+        floatingLabelStyle:
+            widget.floatingLabelStyle ?? cfg.floatingLabelStyle,
+        floatingLabelAlignment:
+            widget.floatingLabelAlignment ?? cfg.floatingLabelAlignment,
+        floatingLabelBehavior:
+            widget.floatingLabelBehavior ?? cfg.floatingLabelBehavior,
       ),
     );
   }
