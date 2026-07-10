@@ -307,8 +307,10 @@ class _InputState extends State<Input> {
       mainAxisSize: MainAxisSize.min,
       children: [
         // show the clear widget; no placeholder gap when it's hidden so the
-        // suffix icon hugs the text edge.
-        if (_clearVisible) ...[_clearWidget],
+        // suffix icon hugs the text edge. Only the clear widget clears — the
+        // row itself must not, or a tap near a suffix icon (e.g. the password
+        // eye) would wipe the field.
+        if (_clearVisible) ...[_clearWidget.click(onTap: _handleClear)],
         // if (!_showClear) w18,
 
         //show the suffixIcon
@@ -352,7 +354,7 @@ class _InputState extends State<Input> {
         ],
         w8,
       ],
-    ).click(onTap: _handleClear);
+    );
   }
 
   ///清空操作
