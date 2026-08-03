@@ -145,6 +145,7 @@ Screen-relative: `wFull` `hFull` `sFull` (full screen W/H/min-dim) · `wInfinity
 - `borderN`: integers **0–10**, then even **12–50** (step 2).
 - Per-side `borderT` `borderR` `borderB` `borderL`: bare (default width) or with `N` = integers **0–40**.
 - Border **color** is a separate axis — see §5.8 (`borderRed`, `borderBlue100`, …).
+- **Dashed style** (Container only): `.borderDashed` renders the existing border width+color as evenly-spaced dashes instead of a solid line (default dash 5 / gap 4, painted via `CustomPaint` since `BoxDecoration` can't express a repeating dash). Adjust with `.dashWidth(n)` / `.dashGap(n)`. Uses the uniform `rounded` radius only (per-corner radii are not respected). Example: `container.s90.rounded10.border1.borderRed.borderDashed.child(...)`.
 
 ### 5.6 Font size — `f`
 - `fN`: integers **5–40**, then even **42–60** (step 2), then multiples of 5 **65–100**. (Note: `f39` is a known typo that maps to 38.)

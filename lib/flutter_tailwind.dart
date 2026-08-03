@@ -7,6 +7,7 @@ export 'src/base/aspect_ratio_builder.dart';
 export 'src/base/axis_builder.dart';
 export 'src/base/blend_mode_builder.dart';
 export 'src/base/border_radius_builder.dart';
+export 'src/base/border_style_builder.dart';
 export 'src/base/border_width_builder.dart';
 export 'src/base/clip_builder.dart';
 export 'src/base/color_builder.dart';

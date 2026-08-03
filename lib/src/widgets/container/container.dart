@@ -167,6 +167,7 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
         BorderWidthBuilder,
         BorderRadiusBuilder,
         BorderColorBuilder,
+        BorderStyleBuilder,
         BlendModeBuilder,
         BoxShapeBuilder,
         AlignmentBuilder,
@@ -187,7 +188,21 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
     return null;
   }
 
-  BoxBorder? get _internalBorder => createBorder(borderColor);
+  BoxBorder? get _internalBorder => innerBorderDashed ? null : createBorder(borderColor);
+
+  Widget _wrapDashed(Widget child) {
+    if (!innerBorderDashed) return child;
+    return CustomPaint(
+      foregroundPainter: DashedBorderPainter(
+        color: borderColor ?? Colors.black,
+        width: innerBorderWidth ?? 1.0,
+        radius: radius ?? 0.0,
+        dashWidth: innerDashWidth,
+        dashGap: innerDashGap,
+      ),
+      child: child,
+    );
+  }
 
   bool get _useContainer =>
       width != null || height != null || size != null || hasPadding || hasMargin || alignment != null || hasConstraint;
@@ -205,29 +220,31 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
   Widget get mk {
     if (_useContainer) {
       return createExpanded(
-        Container(
-          key: innerKey,
-          width: width != null ? sw(width!) : (size != null ? sr(size!) : null),
-          height: height != null ? sh(height!) : (size != null ? sr(size!) : null),
-          padding: finalPadding,
-          margin: finalMargin,
-          alignment: alignment,
-          constraints: _constraints,
-          decoration: decoration ??
-              BoxDecoration(
-                color: innerColor.opacity(innerOpacity),
-                shape: innerShape ?? BoxShape.rectangle,
-                border: _internalBorder,
-                borderRadius: _internalBorderRadius,
-                boxShadow: adaptedBoxShadow,
-                gradient: innerGradient,
-                image: _decorImage,
-              ),
+        _wrapDashed(
+          Container(
+            key: innerKey,
+            width: width != null ? sw(width!) : (size != null ? sr(size!) : null),
+            height: height != null ? sh(height!) : (size != null ? sr(size!) : null),
+            padding: finalPadding,
+            margin: finalMargin,
+            alignment: alignment,
+            constraints: _constraints,
+            decoration: decoration ??
+                BoxDecoration(
+                  color: innerColor.opacity(innerOpacity),
+                  shape: innerShape ?? BoxShape.rectangle,
+                  border: _internalBorder,
+                  borderRadius: _internalBorderRadius,
+                  boxShadow: adaptedBoxShadow,
+                  gradient: innerGradient,
+                  image: _decorImage,
+                ),
+          ),
         ),
       );
     }
 
-    return createExpanded(DecoratedBox(
+    return createExpanded(_wrapDashed(DecoratedBox(
       key: innerKey,
       decoration: decoration ??
           BoxDecoration(
@@ -239,13 +256,13 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             gradient: innerGradient,
             image: _decorImage,
           ),
-    ));
+    )));
   }
 
   @override
   Widget child(Widget child) {
     if (_useContainer) {
-      return createExpanded(Container(
+      return createExpanded(_wrapDashed(Container(
         key: innerKey,
         width: width != null ? sw(width!) : (size != null ? sr(size!) : null),
         height: height != null ? sh(height!) : (size != null ? sr(size!) : null),
@@ -264,10 +281,10 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
               image: _decorImage,
             ),
         child: child,
-      ));
+      )));
     }
 
-    return createExpanded(DecoratedBox(
+    return createExpanded(_wrapDashed(DecoratedBox(
       key: innerKey,
       decoration: decoration ??
           BoxDecoration(
@@ -280,6 +297,6 @@ class ContainerBuilder extends ChildMkBuilder<Widget>
             image: _decorImage,
           ),
       child: child,
-    ));
+    )));
   }
 }
