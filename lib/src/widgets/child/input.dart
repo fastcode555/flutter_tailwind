@@ -19,6 +19,24 @@ class Input extends StatefulWidget {
   /// ```
   static Widget Function()? defaultClearWidget;
 
+  /// Global default builder for the text-selection toolbar (the popup shown on long-press or
+  /// selecting text). `null` (the default) uses Flutter's own default context menu.
+  ///
+  /// Set this once at app startup if the ambient `Localizations` at the point a toolbar actually
+  /// mounts can't be trusted to be the app's own - a debug/dev overlay that puts its own Overlay
+  /// above the app and wraps it in a `Localizations` of its own, say. That produced a real crash
+  /// on iOS (`No CupertinoLocalizations found`) for every plain `Input` field once such an
+  /// overlay was in the tree, even though the app's own `MaterialApp` declares the delegate:
+  /// ```dart
+  /// Input.defaultContextMenuBuilder = (context, state) => Localizations.override(
+  ///   context: context,
+  ///   locale: myAppLocale,
+  ///   delegates: const [GlobalMaterialLocalizations.delegate, GlobalWidgetsLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
+  ///   child: AdaptiveTextSelectionToolbar.editableText(editableTextState: state),
+  /// );
+  /// ```
+  static Widget Function(BuildContext context, EditableTextState state)? defaultContextMenuBuilder;
+
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -440,6 +458,7 @@ class _InputState extends State<Input> {
       onFieldSubmitted: widget.onSubmitted,
       onTapOutside: widget.onTapOutside,
       inputFormatters: widget.inputFormatters,
+      contextMenuBuilder: Input.defaultContextMenuBuilder,
       decoration: InputDecoration(
         prefixIconConstraints: widget.prefixIconConstraints ??
             cfg.prefixIconConstraints ??
