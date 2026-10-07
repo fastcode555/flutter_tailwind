@@ -370,6 +370,9 @@ class ImageLoader extends StatelessWidget {
         border: border,
         placeHolder: placeHolder,
         errorHolder: errorHolder,
+        // Without this a plain image took `_Image`'s own default (`true`)
+        // and was always decoded at full resolution, whatever its size.
+        useSingleCache: useSingleCache,
         heroTag: heroTag,
         fadeInDuration: fadeInDuration,
         fadeOutDuration: fadeOutDuration,
@@ -472,6 +475,7 @@ class ImageLoader extends StatelessWidget {
                 width: _width,
                 border: border,
                 borderColor: borderColor,
+                useSingleCache: useSingleCache,
                 fadeOutDuration: fadeOutDuration,
                 fadeInDuration: fadeInDuration,
                 height: _height,

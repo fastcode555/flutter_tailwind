@@ -80,8 +80,13 @@ class _Image extends StatelessWidget {
         fadeInDuration: fadeInDuration ?? Duration(milliseconds: thumbUrl != null && thumbUrl!.isNotEmpty ? 0 : 500),
         width: finalW,
         height: finalH,
-        memCacheWidth: _getMemCacheWidth(finalW),
-        memCacheHeight: _getMemCacheHeight(finalH),
+        // Decode along one side only. `ResizeImage` defaults to
+        // `ResizeImagePolicy.exact`, so both a width and a height squash
+        // any image whose ratio differs from the box; with one side the
+        // other follows the image's own ratio. Hence the explicit
+        // [width] / [height] here, not the square `finalW` / `finalH`.
+        memCacheWidth: _getMemCacheWidth(width),
+        memCacheHeight: width == null ? _getMemCacheHeight(height) : null,
         imageBuilder: (context, imageProvider) {
           if ((borderColor != null && border != null && border! > 0) || boxShadow != null) {
             return _buildHeroWidget(

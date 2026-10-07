@@ -1,3 +1,24 @@
+## 2.1.6
+
+### Fixes
+
+- Plain network images (`'url'.image.w(...)`, no radius, not a circle) are now decoded at the
+  size they are drawn instead of at the original resolution. The `typeNormal` and `typeBlur`
+  branches of `ImageLoader` did not forward `useSingleCache`, so `_Image` fell back to its own
+  default (`true`) and passed no `memCacheWidth` / `memCacheHeight` to `CachedNetworkImage`. A
+  screen with a dozen large photos decoded hundreds of MB of bitmaps at once and froze. Use
+  `.singleCache` where an image really must keep the original resolution.
+- Network images are decoded along one side only (the width when one is set, else the height).
+  `ResizeImage` defaults to `ResizeImagePolicy.exact`, so passing both sides - as the rounded and
+  circle-with-LayoutBuilder branches did, with `height` defaulting to `width` - squashed every
+  non-square image into its box.
+- Circle images (`ImageLoader.circle` with a radius) are decoded at their diameter
+  (`radius * 2`), along the width only. They were decoded at `radius` - half the drawn size, so
+  every avatar was upscaled 2x - with width and height swapped and both set. A local-file circle
+  is now decoded at the same size instead of at full resolution.
+- Tests cover the decode size handed to `CachedNetworkImage` for width, size, rounded,
+  height-only, no-size, `.singleCache` and circle images, and the local-file circle.
+
 ## 2.0.1
 
 ### Fixes

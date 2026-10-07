@@ -35,13 +35,12 @@ class _CircleImage extends StatelessWidget {
     this.boxShadow,
   });
 
-  int? _getMemCacheWidth() {
-    return useSingleCache ? null : ((radius! * _devicePixelRatio!).toInt());
-  }
-
-  int? _getMemCacheHeight() {
-    return useSingleCache ? null : ((radius! * _devicePixelRatio!).toInt());
-  }
+  /// The circle is drawn `radius * 2` across, so decode it at that width -
+  /// it used to be `radius`, half the size, so every avatar was upscaled 2x.
+  /// Width only: `ResizeImage`'s default `exact` policy would squash a
+  /// non-square image given both sides; the height follows its own ratio.
+  int? get _decodeWidth =>
+      useSingleCache ? null : (radius! * 2 * _devicePixelRatio!).toInt();
 
   bool get _isFile {
     if (kIsWeb) return false;
@@ -66,8 +65,7 @@ class _CircleImage extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: url!,
         key: ValueKey(url),
-        memCacheHeight: _getMemCacheWidth(),
-        memCacheWidth: _getMemCacheHeight(),
+        memCacheWidth: _decodeWidth,
         fadeOutDuration: fadeOutDuration ?? const Duration(milliseconds: 1000),
         fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 500),
         imageBuilder: (context, imageProvider) {
@@ -160,7 +158,13 @@ class _CircleImage extends StatelessWidget {
           transitionOnUserGestures: transitionOnUserGestures,
           child: CircleAvatar(
             radius: radius,
-            backgroundImage: FileImage(File(url!)),
+            // A picked photo is often a full camera image; decode it at the
+            // circle's size, as the network branch does.
+            backgroundImage: ResizeImage.resizeIfNeeded(
+              _decodeWidth,
+              null,
+              FileImage(File(url!)),
+            ),
             backgroundColor: Colors.transparent,
           ),
         ),
