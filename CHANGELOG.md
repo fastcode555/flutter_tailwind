@@ -1,3 +1,23 @@
+## 2.1.7
+
+### Features
+
+- `.placeBuilder(...)` and `.errorBuilder(...)` on the `.image` chain: a network image's own
+  placeholder while it loads (in place of `ImageLoader.config`'s shimmer) and its own fallback
+  when it cannot load. They reach plain, rounded and circle images, and the error one a missing
+  file or asset too. An image that sets either is loaded by `ImageLoader` even when an
+  `imageFactory` is configured, since `BaseImageFactory` takes no builders.
+
+  ```dart
+  url.image.s36.circle.placeBuilder((_, __) => bundledFlag).errorBuilder((_, __, ___) => bundledFlag).mk
+  ```
+
+### Fixes
+
+- A network image with an `errorBuilder` shows it as soon as the load fails. It used to retry the
+  URL with an uncached `Image.network` first and call the `errorBuilder` only when that failed
+  too, so an unreachable host left a blank box for a second timeout.
+
 ## 2.1.6
 
 ### Fixes

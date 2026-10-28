@@ -120,10 +120,15 @@ class _Image extends StatelessWidget {
           );
         },
         placeholder: _buildPlaceWidgetBuilder(context, url, finalW, finalH, finalPlaceBuilder, radius),
-        errorWidget: (_, __, ___) {
+        errorWidget: (_, __, error) {
           //有设置了thumbUrl,优先加载小图
           if (thumbUrl != null && thumbUrl!.isNotEmpty) {
             return _buildThumbUrlWidget();
+          }
+          // The caller's own fallback, at once: retrying with Image.network
+          // below would leave a gap for a second timeout first.
+          if (errorBuilder != null) {
+            return errorBuilder!(context, url ?? '', error);
           }
           //有设置方法型,优先加载errorHolder,
           if (errorHolder != null) {

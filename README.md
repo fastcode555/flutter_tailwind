@@ -159,6 +159,8 @@ _link.image.border2.borderBrown.circle.s100.mk
 "https://gd-hbimg.huaban.com/".image.border5.borderBrown.s100.mk
 "https://gd-hbimg.huaban.com/".image.border5.borderBrown.circle.s100.mk
 "werwe".image.border5.borderBrown.circle.s100.mk
+// Your own loading and failed states, in place of the default shimmer
+_link.image.rounded12.s100.placeBuilder((_, __) => loadingBox).errorBuilder((_, __, ___) => brokenIcon).mk
 ```
 ![Alt](images/container_image.png)
 

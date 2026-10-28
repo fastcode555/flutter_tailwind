@@ -59,7 +59,23 @@ class ImageBuilder extends MkBuilder<Widget>
 
   bool _singleCache = false;
 
+  PlaceholderWidgetBuilder? _placeBuilder;
+
+  LoadingErrorWidgetBuilder? _errorBuilder;
+
   ImageBuilder hero(String hero) => this.._heroTag = hero;
+
+  /// What a network image shows while it loads, in place of
+  /// [ImageLoader.config]'s shimmer.
+  /// - 'url'.image.s36.circle.placeBuilder((_, __) => fallbackFlag).mk
+  ImageBuilder placeBuilder(PlaceholderWidgetBuilder builder) =>
+      this.._placeBuilder = builder;
+
+  /// What it shows when it cannot be loaded: a network image that fails, a
+  /// file or an asset that is not there. Not used by [asset].
+  /// - 'url'.image.rounded10.cover.errorBuilder((_, __, ___) => brokenIcon).mk
+  ImageBuilder errorBuilder(LoadingErrorWidgetBuilder builder) =>
+      this.._errorBuilder = builder;
 
   ImageBuilder._(this.image, this.type);
 
@@ -75,8 +91,12 @@ class ImageBuilder extends MkBuilder<Widget>
     }
 
     final imageFactor = Tailwind.instance.imageFactory;
-    final useImageFactory =
-        imageFactor != null && (image?.startsWith('http') ?? false);
+    // A [BaseImageFactory] takes no builders, so an image that sets one is
+    // loaded by [ImageLoader] instead.
+    final useImageFactory = imageFactor != null &&
+        (image?.startsWith('http') ?? false) &&
+        _placeBuilder == null &&
+        _errorBuilder == null;
     if (isCircle) {
       final circleRadius = sr(size ?? 0) / 2;
       if (useImageFactory) {
@@ -100,6 +120,8 @@ class ImageBuilder extends MkBuilder<Widget>
         heroTag: _heroTag,
         boxShadow: adaptedBoxShadow,
         useSingleCache: _singleCache,
+        placeBuilder: _placeBuilder,
+        errorBuilder: _errorBuilder,
       );
     }
     final adaptedWidth =
@@ -135,6 +157,8 @@ class ImageBuilder extends MkBuilder<Widget>
         border: innerBorderWidth,
         boxShadow: adaptedBoxShadow,
         useSingleCache: _singleCache,
+        placeBuilder: _placeBuilder,
+        errorBuilder: _errorBuilder,
       );
     }
     if (useImageFactory) {
@@ -159,6 +183,8 @@ class ImageBuilder extends MkBuilder<Widget>
       border: innerBorderWidth,
       boxShadow: adaptedBoxShadow,
       useSingleCache: _singleCache,
+      placeBuilder: _placeBuilder,
+      errorBuilder: _errorBuilder,
     );
   }
 

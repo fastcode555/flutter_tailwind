@@ -167,4 +167,107 @@ void main() {
       expect(provider.height, isNull);
     });
   });
+
+  // A caller's own placeholder and fallback, such as a bundled flag for a
+  // network flag that cannot be reached.
+  group('placeBuilder / errorBuilder', () {
+    const url = 'https://example.com/x.jpg';
+    Widget loading(BuildContext _, String __) => const Text('loading');
+    Widget failed(BuildContext _, String __, Object ___) => const Text('failed');
+
+    CachedNetworkImage cni(WidgetTester tester) =>
+        tester.widget<CachedNetworkImage>(find.byType(CachedNetworkImage));
+
+    testWidgets('reach a plain network image', (tester) async {
+      await pumpBuilder(
+        tester,
+        url.image.s100.placeBuilder(loading).errorBuilder(failed).mk,
+      );
+      final w = cni(tester);
+      final context = tester.element(find.byType(CachedNetworkImage));
+      expect((w.placeholder!(context, url) as Text).data, 'loading');
+      expect((w.errorWidget!(context, url, Exception()) as Text).data, 'failed');
+    });
+
+    testWidgets('reach a rounded network image', (tester) async {
+      await pumpBuilder(
+        tester,
+        url.image.s100.rounded8.placeBuilder(loading).errorBuilder(failed).mk,
+      );
+      final w = cni(tester);
+      final context = tester.element(find.byType(CachedNetworkImage));
+      expect((w.placeholder!(context, url) as Text).data, 'loading');
+      expect((w.errorWidget!(context, url, Exception()) as Text).data, 'failed');
+    });
+
+    testWidgets('reach a network circle', (tester) async {
+      await pumpBuilder(
+        tester,
+        url.image.s100.circle.placeBuilder(loading).errorBuilder(failed).mk,
+      );
+      final w = cni(tester);
+      final context = tester.element(find.byType(CachedNetworkImage));
+      expect((w.placeholder!(context, url) as Text).data, 'loading');
+      expect((w.errorWidget!(context, url, Exception()) as Text).data, 'failed');
+    });
+
+    testWidgets('an asset that is not there shows the errorBuilder',
+        (tester) async {
+      await pumpBuilder(
+        tester,
+        'assets/missing.png'.image.s100.errorBuilder(failed).mk,
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('failed'), findsOneWidget);
+    });
+
+    testWidgets('an image factory is bypassed for an image that sets one',
+        (tester) async {
+      Tailwind.instance.configImageFactory(_TextImageFactory());
+      addTearDown(() => Tailwind.instance.imageFactory = null);
+
+      await pumpBuilder(tester, url.image.s100.mk);
+      expect(find.text('factory'), findsOneWidget);
+
+      await pumpBuilder(tester, url.image.s100.errorBuilder(failed).mk);
+      expect(find.text('factory'), findsNothing);
+      expect(find.byType(ImageLoader), findsOneWidget);
+    });
+  });
+}
+
+class _TextImageFactory extends BaseImageFactory {
+  @override
+  Widget loadCircleImage(String? image,
+          {required BoxFit fit,
+          required double radius,
+          Color? borderColor,
+          double? border,
+          String? heroTag,
+          List<BoxShadow>? boxShadow}) =>
+      const Text('factory');
+
+  @override
+  Widget loadRound(String? image,
+          {required BoxFit fit,
+          double? radius,
+          BorderRadiusGeometry? borderRadius,
+          double? width,
+          double? height,
+          String? heroTag,
+          Color? borderColor,
+          double? border,
+          List<BoxShadow>? boxShadow}) =>
+      const Text('factory');
+
+  @override
+  Widget loadImage(String? image,
+          {required BoxFit fit,
+          double? width,
+          double? height,
+          String? heroTag,
+          Color? borderColor,
+          double? border,
+          List<BoxShadow>? boxShadow}) =>
+      const Text('factory');
 }
